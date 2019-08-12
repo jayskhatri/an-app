@@ -1,20 +1,29 @@
-import Home from "./home";
+
 import React from "react";
 import List from './list';
-import { StyleSheet, Text, View, Easing, Animated } from "react-native";
-import Login from "./login/loginPage";
+import mainScreen from './mainScreen';
+import signUp from './SignUp';
+import { StyleSheet, Text, View, Easing, Animated , Image } from "react-native";
+import Login from "./login/Login";
 import { createStackNavigator, createAppContainer } from "react-navigation";
+import {responsiveFontSize} from 'react-native-responsive-dimensions';
 
 class Main extends React.Component {
   render() {
-    return <View style={styles.container} />;
+    return(
+      <View>
+      <Image style={styles.container} source={require('../.expo/icon.png')}></Image>
+      </View>
+    );
+
   }
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#3498db"
+    width:50,
+    height:50,
+    borderRadius:50/2,
+    marginLeft:80
   }
 });
 
@@ -23,43 +32,38 @@ const MainNavigation = createStackNavigator(
     Login: {
       screen: Login
     },
-    Home: {
-      screen: Home
+    signUp: {
+      screen: signUp
+    },
+    mainScreen: {
+      screen: mainScreen
     },
     List:{
       screen:List
     }
   },
   {
-    headerMode: "none",
-    mode: "modal",
-    defaultNavigationOptions: {
-      gesturesEnabled: false
-    },
-    transitionConfig: () => ({
-      transitionSpec: {
-        duration: 300,
-        easing: Easing.out(Easing.poly(4)),
-        timing: Animated.timing
+    
+      headerMode: "screen",
+  
+      mode: "modal",
+      defaultNavigationOptions: {
+         title:"AutoMitra",
+         headerLeft:<Main />,
+         headerTitleStyle:
+         {
+          //  fontSize:35,
+          fontSize:responsiveFontSize(4),
+          marginLeft:80
+        },
+         headerStyle:{
+          backgroundColor: '#03a5fc',
+          height:55
+         },
+  
+        // gesturesEnabled: true
       },
-      screenInterpolator: sceneProps => {
-        const { layout, position, scene } = sceneProps;
-        const { index } = scene;
-
-        const height = layout.initHeight;
-        const translateY = position.interpolate({
-          inputRange: [index - 1, index, index + 1],
-          outputRange: [height, 0, 0]
-        });
-
-        const opacity = position.interpolate({
-          inputRange: [index - 1, index - 0.99, index],
-          outputRange: [0, 1, 1]
-        });
-
-        return { opacity, transform: [{ translateY }] };
-      }
-    })
+    
   }
 );
 
