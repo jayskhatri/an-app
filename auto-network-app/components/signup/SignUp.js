@@ -80,9 +80,9 @@ constructor(){
                <Text style={{fontSize:responsiveFontSize(2),marginTop:'3%',textAlign:'center'}} > Sign Up With </Text>
                <View style={styles.logoContainer}>
                    <TouchableOpacity onPress={this.googleLogin}>
-                      <ImageBackground style={styles.ImageContainer1} source={require('../components/login/google.png')} ></ImageBackground>
+                      <ImageBackground style={styles.ImageContainer1} source={require('../../assets/google.png')} ></ImageBackground>
                    </TouchableOpacity>
-                      <ImageBackground style={styles.ImageContainer2} source={require('../components/login/Facebook.png')} ></ImageBackground>
+                      <ImageBackground style={styles.ImageContainer2} source={require('../../assets/Facebook.png')} ></ImageBackground>
               </View>
               <View style={{flexDirection:'row',marginLeft:'4%'}}>
                  <Text style={{fontSize:responsiveFontSize(2),marginTop:'2%'}}>Know Our </Text>
@@ -92,7 +92,7 @@ constructor(){
               </View>
         </View>
         <View style={styles.lastImageView}> 
-            <Image style={styles.lastLogo} source={require('../components/login/lastLogo.png')} ></Image>
+            {/* <Image style={styles.lastLogo} source={require('../../assets/lastLogo.png')} ></Image> */}
         </View>  
     </View>
   );

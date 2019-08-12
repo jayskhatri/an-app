@@ -1,8 +1,7 @@
 
 import React from "react";
-import List from './list';
-import mainScreen from './mainScreen';
-import signUp from './SignUp';
+import mainScreen from './home/mainScreen';
+import signUp from './signup/SignUp';
 import { StyleSheet, Text, View, Easing, Animated , Image } from "react-native";
 import Login from "./login/Login";
 import { createStackNavigator, createAppContainer } from "react-navigation";
@@ -12,7 +11,7 @@ class Main extends React.Component {
   render() {
     return(
       <View>
-      <Image style={styles.container} source={require('../.expo/icon.png')}></Image>
+      <Image style={styles.container} source={require('../assets/icon.png')}></Image>
       </View>
     );
 
@@ -38,9 +37,6 @@ const MainNavigation = createStackNavigator(
     mainScreen: {
       screen: mainScreen
     },
-    List:{
-      screen:List
-    }
   },
   {
     

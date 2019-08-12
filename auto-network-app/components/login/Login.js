@@ -62,7 +62,7 @@ this.props.navigation.navigate('mainScreen');
          placeholder="Enter Email "
          placeholderTextColor="black"
          style={styles.input}
-         fontSize={15}
+         fontSize={responsiveFontSize(2)}
          onChange={this.handleSetEmail}
          />
 
@@ -70,7 +70,7 @@ this.props.navigation.navigate('mainScreen');
       <TextInput 
          placeholder="Enter Password"
          placeholderTextColor="black"
-         fontSize={15}
+         fontSize={responsiveFontSize(2)}
          style={styles.input}
          secureTextEntry
          onChange={this.handleSetPassword}
@@ -86,9 +86,9 @@ this.props.navigation.navigate('mainScreen');
         <Text style={{fontSize:responsiveFontSize(2),marginTop:'3%',textAlign:'center'}} > Sign In With </Text>            
            <View style={styles.logoContainer}>
                <TouchableOpacity onPress={this.googleLogin}>
-                 <ImageBackground style={styles.ImageContainer1} source={require('../login/google.png')} ></ImageBackground>
+                 <ImageBackground style={styles.ImageContainer1} source={require('../../assets/google.png')} ></ImageBackground>
                </TouchableOpacity>
-                 <ImageBackground style={styles.ImageContainer2} source={require('../login/Facebook.png')} ></ImageBackground>
+                 <ImageBackground style={styles.ImageContainer2} source={require('../../assets/Facebook.png')} ></ImageBackground>
            </View>
            <View style={{flexDirection:'row',marginLeft:'15%'}}>
            <Text style={{fontSize:responsiveFontSize(2),marginTop:'2%'}}>Not Joiend Yet ?</Text>
@@ -99,7 +99,7 @@ this.props.navigation.navigate('mainScreen');
            
 </View>
 <View style={styles.lastImageView}> 
-  <Image style={styles.lastLogo} source={require('../login/lastLogo.png')} ></Image>
+  {/* <Image style={styles.lastLogo} source={require('../../assets/lastLogo.png')} ></Image> */}
 </View>     
       
     </View>
@@ -115,11 +115,11 @@ const styles = StyleSheet.create({
   textView:{flex:1,/*backgroundColor:'green'*/},
   inputView:{flex:4,/*backgroundColor:'lightblue'*/},
   anotherLoginView:{flex:2,/*backgroundColor:'orange'*/},
-  lastImageView:{flex:3,/*backgroundColor:'yellow',*/marginBottom:'15%'},
+  lastImageView:{flex:2,/*backgroundColor:'yellow'*/},
   ImageContainer1:{
-    width:responsiveWidth(11),
-    height:responsiveHeight(5),
-    borderRadius:50/2,
+    width:40,
+    height:40,
+    borderRadius:40/2,
     // marginLeft : ( width * 0.1 ) + 8
     marginLeft:'28%'
   },
@@ -131,9 +131,9 @@ const styles = StyleSheet.create({
     ,color:'#54e0ff'
   },
   ImageContainer2:{
-    width:responsiveWidth(11),
-    height:responsiveHeight(5),
-    borderRadius:50/2,
+    width:40,
+    height:40,
+    borderRadius:40/2,
     marginLeft:'3%'
   },
   lastLogo:{
@@ -168,8 +168,10 @@ const styles = StyleSheet.create({
     // marginRight : (width * 0.5)
   },
   input: {
-    height:heightPercentageToDP('5%'),
-    width:widthPercentageToDP('74%'),
+    // height:heightPercentageToDP('5%'),
+    // width:widthPercentageToDP('74%'),
+    height:'14%',
+    width:'74%',
     padding:'3%',
     marginTop:'3%',
     opacity:0.5,
