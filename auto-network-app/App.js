@@ -2,14 +2,18 @@ import React from 'react';
 import * as firebase from 'firebase';
 import Main from './components/Main';
 import { StyleSheet, Text, View } from 'react-native';
+
 const firebaseConfig = {
-  apiKey: "AIzaSyA68K655CaYZII6PqOu9YXzUqncmSGIcNA",
-  authDomain: "react-login-1682a.firebaseapp.com",
-  databaseURL: "https://react-login-1682a.firebaseio.com",
-  projectId: "react-login-1682a",
+  apiKey: "AIzaSyD0Hc4W-ZlHj1LBDVw0283zEsEir3c0Fh4",
+  authDomain: "an-app-w196e.firebaseapp.com",
+  databaseURL: "https://an-app-w196e.firebaseio.com",
+  projectId: "an-app-w196e",
   storageBucket: "",
+  messagingSenderId: "1040816418294",
+  appId: "1:1040816418294:web:0416cf45d718e573"
 };
 firebase.initializeApp(firebaseConfig);
+
 export default class App extends React.Component {
   render(){
   return (
