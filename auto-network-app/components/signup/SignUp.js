@@ -36,8 +36,28 @@ constructor(){
   signUpEvent(e){
 
     // write a code for create user and send data of user into database ...
-    Alert.alert('Successfully Sign Up !!');
-    this.props.navigation.navigate('mainScreen');
+     this.props.firebase
+    .doCreateUserWithEmailAndPassword(this.state.email, this.state.password)
+    .then(authUser => {
+      // Creates a user in your Firebase realtime database
+      return this.props.firebase.user(authUser.user.uid).set({
+        username,
+        email,
+        roles,
+      });
+    })
+    .then(() => {
+      return this.props.firebase.doSendEmailVerification();
+    })
+    .then(() => {
+      this.setState({ ...INITIAL_STATE });
+      Alert.alert('Successfully Sign Up !!');
+      this.props.navigation.navigate('mainScreen');
+      // this.props.history.push(ROUTES.HOME);
+    })
+    .catch(error => {
+      
+    });
   }
   render(){
   return (

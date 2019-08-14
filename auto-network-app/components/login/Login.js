@@ -5,6 +5,7 @@ import {widthPercentageToDP  , heightPercentageToDP  } from 'react-native-respon
 import { responsiveWidth , responsiveHeight , responsiveFontSize  } from 'react-native-responsive-dimensions';
 const { width , height } = Dimensions.get('window');
 import { createStackNavigator, createAppContainer } from "react-navigation";
+// import console = require('console');
 
 export default class Login extends React.Component {
 
@@ -40,9 +41,19 @@ signUpEvent(e){
 signInEvent(e){
 
  // write a code for varification of email and mobile number ....
+  firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then( ()  => {
+  Alert.alert('Successfully Login !!');
+  this.props.navigation.navigate('mainScreen');
+
+ })
+
+ .catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  console.log(errorMessage);
+});
   
-Alert.alert('Successfully Login !!');
-this.props.navigation.navigate('mainScreen');
 }
 
 
