@@ -38,43 +38,35 @@ constructor(){
   signUpEvent(e){
 
     // write a code for create user and send data of user into database ...
+    if(this.state.password == this.state.confirmPassword)
+    {
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then( () =>
     {
       var user = firebase.auth().currentUser;
-
       user.sendEmailVerification().then(function() {
-
+        Alert.alert('Verification link is sent on your email !!');
+        this.props.navigation.navigate('mainScreen');
       })
       .catch(function(error){
-        
+        //handle errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        Alert.alert(errorMessage);
       })
     }).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(errorMessage);
-      // ...
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        Alert.alert(errorMessage);
     });
-    // .then(authUser => {
-    //   // Creates a user in your Firebase realtime database
-    //   return this.props.firebase.user(authUser.user.uid).set({
-    //     username,
-    //     email,
-    //     roles,
-    //   });
-    // })
-    // .then(() => {
-    //   return this.props.firebase.doSendEmailVerification();
-    // })
-    // .then(() => {
-    //   this.setState({ ...INITIAL_STATE });
-    //   Alert.alert('Successfully Sign Up !!');
-    //   this.props.navigation.navigate('mainScreen');
-    //   // this.props.history.push(ROUTES.HOME);
-    // })
-    // .catch(error => {
-      
-    // });
+   }
+   else
+   {
+    Alert.alert('Password Mismatch !!');
+    // this.state.password = "";
+    // this.state.confirmPassword="";
+   }
+
   }
   render(){
   return (
