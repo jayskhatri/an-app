@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, View  , Text  , TextInput , TouchableOpacity , ImageBackground , Image , Alert ,Dimensions} from 'react-native';
 import {widthPercentageToDP  , heightPercentageToDP  } from 'react-native-responsive-screen';
 import { responsiveWidth , responsiveHeight , responsiveFontSize  } from 'react-native-responsive-dimensions';
+import * as firebase from 'firebase';
+// import console = require('console');
 export default class SignUp extends React.Component {
 
 constructor(){
@@ -36,28 +38,43 @@ constructor(){
   signUpEvent(e){
 
     // write a code for create user and send data of user into database ...
-     this.props.firebase
-    .doCreateUserWithEmailAndPassword(this.state.email, this.state.password)
-    .then(authUser => {
-      // Creates a user in your Firebase realtime database
-      return this.props.firebase.user(authUser.user.uid).set({
-        username,
-        email,
-        roles,
-      });
-    })
-    .then(() => {
-      return this.props.firebase.doSendEmailVerification();
-    })
-    .then(() => {
-      this.setState({ ...INITIAL_STATE });
-      Alert.alert('Successfully Sign Up !!');
-      this.props.navigation.navigate('mainScreen');
-      // this.props.history.push(ROUTES.HOME);
-    })
-    .catch(error => {
-      
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then( () =>
+    {
+      var user = firebase.auth().currentUser;
+
+      user.sendEmailVerification().then(function() {
+
+      })
+      .catch(function(error){
+        
+      })
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorMessage);
+      // ...
     });
+    // .then(authUser => {
+    //   // Creates a user in your Firebase realtime database
+    //   return this.props.firebase.user(authUser.user.uid).set({
+    //     username,
+    //     email,
+    //     roles,
+    //   });
+    // })
+    // .then(() => {
+    //   return this.props.firebase.doSendEmailVerification();
+    // })
+    // .then(() => {
+    //   this.setState({ ...INITIAL_STATE });
+    //   Alert.alert('Successfully Sign Up !!');
+    //   this.props.navigation.navigate('mainScreen');
+    //   // this.props.history.push(ROUTES.HOME);
+    // })
+    // .catch(error => {
+      
+    // });
   }
   render(){
   return (
