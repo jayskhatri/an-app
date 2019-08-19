@@ -4,6 +4,7 @@ import {widthPercentageToDP  , heightPercentageToDP  } from 'react-native-respon
 import { responsiveWidth , responsiveHeight , responsiveFontSize  } from 'react-native-responsive-dimensions';
 import * as firebase from 'firebase';
 // import console = require('console');
+// import console = require('console');
 export default class SignUp extends React.Component {
 
 constructor(){
@@ -45,12 +46,12 @@ constructor(){
       var user = firebase.auth().currentUser;
       user.sendEmailVerification().then(function() {
         Alert.alert('Verification link is sent on your email !!');
-        this.props.navigation.navigate('mainScreen');
       })
       .catch(function(error){
         //handle errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
+        console.log(errorMessage);
         Alert.alert(errorMessage);
       })
     }).catch(function(error) {
