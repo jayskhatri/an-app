@@ -26,7 +26,6 @@ constructor(){
 handleSetEmail(e){
   const text = e.nativeEvent.text;
     this.setState({email:text});
-    // console.log(this.state.email);
 }
 
 handleSetPassword(e){
