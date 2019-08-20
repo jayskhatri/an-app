@@ -38,15 +38,18 @@ constructor(){
   }
   signUpEvent(e){
 
-    // write a code for create user and send data of user into database ...
     if(this.state.password == this.state.confirmPassword)
     {
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then( () =>
     {
       var user = firebase.auth().currentUser;
       user.sendEmailVerification().then(function() {
+
         Alert.alert('Verification link is sent on your email !!');
+        //navigate to login screen
+
       })
+
       .catch(function(error){
         //handle errors here.
         var errorCode = error.code;
@@ -54,6 +57,7 @@ constructor(){
         console.log(errorMessage);
         Alert.alert(errorMessage);
       })
+
     }).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -64,8 +68,6 @@ constructor(){
    else
    {
     Alert.alert('Password Mismatch !!');
-    // this.state.password = "";
-    // this.state.confirmPassword="";
    }
 
   }

@@ -41,27 +41,27 @@ signUpEvent(e){
 
 signInEvent(e){
 
- // write a code for varification of email and mobile number ....
  firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then( function()  {
 
-  // user = firebase.auth().currentUser;
   firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
+      
+    if (user) 
+    {
       // User is signed in.
-     user.reload(); 
-  
-      if(user.isEmailVerified)
+      if(user.emailVerified)
       {
-        Alert.alert("successful login");
-        this.props.navigation.navigate('mainScreen');
+        Alert.alert("Login successful");
+        // nevigate to main screen
       }
       else
       {
         Alert.alert("verify your email for signing in");
       }
     }
-   else {
+   else 
+    {
       // No user is signed in.
+      Alert.alert("Invalid Username or password");
     }
   });
  
