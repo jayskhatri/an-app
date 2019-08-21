@@ -24,12 +24,12 @@ constructor(){
 }
 
 handleSetEmail(e){
-  const text = e.nativeEvent.text;
+    const text = e.nativeEvent.text;
     this.setState({email:text});
 }
 
 handleSetPassword(e){
-  const text = e.nativeEvent.text;
+   const text = e.nativeEvent.text;
    this.setState({password:text});
   //  console.log(this.state.password);
 }
