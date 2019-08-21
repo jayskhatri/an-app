@@ -40,15 +40,14 @@ constructor(){
 
     if(this.state.password == this.state.confirmPassword)
     {
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then( () =>
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(function()
     {
       var user = firebase.auth().currentUser;
       user.sendEmailVerification().then(function() {
 
         Alert.alert('Verification link is sent on your email !!');
-        //navigate to login screen
-
-      })
+        this.props.navigation.navigate("Login");
+      }.bind(this))
 
       .catch(function(error){
         //handle errors here.
@@ -56,9 +55,9 @@ constructor(){
         var errorMessage = error.message;
         console.log(errorMessage);
         Alert.alert(errorMessage);
-      })
+      });
 
-    }).catch(function(error) {
+    }.bind(this)).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;

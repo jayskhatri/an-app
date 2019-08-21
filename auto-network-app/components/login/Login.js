@@ -50,7 +50,7 @@ signInEvent(e){
       if(user.emailVerified)
       {
         Alert.alert("Login successful");
-        // nevigate to main screen
+        this.props.navigation.navigate("mainScreen");
       }
       else
       {
@@ -62,27 +62,15 @@ signInEvent(e){
       // No user is signed in.
       Alert.alert("Invalid Username or password");
     }
-  });
- 
-  
+  }.bind(this));
 
-    
+  }.bind(this))
 
+  .catch(function(error){
+    console.log(error);
   });
-  // firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then( ()  => {
-  // Alert.alert('Successfully Login !!');
   
  }
-
-//  .catch(function(error) {
-//   // Handle Errors here.
-//   var errorCode = error.code;
-//   var errorMessage = error.message;
-//   console.log(errorMessage);
-// });
-  
-
-
 
   render(){
   return (
