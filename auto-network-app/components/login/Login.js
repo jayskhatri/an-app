@@ -67,7 +67,7 @@ signInEvent(e){
   }.bind(this))
 
   .catch(function(error){
-    console.log(error);
+    // console.log(error);
   });
   
  }

@@ -53,7 +53,7 @@ constructor(){
         //handle errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        console.log(errorMessage);
+        // console.log(errorMessage);
         Alert.alert(errorMessage);
       });
 
