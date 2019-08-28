@@ -1,20 +1,20 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\Poojan\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-native-geolocation-service
+  C:\Program Files\nodejs\node.exe C:\Users\dell\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-native-responsive-screen
 
 PATH: 
-  C:\Program Files\Python37\Scripts\;C:\Program Files\Python37\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;D:\Java\jdk1.8.0_171\bin;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;;C:\Users\Poojan\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Poojan\AppData\Roaming\npm
+  C:\Program Files\nodejs;C:\Microsoft VS Code\bin;C:\Program Files\Java\jdk1.8.0_211\bin;C:\Users\dell\AppData\Roaming\npm;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Microsoft VS Code\bin;C:\Program Files\Java\jdk1.8.0_211\bin;C:\Users\dell\AppData\Roaming\npm;
 
 Yarn version: 
   1.17.3
 
 Node version: 
-  10.15.3
+  10.16.0
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: getaddrinfo ENOTFOUND registry.yarnpkg.com registry.yarnpkg.com:443
+  Error: getaddrinfo EAI_AGAIN registry.yarnpkg.com registry.yarnpkg.com:443
       at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:56:26)
 
 npm manifest: 
@@ -33,10 +33,13 @@ npm manifest:
       "react": "16.8.3",
       "react-dom": "^16.8.6",
       "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+      "react-native-geolocation-service": "^3.0.0",
       "react-native-responsive-dimensions": "^2.0.1",
       "react-native-responsive-screen": "^1.2.2",
+      "react-native-simple-radio-button": "^2.7.3",
       "react-native-web": "^0.11.4",
-      "react-navigation": "^3.11.1"
+      "react-navigation": "^3.11.1",
+      "yarn": "^1.17.3"
     },
     "devDependencies": {
       "babel-preset-expo": "^5.1.1"
@@ -1170,6 +1173,11 @@ Lockfile:
       ws "^1.1.0"
       xcode "^2.0.0"
       xmldoc "^0.4.0"
+  
+  "@react-native-community/geolocation@^1.4.2":
+    version "1.4.2"
+    resolved "https://registry.yarnpkg.com/@react-native-community/geolocation/-/geolocation-1.4.2.tgz#7228c6d37c2f55017af9c49c2b9ad586d9bcb9f8"
+    integrity sha512-9x9dHDeUXnh2larA4zTT3y/tXPmRnysh5o9fsNbGcnUKPj1BUCIHnGGPxEIDnwP1DNIMP2DN9DmuMHImtTbX6A==
   
   "@react-native-community/netinfo@2.0.10":
     version "2.0.10"
@@ -4965,6 +4973,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.2.5.tgz#4074dd63b4973e6397d9ce50e97b57c77a518e9d"
     integrity sha1-QHTdY7SXPmOX2c5Q6XtXx3pRjp0=
   
+  react-native-geolocation-service@^3.0.0:
+    version "3.0.0"
+    resolved "https://registry.yarnpkg.com/react-native-geolocation-service/-/react-native-geolocation-service-3.0.0.tgz#9cf822760885a273e712289b00a9c8361734062a"
+    integrity sha512-VU4tJYdHo6fNuMbDd1yBiv1VeD1gdX5RmZYlyRMvR9CiIJSQBzRobKBAesLw+9+5/rFBlyajgWsocs7/UavSFg==
+    dependencies:
+      "@react-native-community/geolocation" "^1.4.2"
+  
   react-native-gesture-handler@1.2.1:
     version "1.2.1"
     resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.2.1.tgz#9c48fb1ab13d29cece24bbb77b1e847eebf27a2b"
@@ -5019,6 +5034,11 @@ Lockfile:
     integrity sha512-tOxHGQUN83MTmQB4ghoQkibqOdGiX4JQEmeyEv96MKWO/x8T2PJv84ECUos9hD3blPRQwVwSpAid1PPPhrVEaw==
     dependencies:
       debounce "^1.2.0"
+  
+  react-native-simple-radio-button@^2.7.3:
+    version "2.7.3"
+    resolved "https://registry.yarnpkg.com/react-native-simple-radio-button/-/react-native-simple-radio-button-2.7.3.tgz#c7227c0f963d6bbcfa245255d18a5a8b98fde41f"
+    integrity sha512-kiYRarFj7PXzV9fbQwMBiYwS4YnhrR4NZGT68atlFIoNFxZLrt5OMCDqXZqu6R6bUWKLndzPpO/nhXc6/OU1Mg==
   
   react-native-svg@9.4.0:
     version "9.4.0"
@@ -6286,3 +6306,8 @@ Lockfile:
       which-module "^2.0.0"
       y18n "^3.2.1"
       yargs-parser "^7.0.0"
+  
+  yarn@^1.17.3:
+    version "1.17.3"
+    resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.17.3.tgz#60e0b77d079eb78e753bb616f7592b51b6a9adce"
+    integrity sha512-CgA8o7nRZaQvmeF/WBx2FC7f9W/0X59T2IaLYqgMo6637wfp5mMEsM3YXoJtKUspnpmDJKl/gGFhnqS+sON7hA==

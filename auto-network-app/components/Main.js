@@ -4,9 +4,12 @@ import mainScreen from './home/mainScreen';
 import signUp from './signup/SignUp';
 import { StyleSheet, Text, View, Easing, Animated , Image } from "react-native";
 import Login from "./login/Login";
+import ProfilePageOne from './profile/profilePageOne';
+import ProfilePageSecond from './profile/profilePageSecond';
+import ProfilePageThird from './profile/profilePageThird';
+import ProfilePageFourth from './profile/profilePgeFourth';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
-
 class Main extends React.Component {
   render() {
     return(
@@ -22,7 +25,8 @@ const styles = StyleSheet.create({
     width:50,
     height:50,
     borderRadius:50/2,
-    marginLeft:80
+    marginLeft:130
+    // marginHorizontal:'50%'
   }
 });
 
@@ -31,6 +35,19 @@ const MainNavigation = createStackNavigator(
     Login: {
       screen: Login
     },
+    ProfilePageOne:{
+      screen: ProfilePageOne
+    },
+    ProfilePageSecond:{
+      screen:ProfilePageSecond
+    },
+    ProfilePageThird:{
+      screen:ProfilePageThird
+    },
+    ProfilePageFourth:{
+        screen:ProfilePageFourth
+    },
+   
     signUp: {
       screen: signUp
     },
@@ -44,17 +61,20 @@ const MainNavigation = createStackNavigator(
   
       mode: "modal",
       defaultNavigationOptions: {
+        
          title:"AutoMitra",
          headerLeft:<Main />,
          headerTitleStyle:
          {
+
           //  fontSize:35,
           fontSize:responsiveFontSize(4),
-          marginLeft:80
+          marginLeft:'29%'
         },
          headerStyle:{
           backgroundColor: '#03a5fc',
           height:55
+
          },
   
         // gesturesEnabled: true

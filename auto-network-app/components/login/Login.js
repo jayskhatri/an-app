@@ -50,7 +50,7 @@ signInEvent(e){
       if(user.emailVerified)
       {
         Alert.alert("Login successful");
-        this.props.navigation.navigate("mainScreen");
+        this.props.navigation.navigate("ProfilePageOne");
       }
       else
       {
