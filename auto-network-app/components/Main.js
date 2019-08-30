@@ -25,16 +25,15 @@ const styles = StyleSheet.create({
     width:50,
     height:50,
     borderRadius:50/2,
-    marginLeft:130
+    marginLeft:100
     // marginHorizontal:'50%'
   }
 });
 
 const MainNavigation = createStackNavigator(
   {
-    Login: {
-      screen: Login
-    },
+
+
     ProfilePageOne:{
       screen: ProfilePageOne
     },
@@ -45,9 +44,12 @@ const MainNavigation = createStackNavigator(
       screen:ProfilePageThird
     },
     ProfilePageFourth:{
-        screen:ProfilePageFourth
-    },
+      screen:ProfilePageFourth
+  },
    
+    Login: {
+      screen: Login
+    },
     signUp: {
       screen: signUp
     },
@@ -72,7 +74,7 @@ const MainNavigation = createStackNavigator(
           marginLeft:'29%'
         },
          headerStyle:{
-          backgroundColor: '#03a5fc',
+          backgroundColor: '#269DF9',
           height:55
 
          },
@@ -82,7 +84,5 @@ const MainNavigation = createStackNavigator(
     
   }
 );
-
 const App = createAppContainer(MainNavigation);
-
 export default App;

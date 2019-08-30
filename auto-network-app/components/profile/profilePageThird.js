@@ -28,8 +28,11 @@ export default  class profilePageThird extends React.Component {
   render() {
     return(
     <View style={styles.container}>
+      <View style={styles.waveView}>
+        <Image style={{width:wp('100%'),height:hp("13%")}} source={require('../../assets/wawe.png')}></Image>
+        </View>
         <View style={styles.logoView}>
-
+        <Image style={{marginTop:"10%",width:wp('51%'),height:'60%'}} source={require('../../assets/bigAdminLogo.png')} />
         </View>
         <View style={styles.signUpView}>
             <View style={{backgroundColor:"#12afe3",borderTopRightRadius:10,borderTopLeftRadius:10,flex:0.12 }}>
@@ -106,6 +109,9 @@ const styles = StyleSheet.create({
           alignItems:"center",
         flex:1,
       },
+      waveView:{
+        flex:0.05,
+        },
       logoView:{
         flex:0.40,
       },
