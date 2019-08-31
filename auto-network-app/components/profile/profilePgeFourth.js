@@ -46,7 +46,7 @@ export default class profilePageFourth extends React.Component {
 
   }
   nextEvent(e){
-    
+    this.props.navigation.navigate("mainScreen");
   }
 
   render() {
@@ -116,7 +116,7 @@ export default class profilePageFourth extends React.Component {
              <TouchableOpacity style={{marginLeft:"3%",marginTop:"1%"}} onPress={this.skipEvent}>
                <Text style={{fontSize:15 , color:"#fff"}}>Skip</Text>
                </TouchableOpacity>
-             <TouchableOpacity style={{marginTop:"1%",marginLeft:"78%"}}>
+             <TouchableOpacity style={{marginTop:"1%",marginLeft:"78%"}} onPress={this.nextEvent}>
                <Text style={{fontSize:15 , color:"#fff"}}>Next</Text>
                </TouchableOpacity> 
           </View>
@@ -141,7 +141,7 @@ export default class profilePageFourth extends React.Component {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3]
+      aspect: [4, 4]
     });
 
     console.log(result);

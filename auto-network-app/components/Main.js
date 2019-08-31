@@ -10,6 +10,7 @@ import ProfilePageThird from './profile/profilePageThird';
 import ProfilePageFourth from './profile/profilePgeFourth';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
+import checkUserStatus from './utils/checkUserStatus'
 class Main extends React.Component {
   render() {
     return(
@@ -33,6 +34,10 @@ const styles = StyleSheet.create({
 const MainNavigation = createStackNavigator(
   {
 
+    checkUserStatus:{
+      screen: checkUserStatus
+    },
+
 
     ProfilePageOne:{
       screen: ProfilePageOne
@@ -45,7 +50,7 @@ const MainNavigation = createStackNavigator(
     },
     ProfilePageFourth:{
       screen:ProfilePageFourth
-  },
+    },
    
     Login: {
       screen: Login
