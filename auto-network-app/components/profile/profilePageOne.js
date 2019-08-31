@@ -23,6 +23,7 @@ export default  class profilePageOne extends React.Component {
       this.nextEvent = this.nextEvent.bind(this);
       this.submitDetails = this.submitDetails.bind(this);
     }
+    
     submitDetails(){
       firebase.database().ref('Drivers/'+this.state.phone_number).set({
         first_name: this.state.first_name,
@@ -31,12 +32,14 @@ export default  class profilePageOne extends React.Component {
         gender: this.state.gender,
       });
     }
+    
     nextEvent(e){
         console.log("gender: ",this.state.gender);
         this.submitDetails();
         this.props.navigation.navigate("ProfilePageSecond");
     }
-  render() {
+    
+    render() {
     return(
     <View style={styles.container}>
         <View style={styles.waveView}>
@@ -147,7 +150,7 @@ export default  class profilePageOne extends React.Component {
         </View>
     </View>
     );
-  }
+    }
 }
 const styles = StyleSheet.create({
     
