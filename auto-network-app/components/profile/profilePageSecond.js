@@ -3,6 +3,7 @@ import React from "react";
 import { StyleSheet, Text, View, Easing, Animated , Image ,TextInput,TouchableOpacity } from "react-native";
 import RadioForm,{RadioButton,RadioButtonInput,RadioButtonLabel} from "react-native-simple-radio-button";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import firebase from 'firebase';
 // const {widthOfScreen , heightOfScreen } = Dimensions.get('window');
 var options=[
   {label:"Yes",value:0},
@@ -16,15 +17,25 @@ export default  class profilePageSecond extends React.Component {
         active: 0,
         aadhar_number: '',
         license_number: '',
-        has_puc: '',
+        has_puc: 0,
       }
       this.previousEvent = this.previousEvent.bind(this);
+      this.submitDetails = this.submitDetails.bind(this);
       this.nextEvent = this.nextEvent.bind(this);
+    }
+    submitDetails(){
+      firebase.database().ref('Drivers/'+this.state.phone_number).push({
+        aadhar_number:this.state.aadhar_number,
+        license_number: this.state.license_number,
+        has_puc: this.state.has_puc,
+      });
     }
     previousEvent(e){
         this.props.navigation.navigate("ProfilePageOne");
     }
     nextEvent(e){
+      this.submitDetails();
+      console.log("aadhar: ",this.state.aadhar_number," licence: ",this.state.license_number, " has_puc:  ",this.state.has_puc)
         this.props.navigation.navigate("ProfilePageThird");
     }
   render() {
@@ -73,8 +84,12 @@ export default  class profilePageSecond extends React.Component {
                      <RadioForm
                           style={{marginLeft:"5%",marginTop:"4%"}} 
                          radio_props={options}
-                         initial={0} 
-                         onPress={(value)=>{has_puc:value}}
+                         initial={this.state.has_puc} 
+                         onPress={(value)=>{
+                           this.setState({
+                            has_puc: value
+                           })
+                         }}
                           buttonSize={7}
                           buttonColor={'#000000'}
                          labelStyle={{fontSize:16,marginRight:4}}
