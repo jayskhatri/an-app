@@ -41,7 +41,7 @@ export default  class profilePageSecond extends React.Component {
                   {/* Scroller code */}
             </View>
             <View style={{  flex:0.25,backgroundColor:"white",borderLeftWidth:0.5,borderTopWidth:0.5,borderBottomWidth:0.5,borderRightWidth:0.5}}>
-                < View style={{flex:0.40}}> 
+                <View style={{flex:0.40}}> 
                     <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Aadhar No.</Text>
                 </View>
                 <View style={{flex:0.60}}>
@@ -53,7 +53,7 @@ export default  class profilePageSecond extends React.Component {
 
             </View>
             <View style={{flex:0.25,backgroundColor:"white",borderLeftWidth:0.5,borderTopWidth:0.5,borderBottomWidth:0.5,borderRightWidth:0.5}}>
-            < View style={{flex:0.40}}> 
+            <View style={{flex:0.40}}> 
                     <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Licence No.</Text>
                 </View>
     <View style={{flex:0.60}}>
@@ -64,7 +64,7 @@ export default  class profilePageSecond extends React.Component {
                 </View>
             </View>
             <View style={{flex:0.25,backgroundColor:"white",borderLeftWidth:0.5,borderTopWidth:0.5,borderBottomWidth:0.5,borderRightWidth:0.5}}>
-            < View style={{flex:0.40}}> 
+            <View style={{flex:0.40}}> 
                     <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Do You Have PUC?</Text>
                 </View>
                 <View style={{flex:0.60}}>

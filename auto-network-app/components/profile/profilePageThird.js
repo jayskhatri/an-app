@@ -39,7 +39,7 @@ export default  class profilePageThird extends React.Component {
                   {/* Scroller code */}
             </View>
             <View style={{  flex:0.20,backgroundColor:"white",borderWidth:0.5}}>
-                < View style={{flex:0.40}}> 
+                <View style={{flex:0.40}}> 
                     <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Auto No.</Text>
                 </View>
                 <View style={{flex:0.60}}>
@@ -50,7 +50,7 @@ export default  class profilePageThird extends React.Component {
                 </View>
             </View>
             <View style={{flex:0.20,backgroundColor:"white",borderWidth:0.5}}>
-            < View style={{flex:0.40}}> 
+            <View style={{flex:0.40}}> 
                     <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Do you have your own vehivle ?</Text>
                 </View>
                 <View style={{flex:0.60}}>
@@ -70,7 +70,7 @@ export default  class profilePageThird extends React.Component {
                 </View>
             </View>
             <View style={{flex:0.22,backgroundColor:"white",borderWidth:0.5}}>
-            < View style={{flex:0.40}}> 
+            <View style={{flex:0.40}}> 
                     <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Owner Name</Text>
                 </View>
                 <View style={{flex:0.60}}> 

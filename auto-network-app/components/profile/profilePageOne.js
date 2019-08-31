@@ -36,7 +36,7 @@ export default  class profilePageOne extends React.Component {
                   {/* Scroller code */}
             </View>
             <View style={{  flex:0.20,backgroundColor:"white",borderWidth:0.5}}>
-                < View style={{flex:0.40}}> 
+                <View style={{flex:0.40}}> 
                     <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>First Name</Text>
                 </View>
                 <View style={{flex:0.60}}>
@@ -47,7 +47,7 @@ export default  class profilePageOne extends React.Component {
                 </View>
             </View>
             <View style={{flex:0.20,backgroundColor:"white",borderWidth:0.5}}>
-            < View style={{flex:0.40}}> 
+            <View style={{flex:0.40}}> 
                     <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Last Name</Text>
                 </View>
                 <View style={{flex:0.60}}>
@@ -58,7 +58,7 @@ export default  class profilePageOne extends React.Component {
                 </View>
             </View>
             <View style={{flex:0.22,backgroundColor:"white",borderWidth:0.5}}>
-            < View style={{flex:0.40}}> 
+            <View style={{flex:0.40}}> 
                     <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Birthdate</Text>
                 </View>
                 <View style={{flex:0.60}}> 
@@ -66,7 +66,7 @@ export default  class profilePageOne extends React.Component {
                     style={{width:wp('60%'),marginLeft:'3%'}}
                     date={this.state.date}
                     mode="date"
-                    placeholder="Enter Your Birthdate"
+                    placeholder="Enter Your Birth-date"
                    format="DD-MM-YYYY"
                   //  minDate="01-01-1990"
                   //  maxDate="31-12-2003"
@@ -92,7 +92,7 @@ export default  class profilePageOne extends React.Component {
                 </View> 
               </View>
               <View style={{flex:0.19,backgroundColor:"white",borderWidth:0.5}}>
-              < View style={{flex:0.40}}> 
+              <View style={{flex:0.40}}> 
                     <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Gender</Text>
                 </View>
                 <View style={{flex:0.60}}>
