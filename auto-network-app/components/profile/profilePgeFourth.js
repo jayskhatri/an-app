@@ -42,8 +42,31 @@ export default class profilePageFourth extends React.Component {
   nextEvent(e) {
     this.props.navigation.navigate("ProfilePageFourth");
   }
+  submitDetails(){
+    firebase.database().ref('Drivers/'+this.state.phone_number).set({
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      birth_date: this.state.birth_date,
+      gender: this.state.gender,
+      aadhar_number: this.state.aadhar_number,
+      license_number: this.state.license_number,
+      has_puc: this.state.has_puc,
+      auto_reg_no: this.state.auto_reg_no,
+      has_own_vehicle: this.state.has_own_vehicle,
+      owner_name: this.state.owner_name,
+      owner_contact_number: this.state.owner_contact_number,
+    });
+    this.setState(
+      {
+        has_own_vehicle: false,
+        owner_name: "",
+        owner_contact_number: "",
+      }
+    );
+    this.props.navigation.navigate('mainScreen');
+  }
   skipEvent(e){
-
+    this.nextEvent();
   }
   nextEvent(e){
     this.props.navigation.navigate("mainScreen");

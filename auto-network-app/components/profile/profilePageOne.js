@@ -13,7 +13,11 @@ export default  class profilePageOne extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        active: 0
+        active: 0,
+        first_name: '',
+        last_name: '',
+        date: null,
+        gender: null,
       }
       this.nextEvent = this.nextEvent.bind(this);
     }
@@ -42,6 +46,7 @@ export default  class profilePageOne extends React.Component {
                 <View style={{flex:0.60}}>
                     <TextInput
                        placeholder="Enter Your First Name"
+                       first_name = {this.state.first_name}
                        style={{borderBottomWidth:1,height:35,marginBottom:"1%",marginLeft:"5%",marginRight:"5%"}}
                      /> 
                 </View>
@@ -59,14 +64,14 @@ export default  class profilePageOne extends React.Component {
             </View>
             <View style={{flex:0.22,backgroundColor:"white",borderWidth:0.5}}>
             <View style={{flex:0.40}}> 
-                    <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Birthdate</Text>
+                    <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Birth Date</Text>
                 </View>
                 <View style={{flex:0.60}}> 
                 <DatePicker
                     style={{width:wp('60%'),marginLeft:'3%'}}
                     date={this.state.date}
                     mode="date"
-                    placeholder="Enter Your Birth-date"
+                    placeholder="Enter Your Birth Date"
                    format="DD-MM-YYYY"
                   //  minDate="01-01-1990"
                   //  maxDate="31-12-2003"
@@ -100,7 +105,7 @@ export default  class profilePageOne extends React.Component {
                           style={{marginLeft:"5%",marginTop:"4%"}} 
                           radio_props={options}
                           initial={0} 
-                          onPress={(value)=>{}}
+                          onPress={(value)=>{gender:value}}
                           buttonSize={7}  
                           buttonColor={'#000000'}
                           labelStyle={{fontSize:16,marginRight:'7%'}}

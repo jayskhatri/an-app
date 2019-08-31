@@ -13,7 +13,10 @@ export default  class profilePageSecond extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        active: 0
+        active: 0,
+        aadhar_number: '',
+        license_number: '',
+        has_puc: '',
       }
       this.previousEvent = this.previousEvent.bind(this);
       this.nextEvent = this.nextEvent.bind(this);
@@ -22,9 +25,7 @@ export default  class profilePageSecond extends React.Component {
         this.props.navigation.navigate("ProfilePageOne");
     }
     nextEvent(e){
-        console.log("IN third");
         this.props.navigation.navigate("ProfilePageThird");
-        console.log("IN third");
     }
   render() {
     return(
@@ -42,7 +43,7 @@ export default  class profilePageSecond extends React.Component {
             </View>
             <View style={{  flex:0.25,backgroundColor:"white",borderLeftWidth:0.5,borderTopWidth:0.5,borderBottomWidth:0.5,borderRightWidth:0.5}}>
                 <View style={{flex:0.40}}> 
-                    <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Aadhar No.</Text>
+                    <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}} aadhar_number={value =>{aadhar_number:value}}>Aadhar No.</Text>
                 </View>
                 <View style={{flex:0.60}}>
                     <TextInput
@@ -59,6 +60,7 @@ export default  class profilePageSecond extends React.Component {
     <View style={{flex:0.60}}>
                     <TextInput
                        placeholder="Enter Your Licence No."
+                       license_number = {(value)=>{license_number:value}}
                        style={{borderBottomWidth:1,height:35,marginBottom:"1%",marginLeft:"5%",marginRight:"5%"}}
                      /> 
                 </View>
@@ -72,7 +74,7 @@ export default  class profilePageSecond extends React.Component {
                           style={{marginLeft:"5%",marginTop:"4%"}} 
                          radio_props={options}
                          initial={0} 
-                         onPress={(value)=>{}}
+                         onPress={(value)=>{has_puc:value}}
                           buttonSize={7}
                           buttonColor={'#000000'}
                          labelStyle={{fontSize:16,marginRight:4}}
