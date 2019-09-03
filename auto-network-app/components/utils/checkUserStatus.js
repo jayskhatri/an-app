@@ -14,7 +14,8 @@ export default class checkUserStatus extends React.Component {
   checkStatus(){
       firebase.auth().onAuthStateChanged(user=>{
             if(user!=null){
-                this.props.navigation.navigate("ProfilePageOne");
+              console.log("user",user);
+                this.props.navigation.navigate("ProfilePageOne", {user: user});
             }
             else{
                 this.props.navigation.navigate("Login");

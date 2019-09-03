@@ -7,7 +7,7 @@ import Login from "./login/Login";
 import ProfilePageOne from './profile/profilePageOne';
 import ProfilePageSecond from './profile/profilePageSecond';
 import ProfilePageThird from './profile/profilePageThird';
-import ProfilePageFourth from './profile/profilePgeFourth';
+import ProfilePageFourth from './profile/profilePageFourth';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import checkUserStatus from './utils/checkUserStatus'

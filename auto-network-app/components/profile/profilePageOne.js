@@ -21,22 +21,21 @@ export default  class profilePageOne extends React.Component {
         gender: 111,
       }
       this.nextEvent = this.nextEvent.bind(this);
-      this.submitDetails = this.submitDetails.bind(this);
     }
     
-    submitDetails(){
-      firebase.database().ref('Drivers/'+this.state.phone_number).set({
-        first_name: this.state.first_name,
-        last_name: this.state.last_name,
-        birth_date: this.state.birth_date,
-        gender: this.state.gender,
-      });
-    }
     
     nextEvent(e){
-        console.log("gender: ",this.state.gender);
-        this.submitDetails();
-        this.props.navigation.navigate("ProfilePageSecond");
+        const {navigation} = this.props;
+        console.log("gender: ",this.state.gender,"email",navigation.getParam('user'));
+        this.props.navigation.navigate("ProfilePageSecond",
+          {
+            first_name: this.state.first_name,
+            last_name: this.state.last_name, 
+            birth_date: this.state.birth_date, 
+            gender: this.state.gender, 
+            user: navigation.getParam('user')
+          }
+        );
     }
     
     render() {

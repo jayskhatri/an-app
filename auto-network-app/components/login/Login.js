@@ -2,9 +2,7 @@ import React from 'react';
 import * as firebase from 'firebase';
 import { StyleSheet, View  , Text  , TextInput , TouchableOpacity , ImageBackground , Alert , Image , Dimensions} from 'react-native';
 import {widthPercentageToDP  , heightPercentageToDP  } from 'react-native-responsive-screen';
-import { responsiveWidth , responsiveHeight , responsiveFontSize  } from 'react-native-responsive-dimensions';
-const { width , height } = Dimensions.get('window');
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { responsiveWidth , responsiveFontSize  } from 'react-native-responsive-dimensions';
 // import console = require('console');
 // import console = require('console');
 
@@ -50,7 +48,17 @@ signInEvent(e){
       if(user.emailVerified)
       {
         Alert.alert("Login successful");
-        this.props.navigation.navigate("ProfilePageOne");
+        var userRef = firebase.database().ref('Drivers/'+user.uid);
+        // var profile_completed;
+        // userRef.once('value').then(function(snapshot){
+        //   profile_completed = (snapshot.val() && snapshot.val().profile_completed)
+        // });
+        // if(profile_completed){
+        //   this.props.navigation.navigate("mainScreen");  
+        // }
+        // else{
+          this.props.navigation.navigate("ProfilePageOne",{user: user});
+        // }
       }
       else
       {

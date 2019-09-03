@@ -12,7 +12,11 @@ export default  class profilePageThird extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        active: 0
+        active: 0,
+        auto_number: '',
+        has_own_vehicle:'',
+        owner_name:'',
+        owner_contact_number:'',
       }
       this.previousEvent = this.previousEvent.bind(this);
       this.nextEvent = this.nextEvent.bind(this);
@@ -21,8 +25,24 @@ export default  class profilePageThird extends React.Component {
         this.props.navigation.navigate("ProfilePageSecond");
     }
     nextEvent(e){
+        const {navigation} = this.props;
 
-        this.props.navigation.navigate("ProfilePageFourth");
+        this.props.navigation.navigate("ProfilePageFourth",
+          {
+            auto_number: this.state.auto_number, 
+            has_own_vehicle: this.state.has_own_vehicle,
+            owner_name: this.state.owner_name,
+            owner_contact_number: this.state.owner_contact_number,
+            
+            user: navigation.getParam('user'), 
+            first_name: navigation.getParam('first_name'), 
+            last_name: navigation.getParam('last_name'),
+            birth_date: navigation.getParam('birth_date'), 
+            gender: navigation.getParam('gender'),
+            aadhar_number:navigation.getParam('aadhar_number'),
+            license_number: navigation.getParam('license_number'),
+            has_puc: navigation.getParam('has_puc')
+          });
     }
     
   render() {
@@ -45,6 +65,8 @@ export default  class profilePageThird extends React.Component {
                 <View style={{flex:0.60}}>
                     <TextInput
                        placeholder="Enter Your Auto No."
+                       onChangeText={(auto_number) => this.setState({auto_number})}
+                       value={this.state.auto_number}
                        style={{borderBottomWidth:1,height:35,marginBottom:"1%",marginLeft:"5%",marginRight:"5%"}}
                      /> 
                 </View>
@@ -58,7 +80,7 @@ export default  class profilePageThird extends React.Component {
                           style={{marginLeft:"5%",marginTop:"4%"}} 
                          radio_props={options}
                          initial={0} 
-                         onPress={(value)=>{}}
+                         onPress={(value)=>{has_own_vehicle:value}}
                           buttonSize={7}
                           buttonColor={'#000000'}
                          labelStyle={{fontSize:16,marginRight:"6%"}}
@@ -76,6 +98,8 @@ export default  class profilePageThird extends React.Component {
                 <View style={{flex:0.60}}> 
                     <TextInput
                        placeholder="Enter Your vehicle owner name"
+                       onChangeText={(owner_name) => this.setState({owner_name})}
+                       value={this.state.owner_name}
                        style={{borderBottomWidth:1,height:35,marginBottom:"1%",marginLeft:"5%",marginRight:"5%"}}
                      /> 
                 </View> 
@@ -87,6 +111,8 @@ export default  class profilePageThird extends React.Component {
                 <View style={{flex:0.60}}>
                 <TextInput
                        placeholder="Enter Your vehicle owner contact No."
+                       onChangeText={(owner_contact_number) => this.setState({owner_contact_number})}
+                       value={this.state.owner_contact_number}
                        style={{borderBottomWidth:1,height:35,marginBottom:"1%",marginLeft:"5%",marginRight:"5%"}}
                      /> 
                 </View>
