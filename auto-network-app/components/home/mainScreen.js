@@ -9,8 +9,9 @@ export default class mainScreen extends React.Component {
   }
 
   logout(){
+    const {navigation} = this.props;
     firebase.auth().signOut().then(function(){
-      this.props.navigation.navigate("Login");
+      navigation.navigate("Login");
     },function(error){
       console.log("error in mainScreen: ",error)
       Alert.alert(error);
