@@ -8,7 +8,9 @@ import ProfilePageOne from './profile/profilePageOne';
 import ProfilePageSecond from './profile/profilePageSecond';
 import ProfilePageThird from './profile/profilePageThird';
 import ProfilePageFourth from './profile/profilePgeFourth';
+import editProfile from '../components/profile/editProfile';
 import { createStackNavigator, createAppContainer } from "react-navigation";
+import Setting from './setting/setting';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import checkUserStatus from './utils/checkUserStatus'
 class Main extends React.Component {
@@ -33,12 +35,15 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
-
+    editProfile:{
+      screen:editProfile
+    },
+    Setting:{
+      screen:Setting
+    },
     checkUserStatus:{
       screen: checkUserStatus
     },
-
-
     ProfilePageOne:{
       screen: ProfilePageOne
     },
