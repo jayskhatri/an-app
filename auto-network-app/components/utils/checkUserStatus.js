@@ -21,7 +21,7 @@ export default class checkUserStatus extends React.Component {
               userRef.once('value').then((snapshot)=>{
                 const {navigation} = this.props;
                 console.log("snapshot: ",snapshot);
-                profile_completed = (snapshot.val() && snapshot.val().is_profile_completed) || false;
+                profile_completed = (snapshot.val() && snapshot.val().has_profile_completed) || false;
                 console.log('profile completed: ',profile_completed);
                 if(profile_completed===true){
                   console.log("profile is completed bro");

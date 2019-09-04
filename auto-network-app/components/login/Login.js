@@ -51,7 +51,7 @@ signInEvent(e){
         var userRef = firebase.database().ref('Drivers/'+user.uid);
         var profile_completed;
         userRef.once('value').then(function(snapshot){
-          profile_completed = (snapshot.val() && snapshot.val().profile_completed)
+          profile_completed = (snapshot.val() && snapshot.val().has_profile_completed)
         });
         console.log('is profile completed: ', profile_completed);
         // if(profile_completed){

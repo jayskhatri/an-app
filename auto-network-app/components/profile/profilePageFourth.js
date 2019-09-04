@@ -29,9 +29,27 @@ export default class profilePageFourth extends React.Component {
     this.skipEvent = this.skipEvent.bind(this);
     this.nextEvent = this.nextEvent.bind(this);
   }
+  componentWillMount(){
+    let storageRef = firebase.storage().ref();
+
+  }
   submitDetails(){
     const {navigation} = this.props;
     let user = navigation.getParam('user');
+
+    var metadata = {
+      contentType: 'image/jpeg',
+    };
+    let image = this.state.image;
+    var storageRef = firebase.storage().ref();
+    var uploadTask = storageRef.child('images/profile_pic.jpg').put(image, metadata);
+    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+      console.log('File available at', downloadURL);
+    });
+    const thirtySecs = 30 * 1000;
+    firebase.storage().setMaxOperationRetryTime(thirtySecs);
+
+
     firebase.database().ref('Drivers/' + user.uid).set({
       first_name: navigation.getParam('first_name'),
       email_id: user.email,
@@ -45,7 +63,7 @@ export default class profilePageFourth extends React.Component {
       has_own_vehicle: navigation.getParam('has_own_vehicle'),
       owner_name: navigation.getParam('owner_name'),
       owner_contact_number: navigation.getParam('owner_contact_number'),
-      is_profile_completed: true,
+      has_profile_completed: true,
     });
     
     this.props.navigation.navigate('mainScreen');
@@ -53,7 +71,7 @@ export default class profilePageFourth extends React.Component {
   skipEvent(e){
     
     const {navigation} = this.props;
-    firebase.database().ref('Drivers/').push({
+    firebase.database().ref('Drivers/'+ user.uid).set({
       first_name: navigation.getParam('first_name'),
       last_name: navigation.getParam('last_name'),
       birth_date: navigation.getParam('birth_date'),
@@ -65,7 +83,7 @@ export default class profilePageFourth extends React.Component {
       has_own_vehicle: navigation.getParam('has_own_vehicle'),
       owner_name: navigation.getParam('owner_name'),
       owner_contact_number: navigation.getParam('owner_contact_number'),
-      is_profile_completed: false,
+      has_profile_completed: false,
     });
     
     this.props.navigation.navigate('mainScreen');
