@@ -37,11 +37,14 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
-    MainTabNavigation:{
-      screen:MainTabNavigation
+    ProfilePageOne:{
+      screen: ProfilePageOne
     },
     editProfile:{
       screen:editProfile
+    },
+    MainTabNavigation:{
+      screen:MainTabNavigation
     },
     Header:{
       screen:Header
@@ -52,9 +55,6 @@ const MainNavigation = createStackNavigator(
     },
     checkUserStatus:{
       screen: checkUserStatus
-    },
-    ProfilePageOne:{
-      screen: ProfilePageOne
     },
     ProfilePageSecond:{
       screen:ProfilePageSecond

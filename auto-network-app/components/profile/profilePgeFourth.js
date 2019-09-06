@@ -3,18 +3,13 @@ import {
   StyleSheet,
   Text,
   View,
-  Easing,
-  Animated,
+  SafeAreaView,
+  Platform,
   Image,
   TextInput,
   TouchableOpacity
 } from "react-native";
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel
-} from "react-native-simple-radio-button";
-
+import Header from '../header/header';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -77,10 +72,14 @@ export default class profilePageFourth extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.waveView}>
-          <Image
+          {/* <Image
             style={{ width: wp("100%"), height: hp("12%") }}
             source={require("../../assets/wawe.png")}
-          ></Image>
+          ></Image> */}
+              <SafeAreaView style={{backgroundColor:"#269DF9"}}>
+                  <Text style={{alignSelf:"center",color:"#fff",fontSize:25,marginTop:Platform.OS === 'android' ? "4%" : "0%"}}>My Profile</Text>
+                  <Header />
+              </SafeAreaView>
         </View>
         <View style={styles.logoView}>
           <Image style={{marginTop:"10%",width:wp('51%'),height:'60%'}} source={require('../../assets/bigAdminLogo.png')} />
@@ -181,13 +180,13 @@ const styles = StyleSheet.create({
     flex: 1
   },
   waveView: {
-    flex: 0.05
+    flex: 0.10
   },
   logoView: {
     flex: 0.55
   },
   signUpView: {
-    flex: 0.4,
+    flex: 0.35,
     backgroundColor: "#12afe3",
     height: "100%",
     width: wp("92%"),

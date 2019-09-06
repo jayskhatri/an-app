@@ -1,8 +1,9 @@
 
 import React from "react";
-import { StyleSheet, Text, View, Easing, Animated , Image ,TextInput,TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView , Platform , Image ,TextInput,TouchableOpacity } from "react-native";
 import RadioForm,{RadioButton,RadioButtonInput,RadioButtonLabel} from "react-native-simple-radio-button";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import Header from '../header/header';
 import firebase from 'firebase';
 // const {widthOfScreen , heightOfScreen } = Dimensions.get('window');
 var options=[
@@ -42,7 +43,11 @@ export default  class profilePageSecond extends React.Component {
     return(
     <View style={styles.container}>
       <View style={styles.waveView}>
-        <Image style={{width:wp('100%'),height:hp("13%")}} source={require('../../assets/wawe.png')}></Image>
+        {/* <Image style={{width:wp('100%'),height:hp("13%")}} source={require('../../assets/wawe.png')}></Image> */}
+        <SafeAreaView style={{backgroundColor:"#269DF9"}}>
+                  <Text style={{alignSelf:"center",color:"#fff",fontSize:25,marginTop:Platform.OS === 'android' ? "4%" : "0%"}}>My Profile</Text>
+                  <Header />
+              </SafeAreaView>
         </View>
         
         <View style={styles.logoView}>
@@ -119,10 +124,10 @@ const styles = StyleSheet.create({
         alignItems:"center"
       },
       waveView:{
-        flex:0.05,
+        flex:0.10,
         },
       logoView:{
-        flex:0.45,
+        flex:0.35,
       },
       signUpView:{
         flex:0.55,

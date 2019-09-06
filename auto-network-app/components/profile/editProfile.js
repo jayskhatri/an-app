@@ -131,21 +131,17 @@ export default class editProfile extends React.Component {
     
     
     return (
-      <View style={{flex:1}}>
-        {this.state.load ? 
-        (
+      // <View style={{flex:1}}>
+       
           <View style={styles.container}>
           <View style={styles.waveView}>
-            <Image
-              style={{ width: wp("100%"), height: hp("13%") }}
-              source={require("../../assets/wawe.png")}
-            ></Image>
-            {/* <SafeAreaView style={{backgroundColor:"#269DF9"}}>
+              <SafeAreaView style={{backgroundColor:"#269DF9"}}>
                 <Text style={{alignSelf:"center",color:"#fff",fontSize:25,marginTop:Platform.OS === 'android' ? "4%" : "0%"}}>Edit Profile</Text>
                 <Header />
-            </SafeAreaView> */}
-            
+              </SafeAreaView>
           </View>
+          {this.state.load ? 
+            (
           <ScrollView style={styles.userInfo}>
                   <View  style={{flex:0.64,width:"100%"}}>
                         <Image
@@ -422,23 +418,30 @@ export default class editProfile extends React.Component {
                        </View>      
                   </View>
           </ScrollView>
-        </View>
-        ) : 
-        (
-          
-          <View style={styles.containerActivityIndicator}>
-             <View style={styles.waveView}>
-             <SafeAreaView style={{backgroundColor:"#269DF9"}}>
-                <Text style={{alignSelf:"center",color:"#fff",fontSize:25,marginTop:Platform.OS === 'android' ? "4%" : "0%"}}>Edit Profile</Text>
-                <Header />
-            </SafeAreaView>
-              </View>
+            ) :
+            (
               <View style={styles.ActivityIndicator}>
                 <ActivityIndicator  size="large"   color="#269DF9" />
               </View>
-          </View>
-        ) }
-      </View>
+            )}
+        </View>
+        /* // ) : 
+        // (
+          
+          // <View style={styles.containerActivityIndicator}>
+          //    <View style={styles.waveView}>
+          //    <SafeAreaView style={{backgroundColor:"#269DF9"}}>
+          //       <Text style={{alignSelf:"center",color:"#fff",fontSize:25,marginTop:Platform.OS === 'android' ? "4%" : "0%"}}>Edit Profile</Text>
+          //       <Header />
+          //     </SafeAreaView>
+          //     </View>
+          //     <View style={styles.ActivityIndicator}>
+          //       <ActivityIndicator  size="large"   color="#269DF9" />
+          //     </View>
+          // </View>
+        // ) */
+         
+      // </View>
      
     );
   }
@@ -458,9 +461,9 @@ const styles = StyleSheet.create({
     flex: 1
   },
   waveView: {
-    flex: 0.20
+    flex: 0.24
   },
   userInfo: {
-        flex:0.80
+        flex:0.76
   }
 });
