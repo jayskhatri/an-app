@@ -5,6 +5,7 @@ import {
   View,
   ActivityIndicator,
   Image,
+  Alert,
   TextInput,
   Platform,
   TouchableOpacity
@@ -30,7 +31,7 @@ var options=[
     {label:"Female",value: 1},
     {label:"Other",value: 2}
   ];
-  var optionsForAuto=[
+  var optionsForAutoPuc=[
     {label:"Yes",value:0},
     {label:"No",value:1},
   ];
@@ -43,17 +44,85 @@ export default class profilePageFourth extends React.Component {
     super(props);
     this.state = {
       active: 0,
+      gender:0,
+      has_puc:0,
+      own_Auto:0,
       load:false,
       image: null,
       isPicLoaded: true,
-      birthdate:""
+      birthdate:"",
+      firstName:"",
+      lastName:"",
+      aadharNumber:"",
+      licenceNumber:"",
+      autoNumber:"",
+      ownerName:"",
+      ownerContactNumber:"",
     };
 
+    this.editPhotoEvent = this.editPhotoEvent.bind(this);
+    this.changeFirstNameEvent = this.changeFirstNameEvent.bind(this);
+    this.changeLastNameEvent = this.changeLastNameEvent.bind(this);
+    this.changeaadharNumberEvent = this.changeaadharNumberEvent.bind(this);
+    this.changelicenceNumberEvent = this.changelicenceNumberEvent.bind(this);
+    this.changeautoNumberEvent = this.changeautoNumberEvent.bind(this);
+    this.changeownerNameEvent = this.changeownerNameEvent.bind(this);
+    this.changeownerContactNumberEvent = this.changeownerContactNumberEvent.bind(this);
+    this.saveEvent = this.saveEvent.bind(this);
+  }
+  editPhotoEvent(e){
+    this.props.navigation.navigate("ProfilePageFourth");
+  }
+  changeFirstNameEvent(e){
+    const temp = e.nativeEvent.text;
+    this.setState({firstName:temp});
+  }
+  changeLastNameEvent(e){
+    const temp = e.nativeEvent.text;
+    this.setState({lastName:temp});
+  }
+  changeaadharNumberEvent(e){
+    const temp = e.nativeEvent.text;
+    this.setState({aadharNumber:temp});
+  }
+  changelicenceNumberEvent(e){
+    const temp = e.nativeEvent.text;
+    this.setState({licenceNumber:temp});
+  }
+  changeautoNumberEvent(e){
+    const temp = e.nativeEvent.text;
+    this.setState({autoNumber:temp});
+  }
+  changeownerNameEvent(e){
+    const temp = e.nativeEvent.text;
+    this.setState({ownerName:temp});
+  }
+  changeownerContactNumberEvent(e){
+    const temp = e.nativeEvent.text;
+    this.setState({ownerContactNumber:temp});
   }
   componentWillMount(){
     console.log("load code");
     // write a code for fatching data of user from db
     this.setState({load:true});
+  }
+  saveEvent(e){
+    console.log("F name : ",this.state.firstName);
+    console.log("L name : ",this.state.lastName);
+    console.log("date : ",this.state.birthdate);
+    console.log("gender : ",this.state.gender);
+    console.log("Aadhar no : ",this.state.aadharNumber);
+    console.log("licence no : ",this.state.licenceNumber);
+    console.log("PUC : ",this.state.has_puc);
+    console.log("Auto no : ",this.state.autoNumber);
+    console.log("Own vehicle : ",this.state.own_Auto);
+    console.log("owner Name : ",this.state.ownerName);
+    console.log("owner contact number : ",this.state.ownerContactNumber);
+
+    // write a code for update perticuler user data
+
+    Alert.alert(' Successfully Save ');
+
   }
   render() {
     let { image } = this.state;
@@ -87,6 +156,7 @@ export default class profilePageFourth extends React.Component {
                              }}   
                            source={require("../../assets/pic.jpg")}
                           />
+                         <TouchableOpacity onPress={this.editPhotoEvent}> 
                           <Image
                               style={{
                                     height: 50,
@@ -98,13 +168,28 @@ export default class profilePageFourth extends React.Component {
                                 }}
                             source={require("../../assets/Component.png")}
                           />
+                         </TouchableOpacity> 
                       <View style={{flexDirection:"column",marginTop:"4%",alignItems:"center"}}>
                       <Text style={{fontSize:28}}>Sukhdev Prasad</Text>
-                      <Text style={{fontSize:15}}> The Verified Driver </Text>
+                            <View style={{flexDirection:"row"}}>
+                                <Image 
+                               style={{
+                                        marginTop:Platform.OS === 'android' ? "2.5%" : "-2%",
+                                        marginLeft:"2%",
+                                        height: Platform.OS === 'ios' ? hp('4%') : hp('2%')  ,
+                                        width:Platform.OS === 'ios' ? wp('4%') : wp('3%')   ,
+                                        // height:hp('10%'),
+                                        // width:wp('10%'),
+                                        borderRadius:Platform.OS === 'ios' ? 20 : 50,
+                                        resizeMode:"contain"
+                                         }} 
+                                     source={require('../../assets/varifiedlogo.png')} />
+                                 <Text style={{fontSize:15}}> The Verified Driver </Text>
+                            </View>
                       </View>
                   </View>
                   <View style={{flex:0.36,marginTop:"6%",width:"100%"}}>
-                       <View style={{flex:0.35,width:"100%"}}>
+                       <View style={{flex:0.26,width:"100%"}}>
                              <View style={{flex:0.10,borderTopWidth:0.5,borderBottomColor:"#988c8c"}}>
                                  <Text style={{fontSize:20,marginLeft:"2%",marginTop:"3%"}}>Personal Information</Text>
                               </View>
@@ -115,9 +200,8 @@ export default class profilePageFourth extends React.Component {
                                  <View style={{flex:0.60}}>
                                        <TextInput
                                               placeholder="Enter Your First Name"
-                                              // onChangeText={(first_name) => this.setState({first_name})}
-                                              // value={this.state.first_name}
-  
+                                              onChange = {this.changeFirstNameEvent}
+                                              value = {this.state.firstName}
                                              style={{borderBottomWidth:1,height:35,marginBottom:"2.5%",marginLeft:"5%",marginRight:"5%"}}
                                         /> 
                                   </View>
@@ -129,8 +213,8 @@ export default class profilePageFourth extends React.Component {
                                      <View style={{flex:0.60}}>
                                                <TextInput
                                                       placeholder="Enter Your Last Name"
-                                                      onChangeText={(last_name) => this.setState({last_name})}
-                                                      value={this.state.last_name}
+                                                      onChange = {this.changeLastNameEvent}
+                                                      value = {this.state.lastName}
                                                       style={{borderBottomWidth:1,height:35,marginBottom:"2.5%",marginLeft:"5%",marginRight:"5%"}}
                                                 /> 
                                       </View>
@@ -143,6 +227,7 @@ export default class profilePageFourth extends React.Component {
                                                <DatePicker
                                                      style={{width:wp('80%'),marginBottom:"2.5%",marginLeft:'3%'}}
                                                      date={this.state.birthdate}
+                                                     onChange = {this.changeBirthDateEvent} 
                                                      mode="date"
                                                      placeholder="Enter Your Birth Date"
                                                      format="DD-MM-YYYY"
@@ -180,7 +265,8 @@ export default class profilePageFourth extends React.Component {
                                                   onPress={(value)=>{
                                                       this.setState({
                                                       gender: value,
-                                                      })
+                                                      });
+                                                      console.log(this.state.gender);
                                                   }}
                                                   buttonSize={7}  
                                                   buttonColor={'#000000'}
@@ -193,7 +279,7 @@ export default class profilePageFourth extends React.Component {
                                           </View>
                                     </View>
                        </View>
-                       <View style={{flex:0.35,width:"100%"}}>
+                       <View style={{flex:0.26,width:"100%"}}>
                              <View style={{flex:0.10,borderTopWidth:0.5,borderTopColor:"#988c8c",borderBottomColor:"#988c8c",borderBottomWidth:0.5}}>
                                  <Text style={{fontSize:20,marginLeft:"2%",marginTop:"2%",marginBottom:"2%"}}>Required Information</Text>
                               </View>
@@ -204,6 +290,8 @@ export default class profilePageFourth extends React.Component {
                                    <View style={{flex:0.60}}>
                                         <TextInput
                                               placeholder="Enter Your Aadhar No."
+                                              onChange = {this.changeaadharNumberEvent}
+                                              value = {this.state.aadharNumber}
                                                style={{borderBottomWidth:1,height:35,marginBottom:"2.5%",marginLeft:"5%",marginRight:"5%"}}
                                          /> 
                                   </View>
@@ -215,6 +303,8 @@ export default class profilePageFourth extends React.Component {
                                       <View style={{flex:0.60}}>
                                            <TextInput
                                               placeholder="Enter Your Licence No."
+                                              onChange = {this.changelicenceNumberEvent}
+                                              value = {this.state.licenceNumber}
                                               style={{borderBottomWidth:1,height:35,marginBottom:"2.5%",marginLeft:"5%",marginRight:"5%"}}
                                            /> 
                                        </View>
@@ -226,7 +316,7 @@ export default class profilePageFourth extends React.Component {
                                         <View style={{flex:0.60}}>
                                               <RadioForm
                                                         style={{marginLeft:"5%",marginTop:"4%",marginBottom:"2.5%"}} 
-                                                        radio_props={optionsForAuto}
+                                                        radio_props={optionsForAutoPuc}
                                                         initial={this.state.has_puc} 
                                                         onPress={(value)=>{
                                                         this.setState({
@@ -246,7 +336,7 @@ export default class profilePageFourth extends React.Component {
                                 
                                    
                        </View>  
-                       <View style={{flex:0.30,width:"100%",marginBottom:"5%"}}>
+                       <View style={{flex:0.26,width:"100%",marginBottom:"5%"}}>
                               <View style={{flex:0.10,borderTopWidth:0.5,borderBottomColor:"#988c8c",borderTopColor:"#988c8c",borderBottomWidth:0.5}}>
                                  <Text style={{fontSize:20,marginLeft:"2%",marginTop:"2%",marginBottom:"2%"}}>Other Details</Text>
                               </View>
@@ -257,6 +347,8 @@ export default class profilePageFourth extends React.Component {
                                    <View style={{flex:0.60}}>
                                         <TextInput
                                               placeholder="Enter Your vehicle auto rickshaw no. "
+                                              onChange = {this.changeautoNumberEvent}
+                                              value = {this.state.autoNumber}
                                                style={{borderBottomWidth:1,height:35,marginBottom:"2.5%",marginLeft:"5%",marginRight:"5%"}}
                                          /> 
                                   </View>
@@ -269,8 +361,12 @@ export default class profilePageFourth extends React.Component {
                                            <RadioForm
                                                   style={{marginLeft:"5%",marginTop:"4%",marginBottom:"2.5%"}} 
                                                   radio_props={optionsForOwnAuto}
-                                                  initial={0} 
-                                                  onPress={(value)=>{}}
+                                                  initial={this.state.own_Auto} 
+                                                  onPress={(value)=>{
+                                                    this.setState({
+                                                      own_Auto: value
+                                                    });
+                                                  }}
                                                   buttonSize={7}
                                                   buttonColor={'#000000'}
                                                   labelStyle={{fontSize:16,marginRight:"6%"}}
@@ -288,6 +384,8 @@ export default class profilePageFourth extends React.Component {
                                       <View style={{flex:0.60}}> 
                                           <TextInput
                                             placeholder="Enter Your vehicle owner name"
+                                            onChange = {this.changeownerNameEvent}
+                                            value = {this.state.ownerName}
                                             style={{borderBottomWidth:1,height:35,marginBottom:"2.5%",marginLeft:"5%",marginRight:"5%"}}
                                           /> 
                                       </View> 
@@ -299,11 +397,22 @@ export default class profilePageFourth extends React.Component {
                                       <View style={{flex:0.60}}>
                                       <TextInput
                                             placeholder="Enter Your vehicle owner contact No."
+                                            onChange = {this.changeownerContactNumberEvent}
+                                            value = {this.state.ownerContactNumber}
                                             style={{borderBottomWidth:1,height:35,marginBottom:"2.5%",marginLeft:"5%",marginRight:"5%"}}
                                           /> 
                                       </View>
                                     </View>   
-                       </View>          
+                       </View>    
+                       <View style={{flex:0.22,width:"100%",alignItems:"center"}}>
+                               <View style={{flex:1,alignItems:"center",height:"40%",width:"80%",marginBottom:"8%",justifyContent:"center"}}>
+                               <TouchableOpacity style={{borderRadius:50,height:"50%",marginBottom:"3%",width:"80%",backgroundColor:"#269DF9"}}
+                                                 onPress = {this.saveEvent}
+                               >
+                                      <Text style={{fontSize:35,marginBottom:"7%",alignSelf:"center",letterSpacing:4,color:"#fff"}}>Save</Text>
+                               </TouchableOpacity>                     
+                               </View>
+                       </View>      
                   </View>
           </ScrollView>
         </View>
