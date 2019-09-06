@@ -183,10 +183,10 @@ const styles = StyleSheet.create({
     flex:Platform.OS === 'ios' ? 0.10 : 0.05,
   },
   logoView: {
-    flex: Platform.OS === 'ios' ? 0.35 : 0.55,
+    flex: Platform.OS === 'ios' ? 0.52 : 0.55,
   },
   signUpView: {
-    flex:Platform.OS === 'ios' ? 0.55 : 0.40,
+    flex:Platform.OS === 'ios' ? 0.38 : 0.40,
     backgroundColor: "#12afe3",
     height: "100%",
     width: wp("92%"),
