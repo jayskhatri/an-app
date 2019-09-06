@@ -37,7 +37,7 @@ export default  class profilePageThird extends React.Component {
               </SafeAreaView>
         </View>
         <View style={styles.logoView}>
-        <Image style={{marginTop:"10%",width:wp('51%'),height:'60%'}} source={require('../../assets/bigAdminLogo.png')} />
+        <Image style={{marginTop:"18%",width:wp('55%'),height:hp('23%'),resizeMode:"contain"}} source={require('../../assets/bigAdminLogo.png')} />
         </View>
         <View style={styles.signUpView}>
             <View style={{backgroundColor:"#12afe3",borderTopRightRadius:10,borderTopLeftRadius:10,flex:0.12 }}>
@@ -115,13 +115,13 @@ const styles = StyleSheet.create({
         flex:1,
       },
       waveView:{
-        flex:0.10,
+        flex:Platform.OS === 'ios' ? 0.10 : 0.05,
         },
       logoView:{
-        flex:0.35,
+        flex: Platform.OS === 'ios' ? 0.35 : 0.40,
       },
       signUpView:{
-        flex:0.55,
+        flex:Platform.OS === 'ios' ? 0.55 : 0.55,
         backgroundColor:'#12afe3',
            height:"100%",
           width:wp('80%'),
