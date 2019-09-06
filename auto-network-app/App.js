@@ -1,6 +1,6 @@
 import React from 'react';
 import * as firebase from 'firebase';
-import Main from './components/Main';
+import Main from './components/navigation/Main';
 import { StyleSheet, Text, View } from 'react-native';
 
 const firebaseConfig = {

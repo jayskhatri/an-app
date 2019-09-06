@@ -1,23 +1,25 @@
 
 import React from "react";
-import mainScreen from './home/mainScreen';
-import signUp from './signup/SignUp';
+import mainScreen from '../home/mainScreen';
+import signUp from '../signup/SignUp';
 import { StyleSheet, Text, View, Easing, Animated , Image } from "react-native";
-import Login from "./login/Login";
-import ProfilePageOne from './profile/profilePageOne';
-import ProfilePageSecond from './profile/profilePageSecond';
-import ProfilePageThird from './profile/profilePageThird';
-import ProfilePageFourth from './profile/profilePgeFourth';
-import editProfile from '../components/profile/editProfile';
+import Login from "../login/Login";
+import ProfilePageOne from '../profile/profilePageOne';
+import ProfilePageSecond from '../profile/profilePageSecond';
+import ProfilePageThird from '../profile/profilePageThird';
+import ProfilePageFourth from '../profile/profilePgeFourth';
+import editProfile from '../profile/editProfile';
 import { createStackNavigator, createAppContainer } from "react-navigation";
-import Setting from './setting/setting';
+import Setting from '../setting/setting';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
-import checkUserStatus from './utils/checkUserStatus'
+import checkUserStatus from '../utils/checkUserStatus'
+import Header from '../header/header';
+import MainTabNavigation from '../navigation/MainTabNavigator';
 class Main extends React.Component {
   render() {
     return(
       <View>
-      <Image style={styles.container} source={require('../assets/icon.png')}></Image>
+      <Image style={styles.container} source={require('../../assets/icon.png')}></Image>
       </View>
     );
 
@@ -35,9 +37,16 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
+    MainTabNavigation:{
+      screen:MainTabNavigation
+    },
     editProfile:{
       screen:editProfile
     },
+    Header:{
+      screen:Header
+    },
+
     Setting:{
       screen:Setting
     },
@@ -69,7 +78,7 @@ const MainNavigation = createStackNavigator(
   },
   {
     
-      headerMode: "screen",
+      headerMode: "none",
   
       mode: "modal",
       defaultNavigationOptions: {

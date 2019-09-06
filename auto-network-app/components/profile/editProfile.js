@@ -1,4 +1,5 @@
 import React from "react";
+import Header from '../header/header';
 import {
   StyleSheet,
   Text,
@@ -25,6 +26,7 @@ import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import DatePicker from 'react-native-datepicker'
 import { ScrollView } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-navigation";
 // import console = require("console");s
 var options=[
     {label:"Male",value: 0},
@@ -39,7 +41,7 @@ var options=[
     {label:"Yes",value:0},
     {label:"No",value:1},
   ];
-export default class profilePageFourth extends React.Component {
+export default class editProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -138,6 +140,11 @@ export default class profilePageFourth extends React.Component {
               style={{ width: wp("100%"), height: hp("13%") }}
               source={require("../../assets/wawe.png")}
             ></Image>
+            {/* <SafeAreaView style={{backgroundColor:"#269DF9"}}>
+                <Text style={{alignSelf:"center",color:"#fff",fontSize:25,marginTop:Platform.OS === 'android' ? "4%" : "0%"}}>Edit Profile</Text>
+                <Header />
+            </SafeAreaView> */}
+            
           </View>
           <ScrollView style={styles.userInfo}>
                   <View  style={{flex:0.64,width:"100%"}}>
@@ -421,10 +428,10 @@ export default class profilePageFourth extends React.Component {
           
           <View style={styles.containerActivityIndicator}>
              <View style={styles.waveView}>
-               <Image
-                 style={{ width: wp("100%"), height: hp("13%") }}
-                 source={require("../../assets/wawe.png")}
-               ></Image>
+             <SafeAreaView style={{backgroundColor:"#269DF9"}}>
+                <Text style={{alignSelf:"center",color:"#fff",fontSize:25,marginTop:Platform.OS === 'android' ? "4%" : "0%"}}>Edit Profile</Text>
+                <Header />
+            </SafeAreaView>
               </View>
               <View style={styles.ActivityIndicator}>
                 <ActivityIndicator  size="large"   color="#269DF9" />
@@ -451,9 +458,9 @@ const styles = StyleSheet.create({
     flex: 1
   },
   waveView: {
-    flex: 0.14
+    flex: 0.20
   },
   userInfo: {
-        flex:0.86
+        flex:0.80
   }
 });

@@ -25,7 +25,7 @@ import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 
 var options = [{ label: "Yes", value: 0 }, { label: "No", value: 1 }];
-export default class profilePageFourth extends React.Component {
+export default class setting extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
