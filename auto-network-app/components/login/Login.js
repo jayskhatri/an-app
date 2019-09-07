@@ -1,10 +1,12 @@
 import React from 'react';
 import * as firebase from 'firebase';
-import { StyleSheet, View  , Text  , TextInput , TouchableOpacity , ImageBackground , Alert , Image , Dimensions} from 'react-native';
+import { StyleSheet, View  , Text  , TextInput , Platform , SafeAreaView, TouchableOpacity , ImageBackground , Alert , Image , Dimensions} from 'react-native';
 import {widthPercentageToDP  , heightPercentageToDP  } from 'react-native-responsive-screen';
 import { responsiveWidth , responsiveHeight , responsiveFontSize  } from 'react-native-responsive-dimensions';
 const { width , height } = Dimensions.get('window');
 import { createStackNavigator, createAppContainer } from "react-navigation";
+import LoginHeader from './loginheader';
+import Header from '../header/header';
 // import console = require('console');
 // import console = require('console');
 
@@ -74,60 +76,78 @@ signInEvent(e){
 
   render(){
   return (
-    <View style={styles.container}>
-      <View style={styles.textView}>
-          <Text style={styles.Text} >Sign in</Text>
+<View style={styles.container}>
+      <View style={styles.header}>
+          {/* <LoginHeader /> */}
+          <SafeAreaView style={{backgroundColor:"#269DF9"}}>
+                <Text style={styles.headerText}>Sign in</Text>
+                <Header />
+          </SafeAreaView>
+      </View>
+      <View style={styles.signInView} >
+         <Text style={styles.signInlableOne} >Email Id / Phone No.</Text>
+         <View style={styles.outterLookOfInputBox}>
+          <TextInput 
+             style={styles.signInTextInputOne}
+             placeholder="Enter Email "
+             placeholderTextColor="#988c8c"
+             fontSize={16}
+             onChange={this.handleSetEmail}
+         />
+         </View>
+         <Text style={styles.signInlableOne} >Password</Text>
+         <View style={styles.outterLookOfSecondInputBox}>
+          <TextInput 
+             style={styles.signInTextInputOne}
+             placeholder="Enter Password "
+             placeholderTextColor="#988c8c"
+              secureTextEntry
+             fontSize={16}
+             onChange={this.handleSetPassword}
+         />
+         </View>
+      </View>
+      <View style={styles.signInButtonView}>
+            <View style={{flex:1,alignItems:"center",justifyContent:"center"}}>
+               <TouchableOpacity style={styles.goAutoButtonCss} onPress={this.signInEvent}>
+                          <Text style={{alignSelf:"center",fontSize:25,color:"#fff"}}>Go Auto</Text>
+                </TouchableOpacity>  
+            </View>
+      </View>
+      <View style={styles.linkSignUpView}>
+          <View style={{flex:1,marginTop:Platform.OS === 'ios' ? "1%" : "0%"}}>
+                <TouchableOpacity>
+                    <Text style={{color:"#269DF9",alignSelf:"center"}}> Forgot Password ? </Text>
+                </TouchableOpacity>
+                <View style={{flexDirection:"row",marginTop:Platform.OS==='ios'?"5%":"3%",alignSelf:"center"}} >
+                    <Text> Not joined Yet ? </Text>
+                    <TouchableOpacity onPress={this.signUpEvent}>
+                        <Text style={{color:"#269DF9"}}> create Your account </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{flexDirection:"row",marginTop:Platform.OS==='ios'?"5%":"3%",alignSelf:"center"}} >
+                    <Text> Know Our  </Text>
+                    <TouchableOpacity>
+                        <Text style={{color:"#269DF9"}}> Privacy Policy and Terms & condition </Text>
+                    </TouchableOpacity>
+                </View>
+          </View>
+      </View>
+      <View style={styles.logoView} >
+          <View style={{flex:1,alignItems:"center",justifyContent:"center"}}>
+                <Image
+                    style={{
+                      height: "90%",
+                      width: "90%",
+                      marginLeft:"10%",marginBottom:"10%",marginRight:"10%",marginTop:"5%",
+                      resizeMode:"contain"
+                    }}
+                  source={require("../../assets/lastLogo.png")}
+                />
+          </View>
       </View>
       
-      
-      
-     <View style={styles.inputView}>
-     <Text style={styles.Text1} >Email Id / Phone No.</Text>
-     <TextInput 
-         placeholder="Enter Email "
-         placeholderTextColor="black"
-         style={styles.input}
-         fontSize={responsiveFontSize(2)}
-         onChange={this.handleSetEmail}
-         />
-
-      <Text style={styles.Text2} >Password</Text>
-      <TextInput 
-         placeholder="Enter Password"
-         placeholderTextColor="black"
-         fontSize={responsiveFontSize(2)}
-         style={styles.input}
-         secureTextEntry
-         onChange={this.handleSetPassword}
-         />
-
-      <TouchableOpacity style={styles.buttonContainer} onPress={this.signInEvent}>
-           <Text style={styles.buttonText}>Go Auto</Text>
-      </TouchableOpacity>
-
-     </View>
-
-<View style={styles.anotherLoginView}>
-        <Text style={{fontSize:responsiveFontSize(2),marginTop:'3%',textAlign:'center'}} > Sign In With </Text>            
-           <View style={styles.logoContainer}>
-               <TouchableOpacity onPress={this.googleLogin}>
-                 <ImageBackground style={styles.ImageContainer1} source={require('../../assets/google.png')} ></ImageBackground>
-               </TouchableOpacity>
-                 <ImageBackground style={styles.ImageContainer2} source={require('../../assets/Facebook.png')} ></ImageBackground>
-           </View>
-           <View style={{flexDirection:'row',marginLeft:'15%'}}>
-           <Text style={{fontSize:responsiveFontSize(2),marginTop:'2%'}}>Not Joiend Yet ?</Text>
-           <TouchableOpacity onPress={this.signUpEvent}> 
-             <Text style={styles.signUpButton}>Create Your Account</Text> 
-            </TouchableOpacity>
-           </View>
-           
 </View>
-<View style={styles.lastImageView}> 
-  {/* <Image style={styles.lastLogo} source={require('../../assets/lastLogo.png')} ></Image> */}
-</View>     
-      
-    </View>
   );
   }
 }
@@ -135,89 +155,75 @@ signInEvent(e){
 
 const styles = StyleSheet.create({
   container: {
-    flex:10
+    flex:1,
   },
-  textView:{flex:1,/*backgroundColor:'green'*/},
-  inputView:{flex:4,/*backgroundColor:'lightblue'*/},
-  anotherLoginView:{flex:2,/*backgroundColor:'orange'*/},
-  lastImageView:{flex:2,/*backgroundColor:'yellow'*/},
-  ImageContainer1:{
-    width:40,
-    height:40,
-    borderRadius:40/2,
-    // marginLeft : ( width * 0.1 ) + 8
-    marginLeft:'28%'
+  header:{
+    flex:0.20
   },
-  signUpButton:{
-    fontSize:responsiveFontSize(2),
-    textAlign:'center',
-    marginLeft:'3%',
-    marginTop:'5%'
-    ,color:'#54e0ff'
+  headerText:{
+    alignSelf:"center",
+    color:"#fff",
+    fontSize:25,
+    marginTop:Platform.OS === 'android' ? "4%" : "0%"
   },
-  ImageContainer2:{
-    width:40,
-    height:40,
-    borderRadius:40/2,
-    marginLeft:'3%'
+  signInView:{
+    flex:Platform.OS === 'ios' ? 0.18 : 0.23,
+    // backgroundColor:"red"
   },
-  lastLogo:{
-    width:widthPercentageToDP('100%'),
-    height:heightPercentageToDP('28%'),
-    marginLeft:'0%',
-    marginTop:'3%'
+  signInlableOne:{
+    flex:0.15,
+    fontSize:15,
+    marginTop:"4%",
+    marginLeft:"15.5%",
   },
-  logoContainer:{flexDirection:'row',marginLeft:'20%',marginTop:'2%'},
-  Text: {
-    fontSize :responsiveFontSize(4),
-    // marginTop : (height*0.1)-60,
-    // marginTop:20,
-    marginTop:'4%',
-    textAlign:'center'
+  outterLookOfInputBox:{
+    flex:0.35,
+    borderWidth:0.5,
+    marginLeft:"10%",
+    marginTop:"1%",
+    marginRight:"10%",
+    borderRadius:25
   },
-  Text1: {
-    fontSize:responsiveFontSize(2),
-    // marginTop: (height * 0.1)-50,
-   marginTop:'6%',
-   marginRight:'31%', 
-   textAlign:'center',
-    // marginRight : (width * 0.5)-78
-    // marginRight:115
+  outterLookOfSecondInputBox:{
+    flex:0.35,
+    borderWidth:0.5,
+    marginTop:"1%",
+    marginLeft:"10%",
+    marginRight:"10%",
+    borderRadius:25
   },
-  Text2:{
-    fontSize:responsiveFontSize(2),
-    // marginTop:(height * 0.1)-60,
-    textAlign:'center',
-    marginTop:'6%',
-    marginRight:'51%'
-    // marginRight : (width * 0.5)
-  },
-  input: {
-    // height:heightPercentageToDP('5%'),
-    // width:widthPercentageToDP('74%'),
-    height:'14%',
-    width:'74%',
-    padding:'3%',
-    marginTop:'3%',
-    opacity:0.5,
-    // marginTop: (height * 0.01)-2,
-    backgroundColor: '#c0d7ed',
+  signInTextInputOne:{
+    flex:1,
+    paddingLeft:"2%",
+    marginTop:"5%",
+    marginLeft:"5%",
+    marginBottom:"1.8%",
+    marginRight:"3%",
     borderRadius:15,
-    borderBottomWidth:2,
-    marginLeft:'12%'
-    // marginLeft : (width * 0.2)-30
-    },
-  buttonText:{fontSize:responsiveFontSize(2),textAlign:'center',color:'#FFFFFF'},
-  buttonContainer:{
-    // marginLeft: ( width *0.3 ),
-    marginLeft:'30%',
-    backgroundColor:'#2980b9',
-    marginTop:'5%',
-    // marginTop : (height*0.1)-50,
-    // paddingVertical:10,
-    paddingVertical:'3%',
-    width:responsiveWidth(40),
-    borderRadius:15,
+    borderBottomColor:"#988c8c",
+    borderBottomWidth:1,
   },
+  linkSignUpView:{
+    flex:Platform.OS === 'ios' ? 0.15 : 0.15,
+    // backgroundColor:"gray",
+    alignItems:"center",
+    justifyContent:"center"
+  },
+  logoView:{
+    flex:0.32,
+    // backgroundColor:"red",
+  },
+  signInButtonView:{
+    flex:0.15,
+    // backgroundColor:"gray"
+  },
+  goAutoButtonCss:{
+    width:"70%",
+    height:"30%",
+    borderRadius:25,
+    backgroundColor:"#269DF9",
+    alignItems:"center",
+    justifyContent:"center"
+  }
 
 });
