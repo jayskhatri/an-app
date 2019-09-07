@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, View  , Text  , TextInput , TouchableOpacity , ImageBackground , Image , Alert ,Dimensions} from 'react-native';
+import { StyleSheet, View  , Text  , TextInput , TouchableOpacity , Platform , Image , Alert ,SafeAreaView} from 'react-native';
 import {widthPercentageToDP  , heightPercentageToDP  } from 'react-native-responsive-screen';
 import { responsiveWidth , responsiveHeight , responsiveFontSize  } from 'react-native-responsive-dimensions';
 import * as firebase from 'firebase';
-// import console = require('console');
-// import console = require('console');
+import Header from '../header/header';
 export default class SignUp extends React.Component {
 
 constructor(){
@@ -18,23 +17,25 @@ constructor(){
   this.handleSetEmail = this.handleSetEmail.bind(this);
   this.handleConfirmPassword = this.handleConfirmPassword.bind(this);
   this.signUpEvent = this.signUpEvent.bind(this);
+  this.backEvent = this.backEvent.bind(this);
 }
 
  
   handleSetEmail(e){
     const text = e.nativeEvent.text;
     this.setState({email:text});
-    // console.log(this.state.email);
   }
   handleSetPassword(e){
     const text = e.nativeEvent.text;
     this.setState({password:text});
-    // console.log(this.state.password);
   }
   handleConfirmPassword(e){
     const text = e.nativeEvent.text;
     this.setState({confirmPassword:text});
-    // console.log(this.state.confirmPassword);
+  }
+  backEvent(e){
+    console.log("--");
+    this.props.navigation.navigate("Login");
   }
   signUpEvent(e){
 
@@ -66,6 +67,7 @@ constructor(){
    }
    else
    {
+    console.log('IN else'); 
     Alert.alert('Password Mismatch !!');
    }
 
@@ -73,58 +75,94 @@ constructor(){
   render(){
   return (
     <View style={styles.container}>
-        <View style={styles.textView}>
-           <Text style={styles.Text} >Sign Up</Text>
-        </View>
-        <View style={styles.signUpView}>
-                <Text style={styles.Text1} >Email Id / Phone No.</Text>
-                <TextInput 
-                      placeholder="Enter Email "
-                      placeholderTextColor="black"
-                      style={styles.input}
-                      fontSize={15}
-                      onChange={this.handleSetEmail}
+       <View style={styles.header}>
+          <SafeAreaView style={{backgroundColor:"#269DF9"}}>
+              <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
+              <View>
+              <TouchableOpacity onPress={this.backEvent} style={{width:70,height:30}}>
+                 <Image
+                         style={{
+                                height:30,
+                                width:70,
+                                marginLeft:"0%",
+                                marginTop:Platform.OS ==='ios' ? "1%" : "12%",
+                              }}
+                         source={require("../../assets/back1.png")}
+                         />
+                </TouchableOpacity>   
+                </View>                      
+                <Text style={styles.headerText}>Sign Up</Text>
+                <View></View>
+                </View>
+                <View>
+                   <Header />
+                </View>
+          </SafeAreaView>
+      </View>
+      <View style={styles.signInView} >
+         <Text style={styles.signInlableOne} >Email Id / Phone No.</Text>
+         <View style={styles.outterLookOfInputBox}>
+          <TextInput 
+             style={styles.signInTextInputOne}
+             placeholder="Enter Email "
+             placeholderTextColor="#988c8c"
+             fontSize={16}
+             onChange={this.handleSetEmail}
+         />
+         </View>
+         <Text style={styles.signInlableOne} >Password</Text>
+         <View style={styles.outterLookOfSecondInputBox}>
+          <TextInput 
+             style={styles.signInTextInputOne}
+             placeholder="Enter Password "
+             placeholderTextColor="#988c8c"
+              secureTextEntry
+             fontSize={16}
+             onChange={this.handleSetPassword}
+         />
+         </View>
+         <Text style={styles.signInlableOne} > Confirm Password</Text>
+         <View style={styles.outterLookOfSecondInputBox}>
+          <TextInput 
+             style={styles.signInTextInputOne}
+             placeholder="Enter Password "
+             placeholderTextColor="#988c8c"
+              secureTextEntry
+             fontSize={16}
+             onChange={this.handleConfirmPassword}
+         />
+         </View>
+      </View>
+      <View style={styles.signInButtonView}>
+            <View style={{flex:1,alignItems:"center",justifyContent:"center"}}>
+               <TouchableOpacity style={styles.goAutoButtonCss} onPress={this.signUpEvent}>
+                          <Text style={{alignSelf:"center",fontSize:25,color:"#fff"}}>Go Auto</Text>
+                </TouchableOpacity>  
+            </View>
+      </View>
+      <View style={styles.linkSignUpView}>
+          <View style={{flex:1,marginTop:Platform.OS === 'ios' ? "-3%" : "-9%"}}>
+                <View style={{flexDirection:"row",marginTop:Platform.OS==='ios'?"0%":"3%",alignSelf:"center"}} >
+                    <Text> Know Our  </Text>
+                    <TouchableOpacity>
+                        <Text style={{color:"#269DF9"}}> Privacy Policy and Terms & condition </Text>
+                    </TouchableOpacity>
+                </View>
+          </View>
+      </View>
+      <View style={styles.logoView} >
+          <View style={{flex:1,alignItems:"center",justifyContent:"center"}}>
+                <Image
+                    style={{
+                      height: "90%",
+                      width: "90%",
+                      marginLeft:"10%",marginBottom:"10%",marginRight:"10%",marginTop:"5%",
+                      resizeMode:"contain"
+                    }}
+                  source={require("../../assets/lastLogo.png")}
                 />
-                <Text style={styles.Text2} >Password</Text>
-                <TextInput 
-                      placeholder="Enter Password"
-                      placeholderTextColor="black"
-                      fontSize={15}
-                      style={styles.input}
-                      secureTextEntry
-                      onChange={this.handleSetPassword}
-                />
-                <Text style={styles.Text3} >Confirm Password</Text>
-                <TextInput 
-                      placeholder="Enter Password"
-                      placeholderTextColor="black"
-                      fontSize={15}
-                      style={styles.input}
-                      secureTextEntry
-                      onChange={this.handleConfirmPassword}
-                />
-                <TouchableOpacity style={styles.buttonContainer} onPress={this.signUpEvent}>
-                    <Text style={styles.buttonText}>Go Auto</Text>
-                </TouchableOpacity>
-        </View>
-        <View style={styles.anotherLoginView} >
-               <Text style={{fontSize:responsiveFontSize(2),marginTop:'3%',textAlign:'center'}} > Sign Up With </Text>
-               <View style={styles.logoContainer}>
-                   <TouchableOpacity onPress={this.googleLogin}>
-                      <ImageBackground style={styles.ImageContainer1} source={require('../../assets/google.png')} ></ImageBackground>
-                   </TouchableOpacity>
-                      <ImageBackground style={styles.ImageContainer2} source={require('../../assets/Facebook.png')} ></ImageBackground>
-              </View>
-              <View style={{flexDirection:'row',marginLeft:'4%'}}>
-                 <Text style={{fontSize:responsiveFontSize(2),marginTop:'2%'}}>Know Our </Text>
-                 <TouchableOpacity> 
-                      <Text style={styles.signUpButton}>Privacy Policy and Terms & condition</Text> 
-                 </TouchableOpacity>
-              </View>
-        </View>
-        <View style={styles.lastImageView}> 
-            {/* <Image style={styles.lastLogo} source={require('../../assets/lastLogo.png')} ></Image> */}
-        </View>  
+          </View>
+      </View>
     </View>
   );
   }
@@ -133,79 +171,77 @@ constructor(){
 
 const styles = StyleSheet.create({
     
-    container: { flex:12 },
-textView:{flex:1,/*backgroundColor:'green'*/},
-signUpView:{flex:6,/*backgroundColor:'yellow'*/},
-    anotherLoginView:{flex:2,/*backgroundColor:'orange'*/},
-    lastImageView:{flex:3,/*backgroundColor:'yellow',*/},
-    Text: {
-        fontSize :responsiveFontSize(4),
-        marginTop:'4%',
-        textAlign:'center'
-      },
-      Text1: {
-       fontSize:responsiveFontSize(2),
-       marginTop:'6%',
-       marginRight:'31%', 
-       textAlign:'center',
-      },
-      Text2:{
-        fontSize:responsiveFontSize(2),
-        textAlign:'center',
-        marginTop:'6%',
-        marginRight:'51%'
-      },
-      Text3:{
-        fontSize:responsiveFontSize(2),
-        textAlign:'center',
-        marginTop:'6%',
-        marginRight:'35%'
-      },
-      input: {
-        height:heightPercentageToDP('5%'),
-        width:widthPercentageToDP('74%'),
-        opacity:0.5,
-        padding:'3%',
-        marginTop:'3%',
-        backgroundColor: '#c0d7ed',
-        borderRadius:15,
-        borderBottomWidth:2,
-        marginLeft:'12%'
-        },
-        buttonText:{fontSize:responsiveFontSize(2),textAlign:'center',color:'#FFFFFF'},
-        buttonContainer:{
-          marginLeft:'30%',
-          backgroundColor:'#2980b9',
-          marginTop:'5%',
-          paddingVertical:'3%',
-          width:responsiveWidth(40),
-          borderRadius:15,
-        },
-        logoContainer:{flexDirection:'row',marginLeft:'20%',marginTop:'2%'},
-        ImageContainer2:{
-            width:responsiveWidth(11),
-            height:responsiveHeight(5),
-            borderRadius:50/2,
-            marginLeft:'3%'
-          },
-        ImageContainer1:{
-            width:responsiveWidth(11),
-            height:responsiveHeight(5),
-            borderRadius:50/2,
-            marginLeft:'30%'
-          },  
-          lastLogo:{
-            width:widthPercentageToDP('100%'),
-            height:heightPercentageToDP('28%'),
-            marginLeft:'0%',
-            marginTop:'3%'
-          },
-          signUpButton:{
-            fontSize:responsiveFontSize(2),
-            textAlign:'center',
-            marginLeft:'1%',
-            marginTop:'3%'
-            ,color:'#54e0ff'
-          },
+  container: {
+    flex:1,
+  },
+  header:{
+    flex:0.20,
+  },
+  headerText:{
+    alignSelf:"center",
+    color:"#fff",
+    fontSize:25,
+    marginRight:"10%",
+    marginTop:Platform.OS === 'android' ? "4%" : "0%"
+  },
+  signInView:{
+    flex:Platform.OS === 'ios' ? 0.28 : 0.33,
+    // backgroundColor:"red"
+  },
+  signInlableOne:{
+    flex:0.15,
+    fontSize:15,
+    marginTop:"4%",
+    marginLeft:"15.5%",
+  },
+  outterLookOfInputBox:{
+    flex:0.35,
+    borderWidth:0.5,
+    marginLeft:"10%",
+    marginTop:"1%",
+    marginRight:"10%",
+    borderRadius:25
+  },
+  outterLookOfSecondInputBox:{
+    flex:0.35,
+    borderWidth:0.5,
+    marginTop:"1%",
+    marginLeft:"10%",
+    marginRight:"10%",
+    borderRadius:25
+  },
+  signInTextInputOne:{
+    flex:1,
+    paddingLeft:"2%",
+    marginTop:"5%",
+    marginLeft:"5%",
+    marginBottom:"1.8%",
+    marginRight:"3%",
+    borderRadius:15,
+    borderBottomColor:"#988c8c",
+    borderBottomWidth:1,
+  },
+  linkSignUpView:{
+    flex:Platform.OS === 'ios' ? 0.05 : 0.01,
+    // backgroundColor:"gray",
+    alignItems:"center",
+    justifyContent:"center"
+  },
+  logoView:{
+    flex:0.29,
+    // backgroundColor:"red",
+  },
+  signInButtonView:{
+    flex:Platform.OS === 'ios' ? 0.15 : 0.17,
+    // backgroundColor:"lightblue"
+  },
+  goAutoButtonCss:{
+    width:"70%",
+    height:"30%",
+    borderRadius:25,
+    backgroundColor:"#269DF9",
+    alignItems:"center",
+    justifyContent:"center"
+  }
       
 });

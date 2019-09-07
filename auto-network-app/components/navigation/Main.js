@@ -37,6 +37,9 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
+    signUp: {
+      screen: signUp
+    },
     Login: {
       screen: Login
     },
@@ -66,12 +69,6 @@ const MainNavigation = createStackNavigator(
     },
     ProfilePageFourth:{
       screen:ProfilePageFourth
-    },
-    Login: {
-      screen: Login
-    },
-    signUp: {
-      screen: signUp
     },
     mainScreen: {
       screen: mainScreen
