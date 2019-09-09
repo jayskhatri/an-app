@@ -62,6 +62,7 @@ signInEvent(e){
    else 
     {
       // No user is signed in.
+    
       Alert.alert("Invalid Username or password");
     }
   }.bind(this));
@@ -69,7 +70,8 @@ signInEvent(e){
   }.bind(this))
 
   .catch(function(error){
-    // console.log(error);
+    Alert.alert(" Please Create Your Account ..");
+    console.log(error);
   });
   
  }

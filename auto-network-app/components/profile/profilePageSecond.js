@@ -49,9 +49,8 @@ export default  class profilePageSecond extends React.Component {
                   <Header />
               </SafeAreaView>
         </View>
-        
         <View style={styles.logoView}>
-        <Image style={{marginTop:"18%",width:wp('55%'),height:hp('23%'),resizeMode:"contain"}} source={require('../../assets/bigAdminLogo.png')} />
+        <Image style={{marginTop:Platform.OS === 'ios' ? "25%" : "30%",width:wp('55%'),height:hp('23%'),resizeMode:"contain"}} source={require('../../assets/bigAdminLogo.png')} />
         </View>
         <View style={styles.signUpView}>
             <View style={{backgroundColor:"#12afe3",borderTopRightRadius:10,borderTopLeftRadius:10,flex:0.15 }}>
@@ -105,11 +104,11 @@ export default  class profilePageSecond extends React.Component {
                            />
                 </View>
               </View>
-              <View style={{flex:0.10,backgroundColor:"#12afe3",flexDirection:"row"}}>
-                     <TouchableOpacity style={{marginTop:"3%",marginLeft:"5%"}} onPress={this.previousEvent}>
+              <View style={{flex:0.10,padding:"5%",backgroundColor:"#12afe3",borderBottomLeftRadius:15,borderBottomRightRadius:15,flexDirection:"row"}}>
+                     <TouchableOpacity style={{marginTop:"2%",marginLeft:"5%"}} onPress={this.previousEvent}>
                           <Text style={{fontSize:18}}>Go Back</Text>
                      </TouchableOpacity>
-                     <TouchableOpacity style={{marginTop:"3%",marginLeft:"56%"}} onPress={this.nextEvent} >
+                     <TouchableOpacity style={{marginTop:"2%",marginLeft:"56%"}} onPress={this.nextEvent} >
                            <Text style={{fontSize:18}}>Next</Text>
                      </TouchableOpacity>
               </View>
@@ -127,15 +126,19 @@ const styles = StyleSheet.create({
         flex:Platform.OS === 'ios' ? 0.10 : 0.05,
         },
       logoView:{
-        flex: Platform.OS === 'ios' ? 0.35 : 0.40,
+        flex: Platform.OS === 'ios' ? 0.45 : 0.50,
       },
       signUpView:{
-        flex:Platform.OS === 'ios' ? 0.55 : 0.55,
-        backgroundColor:'#12afe3',
-           height:"100%",
+        flex:Platform.OS === 'ios' ? 0.45 : 0.45,
+        // backgroundColor:'#12afe3',
+           backgroundColor:"#fff",
+           height:"80%",
            width:wp('80%'),
-           margin:"3%",
-           marginBottom:"5%",
+          //  margin:"3%",
+           marginLeft:"3%",
+           marginRight:"3%",
+           marginTop:"1%",
+           marginBottom:"3%",
            borderRadius:15,
       },
 });

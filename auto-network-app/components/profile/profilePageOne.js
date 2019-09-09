@@ -145,11 +145,11 @@ export default  class profilePageOne extends React.Component {
                      />
                 </View>
               </View>
-              <View style={{flex:0.07,backgroundColor:"#12afe3",flexDirection:"row"}}>
-                     <TouchableOpacity style={{marginTop:"4%",marginLeft:"5%"}}>
+              <View style={{flex:0.07,backgroundColor:"#12afe3",paddingBottom:"1%",flexDirection:"row"}}>
+                     <TouchableOpacity style={{marginTop:"3%",marginLeft:"5%",paddingBottom:"5%"}}>
                           <Text style={{fontSize:18}}>Go Back</Text>
                      </TouchableOpacity>
-                     <TouchableOpacity style={{marginTop:"4%",marginLeft:"56%"}} onPress={this.nextEvent} >
+                     <TouchableOpacity style={{marginTop:"3%",marginLeft:"56%",paddingBottom:"5%"}} onPress={this.nextEvent} >
                            <Text style={{fontSize:18}}>Next</Text>
                      </TouchableOpacity>
               </View>
@@ -173,6 +173,7 @@ const styles = StyleSheet.create({
       signUpView:{
         flex:Platform.OS === 'ios' ? 0.55 : 0.55,
         backgroundColor:'#12afe3',
+        // backgroundColor:"red",
            height:"100%",
           width:wp('80%'),
            marginLeft:"3%",
