@@ -15,6 +15,7 @@ import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import checkUserStatus from '../utils/checkUserStatus'
 import Header from '../header/header';
 import MainTabNavigation from '../navigation/MainTabNavigator';
+import BookingPageOne from '../bookingSection/bookingPage1';
 class Main extends React.Component {
   render() {
     return(
@@ -37,9 +38,21 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
+
+    BookingPageOne : {
+      screen : BookingPageOne
+    },
     Login: {
       screen: Login
     },
+    editProfile:{
+      screen:editProfile
+    },
+    MainTabNavigation:{
+      screen:MainTabNavigation
+    },
+
+
     ProfilePageSecond:{
       screen:ProfilePageSecond
     },
@@ -49,12 +62,7 @@ const MainNavigation = createStackNavigator(
     signUp: {
       screen: signUp
     },
-    MainTabNavigation:{
-      screen:MainTabNavigation
-    },
-    editProfile:{
-      screen:editProfile
-    },
+
     Header:{
       screen:Header
     },
@@ -67,9 +75,7 @@ const MainNavigation = createStackNavigator(
     ProfilePageThird:{
       screen:ProfilePageThird
     },
-    ProfilePageFourth:{
-      screen:ProfilePageFourth
-    },
+
     mainScreen: {
       screen: mainScreen
     },
