@@ -97,6 +97,9 @@ export default  class profilePageSecond extends React.Component {
                 ></Image>
             </View>
             <View style={styles.mapView}>
+                <View style={styles.mapTextView}> 
+                    <Text style={styles.mapTextCss}> find your destination on map </Text> 
+                </View>
                 <View style={styles.mapViewBorder}>
                     {/* Map code */}
                 </View>
@@ -240,11 +243,27 @@ const styles = StyleSheet.create({
           backgroundColor:"#fff"
       },
       mapViewBorder:{
-        marginTop:"3%",
+        flex:0.90,
+        marginTop:"1%",
         width:"100%",
         height:"100%",
         borderTopLeftRadius:40,
         borderTopRightRadius:40,
         backgroundColor:"lightblue"
+      },
+      mapTextView:{
+        flex:0.10,
+        marginLeft:"25%",
+        marginRight:"25%",
+        alignItems:"center",
+        justifyContent:"center",
+        borderBottomColor:"#bbbbbb",
+        borderBottomWidth:0.5,
+
+      },
+      mapTextCss:{
+        position:"absolute",
+        bottom:0,
+        color:"#bbbbbb",
       }
 });
