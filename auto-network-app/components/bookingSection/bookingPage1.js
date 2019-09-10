@@ -49,7 +49,7 @@ export default  class profilePageSecond extends React.Component {
                              /> 
                       </View>
                       <View style={styles.inputView}>
-                         <View style={{flex:0.46,/*backgroundColor:"green"*/}}>
+                         <View style={{flex:0.50,/*backgroundColor:"green"*/}}>
                               <View style={styles.outterLookOfInputBox}>
                                   <TextInput 
                                     style={styles.signInTextInputOne}
@@ -59,11 +59,9 @@ export default  class profilePageSecond extends React.Component {
                                     onChange={this.handleSetEmail}
                                   />
                                   </View>
+                                  <Text style={styles.textCss}>choose current location</Text>
                          </View>
-                         <View style={styles.textView}>
-                              <Text style={styles.textCss}>choose current location</Text>
-                         </View>
-                         <View style={{flex:0.46,/*backgroundColor:"green"*/}}>
+                         <View style={{flex:0.50,/*backgroundColor:"green"*/}}>
                               <View style={styles.outterLookOfInputBoxSecond}>
                                   <TextInput 
                                     style={styles.signInTextInputOne}
@@ -73,6 +71,7 @@ export default  class profilePageSecond extends React.Component {
                                     onChange={this.handleSetEmail}
                                   />
                                   </View>
+                                 
                          </View>
                       </View>
                       <View style={styles.sourceDestinationSwapIcon}>
@@ -138,7 +137,7 @@ const styles = StyleSheet.create({
       enterSourceDestinationView:{
         flex:Platform.OS === 'ios' ? 0.40 : 0.42,
         backgroundColor:"#269DF9",
-        // backgroundColor:"red"
+        paddingTop : "2%",
       },
       sourceDestinationInputView:{
         // backgroundColor:"blue",
@@ -175,27 +174,24 @@ const styles = StyleSheet.create({
         height:"30%",
         marginTop:Platform.OS === 'ios' ? "28%" : "23%" ,
         borderRadius:25,
-        borderColor:"#fff"
+        borderColor:"#fff",
+
       },
       signInTextInputOne:{
         paddingLeft:"2%",
+        width:"95%",
         marginLeft:"3%",
         marginRight:"3%",
-        marginTop:Platform.OS === 'ios' ? "6%" : "2.5%",
+        position:"absolute",
+        bottom:6,
         borderRadius:15,
         borderBottomColor:"#988c8c",
         borderBottomWidth:1,
       },
-      textView:{
-        flex:0.08,
-        alignItems:"center",
-        justifyContent:"center"
-      },
       textCss:{
         alignSelf:"center",
-        marginTop:Platform.OS === 'ios' ? "-14.5%" : "-17%",
         color:"#fff",
-        fontSize:12
+        fontSize:10
       },
       outterLookOfInputBoxSecond:{
         borderWidth:0.5,
@@ -231,16 +227,16 @@ const styles = StyleSheet.create({
         fontSize:20
       },
       waveView:{
-        flex:0.10,
+        flex:Platform.OS === 'ios' ? 0.10 : 0.11,
       },
       waveImageCss:{
         width: wp("100%"), 
         height: hp("13%"),
-        marginTop:Platform.OS === 'ios' ? "-6%" : "-4%",
+        marginTop:Platform.OS === 'ios' ? "-6%" : "-3%",
         resizeMode:"contain" 
       },
       mapView:{
-          flex : 0.40 ,
+          flex : Platform.OS === 'ios' ? 0.40 : 0.39 ,
           backgroundColor:"#fff"
       },
       mapViewBorder:{
