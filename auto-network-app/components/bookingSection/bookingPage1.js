@@ -11,7 +11,24 @@ export default  class profilePageSecond extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
+        source:"",
+        destination:"",
       }
+      this.handleSetSource = this.handleSetSource.bind(this);
+      this.handleSetDestination = this.handleSetDestination.bind(this);
+      this.nextEvent = this.nextEvent.bind(this);
+
+    }
+    handleSetSource(e){
+      const temp = e.nativeEvent.text;
+      this.setState({source:temp});
+    }
+    handleSetDestination(e){
+      const temp = e.nativeEvent.text;
+      this.setState({destination:temp});
+    }
+    nextEvent(e){
+      this.props.navigation.navigate("BookingPageSecond");
     }
   render() {
     return(
@@ -56,7 +73,8 @@ export default  class profilePageSecond extends React.Component {
                                     placeholder="choose starting point, or click on the map  "
                                     placeholderTextColor="#fff"
                                     fontSize={14}
-                                    onChange={this.handleSetEmail}
+                                    value = {this.state.source}
+                                    onChange={this.handleSetSource}
                                   />
                                   </View>
                                   <Text style={styles.textCss}>choose current location</Text>
@@ -68,7 +86,8 @@ export default  class profilePageSecond extends React.Component {
                                     placeholder="choose destination "
                                     placeholderTextColor="#fff"
                                     fontSize={14}
-                                    onChange={this.handleSetEmail}
+                                    value = {this.state.destination}
+                                    onChange={this.handleSetDestination}
                                   />
                                   </View>
                                  
@@ -85,7 +104,7 @@ export default  class profilePageSecond extends React.Component {
 
                </View>
                 <View style={styles.nextButtonView}>
-                    <TouchableOpacity style={styles.nextButtonCss}>
+                    <TouchableOpacity style={styles.nextButtonCss} onPress={this.nextEvent}>
                         <Text  style={styles.nextButtonTextCss} > next </Text>
                     </TouchableOpacity>
                 </View>
