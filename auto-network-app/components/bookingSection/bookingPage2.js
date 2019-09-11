@@ -6,6 +6,7 @@ import RadioForm,{RadioButton,RadioButtonInput,RadioButtonLabel} from "react-nat
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Header from '../header/header';
 import firebase from 'firebase';
+import DatePicker from 'react-native-datepicker'
 
 export default  class profilePageSecond extends React.Component {
     constructor(props) {
@@ -48,9 +49,7 @@ export default  class profilePageSecond extends React.Component {
                              /> 
                       </View>
                       <View style={styles.S_D_input_view}>
-
                             <View style={styles.s_input_view}>
-                            
                                   <View style={styles.outter_view_s_input}>
                                         <TextInput 
                                             style={styles.signInTextInputOne}
@@ -80,18 +79,66 @@ export default  class profilePageSecond extends React.Component {
                 <View style={styles.Input_Date_Time_view}>
                     <View style={styles.outter_view_Input_Date_Time}>
                         <View style={ styles.header_view_D_T}>
-                            <View>
+                            <View style={styles.header_DT_logo_view}>
                                 <Image 
                                         style={styles.date_time_Image} 
                                         source={require("../../assets/ccalender_and_clock_icon.png")} 
                                     />
                             </View>
-                            <View >
+                            <View style={styles.header_DT_text_view}>
                                <Text style={styles.header_D_T_text}>Enter Journey Date And Time</Text>
                             </View>
-                            <View>
-                                {/* <Text>4</Text> */}
+                        </View>
+                        <View style={styles.enter_Date_Time_View}>
+                          <View style={{flex:0.60/*,backgroundColor:"red"*/}}>
+                              <DatePicker
+                                      style={{width:wp('50%')}}
+                                      date={this.state.birthdate}
+                                      // onChange = {this.changeBirthDateEvent} 
+                                      mode="date"
+                                      placeholder="Enter date (dd/mm/yy)"
+                                      placeholderTextColor="yellow"
+                                      format="DD-MM-YY"
+                                      confirmBtnText="Confirm"
+                                      cancelBtnText="Cancel"
+                                      customStyles={{
+                                                  dateIcon: {
+                                                            width:wp('6%'),
+                                                            position: 'absolute',
+                                                            left: 0,
+                                                            top: 22,
+                                                            // backgroundColor:"yellow",
+                                                            marginLeft:'1%',
+                                                            resizeMode:"contain"
+                                                            },
+                                                  dateInput: {
+                                                            width:"100%",
+                                                            marginLeft:"4%",
+                                                            borderWidth:0,
+                                                            color:"black",
+                                                            position: 'absolute',
+                                                            left: 0,
+                                                            top: 22,
+                                                            // width:""
+                                                            // backgroundColor:"red"
+                                                            // borderBottomWidth:0.5,
+                                                              }
+                                                      }}
+                                                    onDateChange={(date) => this.setState({birthdate:date})}                                                
+                              />
                             </View>
+                            <View style={{flex:0.40,flexDirection:"row",marginLeft:"5%"}}>
+                               <TouchableOpacity >
+                                 <Text style={styles.date_today_today}>Today</Text>
+                               </TouchableOpacity>
+                               <Text style={{position:"absolute",bottom:3,marginLeft:"33%",color:"#fff"}}> | </Text>
+                               <TouchableOpacity style={{        marginLeft:"42%",}}>
+                                 <Text style={styles.date_today_tomorrow}>Tomorrow</Text>
+                               </TouchableOpacity>
+                            </View>
+                        </View>
+                        <View style={styles.enter_Date_Time_View}>
+                            
                         </View>
                     </View>
                 </View> 
@@ -198,35 +245,80 @@ const styles = StyleSheet.create({
       outter_view_Input_Date_Time:{
           width:"90%",
           height:"85%",
-          backgroundColor:"#fff",
+          backgroundColor:"lightblue",
           borderRadius:25
       },
       header_view_D_T:{
          flex:0.25,
-         backgroundColor:"#269DF9", 
+         backgroundColor:"lightblue", 
         flexDirection:"row",
         borderTopLeftRadius:15,
         borderTopRightRadius:15,
         justifyContent:"space-between",
       },
       date_time_Image:{
-            height:40,
-            width:40 ,
-            marginLeft:"6%",
-            marginTop:"6%",
+            height:45,
+            width:45 ,
+            // marginLeft:"6%",
+            // marginTop:"6%",
+            position:"absolute",
+            left:4,
+            top:4,
             resizeMode:"contain",
             backgroundColor:"#269DF9",
-            borderRadius:10
+            borderRadius:10,
+      },
+      header_DT_logo_view:{
+        flex:0.15,
+        // backgroundColor:"green"
+      },
+      header_DT_text_view:{
+        flex:0.85,
+        alignItems:"center",
+        justifyContent:"center",
+        borderBottomWidth:2,
+        borderBottomColor:"#fff",
+        marginLeft:"2%",
+        marginRight:"2%"
+        // backgroundColor:"red"
       },
       header_D_T_text:{
         alignSelf:"center",
-        color:"#fff",
+        color:"#000",
         fontSize:20,
+        // position:"absolute",
+        // bottom:15
+        // backgroundColor:"red"
+      },
+      enter_Date_Time_View:{
+        flex:0.30,
+        marginTop:"2%",
+        marginLeft:"10%",
+        marginRight:"5%",
+        borderBottomWidth:1.5,
+        borderBottomColor:"#fff",
+        flexDirection:"row"
+      },
+      // enterTimeView:{
+      //   flex:0.30,
+      //   marginTop:"2%",
+      //   marginLeft:"10%",
+      //   borderBottomWidth:1.5,
+      //   borderBottomColor:"#fff",
+      //   marginRight:"5%",
+      // },
+      date_today_tomorrow:{
+        color:"#fff",
         position:"absolute",
-        left:-150,
-        top:10
+        bottom:3,
 
+      },
+      date_today_today:{
+        position:"absolute",
+        bottom:3,
+        color:"#fff"
       }
+
     
 
 });
