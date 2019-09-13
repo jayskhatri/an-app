@@ -17,6 +17,42 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
+import RNFetchBlob from 'rn-fetch-blob'
+
+const storage=firebase.storage();
+const Blob = RNFetchBlob.polyfill.Blob
+const fs = RNFetchBlob.fs
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
+
+const uploadImage = (uri, mime = 'application/octet-stream') => {
+  return new Promise((resolve, reject) => {
+    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
+      const sessionId = new Date().getTime()
+      let uploadBlob = null
+      const imageRef = storage.ref('images').child(`${sessionId}`)
+
+      fs.readFile(uploadUri, 'base64')
+      .then((data) => {
+        return Blob.build(data, { type: `${mime};BASE64` })
+      })
+      .then((blob) => {
+        uploadBlob = blob
+        return imageRef.put(blob, { contentType: mime })
+      })
+      .then(() => {
+        uploadBlob.close()
+        return imageRef.getDownloadURL()
+      })
+      .then((url) => {
+        resolve(url)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
+
 var options = [{ label: "Yes", value: 0 }, { label: "No", value: 1 }];
 export default class profilePageFourth extends React.Component {
   constructor(props) {
@@ -28,6 +64,8 @@ export default class profilePageFourth extends React.Component {
     };
     this.skipEvent = this.skipEvent.bind(this);
     this.nextEvent = this.nextEvent.bind(this);
+    this.uriToBlob = this.uriToBlob.bind(this);
+
   }
   componentWillMount(){
     let storageRef = firebase.storage().ref();
@@ -68,6 +106,10 @@ export default class profilePageFourth extends React.Component {
     
     this.props.navigation.navigate('mainScreen');
   }
+ 
+
+
+
   skipEvent(e){
     
     const {navigation} = this.props;
@@ -89,7 +131,7 @@ export default class profilePageFourth extends React.Component {
     this.props.navigation.navigate('mainScreen');
   }
   nextEvent(e){
-    this.submitDetails();
+    this. uploadImage(this.state.image);
   }
 
   render() {
@@ -181,18 +223,24 @@ export default class profilePageFourth extends React.Component {
   };
 
   _pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 4]
+    // let result = await ImagePicker.launchImageLibraryAsync({
+    //   mediaTypes: ImagePicker.MediaTypeOptions.All,
+    //   allowsEditing: true,
+    //   aspect: [4, 4]
+    this.setState({ image: '' })
+
+    ImagePicker.launchImageLibrary({}, response  => {
+      uploadImage(response.uri)
+        .then(url => this.setState({ image: url }))
+        .catch(error => console.log(error))
     });
 
-    console.log(result);
+    // console.log(result);
 
-    if (!result.cancelled) {
-      this.setState({ isPicLoaded: false });
-      this.setState({ image: result.uri });
-    }
+    // if (!result.cancelled) {
+    //   this.setState({ isPicLoaded: false });
+    //   this.setState({ image: result.uri });
+    //  }
   };
 }
 const styles = StyleSheet.create({
