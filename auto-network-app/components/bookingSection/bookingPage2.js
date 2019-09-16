@@ -80,13 +80,16 @@ export default  class profilePageSecond extends React.Component {
                     <View style={styles.outter_view_Input_Date_Time}>
                         <View style={ styles.header_view_D_T}>
                             <View style={styles.header_DT_logo_view}>
-                                <Image 
-                                        style={styles.date_time_Image} 
-                                        source={require("../../assets/ccalender_and_clock_icon.png")} 
-                                    />
+                              <View style={styles.outterViewOfDtIcon}>
+                                  <Image 
+                                            style={styles.date_time_Image} 
+                                            source={require("../../assets/ccalender_and_clock_icon.png")} 
+                                        />
+                              </View>
+                               
                             </View>
                             <View style={styles.header_DT_text_view}>
-                               <Text style={styles.header_D_T_text}>Enter Journey Date And Time</Text>
+                               <Text style={styles.header_D_T_text}>Journey Date And Time</Text>
                             </View>
                         </View>
                         <View style={styles.enter_Date_Time_View}>
@@ -103,13 +106,13 @@ export default  class profilePageSecond extends React.Component {
                                       cancelBtnText="Cancel"
                                       customStyles={{
                                                   dateIcon: {
-                                                            width:wp('6%'),
-                                                            position: 'absolute',
-                                                            left: 0,
-                                                            top: 22,
-                                                            // backgroundColor:"yellow",
-                                                            marginLeft:'1%',
-                                                            resizeMode:"contain"
+                                                            width:wp('0%'),
+                                                            // position: 'absolute',
+                                                            // left: 0,
+                                                            // top: 20,
+                                                            backgroundColor:"yellow",
+                                                            // marginLeft:'1%',
+                                                            // resizeMode:"contain"
                                                             },
                                                   dateInput: {
                                                             width:"100%",
@@ -119,9 +122,6 @@ export default  class profilePageSecond extends React.Component {
                                                             position: 'absolute',
                                                             left: 0,
                                                             top: 22,
-                                                            // width:""
-                                                            // backgroundColor:"red"
-                                                            // borderBottomWidth:0.5,
                                                               }
                                                       }}
                                                     onDateChange={(date) => this.setState({birthdate:date})}                                                
@@ -245,6 +245,7 @@ const styles = StyleSheet.create({
       outter_view_Input_Date_Time:{
           width:"90%",
           height:"85%",
+          padding:"2%",
           backgroundColor:"lightblue",
           borderRadius:25
       },
@@ -257,20 +258,27 @@ const styles = StyleSheet.create({
         justifyContent:"space-between",
       },
       date_time_Image:{
-            height:45,
-            width:45 ,
+            height:30   ,
+            width:30 ,
             // marginLeft:"6%",
             // marginTop:"6%",
-            position:"absolute",
-            left:4,
-            top:4,
+            alignSelf:"center",
+            // position:"absolute",
+            // left:4,
+            // top:4,
             resizeMode:"contain",
-            backgroundColor:"#269DF9",
-            borderRadius:10,
+            // borderRadius:10,
       },
       header_DT_logo_view:{
         flex:0.15,
-        // backgroundColor:"green"
+        alignItems:"center",
+        justifyContent:"center",
+      },
+      outterViewOfDtIcon:{
+        width:40,
+        padding:"5%",
+        backgroundColor:"#269DF9",
+        borderRadius:10,
       },
       header_DT_text_view:{
         flex:0.85,
