@@ -1,6 +1,6 @@
 
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView , Platform , Image ,TextInput,TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView , Platform , Image ,TextInput,TouchableOpacity,Switch } from "react-native";
 import OptionsMenu from "react-native-options-menu";
 import RadioForm,{RadioButton,RadioButtonInput,RadioButtonLabel} from "react-native-simple-radio-button";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -12,6 +12,15 @@ export default  class profilePageSecond extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
+        switchValue:false
+      }
+      this.toggleSwitch = this.toggleSwitch.bind(this);
+    }
+    toggleSwitch(e){
+      if(this.state.switchValue == true){
+        this.setState({switchValue:false});
+      }else{
+        this.setState({switchValue:true});
       }
     }
   render() {
@@ -138,12 +147,96 @@ export default  class profilePageSecond extends React.Component {
                             </View>
                         </View>
                         <View style={styles.enter_Date_Time_View}>
+                            <View style={styles.timeInputView}>
+
+                            </View>
+                        </View>
+                    </View>
+                </View> 
+                <View style={styles.Input_Date_Time_view}>
+                    <View style={styles.outter_view_Input_Date_Time}>
+                        <View style={ styles.header_view_D_T}>
+                            <View style={styles.header_DT_logo_view}>
+                              <View style={styles.outterViewOfDtIcon}>
+                                  <Image 
+                                            style={styles.date_time_Image} 
+                                            source={require("../../assets/group_of_ppl.png")} 
+                                        />
+                              </View>
+                               
+                            </View>
+                            <View style={styles.header_DT_text_view}>
+                               <Text style={styles.header_Time_text}>Passenger Details</Text>
+                            </View>
+                        </View>
+                        <View style={styles.enter_Date_Time_View}>
+                          <View style={{flex:0.10,flexDirection:"row"}}>
+                                       <Image 
+                                             style={styles.personIcon} 
+                                            source={require("../../assets/person.png")} 
+                                        />    
                             
+                              
+                            </View>  
+                            <View style={{flex:0.50}}>
+                                        <TextInput 
+                                            style={styles.numberOfPassenger}
+                                            placeholder="Number Of Passenger"
+                                            placeholderTextColor="#000"
+                                            fontSize={14}
+                                            onChange={this.handleSetEmail}
+                                        /> 
+                                                     
+                            </View>
+                            <View style={{flex:0.40,flexDirection:"row"}}>
+                              <View style={{flexDirection:"row",position:"absolute",bottom:5,marginLeft:"31%"}}>
+                              <TouchableOpacity >
+                                 <Text style={{color:"#fff"}}>Single</Text>
+                               </TouchableOpacity>
+                               <Text style={{color:"#fff"}}> | </Text>
+                               <TouchableOpacity>
+                                 <Text style={{color:"#fff"}}>Two</Text>
+                               </TouchableOpacity>
+                              </View>
+                            </View>
+                        </View>
+                        <View style={styles.enter_Date_Time_View}>
+                          <View style={{flex:0.10,flexDirection:"row"}}>
+                                       <Image 
+                                             style={styles.personIcon} 
+                                            source={require("../../assets/Solid.png")} 
+                                        />    
+                            
+                              
+                            </View>  
+                            <View style={{flex:0.60}}>
+                                        <Text style={styles.sharing_text_css}> Allow For Sharing Auto </Text>
+                            </View>
+                            <View style={{flex:0.30,flexDirection:"row"}}>
+                              <View style={{flexDirection:"row",position:"absolute",bottom:5,marginLeft:"31%"}}>
+                                <Switch
+                                style={{position:"absolute",bottom:3}}
+                                onValueChange = {this.toggleSwitch}
+                                value = {this.state.switchValue}
+                                />
+                              </View>
+                            </View>
                         </View>
                     </View>
                 </View> 
 
 
+
+            </View>
+            <View style={{flex:0.20}}>
+                  <View style={{flex:0.50}}>
+                      <Header />            
+                  </View>
+                  <View style={{flex:0.50}}>
+                      <TouchableOpacity style={{backgroundColor:"#fff",borderColor:"#000",borderWidth:0.5,width:"30%",alignItems:"center",justifyContent:"center",height:"40%",borderRadius:20,alignSelf:"center"}}>
+                          <Text style={{alignSelf:"center",fontSize:23,color:"#269DF6"}}>Next</Text>
+                      </TouchableOpacity>
+                  </View>
             </View>
 
         </View>
@@ -238,7 +331,7 @@ const styles = StyleSheet.create({
       },
       Input_Date_Time_view:{
           flex:0.35,
-          backgroundColor:"orange",
+          backgroundColor:"#269DF6",
           alignItems:"center",
           justifyContent:"center"
       },
@@ -294,12 +387,19 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         color:"#000",
         fontSize:20,
-        // position:"absolute",
-        // bottom:15
-        // backgroundColor:"red"
+        position:"absolute",
+        left:"8%"
+      },
+      header_Time_text:{
+        alignSelf:"center",
+        color:"#000",
+        fontSize:20,
+        position:"absolute",
+        left:"16%"
       },
       enter_Date_Time_View:{
         flex:0.30,
+        // backgroundColor:"red",
         marginTop:"2%",
         marginLeft:"10%",
         marginRight:"5%",
@@ -325,6 +425,28 @@ const styles = StyleSheet.create({
         position:"absolute",
         bottom:3,
         color:"#fff"
+      },
+      timeInputView:{
+
+      },
+      personIcon:{
+        height:20,
+        width:15,
+        position:"absolute",
+        bottom:8,
+        resizeMode:"contain"
+      },
+      numberOfPassenger:{
+        // marginLeft:"8%"
+        position:"absolute",
+        bottom:5
+      },
+      sharing_text_css:{
+        fontSize:14,
+        position:"absolute",
+        bottom:5,
+        color:"#000",
+        marginLeft:"-2%"
       }
 
     

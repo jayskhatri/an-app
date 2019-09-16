@@ -16,7 +16,7 @@ export default class header extends React.Component {
     return (
       <View style={styles.container}>
           <Image
-            style={{ width: wp("100%"), height: hp("13%") }}
+            style={{ width: wp("100%"), height: hp("13%") , resizeMode:"contain",marginTop:"-4.5%" }}
             source={require("../../assets/wawe.png")}
           ></Image>
       </View>
