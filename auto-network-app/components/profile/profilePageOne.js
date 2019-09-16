@@ -1,5 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView , Image ,TextInput,TouchableOpacity ,Platform } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView , Image ,TextInput,TouchableOpacity ,Platform  } from "react-native";
+import {KeyboardAvoidingView} from 'react-native';
 import RadioForm,{RadioButton,RadioButtonInput,RadioButtonLabel} from "react-native-simple-radio-button";
 // const {widthOfScreen , heightOfScreen } = Dimensions.get('window');
 import Header from '../header/header';
@@ -17,6 +18,7 @@ export default  class profilePageOne extends React.Component {
       this.state = {
         active: 0,
         first_name: '',
+        first_name_wrong:false,
         last_name: '',
         birth_date: '',
         gender: 111,
@@ -24,7 +26,16 @@ export default  class profilePageOne extends React.Component {
       this.nextEvent = this.nextEvent.bind(this);
       this.submitDetails = this.submitDetails.bind(this);
     }
+   
+    validation=()=>{
+     
+      const{first_name,last_name}=this.state;
+      if(first_name==""){
+        this.setState({first_name_wrong:true});
+        // alert("Please Enter your First Name");
+      }
     
+    }
     submitDetails(){
       firebase.database().ref('Drivers/'+this.state.phone_number).set({
         first_name: this.state.first_name,
@@ -65,26 +76,42 @@ export default  class profilePageOne extends React.Component {
                 </View>
                 <View style={{flex:0.60}}>
                     <TextInput
+
                        placeholder="Enter Your First Name"
                        onChangeText={(first_name) => this.setState({first_name})}
                        value={this.state.first_name}
-                       style={{borderBottomWidth:1,height:35,marginBottom:"1%",marginLeft:"5%",marginRight:"5%"}}
-                     /> 
+                       
+                        style={[
+                        {
+                          borderBottomColor : this.state.first_name_wrong ?   'red' : 'black',
+                          borderBottomWidth:1,height:35,marginBottom:"1%",marginLeft:"5%",marginRight:"5%",
+                        }
+                        ]}
+
+                     />  
                 </View>
             </View>
-            <View style={{flex:0.20,backgroundColor:"white",borderWidth:0.5}}>
+            <KeyboardAvoidingView style={{flex:0.20,backgroundColor:"white",borderWidth:0.5}} behavior="padding" enabled>
             <View style={{flex:0.40}}> 
                     <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Last Name</Text>
                 </View>
                 <View style={{flex:0.60}}>
                     <TextInput
+                  
                        placeholder="Enter Your Last Name"
                        onChangeText={(last_name) => this.setState({last_name})}
                        value={this.state.last_name}
                        style={{borderBottomWidth:1,height:35,marginBottom:"1%",marginLeft:"5%",marginRight:"5%"}}
+                       theme=
+                       {{
+                         color:
+                         {
+                           primary:'skyblue',
+                         }
+                       }}
                      /> 
                 </View>
-            </View>
+            </KeyboardAvoidingView>
             <View style={{flex:0.22,backgroundColor:"white",borderWidth:0.5}}>
             <View style={{flex:0.40}}> 
                     <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Birth Date</Text>
@@ -149,7 +176,7 @@ export default  class profilePageOne extends React.Component {
                      <TouchableOpacity style={{marginTop:"3%",marginLeft:"5%",paddingBottom:"5%"}}>
                           <Text style={{fontSize:18}}>Go Back</Text>
                      </TouchableOpacity>
-                     <TouchableOpacity style={{marginTop:"3%",marginLeft:"56%",paddingBottom:"5%"}} onPress={this.nextEvent} >
+                     <TouchableOpacity style={{marginTop:"3%",marginLeft:"56%",paddingBottom:"5%"}} onPress={this.nextEvent} onPress={this.validation} >
                            <Text style={{fontSize:18}}>Next</Text>
                      </TouchableOpacity>
               </View>

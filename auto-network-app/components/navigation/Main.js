@@ -42,9 +42,16 @@ const MainNavigation = createStackNavigator(
     BookingPageOne : {
       screen : BookingPageOne
     },
+    ProfilePageOne:{
+      screen: ProfilePageOne
+    },
+    ProfilePageSecond:{
+      screen:ProfilePageSecond
+    },
     BookingPageSecond:{
       screen : BookingPageSecond
     },
+   
     Login: {
       screen: Login
     },
@@ -53,14 +60,6 @@ const MainNavigation = createStackNavigator(
     },
     MainTabNavigation:{
       screen:MainTabNavigation
-    },
-
-
-    ProfilePageSecond:{
-      screen:ProfilePageSecond
-    },
-    ProfilePageOne:{
-      screen: ProfilePageOne
     },
     signUp: {
       screen: signUp
