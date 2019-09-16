@@ -31,9 +31,11 @@ export default  class profilePageSecond extends React.Component {
       this._findUserPosition = this._findUserPosition.bind(this);
 
     }
+    
     async componentDidMount(){
       await this._findUserPosition();
     }
+    
     _findUserPosition = (e) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -81,10 +83,12 @@ export default  class profilePageSecond extends React.Component {
       const temp = e.nativeEvent.text;
       this.setState({source:temp});
     }
+    
     handleSetDestination(e){
       const temp = e.nativeEvent.text;
       this.setState({destination:temp});
     }
+    
     nextEvent(e){
       this.props.navigation.navigate("BookingPageSecond");
     }
@@ -287,7 +291,7 @@ export default  class profilePageSecond extends React.Component {
     //   </View>   
     //   ); 
     // }
-  render() {
+    render() {
     const { isReadyToLoad } = this.state;
     return(
         <View style={styles.container}>

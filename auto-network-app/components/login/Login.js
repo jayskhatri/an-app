@@ -5,69 +5,69 @@ import Header from '../header/header';
 
 export default class Login extends React.Component {
 
-constructor(){
-  super();
-  this.state={
-     email:"",
-     password:""
-     
-  };
-  this.handleSetEmail = this.handleSetEmail.bind(this);
-  this.handleSetPassword = this.handleSetPassword.bind(this);
-  this.signUpEvent = this.signUpEvent.bind(this);
-  this.signInEvent = this.signInEvent.bind(this);
-}
-
-handleSetEmail(e){
-    const text = e.nativeEvent.text;
-    this.setState({email:text});
-}
-
-handleSetPassword(e){
-   const text = e.nativeEvent.text;
-   this.setState({password:text});
-  //  console.log(this.state.password);
-}
-
-signUpEvent(e){
-  this.props.navigation.navigate("signUp");
-}
-
-signInEvent(e){
-
- firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then( function()  {
-
-  firebase.auth().onAuthStateChanged(function(user) {
+  constructor(){
+    super();
+    this.state={
+      email:"",
+      password:""
       
-    if (user) 
-    {
-      // User is signed in.
-      if(user.emailVerified)
+    };
+    this.handleSetEmail = this.handleSetEmail.bind(this);
+    this.handleSetPassword = this.handleSetPassword.bind(this);
+    this.signUpEvent = this.signUpEvent.bind(this);
+    this.signInEvent = this.signInEvent.bind(this);
+  }
+
+  handleSetEmail(e){
+      const text = e.nativeEvent.text;
+      this.setState({email:text});
+  }
+
+  handleSetPassword(e){
+    const text = e.nativeEvent.text;
+    this.setState({password:text});
+    //  console.log(this.state.password);
+  }
+
+  signUpEvent(e){
+    this.props.navigation.navigate("signUp");
+  }
+
+  signInEvent(e){
+
+  firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then( function()  {
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        
+      if (user) 
       {
-        Alert.alert("Login successful");
-        this.props.navigation.navigate("ProfilePageOne");
+        // User is signed in.
+        if(user.emailVerified)
+        {
+          Alert.alert("Login successful");
+          this.props.navigation.navigate("ProfilePageOne");
+        }
+        else
+        {
+          Alert.alert("verify your email for signing in");
+        }
       }
-      else
+    else 
       {
-        Alert.alert("verify your email for signing in");
+        // No user is signed in.
+      
+        Alert.alert("Invalid Username or password");
       }
-    }
-   else 
-    {
-      // No user is signed in.
+    }.bind(this));
+
+    }.bind(this))
+
+    .catch(function(error){
+      Alert.alert(" Please Create Your Account ..");
+      console.log(error);
+    });
     
-      Alert.alert("Invalid Username or password");
-    }
-  }.bind(this));
-
-  }.bind(this))
-
-  .catch(function(error){
-    Alert.alert(" Please Create Your Account ..");
-    console.log(error);
-  });
-  
- }
+  }
 
   render(){
   return (
