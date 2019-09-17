@@ -10,6 +10,7 @@ import {
   TouchableHighlight,
   TextInput,
   DatePickerIOS,
+  DatePickerAndroid,
   TouchableOpacity,
   Switch
 } from "react-native";
@@ -30,11 +31,20 @@ export default class profilePageSecond extends React.Component {
     this.state = {
       switchValue: false,
       chosenDate: new Date(),
+      dateOfJourney: "Enter date",
+      timeOfJourney: "Time",
       isDateModalVisible: false,
-      isTimeModalVisible: false
+      isTimeModalVisible: false,
+      androidDate: `${new Date().getUTCDate()}/${new Date().getUTCMonth() +
+        1}/${new Date().getUTCFullYear()}`
     };
     this.toggleSwitch = this.toggleSwitch.bind(this);
     this.setDate = this.setDate.bind(this);
+    this.androidDateModal = this.androidDateModal.bind(this);
+    this.dateConfirm = this.dateConfirm.bind(this);
+    this.confirmTime = this.confirmTime.bind(this);
+    this.presentTimeEvent = this.presentTimeEvent.bind(this);
+    this.presentDateEvent = this.presentDateEvent.bind(this);
   }
   toggleSwitch(e) {
     if (this.state.switchValue == true) {
@@ -45,6 +55,8 @@ export default class profilePageSecond extends React.Component {
   }
   setDate(newDate) {
     this.setState({ chosenDate: newDate });
+    // console.log("-", this.state.chosenDate);
+    // console.log(" - ", this.state.chosenDate.getMinutes());
   }
   toggleDateModal = () => {
     this.setState({ isDateModalVisible: !this.state.isDateModalVisible });
@@ -52,6 +64,57 @@ export default class profilePageSecond extends React.Component {
   toggleTimeModal = () => {
     this.setState({ isTimeModalVisible: !this.state.isTimeModalVisible });
   };
+  androidDateModal(e) {
+    // console.log("IN");
+    // const date;
+    try {
+      const { action, year, month, day } = DatePickerAndroid.open({
+        // chosenDate: new Date(day, month, year)
+        // date = new Date(day, month, year)
+      });
+      if (action !== DatePickerAndroid.dismissedAction) {
+        // this.setState({ androidDate: `${day}/${month + 1}/${year}` });
+        this.setState({ chosenDate: date });
+      }
+    } catch ({ code, message }) {
+      console.warn("Cannot open date picker", message);
+    }
+    console.log("date", this.state.chosenDate);
+  }
+  dateConfirm() {
+    const dd = this.state.chosenDate.getDate();
+    const mm = this.state.chosenDate.getMonth() + 1;
+    const yyyy = this.state.chosenDate.getFullYear();
+    const fullDate = dd + "/" + mm + "/" + yyyy;
+    this.setState({ dateOfJourney: fullDate });
+    this.setState({ isDateModalVisible: false });
+  }
+  confirmTime() {
+    const min = this.state.chosenDate.getMinutes();
+    const hh = this.state.chosenDate.getHours();
+    const fullTime = hh + " : " + min;
+    this.setState({ timeOfJourney: fullTime });
+    this.setState({ isTimeModalVisible: false });
+  }
+  presentTimeEvent() {
+    var hours = new Date().getHours();
+    var min = new Date().getMinutes();
+    const time = hours + " : " + min;
+    this.setState({ timeOfJourney: time });
+  }
+  presentDateEvent() {
+    var date = new Date().getDate();
+    var month = new Date().getMonth() + 1;
+    var year = new Date().getFullYear();
+    var fullDate = date + " / " + month + " / " + year;
+    this.setState({ dateOfJourney: fullDate });
+  }
+  tomorrowDateEvent() {
+    var date = new Date().getDate() + 1;
+    var month = new Date().getMonth() + 1;
+    var year = new Date().getFullYear();
+    // if(date>)
+  }
 
   render() {
     return (
@@ -148,12 +211,21 @@ export default class profilePageSecond extends React.Component {
                       bottom: 3
                     }}
                   >
-                    <TouchableOpacity
-                      onPress={this.toggleDateModal}
-                      style={styles.enterDateBtnCss}
-                    >
-                      <Text> Enter date </Text>
-                    </TouchableOpacity>
+                    {Platform.OS === "ios" ? (
+                      <TouchableOpacity
+                        onPress={this.toggleDateModal}
+                        style={styles.enterDateBtnCss}
+                      >
+                        <Text>{this.state.dateOfJourney}</Text>
+                      </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity
+                        onPress={this.androidDateModal}
+                        style={styles.enterDateBtnCss}
+                      >
+                        <Text> Enter date </Text>
+                      </TouchableOpacity>
+                    )}
                   </View>
                   <View
                     style={{
@@ -191,18 +263,36 @@ export default class profilePageSecond extends React.Component {
                         >
                           {/* <Text>Hello!</Text>
                       <Button title="Hide modal" onPress={this.toggleModal} /> */}
-                          <DatePickerIOS
-                            date={this.state.chosenDate}
-                            onDateChange={this.setDate}
-                            mode="date"
-                            style={{
-                              borderRadius: 25,
-                              marginLeft: "2%",
-                              marginRight: "2%",
-                              backgroundColor: "#fff"
-                            }}
-                          />
-                          <TouchableOpacity style={styles.modalBtnCss}>
+                          {Platform.OS === "ios" ? (
+                            <DatePickerIOS
+                              date={this.state.chosenDate}
+                              onDateChange={this.setDate}
+                              mode="date"
+                              style={{
+                                borderRadius: 25,
+                                marginLeft: "2%",
+                                marginRight: "2%",
+                                backgroundColor: "#fff"
+                              }}
+                            />
+                          ) : (
+                            <DatePickerAndroid
+                              date={this.state.chosenDate}
+                              onDateChange={this.setDate}
+                              mode="date"
+                              style={{
+                                borderRadius: 25,
+                                marginLeft: "2%",
+                                marginRight: "2%",
+                                backgroundColor: "#fff"
+                              }}
+                            />
+                          )}
+
+                          <TouchableOpacity
+                            style={styles.modalBtnCss}
+                            onPress={this.dateConfirm}
+                          >
                             <Text style={{ fontSize: 25, alignSelf: "center" }}>
                               confirm
                             </Text>
@@ -223,7 +313,7 @@ export default class profilePageSecond extends React.Component {
                 <View
                   style={{ flex: 0.4, flexDirection: "row", marginLeft: "5%" }}
                 >
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={this.presentDateEvent}>
                     <Text style={styles.date_today_today}>Today</Text>
                   </TouchableOpacity>
                   <Text
@@ -269,7 +359,7 @@ export default class profilePageSecond extends React.Component {
                       onPress={this.toggleTimeModal}
                       style={styles.enterDateBtnCss}
                     >
-                      <Text> Time </Text>
+                      <Text>{this.state.timeOfJourney}</Text>
                     </TouchableOpacity>
                   </View>
                   <View
@@ -319,7 +409,10 @@ export default class profilePageSecond extends React.Component {
                               backgroundColor: "#fff"
                             }}
                           />
-                          <TouchableOpacity style={styles.modalBtnCss}>
+                          <TouchableOpacity
+                            style={styles.modalBtnCss}
+                            onPress={this.confirmTime}
+                          >
                             <Text style={{ fontSize: 25, alignSelf: "center" }}>
                               confirm
                             </Text>
@@ -345,7 +438,7 @@ export default class profilePageSecond extends React.Component {
                   }}
                 >
                   <View style={{ position: "absolute", right: 31, bottom: 0 }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this.presentTimeEvent}>
                       <Text style={styles.date_today_today}>Now</Text>
                     </TouchableOpacity>
                   </View>
@@ -510,7 +603,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   sourceTOdestinationImage: {
-    height: 120,
+    height: "50%",
     width: 60,
     alignSelf: "center",
     resizeMode: "contain"
@@ -546,7 +639,7 @@ const styles = StyleSheet.create({
     marginLeft: "3%",
     marginRight: "3%",
     position: "absolute",
-    bottom: 6,
+    bottom: Platform.OS === "ios" ? 6 : 3,
     borderRadius: 15,
     borderBottomColor: "#988c8c",
     borderBottomWidth: 1

@@ -9,7 +9,7 @@ import {
   TextInput,
   TouchableOpacity
 } from "react-native";
-import Header from '../header/header';
+import Header from "../header/header";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -37,33 +37,34 @@ export default class profilePageFourth extends React.Component {
   nextEvent(e) {
     this.props.navigation.navigate("ProfilePageFourth");
   }
-  submitDetails(){
-    firebase.database().ref('Drivers/'+this.state.phone_number).set({
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
-      birth_date: this.state.birth_date,
-      gender: this.state.gender,
-      aadhar_number: this.state.aadhar_number,
-      license_number: this.state.license_number,
-      has_puc: this.state.has_puc,
-      auto_reg_no: this.state.auto_reg_no,
-      has_own_vehicle: this.state.has_own_vehicle,
-      owner_name: this.state.owner_name,
-      owner_contact_number: this.state.owner_contact_number,
+  submitDetails() {
+    firebase
+      .database()
+      .ref("Drivers/" + this.state.phone_number)
+      .set({
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        birth_date: this.state.birth_date,
+        gender: this.state.gender,
+        aadhar_number: this.state.aadhar_number,
+        license_number: this.state.license_number,
+        has_puc: this.state.has_puc,
+        auto_reg_no: this.state.auto_reg_no,
+        has_own_vehicle: this.state.has_own_vehicle,
+        owner_name: this.state.owner_name,
+        owner_contact_number: this.state.owner_contact_number
+      });
+    this.setState({
+      has_own_vehicle: false,
+      owner_name: "",
+      owner_contact_number: ""
     });
-    this.setState(
-      {
-        has_own_vehicle: false,
-        owner_name: "",
-        owner_contact_number: "",
-      }
-    );
-    this.props.navigation.navigate('mainScreen');
+    this.props.navigation.navigate("mainScreen");
   }
-  skipEvent(e){
+  skipEvent(e) {
     this.nextEvent();
   }
-  nextEvent(e){
+  nextEvent(e) {
     this.props.navigation.navigate("mainScreen");
   }
 
@@ -76,13 +77,30 @@ export default class profilePageFourth extends React.Component {
             style={{ width: wp("100%"), height: hp("12%") }}
             source={require("../../assets/wawe.png")}
           ></Image> */}
-              <SafeAreaView style={{backgroundColor:"#269DF9"}}>
-                  <Text style={{alignSelf:"center",color:"#fff",fontSize:25,marginTop:Platform.OS === 'android' ? "4%" : "0%"}}>My Profile</Text>
-                  <Header />
-              </SafeAreaView>
+          <SafeAreaView style={{ backgroundColor: "#269DF9" }}>
+            <Text
+              style={{
+                alignSelf: "center",
+                color: "#fff",
+                fontSize: 25,
+                marginTop: Platform.OS === "android" ? "4%" : "0%"
+              }}
+            >
+              My Profile
+            </Text>
+            <Header />
+          </SafeAreaView>
         </View>
         <View style={styles.logoView}>
-          <Image style={{marginTop:"30%",width:wp('55%'),height:hp('23%'),resizeMode:"contain"}} source={require('../../assets/bigAdminLogo.png')} />
+          <Image
+            style={{
+              marginTop: "30%",
+              width: wp("55%"),
+              height: hp("23%"),
+              resizeMode: "contain"
+            }}
+            source={require("../../assets/bigAdminLogo.png")}
+          />
         </View>
         <View style={styles.signUpView}>
           <View style={{ flex: 2, alignItems: "center", marginTop: "3%" }}>
@@ -105,7 +123,7 @@ export default class profilePageFourth extends React.Component {
                     width: 120,
                     alignSelf: "center",
                     marginTop: -50,
-                    borderRadius:60
+                    borderRadius: 60
                   }}
                   source={require("../../assets/Component.png")}
                 />
@@ -134,13 +152,19 @@ export default class profilePageFourth extends React.Component {
               Hello, dear
             </Text>
           </View>
-          <View style={{flex:0.80,flexDirection:"row"}}>
-             <TouchableOpacity style={{marginLeft:"3%",marginTop:"1%"}} onPress={this.skipEvent}>
-               <Text style={{fontSize:15 , color:"#fff"}}>Skip</Text>
-               </TouchableOpacity>
-             <TouchableOpacity style={{marginTop:"1%",marginLeft:"78%"}} onPress={this.nextEvent}>
-               <Text style={{fontSize:15 , color:"#fff"}}>Next</Text>
-               </TouchableOpacity> 
+          <View style={{ flex: 0.8, flexDirection: "row" }}>
+            <TouchableOpacity
+              style={{ marginLeft: "3%", marginTop: "1%" }}
+              onPress={this.skipEvent}
+            >
+              <Text style={{ fontSize: 15, color: "#fff" }}>Skip</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ marginTop: "1%", marginLeft: "78%" }}
+              onPress={this.nextEvent}
+            >
+              <Text style={{ fontSize: 15, color: "#fff" }}>Next</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -180,13 +204,13 @@ const styles = StyleSheet.create({
     flex: 1
   },
   waveView: {
-    flex:Platform.OS === 'ios' ? 0.10 : 0.05,
+    flex: Platform.OS === "ios" ? 0.1 : 0.05
   },
   logoView: {
-    flex: Platform.OS === 'ios' ? 0.52 : 0.55,
+    flex: Platform.OS === "ios" ? 0.52 : 0.55
   },
   signUpView: {
-    flex:Platform.OS === 'ios' ? 0.38 : 0.40,
+    flex: Platform.OS === "ios" ? 0.38 : 0.4,
     backgroundColor: "#12afe3",
     height: "100%",
     width: wp("92%"),
