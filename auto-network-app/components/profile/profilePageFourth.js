@@ -226,8 +226,7 @@ export default class profilePageFourth extends React.Component {
 
 
 async function uploadImageAsync(uri) {
-  // Why are we using XMLHttpRequest? See:
-  // https://github.com/expo/expo/issues/2402#issuecomment-443726662
+
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
@@ -253,7 +252,9 @@ async function uploadImageAsync(uri) {
 
   let downloadurl = await snapshot.ref.getDownloadURL();
   console.log(downloadurl);
+  //store the download url in the database in the current user's object.
   this.setState({downloadUrl : downloadurl});
+
  
 }
 
