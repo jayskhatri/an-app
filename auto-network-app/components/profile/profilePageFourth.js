@@ -241,7 +241,7 @@ async function uploadImageAsync(uri) {
     xhr.open('GET', uri, true);
     xhr.send(null);
   });
-
+  //take the currentuser and replace the child(profilepic.jpeg) with the user id of the current user
   const ref = firebase
     .storage()
     .ref("/Images/")
