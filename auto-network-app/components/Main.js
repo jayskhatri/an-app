@@ -51,8 +51,6 @@ const MainNavigation = createStackNavigator(
     ProfilePageFourth:{
       screen:ProfilePageFourth
     },
-   
-   
     Login: {
       screen: Login
     },
