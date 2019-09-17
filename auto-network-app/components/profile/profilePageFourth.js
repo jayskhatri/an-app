@@ -7,7 +7,8 @@ import {
   Animated,
   Image,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from "react-native";
 import firebase from 'firebase';
 import {
@@ -19,7 +20,6 @@ import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 
 
-
 var options = [{ label: "Yes", value: 0 }, { label: "No", value: 1 }];
 export default class profilePageFourth extends React.Component {
   constructor(props) {
@@ -27,11 +27,14 @@ export default class profilePageFourth extends React.Component {
     this.state = {
       active: 0,
       image: null,
-      isPicLoaded: true
+      isPicLoaded: true,
+      downloadUrl:'',
+      result:'',
+      uploading:false
     };
     this.skipEvent = this.skipEvent.bind(this);
     this.nextEvent = this.nextEvent.bind(this);
-    this.uriToBlob = this.uriToBlob.bind(this);
+    // this.uriToBlob = this.uriToBlob.bind(this);
   }
   componentWillMount(){
     let storageRef = firebase.storage().ref();
@@ -45,12 +48,12 @@ export default class profilePageFourth extends React.Component {
     var metadata = {
       contentType: 'image/jpeg',
     };
-    let image = this.state.image;
-    var storageRef = firebase.storage().ref();
-    var uploadTask = storageRef.child('Images/profile_pic.jpg').put(image, metadata);
-    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-      console.log('File available at', downloadURL);
-    });
+    // let image = this.state.image;
+    // var storageRef = firebase.storage().ref();
+    // var uploadTask = storageRef.child('Images/profile_pic.jpg').put(image, metadata);
+    // uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+    //   console.log('File available at', downloadURL);
+    // });
     const thirtySecs = 30 * 1000;
     firebase.storage().setMaxOperationRetryTime(thirtySecs);
 
@@ -97,63 +100,11 @@ export default class profilePageFourth extends React.Component {
   }
 
   nextEvent(e){
-    this._pickImage();
+    console.log("in next");
+    this._handleImagePicked(this.state.result);
+    console.log("next ends");
   }
 
-  _pickImage = async () => {
-    let pickerResult = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
-    });
-
-    this._handleImagePicked(pickerResult);
-  };
-
-  _handleImagePicked = async pickerResult => {
-    try {
-      this.setState({ uploading: true });
-
-      if (!pickerResult.cancelled) {
-        uploadUrl = await uploadImageAsync(pickerResult.uri);
-        this.setState({ image: uploadUrl });
-      }
-    } catch (e) {
-      console.log(e);
-      alert('Upload failed, sorry :(');
-    } finally {
-      this.setState({ uploading: false });
-    }
-  };
-
-
-async function uploadImageAsync(uri) {
-  // Why are we using XMLHttpRequest? See:
-  // https://github.com/expo/expo/issues/2402#issuecomment-443726662
-  const blob = await new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-      resolve(xhr.response);
-    };
-    xhr.onerror = function(e) {
-      console.log(e);
-      reject(new TypeError('Network request failed'));
-    };
-    xhr.responseType = 'blob';
-    xhr.open('GET', uri, true);
-    xhr.send(null);
-  });
-
-  const ref = firebase
-    .storage()
-    .ref("/Images/")
-    .child("abc.jpg");
-  const snapshot = await ref.put(blob);
-
-  // We're done with the blob, close and release it
-  blob.close();
-
-  return await snapshot.ref.getDownloadURL();
-}
 
 
   render() {
@@ -183,7 +134,7 @@ async function uploadImageAsync(uri) {
           >
             <TouchableOpacity onPress={this._pickImage}>
               {/* ,elevetion:11 */}
-              {this.state.isPicLoaded} ? (
+              {this.state.isPicLoaded ? (
                 <Image
                   style={{
                     height: 120,
@@ -215,9 +166,7 @@ async function uploadImageAsync(uri) {
                 fontSize: 20,
                 color: "#c9c8c8"
               }}
-            >
-              Hello, dear
-            </Text>
+            > Hello, dear</Text>
           </View>
           <View style={{flex:0.80,flexDirection:"row"}}>
              <TouchableOpacity style={{marginLeft:"3%",marginTop:"1%"}} onPress={this.skipEvent}>
@@ -246,21 +195,67 @@ async function uploadImageAsync(uri) {
   };
 
   _pickImage = async () => {
-    
-    this.setState({ image: '' })
-    ImagePicker.launchImageLibrary({}, response  => {
-      uploadImage(response.uri)
-        .then(url => this.setState({ image: url }))
-        .catch(error => console.log(error))
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
     });
 
-    console.log(result);
-
-    if (!result.cancelled) {
-      this.setState({ isPicLoaded: false });
-      this.setState({ image: result.uri });
-     }
+    if(!pickerResult.cancelled) {
+      this.setState( {isPicLoaded:false});
+      this.setState({image:pickerResult.uri});
+      this.setState({result:pickerResult});
+    }
+    
   };
+
+  _handleImagePicked = async pickerResult => {
+    try {
+      this.setState({ uploading: true });
+
+      if (!pickerResult.cancelled) {
+        uploadUrl = await uploadImageAsync(pickerResult.uri);
+        this.setState({ image: uploadUrl });
+      }
+    } catch (e) {
+      
+    } finally {
+      this.setState({ uploading: false });
+    }
+  };
+}
+
+
+async function uploadImageAsync(uri) {
+  // Why are we using XMLHttpRequest? See:
+  // https://github.com/expo/expo/issues/2402#issuecomment-443726662
+  const blob = await new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+      resolve(xhr.response);
+    };
+    xhr.onerror = function(e) {
+      console.log(e);
+      reject(new TypeError('Network request failed'));
+    };
+    xhr.responseType = 'blob';
+    xhr.open('GET', uri, true);
+    xhr.send(null);
+  });
+
+  const ref = firebase
+    .storage()
+    .ref("/Images/")
+    .child("profilepic.jpeg");
+  const snapshot = await ref.put(blob);
+
+  // We're done with the blob, close and release it
+  blob.close();
+
+  let downloadurl = await snapshot.ref.getDownloadURL();
+  console.log(downloadurl);
+  this.setState({downloadUrl : downloadurl});
+ 
+}
 
 const styles = StyleSheet.create({
   container: {
