@@ -1,11 +1,7 @@
 import React from 'react';
 import * as firebase from 'firebase';
-import { StyleSheet, View  , Text  , TextInput , TouchableOpacity ,Platform, ImageBackground , Alert , Image , Dimensions} from 'react-native';
-import {widthPercentageToDP  , heightPercentageToDP  } from 'react-native-responsive-screen';
-import { responsiveWidth , responsiveFontSize  } from 'react-native-responsive-dimensions';
-// import console = require('console');
-// import console = require('console');
-
+import { StyleSheet, View  , Text  , TextInput , TouchableOpacity ,Platform,SafeAreaView, ImageBackground , Alert , Image , Dimensions} from 'react-native';
+import Header from '../header/header';
 export default class Login extends React.Component {
 
   constructor(){
@@ -41,28 +37,31 @@ export default class Login extends React.Component {
   firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then( function()  {
 
     firebase.auth().onAuthStateChanged(function(user) {
+      console.log("sign in event: ",user.emailVerified)
         
-      if (user) 
+      if (user && user!=null) 
       {
-        Alert.alert("Login successful");
-        var userRef = firebase.database().ref('Drivers/'+user.uid);
-        var profile_completed;
-        userRef.once('value').then(function(snapshot){
-          profile_completed = (snapshot.val() && snapshot.val().has_profile_completed)
-        });
-        console.log('is profile completed: ', profile_completed);
-        // if(profile_completed){
-        //   this.props.navigation.navigate("mainScreen");  
-        // }
-        // else{
-          this.props.navigation.navigate("ProfilePageOne",{user: user});
-        // }
+        if(user.emailVerified){
+          Alert.alert("Login successful");
+          var userRef = firebase.database().ref('Passengers/'+user.uid);
+          var profile_completed;
+          userRef.once('value').then(function(snapshot){
+            profile_completed = (snapshot.val() && snapshot.val().personal_details.has_profile_completed)
+          });
+          console.log('is profile completed: ', profile_completed);
+          // if(profile_completed){
+          //   this.props.navigation.navigate("mainScreen");  
+          // }
+          // else{
+            this.props.navigation.navigate("ProfilePageOne",{user: user});
+          // }
+        }
+        else {
+          Alert.alert("Verify your Email");
+        }
       }
-    else 
-      {
-        // No user is signed in.
-      
-        Alert.alert("Invalid Username or password");
+    else {
+        Alert.alert("No User Exist");
       }
     }.bind(this));
 

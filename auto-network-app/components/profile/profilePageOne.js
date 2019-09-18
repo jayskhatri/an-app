@@ -25,19 +25,11 @@ export default  class profilePageOne extends React.Component {
       }
       this.nextEvent = this.nextEvent.bind(this);
     }
-   
-    validation=()=>{
-      const{first_name,last_name}=this.state;
-      if(first_name==""){
-        this.setState({first_name_wrong:true});
-        // alert("Please Enter your First Name");
-      }
-    }
     
     nextEvent(e){
         const {navigation} = this.props;
         console.log("gender: ",this.state.gender,"email",navigation.getParam('user'));
-        this.props.navigation.navigate("ProfilePageSecond",
+        this.props.navigation.navigate("ProfilePageFourth",
           {
             first_name: this.state.first_name,
             last_name: this.state.last_name, 
@@ -173,7 +165,7 @@ export default  class profilePageOne extends React.Component {
                         <TouchableOpacity style={{marginTop:"3%",marginLeft:"5%",paddingBottom:"5%"}}>
                               <Text style={{fontSize:18}}>Go Back</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{marginTop:"3%",marginLeft:"56%",paddingBottom:"5%"}} onPress={this.nextEvent} onPress={this.validation} >
+                        <TouchableOpacity style={{marginTop:"3%",marginLeft:"56%",paddingBottom:"5%"}} onPress={this.nextEvent}>
                               <Text style={{fontSize:18}}>Next</Text>
                         </TouchableOpacity>
                   </View>

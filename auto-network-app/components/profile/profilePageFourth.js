@@ -7,7 +7,8 @@ import {
   Platform,
   Image,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from "react-native";
 import firebase from 'firebase';
 import {
@@ -15,8 +16,11 @@ import {
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
 import * as ImagePicker from "expo-image-picker";
+import Header from '../header/header';
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
+
+
 var options = [{ label: "Yes", value: 0 }, { label: "No", value: 1 }];
 export default class profilePageFourth extends React.Component {
   constructor(props) {
@@ -24,72 +28,70 @@ export default class profilePageFourth extends React.Component {
     this.state = {
       active: 0,
       image: null,
-      isPicLoaded: true
+      isPicLoaded: true,
+      downloadUrl:'',
+      result:'',
+      uploading:false
     };
     this.skipEvent = this.skipEvent.bind(this);
     this.nextEvent = this.nextEvent.bind(this);
+    // this.uriToBlob = this.uriToBlob.bind(this);
   }
   componentWillMount(){
     let storageRef = firebase.storage().ref();
 
   }
-  submitDetails(){
+  submitUserDetails(){
     const {navigation} = this.props;
     let user = navigation.getParam('user');
-
-    var metadata = {
-      contentType: 'image/jpeg',
-    };
-    let image = this.state.image;
-    var storageRef = firebase.storage().ref();
-    var uploadTask = storageRef.child('images/profile_pic.jpg').put(image, metadata);
-    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-      console.log('File available at', downloadURL);
-    });
     const thirtySecs = 30 * 1000;
-    firebase.storage().setMaxOperationRetryTime(thirtySecs);
+    firebase.storage().setMaxOperationRetryTime(thirtySecs)
 
-
-    firebase.database().ref('Drivers/' + user.uid).set({
+    firebase.database().ref('Passengers/' + user.uid + '/personal_details').set({
+      profile_pic_url: this.state.downloadUrl,
       first_name: navigation.getParam('first_name'),
       email_id: user.email,
       last_name: navigation.getParam('last_name'),
       birth_date: navigation.getParam('birth_date'),
       gender: navigation.getParam('gender'),
-      aadhar_number: navigation.getParam('aadhar_number'),
-      license_number: navigation.getParam('license_number'),
-      has_puc: navigation.getParam('has_puc'),
-      auto_number: navigation.getParam('auto_number'),
-      has_own_vehicle: navigation.getParam('has_own_vehicle'),
-      owner_name: navigation.getParam('owner_name'),
-      owner_contact_number: navigation.getParam('owner_contact_number'),
+      // aadhar_number: navigation.getParam('aadhar_number'),
+      // license_number: navigation.getParam('license_number'),
+      // has_puc: navigation.getParam('has_puc'),
+      // auto_number: navigation.getParam('auto_number'),
+      // has_own_vehicle: navigation.getParam('has_own_vehicle'),
+      // owner_name: navigation.getParam('owner_name'),
+      // owner_contact_number: navigation.getParam('owner_contact_number'),
       has_profile_completed: true,
     });
     
     this.props.navigation.navigate('mainScreen');
   }
+ 
+
   skipEvent(e){
-    
     const {navigation} = this.props;
-    firebase.database().ref('Drivers/'+ user.uid).set({
+    let user = navigation.getParam('user');
+    firebase.database().ref('Passengers/'+ user.uid).set({
+      profile_pic_url: '',
       first_name: navigation.getParam('first_name'),
       last_name: navigation.getParam('last_name'),
       birth_date: navigation.getParam('birth_date'),
       gender: navigation.getParam('gender'),
-      aadhar_number: navigation.getParam('aadhar_number'),
-      license_number: navigation.getParam('license_number'),
-      has_puc: navigation.getParam('has_puc'),
-      auto_number: navigation.getParam('auto_number'),
-      has_own_vehicle: navigation.getParam('has_own_vehicle'),
-      owner_name: navigation.getParam('owner_name'),
-      owner_contact_number: navigation.getParam('owner_contact_number'),
+      // aadhar_number: navigation.getParam('aadhar_number'),
+      // license_number: navigation.getParam('license_number'),
+      // has_puc: navigation.getParam('has_puc'),
+      // auto_number: navigation.getParam('auto_number'),
+      // has_own_vehicle: navigation.getParam('has_own_vehicle'),
+      // owner_name: navigation.getParam('owner_name'),
+      // owner_contact_number: navigation.getParam('owner_contact_number'),
       has_profile_completed: false,
     });
-    
     this.props.navigation.navigate('mainScreen');
   }
+
   nextEvent(e){
-    this.submitDetails();
+    this._handleImagePicked(this.state.result);
+    this.submitUserDetails();
   }
 
   render() {
@@ -155,9 +157,7 @@ export default class profilePageFourth extends React.Component {
                 fontSize: 20,
                 color: "#c9c8c8"
               }}
-            >
-              Hello, dear
-            </Text>
+            > Hello, dear</Text>
           </View>
           <View style={{flex:0.80,flexDirection:"row"}}>
              <TouchableOpacity style={{marginLeft:"3%",marginTop:"1%"}} onPress={this.skipEvent}>
@@ -171,6 +171,7 @@ export default class profilePageFourth extends React.Component {
       </View>
     );
   }
+
   componentDidMount() {
     this.getPermissionAsync();
   }
@@ -185,20 +186,71 @@ export default class profilePageFourth extends React.Component {
   };
 
   _pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
-      aspect: [4, 4]
+      aspect: [4, 4],
     });
 
-    console.log(result);
+    if(!pickerResult.cancelled) {
+      this.setState( {isPicLoaded:false});
+      this.setState({image:pickerResult.uri});
+      this.setState({result:pickerResult});
+    }
+    
+  };
 
-    if (!result.cancelled) {
-      this.setState({ isPicLoaded: false });
-      this.setState({ image: result.uri });
+  _handleImagePicked = async pickerResult => {
+    try {
+      this.setState({ uploading: true });
+
+      if (!pickerResult.cancelled) {
+        uploadUrl = await uploadImageAsync(pickerResult.uri);
+        this.setState({ image: uploadUrl });
+      }
+    } catch (e) {
+      
+    } finally {
+      this.setState({ uploading: false });
     }
   };
 }
+
+
+async function uploadImageAsync(uri) {
+  console.log("First Line uploadImageAcsync");
+  const blob = await new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+      resolve(xhr.response);
+    };
+    xhr.onerror = function(e) {
+      console.log(e);
+      reject(new TypeError('Network request failed'));
+    };
+    xhr.responseType = 'blob';
+    xhr.open('GET', uri, true);
+    xhr.send(null);
+  });
+  const {navigation} = this.props;
+  let user = navigation.getParam('user');
+  //take the currentuser and replace the child(profilepic.jpeg) with the user id of the current user
+  const ref = firebase
+    .storage()
+    .ref("/Images/")
+    .child("profile_pic.jpeg");
+  const snapshot = await ref.put(blob);
+  console.log("Image uploaded");
+  // We're done with the blob, close and release it
+  blob.close();
+
+  let downloadurl = await snapshot.ref.getDownloadURL();
+  console.log(downloadurl);
+  //store the download url in the database in the current user's object.
+  this.setState({downloadUrl : downloadurl});
+
+ 
+}
+
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
@@ -221,3 +273,4 @@ const styles = StyleSheet.create({
     borderRadius: 15
   }
 });
+

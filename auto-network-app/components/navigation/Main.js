@@ -13,7 +13,6 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 import Setting from '../setting/setting';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import checkUserStatus from '../utils/checkUserStatus'
-import Header from '../header/header';
 import MainTabNavigation from '../navigation/MainTabNavigator';
 import BookingPageOne from '../bookingSection/bookingPage1';
 import BookingPageSecond from '../bookingSection/bookingPage2';
@@ -39,11 +38,17 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
-    BookingPageOne : {
-      screen : BookingPageOne
+    checkUserStatus:{
+      screen: checkUserStatus
     },
     ProfilePageOne:{
       screen: ProfilePageOne
+    },
+    ProfilePageFourth:{
+      screen: ProfilePageFourth
+    },
+    BookingPageOne : {
+      screen : BookingPageOne
     },
     ProfilePageSecond:{
       screen:ProfilePageSecond
@@ -51,7 +56,6 @@ const MainNavigation = createStackNavigator(
     BookingPageSecond:{
       screen : BookingPageSecond
     },
-   
     Login: {
       screen: Login
     },
@@ -64,26 +68,17 @@ const MainNavigation = createStackNavigator(
     signUp: {
       screen: signUp
     },
-
-    Header:{
-      screen:Header
-    },
     Setting:{
       screen:Setting
-    },
-    checkUserStatus:{
-      screen: checkUserStatus
     },
     ProfilePageThird:{
       screen:ProfilePageThird
     },
-
     mainScreen: {
       screen: mainScreen
     },
   },
   {
-    
       headerMode: "none",
   
       mode: "modal",
@@ -103,10 +98,8 @@ const MainNavigation = createStackNavigator(
           height:55
 
          },
-  
         // gesturesEnabled: true
       },
-    
   }
 );
 const App = createAppContainer(MainNavigation);
