@@ -6,45 +6,55 @@ import {
   SafeAreaView,
   Platform,
   Image,
-  Button,
-  TouchableHighlight,
+  KeyboardAvoidingView,
+  Picker,
   TextInput,
   DatePickerIOS,
+  TimePickerAndroid,
   DatePickerAndroid,
   TouchableOpacity,
   Switch
 } from "react-native";
 import Modal from "react-native-modal";
 import OptionsMenu from "react-native-options-menu";
-import DateTimePicker from "react-native-modal-datetime-picker";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp
-} from "react-native-responsive-screen";
 import Header from "../header/header";
-import firebase from "firebase";
-import DatePicker from "react-native-datepicker";
 
 export default class profilePageSecond extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      source: "Changa",
+      destination: "Aanad",
       switchValue: false,
       chosenDate: new Date(),
       dateOfJourney: "Enter date",
       timeOfJourney: "Time",
       isDateModalVisible: false,
       isTimeModalVisible: false,
-      androidDate: `${new Date().getUTCDate()}/${new Date().getUTCMonth() +
-        1}/${new Date().getUTCFullYear()}`
+      isDropDownModelVisible: false,
+      numberOfPassenger: "Number Of passenger",
+      currentDate: ""
     };
     this.toggleSwitch = this.toggleSwitch.bind(this);
     this.setDate = this.setDate.bind(this);
-    this.androidDateModal = this.androidDateModal.bind(this);
     this.dateConfirm = this.dateConfirm.bind(this);
     this.confirmTime = this.confirmTime.bind(this);
     this.presentTimeEvent = this.presentTimeEvent.bind(this);
     this.presentDateEvent = this.presentDateEvent.bind(this);
+    this.singlePersonEvent = this.singlePersonEvent.bind(this);
+    this.twoPersonEvent = this.twoPersonEvent.bind(this);
+    this.handleSetPassenger = this.handleSetPassenger.bind(this);
+    this.backEvent = this.backEvent.bind(this);
+    this.helpPost = this.helpPost.bind(this);
+    this.nextEvent = this.nextEvent.bind(this);
+  }
+
+  componentWillMount() {
+    // write a code fatch source and destination
+    // var date = new Date().getDate();
+    // var month = new Date().getMonth() + 1;
+    // var year = new Date().getFullYear();
+    // this.setState({ currentDate: date + " / " + month + " / " + year });
   }
   toggleSwitch(e) {
     if (this.state.switchValue == true) {
@@ -55,32 +65,50 @@ export default class profilePageSecond extends React.Component {
   }
   setDate(newDate) {
     this.setState({ chosenDate: newDate });
-    // console.log("-", this.state.chosenDate);
-    // console.log(" - ", this.state.chosenDate.getMinutes());
   }
   toggleDateModal = () => {
     this.setState({ isDateModalVisible: !this.state.isDateModalVisible });
   };
+  toggleDropDownModal = () => {
+    this.setState({
+      isDropDownModelVisible: !this.state.isDropDownModelVisible
+    });
+  };
   toggleTimeModal = () => {
     this.setState({ isTimeModalVisible: !this.state.isTimeModalVisible });
   };
-  androidDateModal(e) {
-    // console.log("IN");
-    // const date;
+
+  opeanDatePicker = async () => {
     try {
-      const { action, year, month, day } = DatePickerAndroid.open({
-        // chosenDate: new Date(day, month, year)
-        // date = new Date(day, month, year)
+      const { action, year, month, day } = await DatePickerAndroid.open({
+        year: "",
+        month: "",
+        day: ""
       });
       if (action !== DatePickerAndroid.dismissedAction) {
-        // this.setState({ androidDate: `${day}/${month + 1}/${year}` });
-        this.setState({ chosenDate: date });
+        var fullDate = day + " / " + month + " / " + year;
+        this.setState({ dateOfJourney: fullDate });
       }
     } catch ({ code, message }) {
       console.warn("Cannot open date picker", message);
     }
-    console.log("date", this.state.chosenDate);
-  }
+  };
+
+  opeanTimePicker = async () => {
+    try {
+      const { action, hour, minute } = await TimePickerAndroid.open({
+        hour: 0,
+        minute: 0
+      });
+      if (action !== DatePickerAndroid.dismissedAction) {
+        var fullTime = hour + " : " + minute;
+        this.setState({ timeOfJourney: fullTime });
+      }
+    } catch ({ code, message }) {
+      console.warn("Cannot open date picker", message);
+    }
+  };
+
   dateConfirm() {
     const dd = this.state.chosenDate.getDate();
     const mm = this.state.chosenDate.getMonth() + 1;
@@ -115,17 +143,42 @@ export default class profilePageSecond extends React.Component {
     var year = new Date().getFullYear();
     // if(date>)
   }
+  singlePersonEvent(e) {
+    var Passenger = "1";
+    this.setState({ numberOfPassenger: Passenger });
+  }
+  twoPersonEvent(e) {
+    var Passenger = "2";
+    this.setState({ numberOfPassenger: Passenger });
+  }
+  handleSetPassenger(e) {
+    const temp = e.nativeEvent.text;
+    this.setState({ numberOfPassenger: temp });
+  }
+  backEvent() {
+    this.props.navigation.navigate("BookingPageOne");
+  }
+  helpPost() {
+    console.log("help");
+  }
+  nextEvent() {
+    console.log("next Event");
+  }
 
   render() {
+    let min = new Date();
+    let max = new Date();
     return (
       <View style={styles.container}>
         <View style={{ flex: Platform.OS === "ios" ? 0.1 : 0.08 }}>
           <SafeAreaView style={styles.header}>
             <View>
-              <Image
-                style={styles.backImage}
-                source={require("../../assets/back1.png")}
-              />
+              <TouchableOpacity onPress={this.backEvent}>
+                <Image
+                  style={styles.backImage}
+                  source={require("../../assets/back1.png")}
+                />
+              </TouchableOpacity>
             </View>
             <View>
               <Text style={styles.headerText}>Continue Booking</Text>
@@ -135,8 +188,8 @@ export default class profilePageSecond extends React.Component {
                 button={require("../../assets/More.png")}
                 buttonStyle={styles.optionButton}
                 destructiveIndex={1}
-                options={["Edit", "Delete", "Cancel"]}
-                actions={[this.editPost, this.deletePost]}
+                options={["Help"]}
+                actions={[this.helpPost]}
               />
             </View>
           </SafeAreaView>
@@ -157,7 +210,8 @@ export default class profilePageSecond extends React.Component {
                     placeholder="choose starting point, or click on the map  "
                     placeholderTextColor="#fff"
                     fontSize={14}
-                    onChange={this.handleSetEmail}
+                    value={this.state.source}
+                    editable={false}
                   />
                 </View>
               </View>
@@ -168,7 +222,8 @@ export default class profilePageSecond extends React.Component {
                     placeholder="choose starting point, or click on the map  "
                     placeholderTextColor="#fff"
                     fontSize={14}
-                    onChange={this.handleSetEmail}
+                    value={this.state.destination}
+                    editable={false}
                   />
                 </View>
               </View>
@@ -216,14 +271,19 @@ export default class profilePageSecond extends React.Component {
                         onPress={this.toggleDateModal}
                         style={styles.enterDateBtnCss}
                       >
-                        <Text>{this.state.dateOfJourney}</Text>
+                        <Text style={styles.text}>
+                          {this.state.dateOfJourney}
+                        </Text>
                       </TouchableOpacity>
                     ) : (
                       <TouchableOpacity
-                        onPress={this.androidDateModal}
+                        onPress={this.opeanDatePicker}
                         style={styles.enterDateBtnCss}
                       >
-                        <Text> Enter date </Text>
+                        <Text style={styles.text}>
+                          {" "}
+                          {this.state.dateOfJourney}{" "}
+                        </Text>
                       </TouchableOpacity>
                     )}
                   </View>
@@ -248,47 +308,21 @@ export default class profilePageSecond extends React.Component {
                         alignSelf: "center"
                       }}
                     >
-                      <View
-                        style={{
-                          alignItems: "center",
-                          justifyContent: "center",
-                          flex: 1
-                        }}
-                      >
-                        <View
-                          style={{
-                            alignSelf: "center",
-                            width: "100%"
-                          }}
-                        >
-                          {/* <Text>Hello!</Text>
-                      <Button title="Hide modal" onPress={this.toggleModal} /> */}
-                          {Platform.OS === "ios" ? (
-                            <DatePickerIOS
-                              date={this.state.chosenDate}
-                              onDateChange={this.setDate}
-                              mode="date"
-                              style={{
-                                borderRadius: 25,
-                                marginLeft: "2%",
-                                marginRight: "2%",
-                                backgroundColor: "#fff"
-                              }}
-                            />
-                          ) : (
-                            <DatePickerAndroid
-                              date={this.state.chosenDate}
-                              onDateChange={this.setDate}
-                              mode="date"
-                              style={{
-                                borderRadius: 25,
-                                marginLeft: "2%",
-                                marginRight: "2%",
-                                backgroundColor: "#fff"
-                              }}
-                            />
-                          )}
-
+                      <View style={styles.modelInnerView1}>
+                        <View style={styles.modelInnerView2}>
+                          <DatePickerIOS
+                            date={this.state.chosenDate}
+                            onDateChange={this.setDate}
+                            mode="date"
+                            minimumDate={min}
+                            // maximumDate={max + 3}
+                            style={{
+                              borderRadius: 25,
+                              marginLeft: "2%",
+                              marginRight: "2%",
+                              backgroundColor: "#fff"
+                            }}
+                          />
                           <TouchableOpacity
                             style={styles.modalBtnCss}
                             onPress={this.dateConfirm}
@@ -313,7 +347,10 @@ export default class profilePageSecond extends React.Component {
                 <View
                   style={{ flex: 0.4, flexDirection: "row", marginLeft: "5%" }}
                 >
-                  <TouchableOpacity onPress={this.presentDateEvent}>
+                  <TouchableOpacity
+                    onPress={this.presentDateEvent}
+                    style={{ width: "40%" }}
+                  >
                     <Text style={styles.date_today_today}>Today</Text>
                   </TouchableOpacity>
                   <Text
@@ -327,7 +364,13 @@ export default class profilePageSecond extends React.Component {
                     {" "}
                     |{" "}
                   </Text>
-                  <TouchableOpacity style={{ marginLeft: "42%" }}>
+                  <TouchableOpacity
+                    style={{
+                      marginLeft: "5%",
+                      // backgroundColor: "blue",
+                      width: "100%"
+                    }}
+                  >
                     <Text style={styles.date_today_tomorrow}>Tomorrow</Text>
                   </TouchableOpacity>
                 </View>
@@ -355,12 +398,25 @@ export default class profilePageSecond extends React.Component {
                       bottom: 3
                     }}
                   >
-                    <TouchableOpacity
-                      onPress={this.toggleTimeModal}
-                      style={styles.enterDateBtnCss}
-                    >
-                      <Text>{this.state.timeOfJourney}</Text>
-                    </TouchableOpacity>
+                    {Platform.OS === "ios" ? (
+                      <TouchableOpacity
+                        onPress={this.toggleTimeModal}
+                        style={styles.enterDateBtnCss}
+                      >
+                        <Text style={styles.text}>
+                          {this.state.timeOfJourney}
+                        </Text>
+                      </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity
+                        onPress={this.opeanTimePicker}
+                        style={styles.enterDateBtnCss}
+                      >
+                        <Text style={styles.text}>
+                          {this.state.timeOfJourney}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
                   </View>
                   <View
                     style={{
@@ -383,21 +439,8 @@ export default class profilePageSecond extends React.Component {
                         alignSelf: "center"
                       }}
                     >
-                      <View
-                        style={{
-                          alignItems: "center",
-                          justifyContent: "center",
-                          flex: 1
-                        }}
-                      >
-                        <View
-                          style={{
-                            alignSelf: "center",
-                            width: "100%"
-                          }}
-                        >
-                          {/* <Text>Hello!</Text>
-                      <Button title="Hide modal" onPress={this.toggleModal} /> */}
+                      <View style={styles.modelInnerView1}>
+                        <View style={styles.modelInnerView2}>
                           <DatePickerIOS
                             date={this.state.chosenDate}
                             onDateChange={this.setDate}
@@ -437,11 +480,20 @@ export default class profilePageSecond extends React.Component {
                     marginLeft: "5%"
                   }}
                 >
-                  <View style={{ position: "absolute", right: 31, bottom: 0 }}>
-                    <TouchableOpacity onPress={this.presentTimeEvent}>
+                  <TouchableOpacity
+                    onPress={this.presentTimeEvent}
+                    style={{ width: "100%" }}
+                  >
+                    <View
+                      style={{
+                        position: "absolute",
+                        right: 31,
+                        bottom: 0
+                      }}
+                    >
                       <Text style={styles.date_today_today}>Now</Text>
-                    </TouchableOpacity>
-                  </View>
+                    </View>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
@@ -468,15 +520,85 @@ export default class profilePageSecond extends React.Component {
                     source={require("../../assets/person.png")}
                   />
                 </View>
-                <View style={{ flex: 0.5 }}>
-                  <TextInput
-                    style={styles.numberOfPassenger}
-                    placeholder="Number Of Passenger"
-                    placeholderTextColor="#000"
-                    fontSize={14}
-                    onChange={this.handleSetEmail}
-                  />
-                </View>
+                <KeyboardAvoidingView style={{ flex: 0.5 }}>
+                  <View style={{ position: "absolute", bottom: 5 }}>
+                    <TouchableOpacity
+                      onPress={this.toggleDropDownModal}
+                      style={styles.enterDateBtnCss}
+                    >
+                      <Text style={styles.text}>
+                        {" "}
+                        {this.state.numberOfPassenger}{" "}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View
+                    style={{
+                      flex: 0.6,
+                      alignItems: "center",
+                      justifyContent: "center"
+                    }}
+                  >
+                    <Modal
+                      isVisible={this.state.isDropDownModelVisible}
+                      animationIn="wobble"
+                      animationOut="fadeOutDownBig"
+                      animationInTiming={1000}
+                      animationOutTiming={1000}
+                      backdropTransitionInTiming={200}
+                      backdropTransitionOutTiming={1000}
+                      style={{
+                        height: "100%",
+                        width: "100%",
+                        alignSelf: "center"
+                      }}
+                    >
+                      <View style={styles.modelInnerView1}>
+                        <View style={styles.modelInnerView2}>
+                          <Picker
+                            selectedValue={this.state.numberOfPassenger}
+                            style={{
+                              marginTop: "8%",
+                              height: Platform.OS === "ios" ? "40%" : "20%",
+                              backgroundColor: "#fff",
+                              borderRadius: 15,
+                              marginLeft: "3%",
+                              marginRight: "3%",
+                              paddingBottom: "2%"
+                            }}
+                            onValueChange={(itemValue, itemIndex) =>
+                              this.setState({ numberOfPassenger: itemValue })
+                            }
+                          >
+                            <Picker.Item label="1" value="1" />
+                            <Picker.Item label="2" value="2" />
+                            <Picker.Item label="3" value="3" />
+                            <Picker.Item label="4" value="4" />
+                            <Picker.Item label="5" value="5" />
+                            <Picker.Item label="6" value="6" />
+                          </Picker>
+
+                          <TouchableOpacity
+                            style={styles.modalBtnCss}
+                            onPress={this.toggleDropDownModal}
+                          >
+                            <Text style={{ fontSize: 25, alignSelf: "center" }}>
+                              Confirm
+                            </Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity
+                            style={styles.modalBtnCss}
+                            onPress={this.toggleDropDownModal}
+                          >
+                            <Text style={{ fontSize: 25, alignSelf: "center" }}>
+                              Cancle
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                    </Modal>
+                  </View>
+                </KeyboardAvoidingView>
                 <View style={{ flex: 0.4, flexDirection: "row" }}>
                   <View
                     style={{
@@ -486,11 +608,11 @@ export default class profilePageSecond extends React.Component {
                       marginLeft: "31%"
                     }}
                   >
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this.singlePersonEvent}>
                       <Text style={{ color: "#fff" }}>Single</Text>
                     </TouchableOpacity>
                     <Text style={{ color: "#fff" }}> | </Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this.twoPersonEvent}>
                       <Text style={{ color: "#fff" }}>Two</Text>
                     </TouchableOpacity>
                   </View>
@@ -535,6 +657,7 @@ export default class profilePageSecond extends React.Component {
           </View>
           <View style={{ flex: 0.5 }}>
             <TouchableOpacity
+              onPress={this.nextEvent}
               style={{
                 backgroundColor: "#fff",
                 borderColor: "#000",
@@ -610,12 +733,10 @@ const styles = StyleSheet.create({
   },
   S_D_input_view: {
     flex: 0.85,
-    // backgroundColor:"lightgray",
     flexDirection: "column"
   },
   s_input_view: {
     flex: 0.5,
-    //   backgroundColor:"yellow",
     alignItems: "center",
     justifyContent: "center"
   },
@@ -642,7 +763,8 @@ const styles = StyleSheet.create({
     bottom: Platform.OS === "ios" ? 6 : 3,
     borderRadius: 15,
     borderBottomColor: "#988c8c",
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    color: "#4d4d4d"
   },
   Input_Date_Time_view: {
     flex: 0.35,
@@ -668,14 +790,8 @@ const styles = StyleSheet.create({
   date_time_Image: {
     height: 30,
     width: 30,
-    // marginLeft:"6%",
-    // marginTop:"6%",
     alignSelf: "center",
-    // position:"absolute",
-    // left:4,
-    // top:4,
     resizeMode: "contain"
-    // borderRadius:10,
   },
   header_DT_logo_view: {
     flex: 0.15,
@@ -696,7 +812,6 @@ const styles = StyleSheet.create({
     borderBottomColor: "#fff",
     marginLeft: "2%",
     marginRight: "2%"
-    // backgroundColor:"red"
   },
   header_D_T_text: {
     alignSelf: "center",
@@ -714,7 +829,6 @@ const styles = StyleSheet.create({
   },
   enter_Date_Time_View: {
     flex: 0.3,
-    // backgroundColor:"red",
     marginTop: "2%",
     marginLeft: "10%",
     marginRight: "5%",
@@ -722,14 +836,6 @@ const styles = StyleSheet.create({
     borderBottomColor: "#fff",
     flexDirection: "row"
   },
-  // enterTimeView:{
-  //   flex:0.30,
-  //   marginTop:"2%",
-  //   marginLeft:"10%",
-  //   borderBottomWidth:1.5,
-  //   borderBottomColor:"#fff",
-  //   marginRight:"5%",
-  // },
   date_today_tomorrow: {
     color: "#fff",
     position: "absolute",
@@ -749,7 +855,6 @@ const styles = StyleSheet.create({
     resizeMode: "contain"
   },
   numberOfPassenger: {
-    // marginLeft:"8%"
     position: "absolute",
     bottom: 5
   },
@@ -757,7 +862,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     position: "absolute",
     bottom: 5,
-    color: "#000",
+    color: "#454647",
     marginLeft: "-2%"
   },
   modalBtnCss: {
@@ -779,5 +884,18 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 5,
     resizeMode: "contain"
+  },
+  modelInnerView2: {
+    alignSelf: "center",
+    width: "100%"
+  },
+  modelInnerView1: {
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1
+  },
+  text: {
+    fontSize: 14,
+    color: "#454647"
   }
 });
