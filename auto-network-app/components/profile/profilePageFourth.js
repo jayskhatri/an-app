@@ -91,7 +91,7 @@ export default class profilePageFourth extends React.Component {
 
   nextEvent(e){
     this._handleImagePicked(this.state.result);
-    this.submitUserDetails();
+    // this.submitUserDetails();
   }
 
   render() {
@@ -217,7 +217,8 @@ export default class profilePageFourth extends React.Component {
 
 
 async function uploadImageAsync(uri) {
-  console.log("First Line uploadImageAcsync");
+  // Why are we using XMLHttpRequest? See:
+  // https://github.com/expo/expo/issues/2402#issuecomment-443726662
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
@@ -231,25 +232,21 @@ async function uploadImageAsync(uri) {
     xhr.open('GET', uri, true);
     xhr.send(null);
   });
-  const {navigation} = this.props;
-  let user = navigation.getParam('user');
-  //take the currentuser and replace the child(profilepic.jpeg) with the user id of the current user
+
   const ref = firebase
     .storage()
-    .ref("/Images/Passengers/")
-    .child(user.uid + ".jpeg");
+    .ref("/Images/")
+    .child('Passengers/').child('profilepic.jpg');
   const snapshot = await ref.put(blob);
-  console.log("Image uploaded");
+
   // We're done with the blob, close and release it
   blob.close();
 
   let downloadurl = await snapshot.ref.getDownloadURL();
   console.log(downloadurl);
-  //store the download url in the database in the current user's object.
   this.setState({downloadUrl : downloadurl});
-
- 
 }
+
 
 const styles = StyleSheet.create({
   container: {
