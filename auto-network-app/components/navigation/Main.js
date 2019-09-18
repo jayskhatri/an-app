@@ -40,6 +40,9 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
+    MainTabNavigation: {
+      screen: MainTabNavigation
+    },
     BookingPageSecond: {
       screen: BookingPageSecond
     },
