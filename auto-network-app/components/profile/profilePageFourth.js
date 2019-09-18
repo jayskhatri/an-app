@@ -236,8 +236,8 @@ async function uploadImageAsync(uri) {
   //take the currentuser and replace the child(profilepic.jpeg) with the user id of the current user
   const ref = firebase
     .storage()
-    .ref("/Images/")
-    .child("profile_pic.jpeg");
+    .ref("/Images/Passengers/")
+    .child(user.uid + ".jpeg");
   const snapshot = await ref.put(blob);
   console.log("Image uploaded");
   // We're done with the blob, close and release it
