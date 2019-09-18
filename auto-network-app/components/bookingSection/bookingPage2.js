@@ -19,7 +19,7 @@ import Modal from "react-native-modal";
 import OptionsMenu from "react-native-options-menu";
 import Header from "../header/header";
 
-export default class profilePageSecond extends React.Component {
+export default class BookingPageSecond extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
