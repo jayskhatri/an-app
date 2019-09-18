@@ -5,6 +5,7 @@ import RadioForm,{RadioButton,RadioButtonInput,RadioButtonLabel} from "react-nat
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Header from '../header/header';
 import firebase from 'firebase';
+import symbolicateStackTrace from "react-native/Libraries/Core/Devtools/symbolicateStackTrace";
 // const {widthOfScreen , heightOfScreen } = Dimensions.get('window');
 var options=[
   {label:"Yes",value:0},
@@ -21,23 +22,26 @@ export default  class profilePageSecond extends React.Component {
         has_puc: 0,
       }
       this.previousEvent = this.previousEvent.bind(this);
-      this.submitDetails = this.submitDetails.bind(this);
       this.nextEvent = this.nextEvent.bind(this);
-    }
-    submitDetails(){
-      firebase.database().ref('Drivers/'+this.state.phone_number).push({
-        aadhar_number:this.state.aadhar_number,
-        license_number: this.state.license_number,
-        has_puc: this.state.has_puc,
-      });
     }
     previousEvent(e){
         this.props.navigation.navigate("ProfilePageOne");
     }
     nextEvent(e){
-      this.submitDetails();
-      console.log("aadhar: ",this.state.aadhar_number," licence: ",this.state.license_number, " has_puc:  ",this.state.has_puc)
-        this.props.navigation.navigate("ProfilePageThird");
+      const {navigation} = this.props;
+      // console.log("aadhar: ",this.state.aadhar_number," licence: ",this.state.license_number, " has_puc:  ",this.state.has_puc, " last name: ",navigation.getParam('last_name'))
+        this.props.navigation.navigate("ProfilePageThird",
+        {
+          aadhar_number: this.state.aadhar_number, 
+          license_number: this.state.license_number, 
+          has_puc: this.state.has_puc,
+          
+          user: navigation.getParam('user'), 
+          first_name: navigation.getParam('first_name'), 
+          last_name: navigation.getParam('last_name'),
+          birth_date: navigation.getParam('birth_date'), 
+          gender: navigation.getParam('gender')
+        });
     }
   render() {
     return(
@@ -63,6 +67,8 @@ export default  class profilePageSecond extends React.Component {
                 <View style={{flex:0.60}}>
                     <TextInput
                        placeholder="Enter Your Aadhar No."
+                       onChangeText={(aadhar_number) => this.setState({aadhar_number})}
+                       value={this.state.aadhar_number}
                        style={{borderBottomWidth:1,height:35,marginBottom:"1%",marginLeft:"5%",marginRight:"5%"}}
                      /> 
                 </View>
@@ -75,7 +81,8 @@ export default  class profilePageSecond extends React.Component {
     <View style={{flex:0.60}}>
                     <TextInput
                        placeholder="Enter Your Licence No."
-                       license_number = {(value)=>{license_number:value}}
+                       onChangeText={(license_number) => this.setState({license_number})}
+                       value={this.state.license_number}
                        style={{borderBottomWidth:1,height:35,marginBottom:"1%",marginLeft:"5%",marginRight:"5%"}}
                      /> 
                 </View>

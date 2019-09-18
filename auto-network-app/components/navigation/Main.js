@@ -1,14 +1,14 @@
 
 import React from "react";
 import mainScreen from '../home/mainScreen';
+import editProfile from '../profile/editProfile'
 import signUp from '../signup/SignUp';
 import { StyleSheet, Text, View, Easing, Animated , Image } from "react-native";
 import Login from "../login/Login";
 import ProfilePageOne from '../profile/profilePageOne';
 import ProfilePageSecond from '../profile/profilePageSecond';
 import ProfilePageThird from '../profile/profilePageThird';
-import ProfilePageFourth from '../profile/profilePgeFourth';
-import editProfile from '../profile/editProfile';
+import ProfilePageFourth from '../profile/profilePageFourth';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import Setting from '../setting/setting';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';

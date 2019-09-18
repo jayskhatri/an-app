@@ -1,7 +1,10 @@
 import React from 'react';
 import * as firebase from 'firebase';
-import { StyleSheet, View  , Text  , TextInput , Platform , SafeAreaView, TouchableOpacity , ImageBackground , Alert , Image , Dimensions} from 'react-native';
-import Header from '../header/header';
+import { StyleSheet, View  , Text  , TextInput , TouchableOpacity ,Platform, ImageBackground , Alert , Image , Dimensions} from 'react-native';
+import {widthPercentageToDP  , heightPercentageToDP  } from 'react-native-responsive-screen';
+import { responsiveWidth , responsiveFontSize  } from 'react-native-responsive-dimensions';
+// import console = require('console');
+// import console = require('console');
 
 export default class Login extends React.Component {
 
@@ -41,16 +44,19 @@ export default class Login extends React.Component {
         
       if (user) 
       {
-        // User is signed in.
-        if(user.emailVerified)
-        {
-          Alert.alert("Login successful");
-          this.props.navigation.navigate("ProfilePageOne");
-        }
-        else
-        {
-          Alert.alert("verify your email for signing in");
-        }
+        Alert.alert("Login successful");
+        var userRef = firebase.database().ref('Drivers/'+user.uid);
+        var profile_completed;
+        userRef.once('value').then(function(snapshot){
+          profile_completed = (snapshot.val() && snapshot.val().has_profile_completed)
+        });
+        console.log('is profile completed: ', profile_completed);
+        // if(profile_completed){
+        //   this.props.navigation.navigate("mainScreen");  
+        // }
+        // else{
+          this.props.navigation.navigate("ProfilePageOne",{user: user});
+        // }
       }
     else 
       {

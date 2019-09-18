@@ -9,7 +9,7 @@ import {
   TextInput,
   TouchableOpacity
 } from "react-native";
-import Header from '../header/header';
+import firebase from 'firebase';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -26,45 +26,70 @@ export default class profilePageFourth extends React.Component {
       image: null,
       isPicLoaded: true
     };
-    this.previousEvent = this.previousEvent.bind(this);
-    this.nextEvent = this.nextEvent.bind(this);
     this.skipEvent = this.skipEvent.bind(this);
     this.nextEvent = this.nextEvent.bind(this);
   }
-  previousEvent(e) {
-    this.props.navigation.navigate("ProfilePageSecond");
-  }
-  nextEvent(e) {
-    this.props.navigation.navigate("ProfilePageFourth");
+  componentWillMount(){
+    let storageRef = firebase.storage().ref();
+
   }
   submitDetails(){
-    firebase.database().ref('Drivers/'+this.state.phone_number).set({
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
-      birth_date: this.state.birth_date,
-      gender: this.state.gender,
-      aadhar_number: this.state.aadhar_number,
-      license_number: this.state.license_number,
-      has_puc: this.state.has_puc,
-      auto_reg_no: this.state.auto_reg_no,
-      has_own_vehicle: this.state.has_own_vehicle,
-      owner_name: this.state.owner_name,
-      owner_contact_number: this.state.owner_contact_number,
+    const {navigation} = this.props;
+    let user = navigation.getParam('user');
+
+    var metadata = {
+      contentType: 'image/jpeg',
+    };
+    let image = this.state.image;
+    var storageRef = firebase.storage().ref();
+    var uploadTask = storageRef.child('images/profile_pic.jpg').put(image, metadata);
+    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+      console.log('File available at', downloadURL);
     });
-    this.setState(
-      {
-        has_own_vehicle: false,
-        owner_name: "",
-        owner_contact_number: "",
-      }
-    );
+    const thirtySecs = 30 * 1000;
+    firebase.storage().setMaxOperationRetryTime(thirtySecs);
+
+
+    firebase.database().ref('Drivers/' + user.uid).set({
+      first_name: navigation.getParam('first_name'),
+      email_id: user.email,
+      last_name: navigation.getParam('last_name'),
+      birth_date: navigation.getParam('birth_date'),
+      gender: navigation.getParam('gender'),
+      aadhar_number: navigation.getParam('aadhar_number'),
+      license_number: navigation.getParam('license_number'),
+      has_puc: navigation.getParam('has_puc'),
+      auto_number: navigation.getParam('auto_number'),
+      has_own_vehicle: navigation.getParam('has_own_vehicle'),
+      owner_name: navigation.getParam('owner_name'),
+      owner_contact_number: navigation.getParam('owner_contact_number'),
+      has_profile_completed: true,
+    });
+    
     this.props.navigation.navigate('mainScreen');
   }
   skipEvent(e){
-    this.nextEvent();
+    
+    const {navigation} = this.props;
+    firebase.database().ref('Drivers/'+ user.uid).set({
+      first_name: navigation.getParam('first_name'),
+      last_name: navigation.getParam('last_name'),
+      birth_date: navigation.getParam('birth_date'),
+      gender: navigation.getParam('gender'),
+      aadhar_number: navigation.getParam('aadhar_number'),
+      license_number: navigation.getParam('license_number'),
+      has_puc: navigation.getParam('has_puc'),
+      auto_number: navigation.getParam('auto_number'),
+      has_own_vehicle: navigation.getParam('has_own_vehicle'),
+      owner_name: navigation.getParam('owner_name'),
+      owner_contact_number: navigation.getParam('owner_contact_number'),
+      has_profile_completed: false,
+    });
+    
+    this.props.navigation.navigate('mainScreen');
   }
   nextEvent(e){
-    this.props.navigation.navigate("mainScreen");
+    this.submitDetails();
   }
 
   render() {
