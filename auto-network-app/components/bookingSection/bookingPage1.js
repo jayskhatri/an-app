@@ -9,11 +9,12 @@ import firebase from 'firebase';
 import MapPicker from "react-native-map-picker";
 import requestLocationPermission from '../utils/askForPermission'
 
-export default  class profilePageSecond extends React.Component {
+export default  class BookingPageOne extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
         source:"",
+        user: '',
         destination:"",
         lastPosition: {
           coords: {
@@ -33,6 +34,8 @@ export default  class profilePageSecond extends React.Component {
     }
     
     async componentDidMount(){
+      let user = await firebase.auth().currentUser;
+      this.setState({user: user})
       await this._findUserPosition();
     }
     
@@ -42,14 +45,14 @@ export default  class profilePageSecond extends React.Component {
           var initialPosition = position;
           this.setState({
             initialPosition,
-            lastPosition: position
-          });
-          this.setState({
+            lastPosition: position,
             isReadyToLoad:true,
-          })
+          });
           console.log("position", position);
-          // this._enableTheButton();
-          // if e exists then the call is from inside the map modal
+          let user = this.state.user;
+          firebase.database().ref('Passengers/' + user.uid+"/status/").set({
+            position: position,
+          });
           if (typeof e !== "undefined") {
             this.setState({
               modalMarkerLocation: initialPosition
@@ -382,19 +385,20 @@ export default  class profilePageSecond extends React.Component {
                   <Text style={styles.mapTextCss}> find your destination on map </Text> 
               </View>
               <View style={styles.mapViewBorder}>
-              <MapPicker
-                initialCoordinate={{
-                  latitude: this.state.lastPosition.coords.latitude,
-                  longitude: this.state.lastPosition.coords.longitude,
-                }}
-                onLocationSelect={({latitude, longitude})=>console.log(longitude)}
-              />
+                <MapPicker
+                  initialCoordinate={{
+                    latitude: this.state.lastPosition.coords.latitude,
+                    longitude: this.state.lastPosition.coords.longitude,
+                  }}
+                  onLocationSelect={({latitude, longitude})=>console.log(longitude)}
+                />
               </View>
           </View>
       </View>
     );
     } 
-  }
+
+}
 
 const styles = StyleSheet.create({
     container: {

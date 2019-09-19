@@ -7,6 +7,7 @@ export default class mainScreen extends React.Component {
   constructor(props){
     super(props);
     this.logout = this.logout.bind(this);
+    this.gotoBooking = this.gotoBooking.bind(this);
   }
 
   logout(){
@@ -17,6 +18,10 @@ export default class mainScreen extends React.Component {
       console.log("error in mainScreen: ",error)
       Alert.alert(error);
     });
+  }
+
+  gotoBooking(){
+    this.props.navigation.navigate('BookingPageOne');
   }
 
   render(){
@@ -36,6 +41,12 @@ export default class mainScreen extends React.Component {
                      </TouchableOpacity>
               </View>
       </View>
+      <View style={{backgroundColor:"#12afe3",flexDirection:"row"}}>
+          <TouchableOpacity style={{marginTop:"3%",marginLeft:"5%"}} onPress={this.gotoBooking}>
+              <Text style={{fontSize:18}}>booking</Text>
+          </TouchableOpacity>
+      </View>
+      
       </View>
   );
   }
