@@ -23,7 +23,7 @@ class Main extends React.Component {
       <Image style={styles.container} source={require('../../assets/icon.png')}></Image>
       </View>
     );
-
+    
   }
 }
 const styles = StyleSheet.create({
@@ -38,6 +38,9 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
+    BookingPageOne : {
+      screen : BookingPageOne
+    },
     checkUserStatus:{
       screen: checkUserStatus
     },
@@ -48,9 +51,6 @@ const MainNavigation = createStackNavigator(
       screen: ProfilePageOne
     },
     
-    BookingPageOne : {
-      screen : BookingPageOne
-    },
     ProfilePageSecond:{
       screen:ProfilePageSecond
     },

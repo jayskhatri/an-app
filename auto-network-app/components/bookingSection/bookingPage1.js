@@ -8,6 +8,8 @@ import Header from '../header/header';
 import firebase from 'firebase';
 import MapPicker from "react-native-map-picker";
 import requestLocationPermission from '../utils/askForPermission'
+import * as geolib from 'geolib';
+
 
 export default  class profilePageSecond extends React.Component {
     constructor(props) {
@@ -22,6 +24,8 @@ export default  class profilePageSecond extends React.Component {
           }
         },
         isReadyToLoad:false,
+        Latitude: '',
+        Longitude: '',
         // this will get true when user clicks find location inside modal
         modalMarkerLocation: 0, 
       }
@@ -37,42 +41,67 @@ export default  class profilePageSecond extends React.Component {
     }
     
     _findUserPosition = (e) => {
+
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          var initialPosition = position;
-          this.setState({
-            initialPosition,
-            lastPosition: position
-          });
-          this.setState({
-            isReadyToLoad:true,
-          })
-          console.log("position", position);
-          // this._enableTheButton();
-          // if e exists then the call is from inside the map modal
-          if (typeof e !== "undefined") {
-            this.setState({
-              modalMarkerLocation: initialPosition
-            })
-          }
+        function(position) {
+            console.log(
+                'You are ',
+                geolib.getDistance(position.coords, {
+                    latitude:22.6007418,
+                    longitude:72.8255146,
+                }),
+                'meters away from 51.525, 7.4575'
+            );
         },
-        (error) => {
-          console.log('inside error', error);
-          this.setState({
-            locationServices: false
-          });
-        },
-        {timeout: 100000, maximumAge: 1000}
-      );
-      this.watchID = navigator.geolocation.watchPosition((position) => {
-        var lastPosition = position;
-        // TODO: check why allowing this console is run many times - might be from
-        // the geolocation trying to find the exact location of the user
-        console.log(position);
-        this.setState({
-          lastPosition: position
-        });
-      });
+        () => {
+            alert('Position could not be determined.');
+        }
+    );
+      // navigator.geolocation.getCurrentPosition(
+      //   (position) => {
+      //     var initialPosition = position;
+
+          
+          
+      //     this.setState({
+      //       initialPosition,
+      //       lastPosition: position,
+      //       Longitude: position.coords.latitude,
+      //       Longitude: position.coords.longitude
+      //     });
+      //     this.setState({
+      //       isReadyToLoad:true,
+      //     })
+      //     console.log("position", position);
+        
+      //     // if e exists then the call is from inside the map modal
+  
+      //     if (typeof e !== "undefined") {
+      //       this.setState({
+      //         modalMarkerLocation: initialPosition
+      //       })
+      //     }
+      //   },
+      //   (error) => {
+      //     console.log('inside error', error);
+      //     this.setState({
+      //       locationServices: false
+      //     });
+      //   },
+      //   {timeout: 100000, maximumAge: 1000}
+      // );
+      // this.watchID = navigator.geolocation.watchPosition((position) => {
+      //   var lastPosition = position;
+      //   // TODO: check why allowing this console is run many times - might be from
+      //   // the geolocation trying to find the exact location of the user
+      //   console.log(position);
+  
+        
+
+      //   this.setState({
+      //     lastPosition: position
+      //   });
+      // });
     }
     
     async componentWillMount(){
