@@ -31,7 +31,8 @@ export default class profilePageFourth extends React.Component {
       isPicLoaded: true,
       downloadUrl:'',
       result:'',
-      uploading:false
+      uploading:false,
+      uid: ''
     };
     this.skipEvent = this.skipEvent.bind(this);
     this.nextEvent = this.nextEvent.bind(this);
@@ -46,9 +47,9 @@ export default class profilePageFourth extends React.Component {
     let user = navigation.getParam('user');
     const thirtySecs = 30 * 1000;
     firebase.storage().setMaxOperationRetryTime(thirtySecs)
-
+    this.setState({uid: user.uid});
+    console.log("submit details: ",this.state.uid);
     firebase.database().ref('Passengers/' + user.uid + '/personal_details').set({
-      profile_pic_url: this.state.downloadUrl,
       first_name: navigation.getParam('first_name'),
       email_id: user.email,
       last_name: navigation.getParam('last_name'),
@@ -91,7 +92,7 @@ export default class profilePageFourth extends React.Component {
 
   nextEvent(e){
     this._handleImagePicked(this.state.result);
-    // this.submitUserDetails();
+     this.submitUserDetails();
   }
 
   render() {
@@ -214,8 +215,6 @@ export default class profilePageFourth extends React.Component {
     }
   };
 }
-
-
 async function uploadImageAsync(uri) {
   // Why are we using XMLHttpRequest? See:
   // https://github.com/expo/expo/issues/2402#issuecomment-443726662
@@ -232,11 +231,13 @@ async function uploadImageAsync(uri) {
     xhr.open('GET', uri, true);
     xhr.send(null);
   });
-
+  console.log("hiii from uploading");
+  let user = await firebase.auth().currentUser;
+  console.log("currentUser: ",user.uid);
   const ref = firebase
     .storage()
     .ref("/Images/")
-    .child('Passengers/').child('profilepic.jpg');
+    .child('Passengers/').child('pic2.jpg');
   const snapshot = await ref.put(blob);
 
   // We're done with the blob, close and release it
@@ -244,9 +245,11 @@ async function uploadImageAsync(uri) {
 
   let downloadurl = await snapshot.ref.getDownloadURL();
   console.log(downloadurl);
+  firebase.database().ref('Passengers/' + user.uid + '/personal_details/img').set({
+    profile_pic_url : downloadurl,
+  });
   this.setState({downloadUrl : downloadurl});
 }
-
 
 const styles = StyleSheet.create({
   container: {
