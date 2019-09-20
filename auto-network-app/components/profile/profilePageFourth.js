@@ -72,7 +72,7 @@ export default class profilePageFourth extends React.Component {
   skipEvent(e){
     const {navigation} = this.props;
     let user = navigation.getParam('user');
-    firebase.database().ref('Passengers/'+ user.uid).set({
+    firebase.database().ref('Passengers/'+ user.uid+'/personal_details').set({
       profile_pic_url: '',
       first_name: navigation.getParam('first_name'),
       last_name: navigation.getParam('last_name'),
