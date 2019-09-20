@@ -15,14 +15,14 @@ export default class checkUserStatus extends React.Component {
       firebase.auth().onAuthStateChanged(user=>{
             if(user!=null){
               console.log("user",user.email);
-              var userRef = firebase.database().ref('Passengers/'+user.uid);
+              var userRef = firebase.database().ref('Passengers/'+user.uid+'/personal_details/');
               var profile_completed=null;
               
               userRef.once('value').then((snapshot)=>{
                 console.log("snapshot: ",snapshot);
                 if(snapshot!=null){
                   const {navigation} = this.props;
-                  profile_completed = (snapshot.val() && snapshot.val().personal_details.has_profile_completed);
+                  profile_completed = (snapshot.val() && snapshot.val().has_profile_completed);
                   console.log('profile completed: ',profile_completed);
                   if(profile_completed===true){
                     console.log("profile is completed bro");

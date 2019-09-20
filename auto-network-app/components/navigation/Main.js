@@ -38,6 +38,9 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
+    BookingPageOne : {
+      screen : BookingPageOne
+    },
     checkUserStatus:{
       screen: checkUserStatus
     },
@@ -48,9 +51,7 @@ const MainNavigation = createStackNavigator(
       screen: ProfilePageOne
     },
     
-    BookingPageOne : {
-      screen : BookingPageOne
-    },
+    
     ProfilePageSecond:{
       screen:ProfilePageSecond
     },
