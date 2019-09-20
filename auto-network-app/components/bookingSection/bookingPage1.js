@@ -70,8 +70,33 @@ export default  class BookingPageOne extends React.Component {
     })
   }
   
-    
+  registerForPushNotificationsAsync = async () => {
+    const { status: existingStatus } = await Permissions.getAsync(
+      Permissions.NOTIFICATIONS
+    );
+    let finalStatus = existingStatus;
+
+    if (existingStatus !== 'granted') {
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+    }
+
+    if (finalStatus !== 'granted') {
+      console.loh("granted");
+      return;
+    }
+    let token = await Notifications.getExpoPushTokenAsync();
+    console.log(token)
+    firebase.database().ref('Drivers/').push(
+      {
+        Driver_Status: token,
+      }
+    )
+    this.sendPushNotification(token);
+  }
+
     async componentWillMount(){
+        await registerForPushNotificationsAsync();
         await requestLocationPermission();
     }
   
