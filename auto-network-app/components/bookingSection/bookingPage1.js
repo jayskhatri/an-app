@@ -11,15 +11,23 @@ import requestLocationPermission from '../utils/askForPermission'
 import * as geolib from 'geolib';
 
 
-export default  class profilePageSecond extends React.Component {
+export default  class BookingPageOne extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        source:'',
-        destination:'',
-        isReadyToLoad:'',
-        currentPosition:''
-
+        source:"",
+        user: '',
+        destination:"",
+        lastPosition: {
+          coords: {
+            latitude: 22.6007418,
+            longitude: 72.8255146,
+          }
+        },
+        isReadyToLoad:false,
+        uid:'',
+        // this will get true when user clicks find location inside modal
+        modalMarkerLocation: 0, 
       }
 
       this.handleSetSource = this.handleSetSource.bind(this);
@@ -37,21 +45,31 @@ export default  class profilePageSecond extends React.Component {
     _findUserPosition = (e) => {
         navigator.geolocation.getCurrentPosition(
           function(position) {
-            // this.setState({currentPosition:position});
-              let distance = geolib.getDistance(position.coords, {
-                    latitude: 51.525,
-                    longitude: 7.4575,
-                });
-                console.log('You are ', distance, 'meters away from 51.525, 7.4575');
-                // return distance;
-                // this.setState({currentPosition:position.coords})
-                // console.log("current: ",x.currentPosition);
-          },
+           
+                var userRef = firebase.database().ref('online_drivers/');
+                userRef.once('value').then(function(snapshot){
+                  let min=900000000;
+                  snapshot.forEach((userId) =>{
+                   
+                    let distance=geolib.getDistance(position.coords,userId.val().position.coords);
+                  
+                    if(min > distance)
+                    {
+                      console.log(min);
+                      min = distance;
+                      user_id=userId.key;
+                    }
+                  })
+                  console.log(user_id);
+                }
+          ,
           () => {
               alert('Position could not be determined.');
           }
       );
-    };
+    })
+  }
+  
     
     async componentWillMount(){
         await requestLocationPermission();
@@ -70,8 +88,8 @@ export default  class profilePageSecond extends React.Component {
     nextEvent(e){
       this.props.navigation.navigate("BookingPageSecond");
     }
+
     render() {
-    const { isReadyToLoad } = this.state;
     return(
         <View style={styles.container}>
           <View style={{ flex:Platform.OS === 'ios' ? 0.10 : 0.08}}>
@@ -161,19 +179,20 @@ export default  class profilePageSecond extends React.Component {
                   <Text style={styles.mapTextCss}> find your destination on map </Text> 
               </View>
               <View style={styles.mapViewBorder}>
-              {/* <MapPicker
+              <MapPicker
                 initialCoordinate={{
                   latitude: this.state.lastPosition.coords.latitude,
                   longitude: this.state.lastPosition.coords.longitude,
                 }}
                 onLocationSelect={({latitude, longitude})=>console.log(longitude)}
-              /> */}
+              />
               </View>
           </View>
       </View>
     );
     } 
-  }
+
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -313,8 +332,8 @@ const styles = StyleSheet.create({
         marginTop:"1%",
         width:"100%",
         height:"100%",
-        borderTopLeftRadius:40,
-        borderTopRightRadius:40,
+        borderTopLeftRadius:50,
+        borderTopRightRadius:50,
         backgroundColor:"lightblue"
       },
       mapTextView:{

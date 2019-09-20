@@ -44,6 +44,10 @@ const MainNavigation = createStackNavigator(
     checkUserStatus:{
       screen: checkUserStatus
     },
+    
+    BookingPageOne : {
+      screen : BookingPageOne
+    },
     ProfilePageFourth:{
       screen: ProfilePageFourth
     },
