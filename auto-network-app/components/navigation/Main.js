@@ -16,6 +16,9 @@ import Header from "../header/header";
 import MainTabNavigation from "../navigation/MainTabNavigator";
 import BookingPageOne from "../bookingSection/bookingPage1";
 import BookingPageSecond from "../bookingSection/bookingPage2";
+import BookingPageThird from "../bookingSection/BookingPage3";
+import HomeScreen from "../src/HomeScreen";
+import BottomBar from "../bottomTabBar/BottomBar";
 class Main extends React.Component {
   render() {
     return (
@@ -40,8 +43,21 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
-    MainTabNavigation: {
-      screen: MainTabNavigation
+    BookingPageThird: {
+      screen: BookingPageThird
+    },
+    HomeScreen: {
+      screen: HomeScreen
+    },
+    BottomBar: {
+      screen: BottomBar
+    },
+
+    Login: {
+      screen: Login
+    },
+    editProfile: {
+      screen: editProfile
     },
     BookingPageSecond: {
       screen: BookingPageSecond
@@ -54,12 +70,6 @@ const MainNavigation = createStackNavigator(
     },
     ProfilePageSecond: {
       screen: ProfilePageSecond
-    },
-    Login: {
-      screen: Login
-    },
-    editProfile: {
-      screen: editProfile
     },
 
     signUp: {
