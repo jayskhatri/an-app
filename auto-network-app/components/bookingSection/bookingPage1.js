@@ -15,20 +15,13 @@ export default  class profilePageSecond extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        source:"",
-        destination:"",
-        lastPosition: {
-          coords: {
-            latitude: 22.6007418,
-            longitude: 72.8255146,
-          }
-        },
-        isReadyToLoad:false,
-        Latitude: '',
-        Longitude: '',
-        // this will get true when user clicks find location inside modal
-        modalMarkerLocation: 0, 
+        source:'',
+        destination:'',
+        isReadyToLoad:'',
+        currentPosition:''
+
       }
+
       this.handleSetSource = this.handleSetSource.bind(this);
       this.handleSetDestination = this.handleSetDestination.bind(this);
       this.nextEvent = this.nextEvent.bind(this);
@@ -37,72 +30,28 @@ export default  class profilePageSecond extends React.Component {
     }
     
     async componentDidMount(){
-      await this._findUserPosition();
+       await this._findUserPosition();
+      // console.log("distance: ",distance);
     }
     
     _findUserPosition = (e) => {
-
-      navigator.geolocation.getCurrentPosition(
-        function(position) {
-            console.log(
-                'You are ',
-                geolib.getDistance(position.coords, {
-                    latitude:22.6007418,
-                    longitude:72.8255146,
-                }),
-                'meters away from 51.525, 7.4575'
-            );
-        },
-        () => {
-            alert('Position could not be determined.');
-        }
-    );
-      // navigator.geolocation.getCurrentPosition(
-      //   (position) => {
-      //     var initialPosition = position;
-
-          
-          
-      //     this.setState({
-      //       initialPosition,
-      //       lastPosition: position,
-      //       Longitude: position.coords.latitude,
-      //       Longitude: position.coords.longitude
-      //     });
-      //     this.setState({
-      //       isReadyToLoad:true,
-      //     })
-      //     console.log("position", position);
-        
-      //     // if e exists then the call is from inside the map modal
-  
-      //     if (typeof e !== "undefined") {
-      //       this.setState({
-      //         modalMarkerLocation: initialPosition
-      //       })
-      //     }
-      //   },
-      //   (error) => {
-      //     console.log('inside error', error);
-      //     this.setState({
-      //       locationServices: false
-      //     });
-      //   },
-      //   {timeout: 100000, maximumAge: 1000}
-      // );
-      // this.watchID = navigator.geolocation.watchPosition((position) => {
-      //   var lastPosition = position;
-      //   // TODO: check why allowing this console is run many times - might be from
-      //   // the geolocation trying to find the exact location of the user
-      //   console.log(position);
-  
-        
-
-      //   this.setState({
-      //     lastPosition: position
-      //   });
-      // });
-    }
+        navigator.geolocation.getCurrentPosition(
+          function(position) {
+            // this.setState({currentPosition:position});
+              let distance = geolib.getDistance(position.coords, {
+                    latitude: 51.525,
+                    longitude: 7.4575,
+                });
+                console.log('You are ', distance, 'meters away from 51.525, 7.4575');
+                // return distance;
+                // this.setState({currentPosition:position.coords})
+                // console.log("current: ",x.currentPosition);
+          },
+          () => {
+              alert('Position could not be determined.');
+          }
+      );
+    };
     
     async componentWillMount(){
         await requestLocationPermission();
@@ -121,205 +70,6 @@ export default  class profilePageSecond extends React.Component {
     nextEvent(e){
       this.props.navigation.navigate("BookingPageSecond");
     }
-    // renderMap(){
-    //   return(
-      //   <View style={styles.container}>
-      //     <View style={{ flex:Platform.OS === 'ios' ? 0.10 : 0.08}}>
-      //     <SafeAreaView style={styles.header}>
-      //               <View>
-      //                     <Image 
-      //                         style={styles.backImage} 
-      //                         source={require("../../assets/back1.png")} 
-      //                     /> 
-      //               </View>
-      //               <View>
-      //                   <Text style={styles.headerText}>Book Your Tickets</Text>
-      //               </View>
-      //               <View>
-      //                     <OptionsMenu
-      //                         button={require("../../assets/More.png")}
-      //                         buttonStyle={styles.optionButton}
-      //                         destructiveIndex={1}
-      //                         options={["Edit", "Delete", "Cancel"]}
-      //                         actions={[this.editPost, this.deletePost]}
-      //                     />
-      //               </View>
-      //     </SafeAreaView>  
-      //     </View>
-      //     <View style={styles.enterSourceDestinationView}>
-            
-      //       <View style={styles.sourceDestinationInputView}>
-
-      //               <View style={styles.sourceTODestinationLine}>
-      //                     <Image 
-      //                         style={styles.sourceTOdestinationImage} 
-      //                         source={require("../../assets/so_de_icon_side_line.png")} 
-      //                     /> 
-      //               </View>
-      //               <View style={styles.inputView}>
-      //                 <View style={{flex:0.50,/*backgroundColor:"green"*/}}>
-      //                       <View style={styles.outterLookOfInputBox}>
-      //                           <TextInput 
-      //                             style={styles.signInTextInputOne}
-      //                             placeholder="choose starting point, or click on the map  "
-      //                             placeholderTextColor="#fff"
-      //                             fontSize={14}
-      //                             value = {this.state.source}
-      //                             onChange={this.handleSetSource}
-      //                           />
-      //                           </View>
-      //                           <Text style={styles.textCss}>choose current location</Text>
-      //                 </View>
-      //                 <View style={{flex:0.50,/*backgroundColor:"green"*/}}>
-      //                       <View style={styles.outterLookOfInputBoxSecond}>
-      //                           <TextInput 
-      //                             style={styles.signInTextInputOne}
-      //                             placeholder="choose destination "
-      //                             placeholderTextColor="#fff"
-      //                             fontSize={14}
-      //                             value = {this.state.destination}
-      //                             onChange={this.handleSetDestination}
-      //                           />
-      //                           </View>
-                              
-      //                 </View>
-      //               </View>
-      //               <View style={styles.sourceDestinationSwapIcon}>
-      //                 <TouchableOpacity>
-      //                       <Image 
-      //                           style={styles.swapIcon} 
-      //                           source={require("../../assets/sawap_icon.png")} 
-      //                       />   
-      //                   </TouchableOpacity>
-      //               </View>
-
-      //       </View>
-      //         <View style={styles.nextButtonView}>
-      //             <TouchableOpacity style={styles.nextButtonCss} onPress={this.nextEvent}>
-      //                 <Text  style={styles.nextButtonTextCss} > next </Text>
-      //             </TouchableOpacity>
-      //         </View>
-      //     </View>
-      //     <View style={styles.waveView}>
-      //         <Image
-      //         style={styles.waveImageCss}
-      //         source={require("../../assets/wawe.png")}
-      //         ></Image>
-      //     </View>
-      //     <View style={styles.mapView}>
-      //         <View style={styles.mapTextView}> 
-      //             <Text style={styles.mapTextCss}> find your destination on map </Text> 
-      //         </View>
-      //         <View style={styles.mapViewBorder}>
-      //         <MapPicker
-      //           initialCoordinate={{
-      //             latitude: this.state.lastPosition.coords.latitude,
-      //             longitude: this.state.lastPosition.coords.longitude,
-      //           }}
-      //           onLocationSelect={({latitude, longitude})=>console.log(longitude)}
-      //         />
-      //         </View>
-      //     </View>
-          
-      // </View>   
-  
-    // renderMap1(){
-    //   return(
-    //     <View style={styles.container}>
-    //       <View style={{ flex:Platform.OS === 'ios' ? 0.10 : 0.08}}>
-    //       <SafeAreaView style={styles.header}>
-    //                 <View>
-    //                       <Image 
-    //                           style={styles.backImage} 
-    //                           source={require("../../assets/back1.png")} 
-    //                       /> 
-    //                 </View>
-    //                 <View>
-    //                     <Text style={styles.headerText}>Book Your Tickets</Text>
-    //                 </View>
-    //                 <View>
-    //                       <OptionsMenu
-    //                           button={require("../../assets/More.png")}
-    //                           buttonStyle={styles.optionButton}
-    //                           destructiveIndex={1}
-    //                           options={["Edit", "Delete", "Cancel"]}
-    //                           actions={[this.editPost, this.deletePost]}
-    //                       />
-    //                 </View>
-    //       </SafeAreaView>  
-    //       </View>
-    //       <View style={styles.enterSourceDestinationView}>
-            
-    //         <View style={styles.sourceDestinationInputView}>
-
-    //                 <View style={styles.sourceTODestinationLine}>
-    //                       <Image 
-    //                           style={styles.sourceTOdestinationImage} 
-    //                           source={require("../../assets/so_de_icon_side_line.png")} 
-    //                       /> 
-    //                 </View>
-    //                 <View style={styles.inputView}>
-    //                   <View style={{flex:0.50,/*backgroundColor:"green"*/}}>
-    //                         <View style={styles.outterLookOfInputBox}>
-    //                             <TextInput 
-    //                               style={styles.signInTextInputOne}
-    //                               placeholder="choose starting point, or click on the map  "
-    //                               placeholderTextColor="#fff"
-    //                               fontSize={14}
-    //                               value = {this.state.source}
-    //                               onChange={this.handleSetSource}
-    //                             />
-    //                             </View>
-    //                             <Text style={styles.textCss}>choose current location</Text>
-    //                   </View>
-    //                   <View style={{flex:0.50,/*backgroundColor:"green"*/}}>
-    //                         <View style={styles.outterLookOfInputBoxSecond}>
-    //                             <TextInput 
-    //                               style={styles.signInTextInputOne}
-    //                               placeholder="choose destination "
-    //                               placeholderTextColor="#fff"
-    //                               fontSize={14}
-    //                               value = {this.state.destination}
-    //                               onChange={this.handleSetDestination}
-    //                             />
-    //                             </View>
-                              
-    //                   </View>
-    //                 </View>
-    //                 <View style={styles.sourceDestinationSwapIcon}>
-    //                   <TouchableOpacity>
-    //                         <Image 
-    //                             style={styles.swapIcon} 
-    //                             source={require("../../assets/sawap_icon.png")} 
-    //                         />   
-    //                     </TouchableOpacity>
-    //                 </View>
-
-    //         </View>
-    //           <View style={styles.nextButtonView}>
-    //               <TouchableOpacity style={styles.nextButtonCss} onPress={this.nextEvent}>
-    //                   <Text  style={styles.nextButtonTextCss} > next </Text>
-    //               </TouchableOpacity>
-    //           </View>
-    //       </View>
-    //       <View style={styles.waveView}>
-    //           <Image
-    //           style={styles.waveImageCss}
-    //           source={require("../../assets/wawe.png")}
-    //           ></Image>
-    //       </View>
-    //       <View style={styles.mapView}>
-    //           <View style={styles.mapTextView}> 
-    //               <Text style={styles.mapTextCss}> find your destination on map </Text> 
-    //           </View>
-    //           <View style={styles.mapViewBorder}>
-                
-    //           </View>
-    //       </View>
-          
-    //   </View>   
-    //   ); 
-    // }
     render() {
     const { isReadyToLoad } = this.state;
     return(
@@ -411,13 +161,13 @@ export default  class profilePageSecond extends React.Component {
                   <Text style={styles.mapTextCss}> find your destination on map </Text> 
               </View>
               <View style={styles.mapViewBorder}>
-              <MapPicker
+              {/* <MapPicker
                 initialCoordinate={{
                   latitude: this.state.lastPosition.coords.latitude,
                   longitude: this.state.lastPosition.coords.longitude,
                 }}
                 onLocationSelect={({latitude, longitude})=>console.log(longitude)}
-              />
+              /> */}
               </View>
           </View>
       </View>
