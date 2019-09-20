@@ -97,7 +97,6 @@ export default  class BookingPageOne extends React.Component {
     }
     
     render() {
-    const { isReadyToLoad } = this.state;
     return(
         <View style={styles.container}>
           <View style={{ flex:Platform.OS === 'ios' ? 0.10 : 0.08}}>

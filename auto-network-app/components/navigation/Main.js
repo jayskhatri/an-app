@@ -38,11 +38,11 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
-    BookingPageOne : {
-      screen : BookingPageOne
-    },
     checkUserStatus:{
       screen: checkUserStatus
+    },
+    BookingPageOne : {
+      screen : BookingPageOne
     },
     ProfilePageFourth:{
       screen: ProfilePageFourth
