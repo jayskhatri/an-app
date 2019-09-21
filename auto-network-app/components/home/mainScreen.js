@@ -2,6 +2,7 @@ import React from 'react';
 import * as firebase from 'firebase';
 import { StyleSheet, View  , Text , SafeAreaView , Platform , TouchableOpacity , Alert} from 'react-native';
 import { responsiveFontSize  } from 'react-native-responsive-dimensions';
+import { Notifications } from 'expo';
 import Header from '../header/header';
 export default class mainScreen extends React.Component {
   constructor(props){

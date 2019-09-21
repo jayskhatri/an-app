@@ -2,6 +2,7 @@ import React from 'react';
 import * as firebase from 'firebase';
 import { StyleSheet, View  , Text  , TextInput , TouchableOpacity ,Platform,SafeAreaView, ImageBackground , Alert , Image , Dimensions} from 'react-native';
 import Header from '../header/header';
+import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 export default class Login extends React.Component {
 
@@ -53,15 +54,15 @@ export default class Login extends React.Component {
     }
     let token = await Notifications.getExpoPushTokenAsync();
     console.log('token: ',token);
-    firebase.database().ref('Passengers/'+user.uid+'/Token/').set(
-      {
-        expo_token: token,
-      }
-    ) 
-  }
-
-  componentDidMount(){
-    this.registerForPushNotificationsAsync();
+    firebase.auth().onAuthStateChanged(function(user) {
+      
+      firebase.database().ref('Passengers/'+user.uid+'/Token/').set(
+        {
+          expo_token: token,
+        }
+      ) 
+    })
+    
   }
 
   signInEvent(e){
@@ -81,7 +82,7 @@ export default class Login extends React.Component {
           userRef.once('value').then(function(snapshot){
             profile_completed = (snapshot.val() && snapshot.val().personal_details.has_profile_completed)
           });
-          // this.registerForPushNotificationsAsync();
+          this.registerForPushNotificationsAsync();
           console.log('is profile completed: ', profile_completed);
           if(profile_completed){
             this.props.navigation.navigate("mainScreen");  
