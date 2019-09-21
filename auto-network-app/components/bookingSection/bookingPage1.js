@@ -15,9 +15,11 @@ export default  class BookingPageOne extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
+        uid:'',
         source:"",
         user: '',
         destination:"",
+        notification:{},
         lastPosition: {
           coords: {
             latitude: 22.6007418,
@@ -25,7 +27,8 @@ export default  class BookingPageOne extends React.Component {
           }
         },
         isReadyToLoad:false,
-        uid:'',
+       
+        
         // this will get true when user clicks find location inside modal
         modalMarkerLocation: 0, 
       }
@@ -34,6 +37,7 @@ export default  class BookingPageOne extends React.Component {
       this.handleSetDestination = this.handleSetDestination.bind(this);
       this.nextEvent = this.nextEvent.bind(this);
       this._findUserPosition = this._findUserPosition.bind(this);
+      this.sendPushNotification = this.sendPushNotification.bind(this);
 
     }
     
@@ -41,34 +45,85 @@ export default  class BookingPageOne extends React.Component {
        await this._findUserPosition();
       // console.log("distance: ",distance);
     }
+    sendPushNotification = async (token) => {
+
+      console.log("poojan");
+      const message = {
+        to: token,
+        sound: 'default',
+        title: 'Booking Request',
+        body: 'Passenger Details:' ,
+        data: {
+          'Name': 'poojan dharaiya',
+          'source': 'Valetva Chowkdi',
+          'Destination': 'Nadiad',
+        }
+      };
+  
+      const response = await fetch('https://exp.host/--/api/v2/push/send', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Accept-encoding': 'gzip, deflate',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(message),
+  
+      });
+  
+      const data = response._bodyInit;
+      console.log(`Status & Response ID-> ${JSON.stringify(data)}`);
+  
+    };
+  
+    // componentDidMount() {
+    //   this._notificationSubscription = Notifications.addListener(this._handleNotification);
+    // }
+  
+    _handleNotification = (notification) => {
+  
+      this.setState({ notification: notification });
+      this.setState({
+        info: JSON.stringify(notification.data.Destination)
+      })
+      console.log(this.state.notification);
+      console.log("poojan dharaiya");
+    };
+  
     
     _findUserPosition = (e) => {
         navigator.geolocation.getCurrentPosition(
           function(position) {
-           
+              
                 var userRef = firebase.database().ref('online_drivers/');
-                userRef.once('value').then(function(snapshot){
-                  let min=900000000;
+                userRef.once('value').then(function(snapshot) {
+                  let min=900000000 ;
                   snapshot.forEach((userId) =>{
-                   
                     let distance=geolib.getDistance(position.coords,userId.val().position.coords);
-                  
                     if(min > distance)
                     {
-                      console.log(min);
+                      console.log("min: ",min);
                       min = distance;
                       user_id=userId.key;
                     }
-                  })
-                  console.log(user_id);
+                  });
+                  console.log("user_id: ",user_id);
+                  var tokenRef = firebase.database().ref('Passengers/BydYdzIxK2gb1IZeLrzpjVzaSa03/Token/expo_token');
+                  tokenRef.once('value').then((snapshot)=>{
+                  let token = snapshot.val()
+                  console.log("please see here token: ",token);
+                  this.sendPushNotification(token);
+                });
+                 
+                }.bind(this))           
+                ,
+                () => {
+                    alert('Position could not be determined.');
                 }
-          ,
-          () => {
-              alert('Position could not be determined.');
           }
       );
-    })
-  }
+    }
+  
   
   registerForPushNotificationsAsync = async () => {
     const { status: existingStatus } = await Permissions.getAsync(
@@ -92,29 +147,29 @@ export default  class BookingPageOne extends React.Component {
         Driver_Status: token,
       }
     )
-    this.sendPushNotification(token);
+   
   }
 
-    async componentWillMount(){
-        await registerForPushNotificationsAsync();
-        await requestLocationPermission();
-    }
+    // async componentWillMount =>()=>{
+    //     await registerForPushNotificationsAsync();
+    //     await requestLocationPermission();
+    // }
   
-    handleSetSource(e){
+    handleSetSource=(e)=>{
       const temp = e.nativeEvent.text;
       this.setState({source:temp});
     }
     
-    handleSetDestination(e){
+    handleSetDestination=(e)=>{
       const temp = e.nativeEvent.text;
       this.setState({destination:temp});
     }
     
-    nextEvent(e){
-      this.props.navigation.navigate("BookingPageSecond");
+    nextEvent=(e)=>{
+      this.props.navigation.navigate("BookingPageSecond") ;
     }
-
-    render() {
+  
+    render=() =>{
     return(
         <View style={styles.container}>
           <View style={{ flex:Platform.OS === 'ios' ? 0.10 : 0.08}}>
@@ -216,8 +271,9 @@ export default  class BookingPageOne extends React.Component {
       </View>
     );
     } 
+  }
+  
 
-}
 
 const styles = StyleSheet.create({
     container: {
