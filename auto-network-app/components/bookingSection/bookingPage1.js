@@ -7,6 +7,8 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import Header from '../header/header';
 import firebase from 'firebase';
 import MapPicker from "react-native-map-picker";
+import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
 import requestLocationPermission from '../utils/askForPermission'
 import * as geolib from 'geolib';
 
