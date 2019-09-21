@@ -39,7 +39,7 @@ export default  class BookingPageOne extends React.Component {
       this.handleSetDestination = this.handleSetDestination.bind(this);
       this.nextEvent = this.nextEvent.bind(this);
       this._findUserPosition = this._findUserPosition.bind(this);
-      this.sendPushNotification = this.sendPushNotification.bind(this);
+      // this.sendPushNotification = this.sendPushNotification.bind(this);
 
     }
     
@@ -47,7 +47,7 @@ export default  class BookingPageOne extends React.Component {
        await this._findUserPosition();
       // console.log("distance: ",distance);
     }
-    sendPushNotification = async (token) => {
+    async  sendPushNotification(token){
 
       console.log("poojan");
       const message = {
@@ -114,10 +114,12 @@ export default  class BookingPageOne extends React.Component {
                   tokenRef.once('value').then((snapshot)=>{
                   let token = snapshot.val()
                   console.log("please see here token: ",token);
+                  console.log('above')
                   this.sendPushNotification(token);
+                  console.log("notification")
                 });
                  
-                }.bind(this))           
+                })           
                 ,
                 () => {
                     alert('Position could not be determined.');
