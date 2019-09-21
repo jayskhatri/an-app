@@ -15,6 +15,7 @@ export default class Login extends React.Component {
     this.handleSetPassword = this.handleSetPassword.bind(this);
     this.signUpEvent = this.signUpEvent.bind(this);
     this.signInEvent = this.signInEvent.bind(this);
+    this.registerForPushNotificationsAsync = this.registerForPushNotificationsAsync.bind(this);
   }
 
   handleSetEmail(e){
@@ -31,6 +32,36 @@ export default class Login extends React.Component {
   signUpEvent(e){
     this.props.navigation.navigate("signUp");
   }
+  
+  registerForPushNotificationsAsync = async () => {
+    console.log("poojan");
+    const { status: existingStatus } = await Permissions.getAsync(
+      Permissions.NOTIFICATIONS
+    );
+    console.log("dharaiya");
+    let finalStatus = existingStatus;
+
+    if (existingStatus !== 'granted') {
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+    }
+
+    if (finalStatus !== 'granted') {
+      console.loh("granted");
+      return;
+    }
+    let token = await Notifications.getExpoPushTokenAsync();
+    console.log('token: ',token);
+    firebase.database().ref('Passengers/'+user.uid+'/Token/').set(
+      {
+        expo_token: token,
+      }
+    ) 
+  }
+
+  componentWillMount(){
+    this.registerForPushNotificationsAsync();
+  }
 
   signInEvent(e){
 
@@ -42,19 +73,21 @@ export default class Login extends React.Component {
       if (user && user!=null) 
       {
         if(user.emailVerified){
+          // registerForPushNotificationsAsync();
           Alert.alert("Login successful");
           var userRef = firebase.database().ref('Passengers/'+user.uid);
           var profile_completed;
           userRef.once('value').then(function(snapshot){
             profile_completed = (snapshot.val() && snapshot.val().personal_details.has_profile_completed)
           });
+          // this.registerForPushNotificationsAsync();
           console.log('is profile completed: ', profile_completed);
-          // if(profile_completed){
-          //   this.props.navigation.navigate("mainScreen");  
-          // }
-          // else{
+          if(profile_completed){
+            this.props.navigation.navigate("mainScreen");  
+          }
+          else{
             this.props.navigation.navigate("ProfilePageOne",{user: user});
-          // }
+          }
         }
         else {
           Alert.alert("Verify your Email");

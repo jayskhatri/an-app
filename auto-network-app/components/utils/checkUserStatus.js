@@ -13,7 +13,7 @@ export default class checkUserStatus extends React.Component {
 
   checkStatus(){
       firebase.auth().onAuthStateChanged(user=>{
-            if(user!=null){
+            if(user){
               console.log("user",user.email);
               var userRef = firebase.database().ref('Passengers/'+user.uid+'/personal_details/');
               var profile_completed=null;
@@ -33,7 +33,7 @@ export default class checkUserStatus extends React.Component {
                   }
                   else{
                     console.log("Login Again");
-                    this.props.navigation.navigate("Login");
+                    this.props.navigation.navigate("Login") ;
                   }
                 }
               },function(err){
