@@ -22,6 +22,7 @@ export default  class profilePageOne extends React.Component {
         last_name: '',
         birth_date: '',
         gender: 111,
+      
       }
       this.nextEvent = this.nextEvent.bind(this);
     }
@@ -39,7 +40,8 @@ export default  class profilePageOne extends React.Component {
           }
         );
     }
-    
+
+        
     render() {
       return(
         <View style={styles.container}>

@@ -39,15 +39,18 @@ export default  class BookingPageOne extends React.Component {
       this.handleSetDestination = this.handleSetDestination.bind(this);
       this.nextEvent = this.nextEvent.bind(this);
       this._findUserPosition = this._findUserPosition.bind(this);
-      // this.sendPushNotification = this.sendPushNotification.bind(this);
+      this.sendPushNotification = this.sendPushNotification.bind(this);
 
     }
     
     async componentDidMount(){
-       await this._findUserPosition();
-      // console.log("distance: ",distance);
+      
+      await this._findUserPosition();
+      this._notificationSubscription = Notifications.addListener(this._handleNotification);
+      //  console.log("distance: ",distance);
     }
-    async  sendPushNotification(token){
+
+    sendPushNotification = async(token) =>{
 
       console.log("poojan");
       const message = {
@@ -110,22 +113,23 @@ export default  class BookingPageOne extends React.Component {
                     }
                   });
                   console.log("user_id: ",user_id);
-                  var tokenRef = firebase.database().ref('Passengers/BydYdzIxK2gb1IZeLrzpjVzaSa03/Token/expo_token');
-                  tokenRef.once('value').then((snapshot)=>{
-                  let token = snapshot.val()
-                  console.log("please see here token: ",token);
-                  console.log('above')
-                  this.sendPushNotification(token);
-                  console.log("notification")
-                });
+                 
                  
                 })           
                 ,
                 () => {
-                    alert('Position could not be determined.');
+                     alert('Position could not be determined.');
                 }
           }
       );
+      var tokenRef = firebase.database().ref('Passengers/BydYdzIxK2gb1IZeLrzpjVzaSa03/Token/expo_token');
+      tokenRef.once('value').then((snapshot)=>{
+      let token = snapshot.val()
+      console.log("please see here token: ",token);
+      console.log('above')
+      this.sendPushNotification(token);
+      console.log("notification")
+    });
     }
   
   
