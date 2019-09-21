@@ -9,51 +9,97 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
+
 import OptionsMenu from "react-native-options-menu";
 import Header from "../header/header";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
+
 export default class BookingPage3 extends React.Component {
   constructor() {
     super();
+    this.state = {
+      name: "",
+      source: "",
+      destination: "",
+      date: "",
+      time: "",
+      selectAmOrPm: "",
+      noOfPerson: "",
+      driverName: "",
+      autoNumber: "",
+      totalAmount: "",
+      perPersonAmount: ""
+    };
     this.backEvent = this.backEvent.bind(this);
   }
   backEvent() {
     this.props.navigation.navigate("BookingPageSecond");
+  }
+  componentWillMount() {
+    this.setState({ name: "Anuj Thakkar" });
+    this.setState({ source: "changa , Aanand ..." });
+    this.setState({ destination: "Big Bazzar , Aanand ..." });
+    this.setState({ date: "25/9/2019" });
+    this.setState({ time: "9:30" });
+    this.setState({ selectAmOrPm: "AM" });
+    this.setState({ noOfPerson: "2" });
+    this.setState({ driverName: "Sukhdev Prasad ...." });
+    this.setState({ autoNumber: "Gj 03 HP 2503" });
+    this.setState({ totalAmount: "300" });
+    this.setState({ perPersonAmount: "150" });
   }
   render() {
     return (
       <View style={styles.container}>
         <View
           style={{
-            flex: Platform.OS === "ios" ? 0.2 : 0.08 //change flex in andriod
+            backgroundColor: "transparent",
+            flex: 0.2 //change flex in andriod
           }}
         >
           <SafeAreaView style={styles.header}>
-            <View>
-              <TouchableOpacity onPress={this.backEvent}>
-                <Image
-                  style={styles.backImage}
-                  source={require("../../assets/back1.png")}
+            <View style={styles.headerInnerView}>
+              <View style={{ alignSelfs: "center" }}>
+                <TouchableOpacity
+                  onPress={this.backEvent}
+                  style={{ alignSelfs: "center" }}
+                >
+                  <Image
+                    style={styles.backImage}
+                    source={require("../../assets/back1.png")}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}
+              >
+                <Text style={styles.headerText}>Tickets</Text>
+              </View>
+              <View style={{ alignSelfs: "center", marginTop: "1%" }}>
+                <OptionsMenu
+                  button={require("../../assets/More.png")}
+                  buttonStyle={styles.optionButton}
+                  destructiveIndex={1}
+                  options={["Help"]}
+                  actions={[this.helpPost]}
                 />
-              </TouchableOpacity>
-            </View>
-            <View>
-              <Text style={styles.headerText}>Tickets</Text>
-            </View>
-            <View>
-              <OptionsMenu
-                button={require("../../assets/More.png")}
-                buttonStyle={styles.optionButton}
-                destructiveIndex={1}
-                options={["Help"]}
-                actions={[this.helpPost]}
-              />
+              </View>
             </View>
           </SafeAreaView>
-          <Header />
+          <View
+            style={{
+              flex: Platform.OS === "ios" ? 0.6 : 0.5,
+              paddingTop: Platform.OS === "ios" ? "0%" : "1%"
+            }}
+          >
+            <Header />
+          </View>
         </View>
         {/* Ticket View */}
         <View style={styles.ticketView}>
@@ -91,8 +137,15 @@ export default class BookingPage3 extends React.Component {
                     source={require("../../assets/person.png")}
                   />
                 </View>
-                <View style={{ flex: 0.9 }}>
-                  <Text style={styles.text_Of_Details}>Anuj Thakkar</Text>
+                <View
+                  style={{
+                    flex: 0.9,
+                    width: "100%"
+                  }}
+                >
+                  <Text style={{ fontSize: 15, color: "#474747" }}>
+                    {this.state.name}
+                  </Text>
                 </View>
               </View>
             </View>
@@ -118,7 +171,9 @@ export default class BookingPage3 extends React.Component {
                   </View>
                   <View style={{ flex: 0.8, marginLeft: "4%" }}>
                     <ScrollView horizontal={true}>
-                      <Text style={styles.text_Of_Details}>Changa , Aanad</Text>
+                      <Text style={styles.text_Of_Details}>
+                        {this.state.source}
+                      </Text>
                     </ScrollView>
                   </View>
                 </View>
@@ -131,6 +186,7 @@ export default class BookingPage3 extends React.Component {
                   <View
                     style={{
                       flex: 0.2,
+
                       alignItems: "center",
                       justifyContent: "center"
                     }}
@@ -143,7 +199,7 @@ export default class BookingPage3 extends React.Component {
                   <View style={{ flex: 0.8, marginLeft: "4%" }}>
                     <ScrollView horizontal={true}>
                       <Text style={styles.text_Of_Details}>
-                        Big Bazar , Aanad
+                        {this.state.destination}
                       </Text>
                     </ScrollView>
                   </View>
@@ -171,7 +227,9 @@ export default class BookingPage3 extends React.Component {
                   </View>
                   <View style={{ flex: 0.8, marginLeft: "4%" }}>
                     <ScrollView horizontal={true}>
-                      <Text style={styles.text_Of_Details}>25/9/2019</Text>
+                      <Text style={styles.text_Of_Details}>
+                        {this.state.date}
+                      </Text>
                     </ScrollView>
                   </View>
                 </View>
@@ -195,7 +253,9 @@ export default class BookingPage3 extends React.Component {
                   </View>
                   <View style={{ flex: 0.8, marginLeft: "4%" }}>
                     <ScrollView horizontal={true}>
-                      <Text style={styles.text_Of_Details}>9:30 AM</Text>
+                      <Text style={styles.text_Of_Details}>
+                        {this.state.time}
+                      </Text>
                     </ScrollView>
                   </View>
                 </View>
@@ -220,24 +280,36 @@ export default class BookingPage3 extends React.Component {
                   />
                 </View>
                 <View style={{ flex: 0.9 }}>
-                  <Text style={styles.text_Of_Details}>2</Text>
+                  <Text style={{ fontSize: 15, color: "#474747" }}>
+                    {this.state.noOfPerson}
+                  </Text>
                 </View>
               </View>
             </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignSelf: "center",
-                marginTop: "10%"
-              }}
-            >
-              <Image
-                style={styles.sharingIcon}
-                source={require("../../assets/Solid.png")}
-              />
-              <Text style={{ fontSize: 12, marginLeft: "2%" }}>
-                You Have allowed for sharing auto with another passengers
-              </Text>
+            <View style={{ flex: 0.2 }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignSelf: "center",
+                  marginTop: "5%"
+                }}
+              >
+                <Image
+                  style={styles.sharingIcon}
+                  source={require("../../assets/Solid.png")}
+                />
+                <Text
+                  style={{
+                    fontSize: 12,
+                    marginLeft: "1%",
+                    marginTop: "0%",
+
+                    color: "#fff"
+                  }}
+                >
+                  You Have allowed for sharing auto with another passengers
+                </Text>
+              </View>
             </View>
           </View>
           <View style={styles.driver_Detail_View}>
@@ -246,24 +318,52 @@ export default class BookingPage3 extends React.Component {
                 <View style={styles.Auto_driver_text_view}>
                   <Text style={styles.Auto_driver_text_Css}>Auto Driver</Text>
                 </View>
-                <View style={styles.pipeView}></View>
+                {/* <View style={styles.pipeView}></View> */}
                 <View style={styles.Auto_Deiver_profile}>
-                  <View>
+                  <View
+                    style={{
+                      flex: 0.24,
+                      marginRight: "2%",
+                      // alignItems: "center",
+                      justifyContent: "center"
+                      // backgroundColor: "green"
+                    }}
+                  >
                     <Image
                       style={styles.Deiver_Profile_Image}
-                      source={require("../../assets/Component.png")}
+                      source={require("../../assets/pic.jpg")}
                     />
                   </View>
                   <View
                     style={{
-                      alignItems: "center",
-                      justifyContent: "center"
+                      flex: 0.76,
+                      alignSelf: "center",
+                      justifyContent: "center",
+                      paddingLeft: "4%",
+                      color: "grey"
+                      // backgroundColor: "red"
                     }}
                   >
-                    <Text style={styles.Deiver_name_text_css}>
-                      Sukhdev Prasad
-                    </Text>
-                    <View style={{ flexDirection: "row" }}>
+                    <View
+                      style={{
+                        width: "100%",
+                        // flex: 0.4,
+                        overflow: "hidden",
+                        alignSelf: "center"
+                      }}
+                    >
+                      <ScrollView horizontal={true}>
+                        <Text style={styles.Deiver_name_text_css}>
+                          {this.state.driverName}
+                        </Text>
+                      </ScrollView>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "row"
+                        // flex: 0.6
+                      }}
+                    >
                       <Text style={styles.varified_text_css}>
                         The Verified Driver
                       </Text>
@@ -281,11 +381,10 @@ export default class BookingPage3 extends React.Component {
                 <View style={styles.Auto_driver_text_view}>
                   <Text style={styles.Auto_driver_text_Css}>Auto Number</Text>
                 </View>
-                <View style={styles.pipeView}></View>
                 <View style={styles.Auto_number_view}>
                   <View style={styles.Auto_number_View_Css}>
                     <Text style={styles.Auto_number_text_css}>
-                      Gj 03 HP 2503
+                      {this.state.autoNumber}
                     </Text>
                   </View>
                 </View>
@@ -295,7 +394,8 @@ export default class BookingPage3 extends React.Component {
               style={{
                 flex: 0.34,
                 alignItems: "center",
-                justifyContent: "center"
+                justifyContent: "center",
+                paddingBottom: "3%"
               }}
             >
               <View style={styles.driver_detail_view_1}>
@@ -304,29 +404,46 @@ export default class BookingPage3 extends React.Component {
                     Fare Calculation
                   </Text>
                 </View>
-                <View style={styles.pipeView}></View>
+                {/* <View style={styles.pipeView}></View> */}
                 <View style={styles.Auto_number_view}>
                   <View style={styles.Auto_number_View_Css}>
-                    <Text style={styles.Auto_number_text_css}>Rs. 300</Text>
+                    <Text style={styles.Auto_number_text_css}>
+                      Rs. {this.state.totalAmount}
+                    </Text>
                   </View>
-                  <Text>Rs. 150 per person</Text>
+                  <Text style={{ color: "#474747" }}>
+                    Rs. {this.state.perPersonAmount} per person
+                  </Text>
                 </View>
               </View>
             </View>
           </View>
         </View>
         <View
-          style={{ flex: 0.15, alignItems: "center", justifyContent: "center" }}
+          style={{
+            flex: 0.2,
+            alignItems: "center",
+            justifyContent: "center"
+          }}
         >
           <TouchableOpacity
             style={{
               width: "50%",
               height: "30%",
-              borderWidth: 0.5,
-              borderRadius: 20,
+              backgroundColor: "#fff",
+              borderRadius: Platform.OS === "ios" ? 34 : 25,
               alignSelf: "center",
               alignItems: "center",
-              justifyContent: "center"
+              justifyContent: "center",
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 5
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+
+              elevation: 2
             }}
           >
             <View style={{ alignSelf: "center", flexDirection: "row" }}>
@@ -358,16 +475,19 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   header: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
     backgroundColor: "#269DF9",
-    paddingTop: Platform.OS === "android" ? "5%" : "0%"
+    flex: Platform.OS === "ios" ? 0.4 : 0.5
+  },
+  headerInnerView: {
+    marginTop: Platform.OS === "android" ? "7%" : " 3%",
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   backImage: {
     height: 60,
     width: 60,
-    marginTop: "-22%",
+    alignSelf: "center",
+    marginTop: "-18%",
     resizeMode: "contain"
   },
   headerText: {
@@ -380,7 +500,8 @@ const styles = StyleSheet.create({
     width: 32,
     height: 35,
     marginRight: "3%",
-    resizeMode: "contain"
+    resizeMode: "contain",
+    alignSelf: "center"
   },
   ticketView: {
     flex: 0.6,
@@ -388,7 +509,16 @@ const styles = StyleSheet.create({
     marginLeft: "3%",
     marginRight: "3%",
     borderRadius: 20,
-    marginTop: "-20%"
+    marginTop: -85,
+    shadowColor: "lightblue",
+    shadowOffset: {
+      width: 0,
+      height: 1
+    },
+    shadowOpacity: 1.5,
+    shadowRadius: 3.84,
+
+    elevation: 4
   },
   ticket_headerView: {
     flex: 0.08,
@@ -410,10 +540,10 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   outter_View_Of_Confirm_Icon: {
-    width: "90%",
-    height: "85%",
-    marginLeft: "8%",
-    marginTop: "8%",
+    width: 40,
+    height: 35,
+    marginLeft: "7%",
+    marginTop: "10%",
     backgroundColor: "#fff",
     borderRadius: 10,
     alignItems: "center",
@@ -430,8 +560,8 @@ const styles = StyleSheet.create({
   },
   headerText_Css: {
     fontSize: 20,
-    position: "absolute",
-    left: "13%"
+    alignSelf: "center",
+    color: "#000"
   },
   user_Details_View: {
     flex: 0.4
@@ -451,7 +581,8 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   lableText: {
-    fontSize: 10
+    fontSize: 10,
+    color: "#fff"
   },
   lable_Image: {
     width: "70%",
@@ -460,7 +591,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     position: "absolute",
     left: 0
-    // backgroundColor: "yellow"
   },
   destinationIcon: {
     width: "50%",
@@ -472,11 +602,8 @@ const styles = StyleSheet.create({
   },
   text_Of_Details: {
     fontSize: 15,
-    position: "absolute",
     alignSelf: "center",
-    position: "absolute",
-    left: "2%",
-    bottom: "8%"
+    color: "#474747"
   },
   source_destinatio_view: {
     flex: 0.2,
@@ -484,19 +611,15 @@ const styles = StyleSheet.create({
     width: "85%",
     marginLeft: "8%",
     marginTop: "5%"
-    // backgroundColor: "red"
   },
   driver_Detail_View: {
-    flex: 0.38,
+    marginTop: Platform.OS === "ios" ? "4%" : "6%",
+    flex: 0.52,
     borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    marginTop: "-3%",
-    marginBottom: "2%"
+    borderBottomRightRadius: 20
   },
   driver_Detail_outter_View: {
-    flex: 0.33,
-    alignItems: "center",
-    justifyContent: "center"
+    flex: 0.33
   },
   driver_detail_view_1: {
     width: "96%",
@@ -508,15 +631,28 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 4
   },
   Auto_driver_text_view: {
     flex: 0.37,
-    alignSelf: "center"
+    height: "80%",
+    borderRightWidth: 1.5,
+    justifyContent: "center",
+    textAlign: "left",
+    paddingLeft: "2%"
   },
   Auto_driver_text_Css: {
-    fontSize: 20,
-    marginLeft: "8%"
+    fontSize: 15,
+    color: "#474747"
   },
   pipeView: {
     flex: 0.04,
@@ -525,44 +661,53 @@ const styles = StyleSheet.create({
   },
   Auto_Deiver_profile: {
     flex: 0.59,
-    flexDirection: "row"
+    height: "80%",
+    flexDirection: "row",
+    paddingRight: "2%",
+    paddingLeft: "4%",
+    backgroundColor: "transparent"
   },
   Deiver_Profile_Image: {
-    width: 60,
-    height: 60,
-    borderRadius: 30
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    alignSelf: "center"
   },
   Deiver_name_text_css: {
-    fontSize: 18,
-    alignSelf: "center",
-    marginLeft: "2%"
+    fontSize: 18
   },
   varified_text_css: {
     fontSize: 10,
-    marginLeft: "2%"
+    color: "#474747"
   },
   verifiedIcon: {
     marginTop: Platform.OS === "android" ? "0%" : "0%",
     marginLeft: "-2%",
-    width: 30,
-    height: 15,
-    borderRadius: Platform.OS === "ios" ? 20 : 2,
+    // width: 30,
+    // height: 15,
+    marginLeft: "1.5%",
+    height: Platform.OS === "ios" ? 14 : hp("2%"),
+    width: Platform.OS === "ios" ? 14 : wp("3%"),
+    borderRadius: Platform.OS === "ios" ? 2 : 2,
     resizeMode: "contain"
   },
   Auto_number_view: {
-    flex: 0.59
+    flex: 0.59,
+    paddingRight: "2%",
+    paddingLeft: "4%"
   },
   Auto_number_View_Css: {
     borderBottomWidth: 0.5,
-    width: 200
+    width: "100%"
   },
   Auto_number_text_css: {
     width: 160,
+    color: "#000",
     fontSize: 18
   },
   sharingIcon: {
     height: 15,
-    width: 12
-    // alignSelf: "center"
+    width: 14,
+    marginTop: "0%"
   }
 });
