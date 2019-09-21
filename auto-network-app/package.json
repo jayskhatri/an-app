@@ -10,6 +10,7 @@
   "dependencies": {
     "expo": "^34.0.1",
     "expo-image-picker": "~5.0.2",
+    "expo-permissions": "^7.0.0",
     "firebase": "^6.3.2",
     "geo-distance": "^0.2.0",
     "geolib": "^3.0.4",

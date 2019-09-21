@@ -2,6 +2,7 @@ import React from 'react';
 import * as firebase from 'firebase';
 import { StyleSheet, View  , Text  , TextInput , TouchableOpacity ,Platform,SafeAreaView, ImageBackground , Alert , Image , Dimensions} from 'react-native';
 import Header from '../header/header';
+import * as Permissions from 'expo-permissions';
 export default class Login extends React.Component {
 
   constructor(){
@@ -59,7 +60,7 @@ export default class Login extends React.Component {
     ) 
   }
 
-  componentWillMount(){
+  componentDidMount(){
     this.registerForPushNotificationsAsync();
   }
 
