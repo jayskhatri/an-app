@@ -19,6 +19,7 @@ import BookingPageSecond from "../bookingSection/bookingPage2";
 import BookingPageThird from "../bookingSection/BookingPage3";
 import HomeScreen from "../src/HomeScreen";
 import BottomBar from "../bottomTabBar/BottomBar";
+import Redirect from "../redirect";
 class Main extends React.Component {
   render() {
     return (
@@ -43,6 +44,12 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
+    BookingPageOne: {
+      screen: BookingPageOne
+    },
+    Redirect: {
+      screen: Redirect
+    },
     BookingPageThird: {
       screen: BookingPageThird
     },
@@ -62,9 +69,7 @@ const MainNavigation = createStackNavigator(
     BookingPageSecond: {
       screen: BookingPageSecond
     },
-    BookingPageOne: {
-      screen: BookingPageOne
-    },
+
     ProfilePageOne: {
       screen: ProfilePageOne
     },

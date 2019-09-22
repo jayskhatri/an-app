@@ -21,13 +21,40 @@ import {
 } from "react-native-responsive-screen";
 import Header from "../header/header";
 import firebase from "firebase";
-
+import SearchableDropdown from "react-native-searchable-dropdown";
+var source_place = [
+  //name key is must.It is to show the text in front
+  { id: 1, name: "Current position" },
+  { id: 2, name: "codepen" },
+  { id: 3, name: "envelope" },
+  { id: 4, name: "etsy" },
+  { id: 5, name: "facebook" },
+  { id: 6, name: "foursquare" },
+  { id: 7, name: "github-alt" },
+  { id: 8, name: "github" },
+  { id: 9, name: "gitlab" },
+  { id: 10, name: "instagram" }
+];
+var destination_place = [
+  //name key is must.It is to show the text in front
+  { id: 1, name: "Current position" },
+  { id: 2, name: "codepen" },
+  { id: 3, name: "envelope" },
+  { id: 4, name: "amazon" },
+  { id: 5, name: "facebook" },
+  { id: 6, name: "foursquare" },
+  { id: 7, name: "github-alt" },
+  { id: 8, name: "github" },
+  { id: 9, name: "gitlab" },
+  { id: 10, name: "instagram" }
+];
 export default class profilePageSecond extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       source: "",
-      destination: ""
+      destination: "",
+      selectedItems: ""
     };
     this.handleSetSource = this.handleSetSource.bind(this);
     this.handleSetDestination = this.handleSetDestination.bind(this);
@@ -86,26 +113,137 @@ export default class profilePageSecond extends React.Component {
             <View style={styles.inputView}>
               <View style={{ flex: 0.5 /*backgroundColor:"green"*/ }}>
                 <View style={styles.outterLookOfInputBox}>
-                  <TextInput
+                  {/* <TextInput
                     style={styles.signInTextInputOne}
                     placeholder="choose starting point, or click on the map  "
                     placeholderTextColor="#fff"
                     fontSize={14}
                     value={this.state.source}
                     onChange={this.handleSetSource}
+                  /> */}
+                  <SearchableDropdown
+                    multi={true}
+                    selectedItems={this.state.source}
+                    onItemSelect={item => {
+                      const items = this.state.source;
+                      // items.push(item);
+                      if (item.name == "Current position") {
+                        // write a code for current position
+                      }
+                      this.setState({ source: items });
+                    }}
+                    containerStyle={{ padding: 5 }}
+                    itemStyle={{
+                      padding: 12,
+                      marginTop: 5,
+                      width: "95%",
+                      alignSelf: "center",
+                      backgroundColor: "#lightblue",
+                      borderColor: "#bbb",
+                      borderWidth: 1,
+                      borderRadius: 5
+                    }}
+                    itemTextStyle={{ color: "#222" }}
+                    itemsContainerStyle={{
+                      maxHeight: 50,
+                      backgroundColor: "#fff",
+                      marginTop: 43,
+                      Opacity: 1
+                    }}
+                    items={source_place}
+                    // defaultIndex={2}
+                    chip={true}
+                    resetValue={false}
+                    textInputProps={{
+                      placeholder:
+                        "choose starting point, or click on the map ",
+                      fontSize: 14,
+                      placeholderTextColor: "#fff",
+                      underlineColorAndroid: "transparent",
+                      // onTextChange: text => alert(text)
+                      style: {
+                        paddingLeft: "2%",
+                        width: "95%",
+                        marginLeft: "3%",
+                        marginRight: "3%",
+                        position: "absolute",
+                        top: 20,
+                        borderRadius: 15,
+                        borderBottomColor: "#988c8c",
+                        borderBottomWidth: 1
+                      }
+                    }}
+                    listProps={{
+                      nestedScrollEnabled: true
+                    }}
                   />
                 </View>
-                <Text style={styles.textCss}>choose current location</Text>
+                {/* <Text style={styles.textCss}>choose current location</Text> */}
               </View>
               <View style={{ flex: 0.5 /*backgroundColor:"green"*/ }}>
                 <View style={styles.outterLookOfInputBoxSecond}>
-                  <TextInput
+                  {/* <TextInput
                     style={styles.signInTextInputOne}
                     placeholder="choose destination "
                     placeholderTextColor="#fff"
                     fontSize={14}
                     value={this.state.destination}
                     onChange={this.handleSetDestination}
+                  /> */}
+                  <SearchableDropdown
+                    multi={true}
+                    selectedItems={this.state.destination}
+                    onItemSelect={item => {
+                      const items = this.state.destination;
+                      if (item.name == "Current position") {
+                        // write a code for current position
+                      }
+                      // items.push(item);
+                      this.setState({ destination: items });
+                    }}
+                    containerStyle={{ padding: 5 }}
+                    itemStyle={{
+                      padding: 12,
+                      marginTop: 5,
+                      width: "95%",
+                      alignSelf: "center",
+                      backgroundColor: "#lightblue",
+                      borderColor: "#bbb",
+                      borderWidth: 1,
+                      borderRadius: 5
+                    }}
+                    itemTextStyle={{ color: "#222" }}
+                    itemsContainerStyle={{
+                      maxHeight: 50,
+                      backgroundColor: "#fff",
+                      marginTop: 43,
+                      Opacity: 1
+                    }}
+                    items={destination_place}
+                    // defaultIndex={2}
+                    chip={true}
+                    resetValue={false}
+                    textInputProps={{
+                      placeholder: "choose destination",
+                      fontSize: 14,
+                      placeholderTextColor: "#fff",
+                      underlineColorAndroid: "transparent",
+                      // onTextChange: text => alert(text)
+                      style: {
+                        paddingLeft: "2%",
+                        width: "95%",
+                        marginLeft: "3%",
+                        marginRight: "3%",
+                        position: "absolute",
+                        top: 20,
+                        borderRadius: 15,
+                        borderBottomColor: "#988c8c",
+                        borderBottomWidth: 1
+                      }
+                    }}
+                    listProps={{
+                      nestedScrollEnabled: true
+                    }}
                   />
                 </View>
               </View>
@@ -207,11 +345,10 @@ const styles = StyleSheet.create({
   inputView: {
     flex: 0.75,
     flexDirection: "column"
-    // backgroundColor:"orange"
   },
   outterLookOfInputBox: {
     borderWidth: 0.5,
-    height: "30%",
+    height: 45,
     marginTop: Platform.OS === "ios" ? "28%" : "23%",
     borderRadius: 25,
     borderColor: "#fff"
@@ -234,7 +371,7 @@ const styles = StyleSheet.create({
   },
   outterLookOfInputBoxSecond: {
     borderWidth: 0.5,
-    height: "30%",
+    height: 45,
     marginTop: "5%",
     borderRadius: 25,
     borderColor: "#fff"
