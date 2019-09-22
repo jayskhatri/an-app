@@ -225,12 +225,15 @@ export default class BookingPage3 extends React.Component {
                       source={require("../../assets/calender_ion.png")}
                     />
                   </View>
-                  <View style={{ flex: 0.8, marginLeft: "4%" }}>
-                    <ScrollView horizontal={true}>
-                      <Text style={styles.text_Of_Details}>
-                        {this.state.date}
-                      </Text>
-                    </ScrollView>
+                  <View
+                    style={{
+                      flex: 0.8,
+                      marginLeft: "4%"
+                    }}
+                  >
+                    <Text style={{ color: "#474747", fontSize: 15 }}>
+                      {this.state.date}
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -252,11 +255,9 @@ export default class BookingPage3 extends React.Component {
                     />
                   </View>
                   <View style={{ flex: 0.8, marginLeft: "4%" }}>
-                    <ScrollView horizontal={true}>
-                      <Text style={styles.text_Of_Details}>
-                        {this.state.time}
-                      </Text>
-                    </ScrollView>
+                    <Text style={{ color: "#474747", fontSize: 15 }}>
+                      {this.state.time}
+                    </Text>
                   </View>
                 </View>
               </View>
