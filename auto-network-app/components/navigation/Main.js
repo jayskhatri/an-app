@@ -16,7 +16,8 @@ import Header from "../header/header";
 import MainTabNavigation from "../navigation/MainTabNavigator";
 import BookingPageOne from "../bookingSection/bookingPage1";
 import BookingPageSecond from "../bookingSection/bookingPage2";
-import BookingPageThird from "../bookingSection/BookingPage3";
+import BookingPageThird from "../bookingSection/BookingPageThird";
+import BookingPageThird_one from "../bookingSection/BookingPage3_one";
 import HomeScreen from "../src/HomeScreen";
 import BottomBar from "../bottomTabBar/BottomBar";
 import Redirect from "../redirect";
@@ -44,20 +45,24 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
+    HomeScreen: {
+      screen: HomeScreen
+    },
+    BookingPageThird_one: {
+      screen: BookingPageThird_one
+    },
+    // BottomBar: {
+    //   screen: BottomBar
+    // },
+    BookingPageThird: {
+      screen: BookingPageThird
+    },
+
     BookingPageOne: {
       screen: BookingPageOne
     },
     Redirect: {
       screen: Redirect
-    },
-    BookingPageThird: {
-      screen: BookingPageThird
-    },
-    HomeScreen: {
-      screen: HomeScreen
-    },
-    BottomBar: {
-      screen: BottomBar
     },
 
     Login: {

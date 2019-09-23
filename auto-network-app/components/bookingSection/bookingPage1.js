@@ -73,7 +73,7 @@ export default class profilePageSecond extends React.Component {
     this.props.navigation.navigate("BookingPageSecond");
   }
   previousEvent() {
-    this.props.navigation.navigate("MainTabNavigation");
+    this.props.navigation.navigate("HomeScreen");
   }
   render() {
     return (
@@ -111,7 +111,9 @@ export default class profilePageSecond extends React.Component {
               />
             </View>
             <View style={styles.inputView}>
-              <View style={{ flex: 0.5 /*backgroundColor:"green"*/ }}>
+              <View
+                style={{ flex: 0.5, zIndex: 2 /*backgroundColor: "green"*/ }}
+              >
                 <View style={styles.outterLookOfInputBox}>
                   {/* <TextInput
                     style={styles.signInTextInputOne}
@@ -122,45 +124,29 @@ export default class profilePageSecond extends React.Component {
                     onChange={this.handleSetSource}
                   /> */}
                   <SearchableDropdown
-                    multi={true}
                     selectedItems={this.state.source}
                     onItemSelect={item => {
                       const items = this.state.source;
-                      // items.push(item);
                       if (item.name == "Current position") {
                         // write a code for current position
                       }
                       this.setState({ source: items });
                     }}
-                    containerStyle={{ padding: 5 }}
-                    itemStyle={{
-                      padding: 12,
-                      marginTop: 5,
-                      width: "95%",
-                      alignSelf: "center",
-                      backgroundColor: "#lightblue",
-                      borderColor: "#bbb",
-                      borderWidth: 1,
-                      borderRadius: 5
-                    }}
-                    itemTextStyle={{ color: "#222" }}
-                    itemsContainerStyle={{
-                      maxHeight: 50,
-                      backgroundColor: "#fff",
-                      marginTop: 43,
-                      Opacity: 1
-                    }}
+                    containerStyle={styles.containerStyle}
+                    itemStyle={styles.itemStyle}
+                    itemTextStyle={styles.itemTextStyle}
+                    itemsContainerStyle={styles.itemsContainerStyle}
                     items={source_place}
-                    // defaultIndex={2}
-                    chip={true}
-                    resetValue={false}
+                    // chip={true}
+                    // resetValue={false}
                     textInputProps={{
                       placeholder:
                         "choose starting point, or click on the map ",
                       fontSize: 14,
                       placeholderTextColor: "#fff",
                       underlineColorAndroid: "transparent",
-                      // onTextChange: text => alert(text)
+                      // onTextChange: text =>
+                      //   this.setState({ destination: text }),
                       style: {
                         paddingLeft: "2%",
                         width: "95%",
@@ -170,7 +156,8 @@ export default class profilePageSecond extends React.Component {
                         top: 20,
                         borderRadius: 15,
                         borderBottomColor: "#988c8c",
-                        borderBottomWidth: 1
+                        borderBottomWidth: 1,
+                        zIndex: 3
                       }
                     }}
                     listProps={{
@@ -180,7 +167,7 @@ export default class profilePageSecond extends React.Component {
                 </View>
                 {/* <Text style={styles.textCss}>choose current location</Text> */}
               </View>
-              <View style={{ flex: 0.5 /*backgroundColor:"green"*/ }}>
+              <View style={{ flex: 0.5 /*backgroundColor: "red"*/ }}>
                 <View style={styles.outterLookOfInputBoxSecond}>
                   {/* <TextInput
                     style={styles.signInTextInputOne}
@@ -201,24 +188,10 @@ export default class profilePageSecond extends React.Component {
                       // items.push(item);
                       this.setState({ destination: items });
                     }}
-                    containerStyle={{ padding: 5 }}
-                    itemStyle={{
-                      padding: 12,
-                      marginTop: 5,
-                      width: "95%",
-                      alignSelf: "center",
-                      backgroundColor: "#lightblue",
-                      borderColor: "#bbb",
-                      borderWidth: 1,
-                      borderRadius: 5
-                    }}
-                    itemTextStyle={{ color: "#222" }}
-                    itemsContainerStyle={{
-                      maxHeight: 50,
-                      backgroundColor: "#fff",
-                      marginTop: 43,
-                      Opacity: 1
-                    }}
+                    containerStyle={styles.containerStyle}
+                    itemStyle={styles.itemStyle}
+                    itemTextStyle={styles.itemTextStyle}
+                    itemsContainerStyle={styles.itemsContainerStyle}
                     items={destination_place}
                     // defaultIndex={2}
                     chip={true}
@@ -238,7 +211,8 @@ export default class profilePageSecond extends React.Component {
                         top: 20,
                         borderRadius: 15,
                         borderBottomColor: "#988c8c",
-                        borderBottomWidth: 1
+                        borderBottomWidth: 1,
+                        zIndex: 0
                       }
                     }}
                     listProps={{
@@ -319,9 +293,7 @@ const styles = StyleSheet.create({
     paddingTop: "2%"
   },
   sourceDestinationInputView: {
-    // backgroundColor:"blue",
     flex: 0.8,
-    // marginTop:Platform.OS ? "4%" : "0%" ,
     flexDirection: "row"
   },
   sourceTODestinationLine: {
@@ -332,9 +304,10 @@ const styles = StyleSheet.create({
   },
   nextButtonView: {
     flex: 0.2,
+    zIndex: -1,
     alignItems: "center",
-    justifyContent: "center",
-    marginTop: Platform.OS === "ios" ? "-18%" : "-14%"
+    justifyContent: "center"
+    // marginTop: Platform.OS === "ios" ? "-18%" : "-14%",
   },
   sourceTOdestinationImage: {
     height: 120,
@@ -352,6 +325,7 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === "ios" ? "28%" : "23%",
     borderRadius: 25,
     borderColor: "#fff"
+    // zIndex: 4
   },
   signInTextInputOne: {
     paddingLeft: "2%",
@@ -394,7 +368,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 25,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1
+    },
+    shadowOpacity: 1.5,
+    shadowRadius: 5,
+    elevation: 4
   },
   nextButtonTextCss: {
     color: "#269DF9",
@@ -402,7 +384,8 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   waveView: {
-    flex: Platform.OS === "ios" ? 0.1 : 0.11
+    flex: Platform.OS === "ios" ? 0.1 : 0.11,
+    zIndex: -3
   },
   waveImageCss: {
     width: wp("100%"),
@@ -436,5 +419,28 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     color: "#bbbbbb"
+  },
+  containerStyle: {
+    padding: 5
+  },
+  itemStyle: {
+    padding: 12,
+    marginTop: 5,
+    width: "95%",
+    alignSelf: "center"
+    // backgroundColor: "lightblue",
+    // borderColor: "#bbb",
+    // borderWidth: 1,
+    // borderRadius: 5
+  },
+  itemTextStyle: {
+    color: "#222"
+  },
+  itemsContainerStyle: {
+    maxHeight: 200,
+    backgroundColor: "#fff",
+    marginTop: 43,
+    borderBottomRightRadius: 15,
+    borderTopLeftRadius: 15
   }
 });

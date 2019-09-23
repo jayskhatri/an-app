@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import { WebBrowser } from "expo";
+
 import Header from "../header/header";
 import BottomBar from "../bottomTabBar/BottomBar";
 
@@ -45,7 +45,7 @@ export default class HomeScreen extends React.Component {
           <Text>Home Screen</Text>
         </ScrollView>
         <View style={{ flex: 0.14, backgroundColor: "red" }}>
-          <BottomBar />
+          <BottomBar {...this.props} />
         </View>
       </View>
     );

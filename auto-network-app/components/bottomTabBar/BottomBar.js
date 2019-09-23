@@ -17,7 +17,6 @@ export default class BottomBar extends React.Component {
     this.homeScreenEvent = this.homeScreenEvent.bind(this);
     this.bookAutoEvent = this.bookAutoEvent.bind(this);
     this.myAccountEvent = this.myAccountEvent.bind(this);
-    this.nextEvent = this.nextEvent.bind(this);
   }
   homeScreenEvent(e) {
     this.props.navigation.navigate("HomeScreen");
@@ -28,19 +27,13 @@ export default class BottomBar extends React.Component {
   myAccountEvent(e) {
     this.props.navigation.navigate("Setting");
   }
-  nextEvent(e) {
-    this.props.navigation.navigate("BookingPageSecond");
-  }
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.BottomBar}>
           <View style={styles.home_btn}>
-            <TouchableOpacity
-              onPress={() =>
-                this.props.navigation.navigate("BookingPageSecond")
-              }
-            >
+            <TouchableOpacity onPress={this.homeScreenEvent}>
               <Image
                 style={styles.homeIcon}
                 source={require("../../assets/Solid.png")}

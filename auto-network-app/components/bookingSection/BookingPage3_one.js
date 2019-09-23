@@ -17,7 +17,7 @@ import {
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
 
-export default class BookingPage3 extends React.Component {
+export default class BookingPage3_one extends React.Component {
   constructor() {
     super();
     this.state = {

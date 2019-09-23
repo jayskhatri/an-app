@@ -33,7 +33,9 @@ export default class BookingPageSecond extends React.Component {
       isTimeModalVisible: false,
       isDropDownModelVisible: false,
       numberOfPassenger: "Number Of passenger",
-      currentDate: ""
+      currentDate: "",
+      fullAuto: false,
+      tempPassenger: ""
     };
     this.toggleSwitch = this.toggleSwitch.bind(this);
     this.setDate = this.setDate.bind(this);
@@ -47,6 +49,11 @@ export default class BookingPageSecond extends React.Component {
     this.backEvent = this.backEvent.bind(this);
     this.helpPost = this.helpPost.bind(this);
     this.nextEvent = this.nextEvent.bind(this);
+    this.toggleDropDownConfirmModal = this.toggleDropDownConfirmModal.bind(
+      this
+    );
+    this.toggleDropDownCancleModal = this.toggleDropDownCancleModal.bind(this);
+    this.toggleDropDownModal = this.toggleDropDownModal.bind(this);
   }
 
   componentWillMount() {
@@ -69,13 +76,36 @@ export default class BookingPageSecond extends React.Component {
   toggleDateModal = () => {
     this.setState({ isDateModalVisible: !this.state.isDateModalVisible });
   };
+  toggleTimeModal = () => {
+    this.setState({ isTimeModalVisible: !this.state.isTimeModalVisible });
+  };
   toggleDropDownModal = () => {
     this.setState({
       isDropDownModelVisible: !this.state.isDropDownModelVisible
     });
   };
-  toggleTimeModal = () => {
-    this.setState({ isTimeModalVisible: !this.state.isTimeModalVisible });
+  toggleDropDownConfirmModal = () => {
+    console.log(
+      "toggleDropDownConfirmModal: temp Passenger: ",
+      this.state.tempPassenger
+    );
+    const temp = this.state.tempPassenger;
+    this.setState({ numberOfPassenger: temp });
+    console.log("toggle num of passsenger: ", this.state.numberOfPassenger);
+    // if (this.state.numberOfPassenger == "6") {
+    //   this.setState({ fullAuto: true });
+    // } else {
+    //   this.setState({ fullAuto: false, switchValue: false });
+    // }
+    // this.setState({
+    //   isDropDownModelVisible: !this.state.isDropDownModelVisible
+    // });wwww
+  };
+
+  toggleDropDownCancleModal = () => {
+    this.setState({
+      isDropDownModelVisible: !this.state.isDropDownModelVisible
+    });
   };
 
   opeanDatePicker = async () => {
@@ -256,14 +286,19 @@ export default class BookingPageSecond extends React.Component {
 
                 <View
                   style={{
-                    flex: 0.5
+                    flex: 0.5,
+                    flexDirection: "column"
                   }}
                 >
                   <View
                     style={{
                       flex: 0.4,
                       position: "absolute",
-                      bottom: 3
+                      bottom: 3,
+                      height: "100%",
+                      width: "100%",
+                      backgroundColor: "yellow",
+                      alignItems: "flex-end"
                     }}
                   >
                     {Platform.OS === "ios" ? (
@@ -556,7 +591,7 @@ export default class BookingPageSecond extends React.Component {
                       <View style={styles.modelInnerView1}>
                         <View style={styles.modelInnerView2}>
                           <Picker
-                            selectedValue={this.state.numberOfPassenger}
+                            selectedValue={this.state.tempPassenger}
                             style={{
                               marginTop: "8%",
                               height: Platform.OS === "ios" ? "40%" : "20%",
@@ -566,9 +601,14 @@ export default class BookingPageSecond extends React.Component {
                               marginRight: "3%",
                               paddingBottom: "2%"
                             }}
-                            onValueChange={(itemValue, itemIndex) =>
-                              this.setState({ numberOfPassenger: itemValue })
-                            }
+                            onValueChange={(itemValue, itemIndex) => {
+                              console.log("item value: ", itemValue);
+                              this.setState({ tempPassenger: itemValue });
+                              console.log(
+                                "state tempPassenger: ",
+                                this.state.tempPassenger
+                              );
+                            }}
                           >
                             <Picker.Item label="1" value="1" />
                             <Picker.Item label="2" value="2" />
@@ -580,7 +620,7 @@ export default class BookingPageSecond extends React.Component {
 
                           <TouchableOpacity
                             style={styles.modalBtnCss}
-                            onPress={this.toggleDropDownModal}
+                            onPress={this.toggleDropDownConfirmModal}
                           >
                             <Text style={{ fontSize: 25, alignSelf: "center" }}>
                               Confirm
@@ -588,7 +628,7 @@ export default class BookingPageSecond extends React.Component {
                           </TouchableOpacity>
                           <TouchableOpacity
                             style={styles.modalBtnCss}
-                            onPress={this.toggleDropDownModal}
+                            onPress={this.toggleDropDownCancleModal}
                           >
                             <Text style={{ fontSize: 25, alignSelf: "center" }}>
                               Cancle
@@ -599,21 +639,44 @@ export default class BookingPageSecond extends React.Component {
                     </Modal>
                   </View>
                 </KeyboardAvoidingView>
-                <View style={{ flex: 0.4, flexDirection: "row" }}>
+                <View
+                  style={{
+                    flex: 0.4,
+                    flexDirection: "row",
+                    height: "100%"
+                  }}
+                >
                   <View
                     style={{
+                      height: "100%",
                       flexDirection: "row",
                       position: "absolute",
-                      bottom: 5,
+                      top: "5%",
                       marginLeft: "31%"
                     }}
                   >
-                    <TouchableOpacity onPress={this.singlePersonEvent}>
-                      <Text style={{ color: "#fff" }}>Single</Text>
+                    <TouchableOpacity
+                      onPress={this.singlePersonEvent}
+                      style={styles.numberOfPassenger_btn_css}
+                    >
+                      <Text style={styles.numberOfPassenger_text_css}>
+                        Single
+                      </Text>
                     </TouchableOpacity>
-                    <Text style={{ color: "#fff" }}> | </Text>
-                    <TouchableOpacity onPress={this.twoPersonEvent}>
-                      <Text style={{ color: "#fff" }}>Two</Text>
+                    <View
+                      style={{
+                        alignItems: "center",
+                        justifyContent: "center",
+                        height: 60
+                      }}
+                    >
+                      <Text style={styles.numberOfPassenger_text_css}> | </Text>
+                    </View>
+                    <TouchableOpacity
+                      onPress={this.twoPersonEvent}
+                      style={styles.numberOfPassenger_btn_css}
+                    >
+                      <Text style={styles.numberOfPassenger_text_css}>Two</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -643,6 +706,7 @@ export default class BookingPageSecond extends React.Component {
                     <Switch
                       style={{ position: "absolute", bottom: 3 }}
                       onValueChange={this.toggleSwitch}
+                      disabled={this.state.fullAuto ? true : false}
                       value={this.state.switchValue}
                     />
                   </View>
@@ -876,7 +940,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   enterDateBtnCss: {
-    height: 20
+    // height: "100%",
+    width: "100%",
+    alignSelf: "flex-end",
+    backgroundColor: "red"
   },
   calenderIcon: {
     height: 20,
@@ -897,5 +964,14 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 14,
     color: "#454647"
+  },
+  numberOfPassenger_btn_css: {
+    height: 60,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  numberOfPassenger_text_css: {
+    color: "#fff",
+    textAlign: "center"
   }
 });
