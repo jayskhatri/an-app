@@ -5,6 +5,7 @@ import {
   View,
   SafeAreaView,
   Image,
+  StatusBar,
   TextInput,
   Platform,
   TouchableOpacity
@@ -46,12 +47,6 @@ export default class setting extends React.Component {
     let { image } = this.state;
     return (
       <View style={styles.container}>
-        {/* <View style={styles.waveView}>
-          <Image
-            style={{ width: wp("100%"), height: hp("13%") }}
-            source={require("../../assets/wawe.png")}
-          ></Image>
-        </View> */}
         <View style={styles.header}>
           <SafeAreaView style={{ backgroundColor: "#269DF9" }}>
             <Text
@@ -74,12 +69,10 @@ export default class setting extends React.Component {
                 height: hp("12%"),
                 width: Platform.OS === "ios" ? wp("25%") : wp("21%"),
                 marginLeft: "5%",
-                marginTop: Platform.OS === "ios" ? "-3%" : "-16%",
-                //  borderRadius:60,
+                marginTop: "-3%",
                 borderRadius: Platform.OS === "ios" ? 50 : 60,
                 borderWidth: 3,
                 borderColor: "#fff"
-                //  resizeMode:"contain"
               }}
               source={require("../../assets/pic.jpg")}
             />

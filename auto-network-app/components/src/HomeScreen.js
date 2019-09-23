@@ -32,7 +32,7 @@ export default class HomeScreen extends React.Component {
             <Header />
           </SafeAreaView>
         </View>
-        <ScrollView style={{ marginTop: "15%", flex: 0.83 }}>
+        <ScrollView style={{ marginTop: "15%", flex: 0.78 }}>
           <Text>Home Screen</Text>
           <Text>Home Screen</Text>
           <Text>Home Screen</Text>
@@ -44,7 +44,7 @@ export default class HomeScreen extends React.Component {
           <Text>Home Screen</Text>
           <Text>Home Screen</Text>
         </ScrollView>
-        <View style={{ flex: 0.14, backgroundColor: "red" }}>
+        <View style={{ flex: 0.12, backgroundColor: "red" }}>
           <BottomBar {...this.props} />
         </View>
       </View>

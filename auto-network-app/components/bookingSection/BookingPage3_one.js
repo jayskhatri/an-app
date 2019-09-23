@@ -36,7 +36,7 @@ export default class BookingPage3_one extends React.Component {
     this.backEvent = this.backEvent.bind(this);
   }
   backEvent() {
-    this.props.navigation.navigate("BookingPageSecond");
+    this.props.navigation.navigate("BookingPageThird_one");
   }
   componentWillMount() {
     this.setState({ name: "Anuj Thakkar" });

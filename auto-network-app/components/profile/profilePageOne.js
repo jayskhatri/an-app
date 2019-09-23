@@ -1,211 +1,305 @@
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView , Image ,TextInput,TouchableOpacity ,Platform  } from "react-native";
-import {KeyboardAvoidingView} from 'react-native';
-import RadioForm,{RadioButton,RadioButtonInput,RadioButtonLabel} from "react-native-simple-radio-button";
-// const {widthOfScreen , heightOfScreen } = Dimensions.get('window');
-import Header from '../header/header';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import firebase from 'firebase';
-import DatePicker from 'react-native-datepicker'
-var options=[
-  {label:"Male",value: 111},
-  {label:"Female",value: 112},
-  {label:"Other",value: 113}
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  Platform,
+  StatusBar
+} from "react-native";
+import { KeyboardAvoidingView } from "react-native";
+import RadioForm from "react-native-simple-radio-button";
+import Header from "../header/header";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from "react-native-responsive-screen";
+import firebase from "firebase";
+import DatePicker from "react-native-datepicker";
+var options = [
+  { label: "Male", value: 111 },
+  { label: "Female", value: 112 },
+  { label: "Other", value: 113 }
 ];
-export default  class profilePageOne extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        active: 0,
-        first_name: '',
-        first_name_wrong:false,
-        last_name: '',
-        birth_date: '',
-        gender: 111,
-      }
-      this.nextEvent = this.nextEvent.bind(this);
-      this.submitDetails = this.submitDetails.bind(this);
-    }
-   
-    validation=()=>{
-     
-      const{first_name,last_name}=this.state;
-      if(first_name==""){
-        this.setState({first_name_wrong:true});
-        // alert("Please Enter your First Name");
-      }
-    
-    }
-    submitDetails(){
-      firebase.database().ref('Drivers/'+this.state.phone_number).set({
+export default class profilePageOne extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      active: 0,
+      first_name: "",
+      first_name_wrong: false,
+      last_name: "",
+      birth_date: "",
+      gender: 111
+    };
+    this.nextEvent = this.nextEvent.bind(this);
+    this.submitDetails = this.submitDetails.bind(this);
+  }
+
+  submitDetails() {
+    firebase
+      .database()
+      .ref("Drivers/" + this.state.phone_number)
+      .set({
         first_name: this.state.first_name,
         last_name: this.state.last_name,
         birth_date: this.state.birth_date,
-        gender: this.state.gender,
+        gender: this.state.gender
       });
-    }
-    
-    nextEvent(e){
-        console.log("gender: ",this.state.gender);
-        this.submitDetails();
-        this.props.navigation.navigate("ProfilePageSecond");
-    }
-    
-    render() {
-    return(
-    <View style={styles.container}>
-        <View style={styles.waveView}>
-              <SafeAreaView style={{backgroundColor:"#269DF9"}}>
-                  <Text style={{alignSelf:"center",color:"#fff",fontSize:25,marginTop:Platform.OS === 'android' ? "4%" : "0%"}}>My Profile</Text>
-                  <Header />
-              </SafeAreaView>
-        
-        </View>
-        
+  }
+
+  nextEvent(e) {
+    console.log("gender: ", this.state.gender);
+    this.submitDetails();
+    this.props.navigation.navigate("ProfilePageSecond");
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <SafeAreaView style={styles.header}>
+          <View style={{ flex: 0.7, backgroundColor: "#269DF9" }}>
+            <Text style={styles.header_Text_Css}>Profile</Text>
+          </View>
+          <View style={{ flex: 0.3 }}>
+            <Header />
+          </View>
+        </SafeAreaView>
         <View style={styles.logoView}>
-        <Image style={{marginTop:"18%", width:wp('55%'),height:hp('23%') , resizeMode:"contain"}} source={require('../../assets/bigAdminLogo.png')} />
+          <View style={styles.logo_inner_view}>
+            <Image
+              style={styles.logo_icon}
+              source={require("../../assets/bigAdminLogo.png")}
+            />
+          </View>
         </View>
-        
+
         <View style={styles.signUpView}>
-            <View style={{backgroundColor:"#12afe3",borderTopRightRadius:10,borderTopLeftRadius:10,flex:0.12 }}>
-                  {/* Scroller code */}
+          <View style={styles.outter_View_Input_detail_box}>
+            <View style={styles.scrollViewCss}>{/* Scroller code */}</View>
+            <View style={styles.first_second_input_box_outter_view}>
+              <View style={{ flex: 0.4 }}>
+                <Text style={styles.label_one_two_css}>First Name</Text>
+              </View>
+              <View style={{ flex: 0.6 }}>
+                <TextInput
+                  placeholder="Enter Your First Name"
+                  onChangeText={first_name => this.setState({ first_name })}
+                  value={this.state.first_name}
+                  style={styles.text_Input_one_css}
+                />
+              </View>
             </View>
-            <View style={{  flex:0.20,backgroundColor:"white",borderWidth:0.5}}>
-                <View style={{flex:0.40}}> 
-                    <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>First Name</Text>
-                </View>
-                <View style={{flex:0.60}}>
-                    <TextInput
-
-                       placeholder="Enter Your First Name"
-                       onChangeText={(first_name) => this.setState({first_name})}
-                       value={this.state.first_name}
-                       
-                        style={[
-                        {
-                          borderBottomColor : this.state.first_name_wrong ?   'red' : 'black',
-                          borderBottomWidth:1,height:35,marginBottom:"1%",marginLeft:"5%",marginRight:"5%",
-                        }
-                        ]}
-
-                     />  
-                </View>
-            </View>
-            <KeyboardAvoidingView style={{flex:0.20,backgroundColor:"white",borderWidth:0.5}} behavior="padding" enabled>
-            <View style={{flex:0.40}}> 
-                    <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Last Name</Text>
-                </View>
-                <View style={{flex:0.60}}>
-                    <TextInput
-                  
-                       placeholder="Enter Your Last Name"
-                       onChangeText={(last_name) => this.setState({last_name})}
-                       value={this.state.last_name}
-                       style={{borderBottomWidth:1,height:35,marginBottom:"1%",marginLeft:"5%",marginRight:"5%"}}
-                       theme=
-                       {{
-                         color:
-                         {
-                           primary:'skyblue',
-                         }
-                       }}
-                     /> 
-                </View>
+            <KeyboardAvoidingView
+              style={styles.first_second_input_box_outter_view}
+              behavior="padding"
+              enabled
+            >
+              <View style={{ flex: 0.4 }}>
+                <Text style={styles.label_one_two_css}>Last Name</Text>
+              </View>
+              <View style={{ flex: 0.6 }}>
+                <TextInput
+                  placeholder="Enter Your Last Name"
+                  onChangeText={last_name => this.setState({ last_name })}
+                  value={this.state.last_name}
+                  style={styles.text_Input_second_css}
+                  theme={{
+                    color: {
+                      primary: "skyblue"
+                    }
+                  }}
+                />
+              </View>
             </KeyboardAvoidingView>
-            <View style={{flex:0.22,backgroundColor:"white",borderWidth:0.5}}>
-            <View style={{flex:0.40}}> 
-                    <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Birth Date</Text>
-             </View>
-                <View style={{flex:0.60}}> 
+            <View style={styles.third_input_box_outter_view}>
+              <View style={{ flex: 0.4 }}>
+                <Text style={styles.label_third_fourh_css}>Birth Date</Text>
+              </View>
+              <View style={{ flex: 0.6 }}>
                 <DatePicker
-                    style={{width:wp('60%'),marginLeft:'3%'}}
-                    mode="date"
-                    date={this.state.birth_date}
-                    placeholder="Enter Your Birth Date"
-                   format="DD-MM-YYYY"
-                   initial = {this.state.birth_date}
+                  style={{ width: wp("60%"), marginLeft: "3%" }}
+                  mode="date"
+                  date={this.state.birth_date}
+                  placeholder="Enter Your Birth Date"
+                  format="DD-MM-YYYY"
+                  initial={this.state.birth_date}
                   //  minDate="01-01-1990"
                   //  maxDate="31-12-2003"
-                   confirmBtnText="Confirm"
-                   cancelBtnText="Cancel"
-                   customStyles={{
-                         dateIcon: {
-                             width:wp('1%'),
-                             position: 'absolute',
-                             left: 0,
-                             top: 4,
-                             marginLeft:'10%'
-                          },
-                          dateInput: {
-                                marginLeft:"25%",
-                                borderWidth:0,
-                                borderBottomWidth:0.5
-                          }
-                  // ... You can check the source to find the other keys.
+                  confirmBtnText="Confirm"
+                  cancelBtnText="Cancel"
+                  customStyles={{
+                    dateIcon: {
+                      width: wp("1%"),
+                      position: "absolute",
+                      left: 0,
+                      top: 4,
+                      marginLeft: "10%"
+                    },
+                    dateInput: {
+                      marginLeft: "25%",
+                      borderWidth: 0,
+                      borderBottomWidth: 0.5
+                    }
+                    // ... You can check the source to find the other keys.
                   }}
-                  onDateChange={(birth_date) => this.setState({birth_date})}
+                  onDateChange={birth_date => this.setState({ birth_date })}
                   value={this.state.birth_date}
                 />
-                </View> 
               </View>
-              <View style={{flex:0.19,backgroundColor:"white",borderWidth:0.5}}>
-              <View style={{flex:0.40}}> 
-                    <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Gender</Text>
-                </View>
-                <View style={{flex:0.60}}>
-                    <RadioForm
-                          style={{marginLeft:"5%",marginTop:"4%"}} 
-                          radio_props={options}
-                          initial={this.state.gender} 
-                          onPress={(value)=>{
-                            this.setState({
-                              gender: value,
-                            })
-                          }}
-                          buttonSize={7}  
-                          buttonColor={'#000000'}
-                          labelStyle={{fontSize:16,marginRight:'7%'}}
-                          formHorizontal={true}
-                          buttonOuterSize={21}
-                          selectedButtonColor={'#43b9e0'}
-                          selectedLabelColor={'#0080ab'}
-                     />
-                </View>
+            </View>
+            <View style={styles.fourt_input_box_outter_view}>
+              <View style={{ flex: 0.4 }}>
+                <Text style={styles.label_third_fourh_css}>Gender</Text>
               </View>
-              <View style={{flex:0.07,backgroundColor:"#12afe3",paddingBottom:"1%",flexDirection:"row"}}>
-                     <TouchableOpacity style={{marginTop:"3%",marginLeft:"5%",paddingBottom:"5%"}}>
-                          <Text style={{fontSize:18}}>Go Back</Text>
-                     </TouchableOpacity>
-                     <TouchableOpacity style={{marginTop:"3%",marginLeft:"56%",paddingBottom:"5%"}} onPress={this.nextEvent} onPress={this.validation} >
-                           <Text style={{fontSize:18}}>Next</Text>
-                     </TouchableOpacity>
+              <View style={{ flex: 0.6 }}>
+                <RadioForm
+                  style={{ marginLeft: "5%", marginTop: "4%" }}
+                  radio_props={options}
+                  initial={this.state.gender}
+                  onPress={value => {
+                    this.setState({
+                      gender: value
+                    });
+                  }}
+                  buttonSize={7}
+                  buttonColor={"#000000"}
+                  labelStyle={{ fontSize: 16, marginRight: "7%" }}
+                  formHorizontal={true}
+                  buttonOuterSize={21}
+                  selectedButtonColor={"#43b9e0"}
+                  selectedLabelColor={"#0080ab"}
+                />
               </View>
+            </View>
+            <View style={styles.last_fotter_outter_view}>
+              <TouchableOpacity style={styles.back_btn_css}>
+                <Text style={{ fontSize: 18 }}>Go Back</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.next_btn_css}
+                onPress={this.nextEvent}
+              >
+                <Text style={{ fontSize: 18 }}>Next</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-    </View>
+      </View>
     );
-    }
+  }
 }
 const styles = StyleSheet.create({
-    
-      container:{
-        flex:1,
-        alignItems:"center"
-      },
-      waveView:{
-      flex:Platform.OS === 'ios' ? 0.10 : 0.05,
-      },
-      logoView:{
-        flex: Platform.OS === 'ios' ? 0.35 : 0.40,
-      },
-      signUpView:{
-        flex:Platform.OS === 'ios' ? 0.55 : 0.55,
-        backgroundColor:'#12afe3',
-        // backgroundColor:"red",
-           height:"100%",
-          width:wp('80%'),
-           marginLeft:"3%",
-           marginRight:"3%",
-           marginBottom:"5%",
-           borderRadius:15,
-      },
+  container: {
+    flex: 1
+  },
+  headerView: {
+    flex: 0.1
+  },
+  header_Text_Css: {
+    alignSelf: "center",
+    color: "#fff",
+    fontSize: 25
+  },
+  logoView: {
+    flex: 0.35
+  },
+  logo_inner_view: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  logo_icon: {
+    width: wp("55%"),
+    height: hp("23%"),
+    alignSelf: "center",
+    resizeMode: "contain"
+  },
+  signUpView: {
+    flex: 0.55,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  header: {
+    flex: 0.1
+  },
+  outter_View_Input_detail_box: {
+    flex: 1,
+    height: "100%",
+    width: wp("80%"),
+    marginLeft: "3%",
+    marginRight: "3%",
+    marginBottom: "5%",
+    borderRadius: 15,
+    alignSelf: "center"
+  },
+  scrollViewCss: {
+    backgroundColor: "#12afe3",
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    flex: 0.12
+  },
+  text_Input_one_css: {
+    borderBottomColor: "black",
+    borderBottomWidth: 1,
+    height: 35,
+    marginBottom: "1%",
+    marginLeft: "5%",
+    marginRight: "5%"
+  },
+  label_one_two_css: {
+    fontSize: 18,
+    marginTop: "2.5%",
+    marginLeft: "5%"
+  },
+  first_second_input_box_outter_view: {
+    flex: 0.2,
+    backgroundColor: "white",
+    borderWidth: 0.5
+  },
+  text_Input_second_css: {
+    borderBottomWidth: 1,
+    height: 35,
+    marginBottom: "1%",
+    marginLeft: "5%",
+    marginRight: "5%"
+  },
+  label_third_fourh_css: {
+    fontSize: 18,
+    marginTop: "3%",
+    marginLeft: "5%"
+  },
+  third_input_box_outter_view: {
+    flex: 0.22,
+    backgroundColor: "white",
+    borderWidth: 0.5
+  },
+  fourt_input_box_outter_view: {
+    flex: 0.19,
+    backgroundColor: "white",
+    borderWidth: 0.5
+  },
+  last_fotter_outter_view: {
+    flex: 0.07,
+    backgroundColor: "#12afe3",
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    paddingBottom: "4%",
+    flexDirection: "row"
+  },
+  back_btn_css: {
+    marginLeft: "3%",
+    position: "absolute",
+    left: "5%",
+    alignSelf: "center"
+  },
+  next_btn_css: {
+    marginTop: "1%",
+    alignSelf: "center",
+    position: "absolute",
+    right: "8%"
+  }
 });

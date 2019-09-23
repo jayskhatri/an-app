@@ -29,7 +29,7 @@ export default class profilePageFourth extends React.Component {
     this.previousEvent = this.previousEvent.bind(this);
     this.nextEvent = this.nextEvent.bind(this);
     this.skipEvent = this.skipEvent.bind(this);
-    this.nextEvent = this.nextEvent.bind(this);
+    // this.nextEvent = this.nextEvent.bind(this);
   }
   previousEvent(e) {
     this.props.navigation.navigate("ProfilePageSecond");
@@ -67,109 +67,6 @@ export default class profilePageFourth extends React.Component {
   nextEvent(e) {
     this.props.navigation.navigate("mainScreen");
   }
-
-  render() {
-    let { image } = this.state;
-    return (
-      <View style={styles.container}>
-        <View style={styles.waveView}>
-          {/* <Image
-            style={{ width: wp("100%"), height: hp("12%") }}
-            source={require("../../assets/wawe.png")}
-          ></Image> */}
-          <SafeAreaView style={{ backgroundColor: "#269DF9" }}>
-            <Text
-              style={{
-                alignSelf: "center",
-                color: "#fff",
-                fontSize: 25,
-                marginTop: Platform.OS === "android" ? "4%" : "0%"
-              }}
-            >
-              My Profile
-            </Text>
-            <Header />
-          </SafeAreaView>
-        </View>
-        <View style={styles.logoView}>
-          <Image
-            style={{
-              marginTop: "30%",
-              width: wp("55%"),
-              height: hp("23%"),
-              resizeMode: "contain"
-            }}
-            source={require("../../assets/bigAdminLogo.png")}
-          />
-        </View>
-        <View style={styles.signUpView}>
-          <View style={{ flex: 2, alignItems: "center", marginTop: "3%" }}>
-            <Text style={{ fontSize: 25, color: "white" }}>Add Your Photo</Text>
-          </View>
-          <View
-            style={{
-              flex: 3,
-              backgroundColor: "#fff",
-              margin: 20,
-              borderRadius: 20
-            }}
-          >
-            <TouchableOpacity onPress={this._pickImage}>
-              {/* ,elevetion:11 */}
-              {this.state.isPicLoaded ? (
-                <Image
-                  style={{
-                    height: 120,
-                    width: 120,
-                    alignSelf: "center",
-                    marginTop: -50,
-                    borderRadius: 60
-                  }}
-                  source={require("../../assets/Component.png")}
-                />
-              ) : (
-                <Image
-                  style={{
-                    height: 120,
-                    width: 120,
-                    alignSelf: "center",
-                    marginTop: -50,
-                    borderRadius: 60
-                  }}
-                  source={{ uri: image }}
-                ></Image>
-              )}
-            </TouchableOpacity>
-
-            <Text
-              style={{
-                marginTop: "5%",
-                alignSelf: "center",
-                fontSize: 20,
-                color: "#c9c8c8"
-              }}
-            >
-              Hello, dear
-            </Text>
-          </View>
-          <View style={{ flex: 0.8, flexDirection: "row" }}>
-            <TouchableOpacity
-              style={{ marginLeft: "3%", marginTop: "1%" }}
-              onPress={this.skipEvent}
-            >
-              <Text style={{ fontSize: 15, color: "#fff" }}>Skip</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ marginTop: "1%", marginLeft: "78%" }}
-              onPress={this.nextEvent}
-            >
-              <Text style={{ fontSize: 15, color: "#fff" }}>Next</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    );
-  }
   componentDidMount() {
     this.getPermissionAsync();
   }
@@ -197,20 +94,98 @@ export default class profilePageFourth extends React.Component {
       this.setState({ image: result.uri });
     }
   };
+  render() {
+    let { image } = this.state;
+    return (
+      <View style={styles.container}>
+        <SafeAreaView style={styles.header}>
+          <View style={{ flex: 0.7, backgroundColor: "#269DF9" }}>
+            <Text style={styles.header_Text_Css}>Profile</Text>
+          </View>
+          <View style={{ flex: 0.3 }}>
+            <Header />
+          </View>
+        </SafeAreaView>
+        <View style={styles.logoView}>
+          <Image
+            style={styles.logoIconCss}
+            source={require("../../assets/bigAdminLogo.png")}
+          />
+        </View>
+        <View style={styles.signUpView}>
+          <View style={styles.details_box_header_view}>
+            <Text style={styles.detail_box_header_text_css}>
+              Add Your Photo
+            </Text>
+          </View>
+          <View style={styles.second_view_of_detali_box}>
+            <TouchableOpacity onPress={this._pickImage}>
+              {/* ,elevetion:11 */}
+              {this.state.isPicLoaded ? (
+                <Image
+                  style={styles.profile_icon_css}
+                  source={require("../../assets/Component.png")}
+                />
+              ) : (
+                <Image
+                  style={styles.profile_icon_css}
+                  source={{ uri: image }}
+                ></Image>
+              )}
+            </TouchableOpacity>
+
+            <Text style={styles.second_view_of_detali_box_inner_text_css}>
+              Hello, dear
+            </Text>
+          </View>
+          <View style={styles.last_fotter_view}>
+            <View style={styles.skip_next_btn_outter_view}>
+              <TouchableOpacity
+                style={styles.skip_btn_css}
+                onPress={this.skipEvent}
+              >
+                <Text style={styles.skip_next_btn_text_css}>Skip</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.skip_next_btn_outter_view}>
+              <TouchableOpacity
+                style={styles.next_btn_css}
+                onPress={this.nextEvent}
+              >
+                <Text style={styles.skip_next_btn_text_css}>Next</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </View>
+    );
+  }
 }
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
     flex: 1
   },
-  waveView: {
-    flex: Platform.OS === "ios" ? 0.1 : 0.05
+  header: {
+    flex: 0.1
+  },
+  header_Text_Css: {
+    alignSelf: "center",
+    color: "#fff",
+    fontSize: 25
   },
   logoView: {
-    flex: Platform.OS === "ios" ? 0.52 : 0.55
+    flex: 0.5,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  logo_Icon_Css: {
+    width: wp("55%"),
+    height: hp("23%"),
+    resizeMode: "contain",
+    alignSelf: "center"
   },
   signUpView: {
-    flex: Platform.OS === "ios" ? 0.38 : 0.4,
+    flex: 0.4,
     backgroundColor: "#12afe3",
     height: "100%",
     width: wp("92%"),
@@ -218,5 +193,59 @@ const styles = StyleSheet.create({
     marginRight: "3%",
     marginBottom: "5%",
     borderRadius: 15
+  },
+  details_box_header_view: {
+    flex: 2,
+    alignItems: "center",
+    marginTop: "3%"
+  },
+  detail_box_header_text_css: {
+    fontSize: 25,
+    color: "white"
+  },
+  profile_icon_css: {
+    height: 120,
+    width: 120,
+    alignSelf: "center",
+    marginTop: -50,
+    borderRadius: 60
+  },
+  second_view_of_detali_box: {
+    flex: 3,
+    backgroundColor: "#fff",
+    margin: 20,
+    borderRadius: 20
+  },
+  second_view_of_detali_box_inner_text_css: {
+    alignSelf: "center",
+    fontSize: 20,
+    color: "#c9c8c8",
+    position: "absolute",
+    bottom: "5%"
+  },
+  last_fotter_view: {
+    flex: 0.8,
+    flexDirection: "row"
+  },
+  skip_next_btn_outter_view: {
+    flex: 0.5,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  skip_next_btn_text_css: {
+    fontSize: 15,
+    color: "#fff"
+  },
+  skip_btn_css: {
+    marginLeft: "3%",
+    position: "absolute",
+    left: "10%",
+    alignSelf: "center"
+  },
+  next_btn_css: {
+    marginTop: "1%",
+    alignSelf: "center",
+    position: "absolute",
+    right: "10%"
   }
 });

@@ -111,9 +111,7 @@ export default class profilePageSecond extends React.Component {
               />
             </View>
             <View style={styles.inputView}>
-              <View
-                style={{ flex: 0.5, zIndex: 2 /*backgroundColor: "green"*/ }}
-              >
+              <View style={{ flex: 0.5, zIndex: 3 }}>
                 <View style={styles.outterLookOfInputBox}>
                   {/* <TextInput
                     style={styles.signInTextInputOne}
@@ -153,7 +151,7 @@ export default class profilePageSecond extends React.Component {
                         marginLeft: "3%",
                         marginRight: "3%",
                         position: "absolute",
-                        top: 20,
+                        top: 10,
                         borderRadius: 15,
                         borderBottomColor: "#988c8c",
                         borderBottomWidth: 1,
@@ -167,7 +165,7 @@ export default class profilePageSecond extends React.Component {
                 </View>
                 {/* <Text style={styles.textCss}>choose current location</Text> */}
               </View>
-              <View style={{ flex: 0.5 /*backgroundColor: "red"*/ }}>
+              <View style={{ flex: 0.5 }}>
                 <View style={styles.outterLookOfInputBoxSecond}>
                   {/* <TextInput
                     style={styles.signInTextInputOne}
@@ -208,7 +206,7 @@ export default class profilePageSecond extends React.Component {
                         marginLeft: "3%",
                         marginRight: "3%",
                         position: "absolute",
-                        top: 20,
+                        top: 10,
                         borderRadius: 15,
                         borderBottomColor: "#988c8c",
                         borderBottomWidth: 1,
@@ -310,7 +308,7 @@ const styles = StyleSheet.create({
     // marginTop: Platform.OS === "ios" ? "-18%" : "-14%",
   },
   sourceTOdestinationImage: {
-    height: 120,
+    height: 100,
     width: 60,
     alignSelf: "center",
     resizeMode: "contain"
@@ -322,7 +320,8 @@ const styles = StyleSheet.create({
   outterLookOfInputBox: {
     borderWidth: 0.5,
     height: 45,
-    marginTop: Platform.OS === "ios" ? "28%" : "23%",
+    // marginTop: Platform.OS === "ios" ? "28%" : "23%",
+    marginTop: "14%",
     borderRadius: 25,
     borderColor: "#fff"
     // zIndex: 4
@@ -346,7 +345,7 @@ const styles = StyleSheet.create({
   outterLookOfInputBoxSecond: {
     borderWidth: 0.5,
     height: 45,
-    marginTop: "5%",
+    marginTop: "6%",
     borderRadius: 25,
     borderColor: "#fff"
   },
@@ -357,9 +356,10 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   swapIcon: {
-    height: 25,
-    width: 25,
-    alignSelf: "center"
+    height: 24,
+    width: 24,
+    alignSelf: "center",
+    resizeMode: "contain"
   },
   nextButtonCss: {
     alignSelf: "center",
@@ -438,7 +438,7 @@ const styles = StyleSheet.create({
   },
   itemsContainerStyle: {
     maxHeight: 200,
-    backgroundColor: "#fff",
+    backgroundColor: "yellow",
     marginTop: 43,
     borderBottomRightRadius: 15,
     borderTopLeftRadius: 15

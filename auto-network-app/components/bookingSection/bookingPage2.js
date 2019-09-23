@@ -192,7 +192,8 @@ export default class BookingPageSecond extends React.Component {
     console.log("help");
   }
   nextEvent() {
-    console.log("next Event");
+    // console.log("next Event");
+    this.props.navigation.navigate("BookingPageThird");
   }
 
   render() {
@@ -292,13 +293,9 @@ export default class BookingPageSecond extends React.Component {
                 >
                   <View
                     style={{
-                      flex: 0.4,
-                      position: "absolute",
-                      bottom: 3,
                       height: "100%",
                       width: "100%",
-                      backgroundColor: "yellow",
-                      alignItems: "flex-end"
+                      backgroundColor: "yellow"
                     }}
                   >
                     {Platform.OS === "ios" ? (
@@ -940,10 +937,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   enterDateBtnCss: {
-    // height: "100%",
+    height: "100%",
     width: "100%",
     alignSelf: "flex-end",
-    backgroundColor: "red"
+    backgroundColor: "red",
+    textAlignVertical: "bottom"
   },
   calenderIcon: {
     height: 20,
@@ -963,7 +961,9 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    color: "#454647"
+    color: "#454647",
+    textAlignVertical: "bottom",
+    width: "100%"
   },
   numberOfPassenger_btn_css: {
     height: 60,

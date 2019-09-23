@@ -72,7 +72,9 @@ const styles = StyleSheet.create({
   BottomBar: {
     position: "absolute",
     bottom: 0,
-    flex: 0.25,
+    flex: 0.5,
+    // height: 60,
+    height: "100%",
     width: "100%",
     alignItems: "center",
     backgroundColor: "#269DF9",

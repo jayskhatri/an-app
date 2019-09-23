@@ -45,15 +45,34 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
-    HomeScreen: {
-      screen: HomeScreen
-    },
-    BookingPageThird_one: {
-      screen: BookingPageThird_one
-    },
     // BottomBar: {
     //   screen: BottomBar
     // },
+    ProfilePageFourth: {
+      screen: ProfilePageFourth
+    },
+
+    ProfilePageOne: {
+      screen: ProfilePageOne
+    },
+    ProfilePageThird: {
+      screen: ProfilePageThird
+    },
+    ProfilePageSecond: {
+      screen: ProfilePageSecond
+    },
+
+    HomeScreen: {
+      screen: HomeScreen
+    },
+
+    BookingPageSecond: {
+      screen: BookingPageSecond
+    },
+
+    BookingPageThird_one: {
+      screen: BookingPageThird_one
+    },
     BookingPageThird: {
       screen: BookingPageThird
     },
@@ -71,16 +90,6 @@ const MainNavigation = createStackNavigator(
     editProfile: {
       screen: editProfile
     },
-    BookingPageSecond: {
-      screen: BookingPageSecond
-    },
-
-    ProfilePageOne: {
-      screen: ProfilePageOne
-    },
-    ProfilePageSecond: {
-      screen: ProfilePageSecond
-    },
 
     signUp: {
       screen: signUp
@@ -94,9 +103,6 @@ const MainNavigation = createStackNavigator(
     },
     checkUserStatus: {
       screen: checkUserStatus
-    },
-    ProfilePageThird: {
-      screen: ProfilePageThird
     },
 
     mainScreen: {
