@@ -16,6 +16,7 @@ import checkUserStatus from '../utils/checkUserStatus'
 import MainTabNavigation from '../navigation/MainTabNavigator';
 import BookingPageOne from '../bookingSection/bookingPage1';
 import BookingPageSecond from '../bookingSection/bookingPage2';
+import requestConfirmationPage from '../bookingSection/requestConfirmationPage';
 class Main extends React.Component {
   render() {
     return(
@@ -38,18 +39,24 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
+
+    checkUserStatus:{
+      screen: checkUserStatus
+    },
+   
     BookingPageOne : {
       screen : BookingPageOne
     }, 
-    checkUserStatus:{
-      screen: checkUserStatus
+    requestConfirmationPage:{
+      screen:requestConfirmationPage
     },
     Login: {
       screen: Login
     },
-    BookingPageOne : {
-      screen : BookingPageOne
-    },
+
+    // BookingPageOne : {
+    //   screen : BookingPageOne
+    // },
     ProfilePageFourth:{
       screen: ProfilePageFourth
     },

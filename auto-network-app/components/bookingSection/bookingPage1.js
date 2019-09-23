@@ -30,6 +30,7 @@ export default  class BookingPageOne extends React.Component {
         },
         isReadyToLoad:false,
        
+       
         
         // this will get true when user clicks find location inside modal
         modalMarkerLocation: 0, 
@@ -40,7 +41,7 @@ export default  class BookingPageOne extends React.Component {
       this.nextEvent = this.nextEvent.bind(this);
       this._findUserPosition = this._findUserPosition.bind(this);
       this.sendPushNotification = this.sendPushNotification.bind(this);
-
+      this.sendNotificationTo = this.sendNotificationTo.bind(this);
     }
     
     async componentDidMount(){
@@ -97,9 +98,9 @@ export default  class BookingPageOne extends React.Component {
   
     
     _findUserPosition = (e) => {
+      let user_id='';
         navigator.geolocation.getCurrentPosition(
-          function(position) {
-              
+          (position) =>{
                 var userRef = firebase.database().ref('online_drivers/');
                 userRef.once('value').then(function(snapshot) {
                   let min=900000000 ;
@@ -112,51 +113,40 @@ export default  class BookingPageOne extends React.Component {
                       user_id=userId.key;
                     }
                   });
-                  console.log("user_id: ",user_id);
-                 
-                 
-                })           
+                  this.setState({uid:user_id});
+                  let user=firebase.auth().currentUser;
+                  console.log('user: ',user)
+                  console.log("hey")
+                  firebase.database().ref('requests/'+user.uid).set({
+                    DriverId:user_id,
+                    confirmation_status:false
+                  })
+                  console.log('in function;',this.state.uid)
+                  this.sendNotificationTo(user_id) ;
+                }.bind(this))
                 ,
                 () => {
                      alert('Position could not be determined.');
                 }
           }
       );
-      var tokenRef = firebase.database().ref('Passengers/BydYdzIxK2gb1IZeLrzpjVzaSa03/Token/expo_token');
+    }
+
+    sendNotificationTo(user_id){
+      console.log("sendNotifications user_id: ",user_id);
+      user_id="6SNKmlXwESZjkl4U2h6h2TBJSiz2";
+      var tokenRef = firebase.database().ref('Passengers/'+user_id+'/Token/expo_token');
+      
       tokenRef.once('value').then((snapshot)=>{
-      let token = snapshot.val()
-      console.log("please see here token: ",token);
-      console.log('above')
-      this.sendPushNotification(token);
-      console.log("notification")
-    });
+        let token = snapshot.val()
+        console.log('user_id2',user_id);
+      
+        console.log('uid: ',this.state.uid);
+        console.log("please see here token: ",token);
+        // token="ExponentPushToken[YcZDEzL7ZAsBZFJjc9hFoT]";
+        this.sendPushNotification(token);
+      });
     }
-  
-  
-  registerForPushNotificationsAsync = async () => {
-    const { status: existingStatus } = await Permissions.getAsync(
-      Permissions.NOTIFICATIONS
-    );
-    let finalStatus = existingStatus;
-
-    if (existingStatus !== 'granted') {
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      finalStatus = status;
-    }
-
-    if (finalStatus !== 'granted') {
-      console.loh("granted");
-      return;
-    }
-    let token = await Notifications.getExpoPushTokenAsync();
-    console.log(token)
-    firebase.database().ref('Drivers/').push(
-      {
-        Driver_Status: token,
-      }
-    )
-   
-  }
 
     // async componentWillMount =>()=>{
     //     await registerForPushNotificationsAsync();
@@ -174,7 +164,7 @@ export default  class BookingPageOne extends React.Component {
     }
     
     nextEvent=(e)=>{
-      this.props.navigation.navigate("BookingPageSecond") ;
+      this.props.navigation.navigate("requestConfirmationPage") ;
     }
   
     render=() =>{
