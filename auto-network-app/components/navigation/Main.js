@@ -18,11 +18,7 @@ import BookingPageOne from '../bookingSection/bookingPage1';
 import BookingPageSecond from '../bookingSection/bookingPage2';
 class Main extends React.Component {
   render() {
-    return(
-      <View>
-      <Image style={styles.container} source={require('../../assets/icon.png')}></Image>
-      </View>
-    );
+    return null;
 
   }
 }
