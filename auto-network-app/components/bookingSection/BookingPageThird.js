@@ -7,7 +7,9 @@ import {
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
-  View
+  View,
+  Modal,
+  TouchableHighlight
 } from "react-native";
 
 import OptionsMenu from "react-native-options-menu";
@@ -31,9 +33,11 @@ export default class BookingPage3_one extends React.Component {
       driverName: "",
       autoNumber: "",
       totalAmount: "",
-      perPersonAmount: ""
+      perPersonAmount: "",
+      modalVisible: false
     };
     this.backEvent = this.backEvent.bind(this);
+    this.handlePayModel = this.handlePayModel.bind(this);
   }
   backEvent() {
     this.props.navigation.navigate("BookingPageSecond");
@@ -50,6 +54,9 @@ export default class BookingPage3_one extends React.Component {
     this.setState({ autoNumber: "Gj 03 HP 2503" });
     this.setState({ totalAmount: "300" });
     this.setState({ perPersonAmount: "150" });
+  }
+  handlePayModel() {
+    this.setState({ modalVisible: true });
   }
   render() {
     return (
@@ -114,7 +121,13 @@ export default class BookingPage3_one extends React.Component {
 
             <View style={styles.user_Details_View}>
               <View style={styles.nameView}>
-                <View style={{ flex: 0.3 }}>
+                <View
+                  style={{
+                    flex: 0.3,
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
+                >
                   <Text style={styles.lableText}>Name</Text>
                 </View>
                 <View style={styles.name_input_view}>
@@ -123,6 +136,7 @@ export default class BookingPage3_one extends React.Component {
                       flex: 0.1,
                       alignItems: "center",
                       justifyContent: "center"
+                      // backgroundColor: "gray"
                     }}
                   >
                     <Image
@@ -416,7 +430,6 @@ export default class BookingPage3_one extends React.Component {
             </View>
           </View>
         </View>
-
         <View
           style={{
             flex: 0.15,
@@ -425,6 +438,7 @@ export default class BookingPage3_one extends React.Component {
           }}
         >
           <TouchableOpacity
+            onPress={this.handlePayModel}
             style={{
               width: "40%",
               height: "30%",
@@ -457,6 +471,175 @@ export default class BookingPage3_one extends React.Component {
               </Text>
             </View>
           </TouchableOpacity>
+
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+                // backgroundColor: "",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <View
+                style={{
+                  flex: 0.7,
+                  backgroundColor: "#fff",
+                  width: "100%",
+                  height: "55%",
+                  alignItems: "center",
+                  position: "absolute",
+                  bottom: 0,
+                  borderWidth: 1.5,
+                  borderColor: "#000",
+                  borderTopLeftRadius: 35,
+                  borderTopRightRadius: 35
+                }}
+              >
+                <View
+                  style={{
+                    flex: 0.4,
+                    width: "100%",
+                    height: "100%",
+                    borderTopLeftRadius: 20,
+                    borderTopRightRadius: 20
+                  }}
+                >
+                  <View
+                    style={{
+                      flex: 0.2,
+                      alignItems: "center",
+                      justifyContent: "center"
+                    }}
+                  >
+                    <View
+                      style={{
+                        alignSelf: "center",
+                        // position: "absolute",
+                        // bottom: "2%",
+                        borderBottomWidth: 2,
+                        borderColor: "#000"
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: 20,
+                          textAlignVertical: "bottom"
+                        }}
+                      >
+                        Pay
+                      </Text>
+                    </View>
+                  </View>
+                  <View
+                    style={{
+                      flex: 0.6,
+                      flexDirection: "row"
+                    }}
+                  >
+                    <View style={{ flex: 0.25 }}>
+                      {/* <Image
+                  style={{resizeMode:"contain",width:100,height:100}}
+                  source={require("../../assets/back1.png")}
+                /> */}
+                    </View>
+                    <View
+                      style={{
+                        flex: 0.5,
+                        alignItems: "center",
+                        justifyContent: "center"
+                      }}
+                    >
+                      <View
+                        style={{
+                          alignSelf: "center",
+                          borderBottomWidth: 4,
+                          borderColor: "#269DF6"
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontSize: 50,
+                            color: "#269DF6"
+                          }}
+                        >
+                          RS. 300
+                        </Text>
+                      </View>
+                    </View>
+                    <View style={{ flex: 0.25 }}></View>
+                  </View>
+                  <View
+                    style={{
+                      flex: 0.2,
+                      alignItems: "center",
+                      justifyContent: "center"
+                    }}
+                  >
+                    <View
+                      style={{
+                        alignSelf: "center",
+                        borderBottomWidth: 2,
+                        borderColor: "#000"
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: 20
+                        }}
+                      >
+                        Via
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    flex: 0.6,
+                    width: "100%",
+                    height: "100%"
+                  }}
+                >
+                  <View style={{ flex: 1 }}>
+                    <View
+                      style={{
+                        marginLeft: "4%",
+                        marginRight: "4%",
+                        backgroundColor: "blue",
+                        height: "25%",
+
+                        borderRadius: 25
+                      }}
+                    ></View>
+                    <View
+                      style={{
+                        height: "25%",
+                        marginLeft: "4%",
+                        marginRight: "4%",
+                        marginTop: "15%",
+                        backgroundColor: "blue",
+                        borderRadius: 25
+                      }}
+                    ></View>
+                  </View>
+                  {/* <View
+                    style={{
+                      flex: 0.5,
+                      backgroundColor: "red"
+                    }}
+                  > */}
+                  {/* </View> */}
+                </View>
+              </View>
+            </View>
+          </Modal>
         </View>
       </View>
     );
@@ -502,6 +685,7 @@ const styles = StyleSheet.create({
     backgroundColor: "lightblue",
     marginLeft: "3%",
     marginRight: "3%",
+    marginBottom: "5%",
     borderRadius: 20,
     shadowColor: "lightblue",
     shadowOffset: {
@@ -511,13 +695,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 1.5,
     shadowRadius: 3.84,
     elevation: 4,
-    paddingBottom: "13%",
-    marginTop: -85
+    paddingBottom: "1%",
+    marginTop: "-10%"
   },
   ticket_outter_View: {
     flex: 0.25,
     paddingBottom: "0.5%",
-    paddingTop: "5%",
+    // paddingTop: "5%",
+
     backgroundColor: "#269DF6"
   },
   ticket_headerView: {
@@ -582,7 +767,11 @@ const styles = StyleSheet.create({
   },
   lableText: {
     fontSize: 10,
-    color: "#fff"
+    color: "#fff",
+    alignSelf: "center",
+    position: "absolute",
+    left: 0,
+    bottom: "5%"
   },
   lable_Image: {
     width: "70%",

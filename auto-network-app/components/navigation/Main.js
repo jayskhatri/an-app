@@ -47,23 +47,34 @@ const MainNavigation = createStackNavigator(
   {
     // BottomBar: {
     //   screen: BottomBar
-    // },
-    ProfilePageFourth: {
-      screen: ProfilePageFourth
+    // },6
+    BookingPageThird: {
+      screen: BookingPageThird
+    },
+    BookingPageOne: {
+      screen: BookingPageOne
     },
 
     ProfilePageOne: {
       screen: ProfilePageOne
     },
+    Redirect: {
+      screen: Redirect
+    },
+
+    HomeScreen: {
+      screen: HomeScreen
+    },
+
+    ProfilePageFourth: {
+      screen: ProfilePageFourth
+    },
+
     ProfilePageThird: {
       screen: ProfilePageThird
     },
     ProfilePageSecond: {
       screen: ProfilePageSecond
-    },
-
-    HomeScreen: {
-      screen: HomeScreen
     },
 
     BookingPageSecond: {
@@ -73,17 +84,6 @@ const MainNavigation = createStackNavigator(
     BookingPageThird_one: {
       screen: BookingPageThird_one
     },
-    BookingPageThird: {
-      screen: BookingPageThird
-    },
-
-    BookingPageOne: {
-      screen: BookingPageOne
-    },
-    Redirect: {
-      screen: Redirect
-    },
-
     Login: {
       screen: Login
     },

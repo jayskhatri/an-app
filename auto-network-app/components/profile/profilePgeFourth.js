@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
   logo_Icon_Css: {
     width: wp("55%"),
     height: hp("23%"),
-    resizeMode: "contain",
+    // resizeMode: "contain",
     alignSelf: "center"
   },
   signUpView: {
