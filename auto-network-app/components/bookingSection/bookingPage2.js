@@ -8,7 +8,7 @@ import Header from '../header/header';
 import firebase from 'firebase';
 import DatePicker from 'react-native-datepicker'
 
-export default  class profilePageSecond extends React.Component {
+export default  class BookingPageSecond extends React.Component {
     constructor(props) {
       super(props);
       this.state = {

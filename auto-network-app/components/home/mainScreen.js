@@ -2,10 +2,14 @@ import React from 'react';
 import * as firebase from 'firebase';
 import { StyleSheet, View  , Text , SafeAreaView , Platform , TouchableOpacity , Alert} from 'react-native';
 import { responsiveFontSize  } from 'react-native-responsive-dimensions';
+import { Notifications } from 'expo';
 import Header from '../header/header';
 export default class mainScreen extends React.Component {
   constructor(props){
     super(props);
+    this.state={
+      notification:[]
+    }
     this.logout = this.logout.bind(this);
     this.gotoBooking = this.gotoBooking.bind(this);
   }
@@ -19,6 +23,20 @@ export default class mainScreen extends React.Component {
       Alert.alert(error);
     });
   }
+
+  componentDidMount=()=>{
+    this._notificationSubscription = Notifications.addListener(this._handleNotification);
+  }
+
+  _handleNotification = (notification) => {
+
+    this.setState({ notification: notification });
+    this.setState({
+      info: JSON.stringify(notification.data.Destination)
+    })
+    console.log(this.state.notification);
+    console.log("poojan dharaiya");
+  };
 
   gotoBooking(){
     this.props.navigation.navigate('BookingPageOne');

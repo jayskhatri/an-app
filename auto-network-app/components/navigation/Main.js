@@ -19,7 +19,6 @@ import BookingPageSecond from '../bookingSection/bookingPage2';
 class Main extends React.Component {
   render() {
     return null;
-
   }
 }
 const styles = StyleSheet.create({
@@ -34,8 +33,12 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
+
     checkUserStatus:{
       screen: checkUserStatus
+    },
+    Login: {
+      screen: Login
     },
     BookingPageOne : {
       screen : BookingPageOne
@@ -47,16 +50,13 @@ const MainNavigation = createStackNavigator(
       screen: ProfilePageOne
     },
     
-    
     ProfilePageSecond:{
       screen:ProfilePageSecond
     },
     BookingPageSecond:{
       screen : BookingPageSecond
     },
-    Login: {
-      screen: Login
-    },
+   
     editProfile:{
       screen:editProfile
     },
