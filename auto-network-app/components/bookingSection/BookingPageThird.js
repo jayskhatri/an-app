@@ -455,45 +455,13 @@ export default class BookingPage3_one extends React.Component {
             </View>
           </View>
         </View>
-        <View
-          style={{
-            flex: 0.15,
-            alignItems: "center",
-            justifyContent: "center"
-          }}
-        >
+        <View style={styles.pop_up_view}>
           <TouchableOpacity
             onPress={this.handlePayModel}
-            style={{
-              width: "40%",
-              height: "30%",
-              backgroundColor: "#fff",
-              borderRadius: Platform.OS === "ios" ? 34 : 25,
-              alignSelf: "center",
-              alignItems: "center",
-              justifyContent: "center",
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 5
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-
-              elevation: 2
-            }}
+            style={styles.pay_btn_css}
           >
             <View style={{ alignSelf: "center", flexDirection: "row" }}>
-              <Text
-                style={{
-                  alignSelf: "center",
-                  fontSize: 20,
-                  marginLeft: "1%",
-                  color: "#269DF9"
-                }}
-              >
-                Pay
-              </Text>
+              <Text style={styles.pay_text_css}>Pay</Text>
             </View>
           </TouchableOpacity>
 
@@ -513,30 +481,8 @@ export default class BookingPage3_one extends React.Component {
                 justifyContent: "center"
               }}
             >
-              <View
-                style={{
-                  flex: 0.7,
-                  backgroundColor: "#fff",
-                  width: "100%",
-                  height: "55%",
-                  alignItems: "center",
-                  position: "absolute",
-                  bottom: 0,
-                  borderWidth: 1.5,
-                  borderColor: "#000",
-                  borderTopLeftRadius: 35,
-                  borderTopRightRadius: 35
-                }}
-              >
-                <View
-                  style={{
-                    flex: 0.4,
-                    width: "100%",
-                    height: "100%",
-                    borderTopLeftRadius: 20,
-                    borderTopRightRadius: 20
-                  }}
-                >
+              <View style={styles.pop_up_first_view}>
+                <View style={styles.pop_up_header_view}>
                   <View
                     style={{
                       flex: 0.2,
@@ -1054,5 +1000,54 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 4
+  },
+  pop_up_view: {
+    flex: 0.15,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  pay_btn_css: {
+    width: "40%",
+    height: "30%",
+    backgroundColor: "#fff",
+    borderRadius: Platform.OS === "ios" ? 34 : 25,
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 2
+  },
+  pay_text_css: {
+    alignSelf: "center",
+    fontSize: 20,
+    marginLeft: "1%",
+    color: "#269DF9"
+  },
+  pop_up_first_view: {
+    flex: 0.7,
+    backgroundColor: "#fff",
+    width: "100%",
+    height: "55%",
+    alignItems: "center",
+    position: "absolute",
+    bottom: 0,
+    borderWidth: 1.5,
+    borderColor: "#000",
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35
+  },
+  pop_up_header_view: {
+    flex: 0.4,
+    width: "100%",
+    height: "100%",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20
   }
 });

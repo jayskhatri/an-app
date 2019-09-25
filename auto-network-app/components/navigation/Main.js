@@ -48,13 +48,13 @@ const MainNavigation = createStackNavigator(
     // BottomBar: {
     //   screen: BottomBar
     // },
-    BookingPageThird: {
-      screen: BookingPageThird
-    },
     HomeScreen: {
       screen: HomeScreen
     },
 
+    BookingPageThird: {
+      screen: BookingPageThird
+    },
     BookingPageOne: {
       screen: BookingPageOne
     },

@@ -32,7 +32,7 @@ export default class setting extends React.Component {
     this.helpHandleEvent = this.helpHandleEvent.bind(this);
   }
   myAccountHandleEvent(e) {
-    console.log("My Account");
+    this.props.navigation.navigate("editProfile");
   }
   notificationHandleEvent(e) {
     console.log("Notification");
