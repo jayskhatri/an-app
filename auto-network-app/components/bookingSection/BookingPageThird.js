@@ -32,7 +32,7 @@ export default class BookingPage3_one extends React.Component {
       noOfPerson: "",
       driverName: "",
       autoNumber: "",
-      totalAmount: "",
+      totalAmount: "300",
       perPersonAmount: "",
       modalVisible: false
     };
@@ -566,14 +566,16 @@ export default class BookingPage3_one extends React.Component {
                   <View
                     style={{
                       flex: 0.6,
-                      flexDirection: "row"
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center"
                     }}
                   >
                     <View style={{ flex: 0.25 }}>
-                      {/* <Image
-                  style={{resizeMode:"contain",width:100,height:100}}
-                  source={require("../../assets/back1.png")}
-                /> */}
+                      <Image
+                        style={styles.round_inner_image_css}
+                        source={require("../../assets/round_Pay.png")}
+                      />
                     </View>
                     <View
                       style={{
@@ -595,11 +597,16 @@ export default class BookingPage3_one extends React.Component {
                             color: "#269DF6"
                           }}
                         >
-                          RS. 300
+                          RS.{this.state.totalAmount}
                         </Text>
                       </View>
                     </View>
-                    <View style={{ flex: 0.25 }}></View>
+                    <View style={{ flex: 0.25 }}>
+                      <Image
+                        style={styles.round_inner_image_css}
+                        source={require("../../assets/round_Pay.png")}
+                      />
+                    </View>
                   </View>
                   <View
                     style={{
@@ -625,50 +632,63 @@ export default class BookingPage3_one extends React.Component {
                     </View>
                   </View>
                 </View>
-                <View
-                  style={{
-                    flex: 0.6,
-                    width: "100%",
-                    height: "100%"
-                  }}
-                >
-                  <View style={{ flex: 1 }}>
-                    <View
-                      style={{
-                        flex: 0.5,
-                        marginLeft: "4%",
-                        marginRight: "4%",
-                        // marginTop: "8%",
-                        backgroundColor: "blue",
-                        // height: "25%",
-                        borderRadius: 25,
-                        flexDirection: "row"
-                      }}
-                    >
-                      {/* <View
-                        style={{
-                          flex: 0.5,
-                          backgroundColor: "red",
-                          alignItems: "center",
-                          justifyContent: "center"
-                        }}
-                      >
-                        <Text style={{ fontSize: 20, alignSelf: "center" }}>
-                          Online
+                <View style={styles.payment_mode_view}>
+                  <View style={styles.first_mode_view}>
+                    <View style={styles.payment_mode_inner_view_1}>
+                      <View style={styles.first_payment_mode_text_view}>
+                        <Text style={styles.first_payment_mode_text_Css}>
+                          online
                         </Text>
-                      </View> */}
+                      </View>
+                      <View style={styles.first_payment_mode_icon_view}>
+                        <View
+                          style={{
+                            flex: 1,
+                            marginRight: "2%",
+                            // alignItems: "center",
+                            justifyContent: "center"
+                            // backgroundColor: "green"
+                          }}
+                        >
+                          <TouchableOpacity>
+                            <Image
+                              style={styles.first_payment_mode_Image}
+                              source={require("../../assets/paytm_icon.png")}
+                            />
+                          </TouchableOpacity>
+                        </View>
+                      </View>
                     </View>
-                    <View
-                      style={{
-                        flex: 0.5,
-                        // height: "25%",
-                        marginLeft: "4%",
-                        marginRight: "4%",
-                        // marginTop: "6%",
-                        backgroundColor: "blue",
-                        borderRadius: 25
-                      }}
-                    ></View>
+                  </View>
+                  <View style={styles.first_mode_view}>
+                    <View style={styles.payment_mode_inner_view_2}>
+                      <View style={styles.first_payment_mode_text_view}>
+                        <Text style={styles.first_payment_mode_text_Css}>
+                          Offline
+                        </Text>
+                      </View>
+                      <View style={styles.first_payment_mode_icon_view}>
+                        <View
+                          style={{
+                            flex: 1,
+                            marginRight: "2%",
+                            // alignItems: "center",
+                            justifyContent: "center"
+                            // backgroundColor: "green"
+                          }}
+                        >
+                          {/* <Image
+                            style={styles.first_payment_mode_Image}
+                            source={require("../../assets/paytm_icon.png")}
+                          /> */}
+                          <TouchableOpacity>
+                            <Text style={styles.second_payment_mode_text_css}>
+                              Cash On Drive
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                    </View>
                   </View>
                 </View>
               </View>
@@ -936,10 +956,103 @@ const styles = StyleSheet.create({
   sharingIcon: {
     height: 15,
     width: 14,
-    marginTop: "4.5%",
-    backgroundColor: "red"
+    marginTop: "4.5%"
   },
   waveView: {
     flex: 0.12
+  },
+  payment_mode_view: {
+    flex: 0.6,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    width: "100%",
+    height: "100%"
+  },
+  first_mode_view: {
+    flex: 0.38,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  payment_mode_inner_view_1: {
+    width: "85%",
+    height: "60%",
+    marginLeft: "2%",
+    marginRight: "2%",
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: "#000",
+    backgroundColor: "#fff",
+    alignSelf: "center",
+    flexDirection: "row",
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 13
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 4
+  },
+  first_payment_mode_text_Css: {
+    fontSize: 18,
+    color: "#474747"
+  },
+  first_payment_mode_text_view: {
+    flex: 0.37,
+    height: "80%",
+    borderRightWidth: 1.5,
+    justifyContent: "center",
+    textAlign: "left",
+    paddingLeft: "2%"
+  },
+  first_payment_mode_icon_view: {
+    flex: 0.59,
+    height: "80%",
+    flexDirection: "row",
+    paddingRight: "2%",
+    paddingLeft: "4%",
+    backgroundColor: "transparent"
+  },
+  first_payment_mode_Image: {
+    height: "80%",
+    alignSelf: "center",
+    resizeMode: "contain"
+  },
+  second_payment_mode_text_css: {
+    fontSize: 25,
+    color: "blue",
+    textAlign: "center"
+  },
+  round_inner_image_css: {
+    resizeMode: "contain",
+    width: "50%",
+    height: "50%",
+    alignSelf: "center"
+  },
+  payment_mode_inner_view_2: {
+    width: "85%",
+    height: "60%",
+    marginLeft: "2%",
+    marginRight: "2%",
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: "#000",
+    backgroundColor: "#fff",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 13
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 4
   }
 });

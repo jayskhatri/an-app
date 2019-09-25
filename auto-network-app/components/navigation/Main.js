@@ -51,6 +51,10 @@ const MainNavigation = createStackNavigator(
     BookingPageThird: {
       screen: BookingPageThird
     },
+    HomeScreen: {
+      screen: HomeScreen
+    },
+
     BookingPageOne: {
       screen: BookingPageOne
     },
@@ -61,11 +65,6 @@ const MainNavigation = createStackNavigator(
     Redirect: {
       screen: Redirect
     },
-
-    HomeScreen: {
-      screen: HomeScreen
-    },
-
     ProfilePageFourth: {
       screen: ProfilePageFourth
     },
