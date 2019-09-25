@@ -147,10 +147,19 @@ export default class BookingPage3_one extends React.Component {
                   <View
                     style={{
                       flex: 0.9,
-                      width: "100%"
+                      width: "100%",
+                      height: "100%",
+                      marginTop: "-1%"
+                      // backgroundColor: "red"
                     }}
                   >
-                    <Text style={{ fontSize: 15, color: "#474747" }}>
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        color: "#474747"
+                        // textAlignVertical: "center"
+                      }}
+                    >
                       {this.state.name}
                     </Text>
                   </View>
@@ -176,7 +185,9 @@ export default class BookingPage3_one extends React.Component {
                         source={require("../../assets/sourceIcon.png")}
                       />
                     </View>
-                    <View style={{ flex: 0.8, marginLeft: "4%" }}>
+                    <View
+                      style={{ flex: 0.8, marginLeft: "4%", marginTop: "-1%" }}
+                    >
                       <ScrollView horizontal={true}>
                         <Text style={styles.text_Of_Details}>
                           {this.state.source}
@@ -203,7 +214,9 @@ export default class BookingPage3_one extends React.Component {
                         source={require("../../assets/destinationIcon.png")}
                       />
                     </View>
-                    <View style={{ flex: 0.8, marginLeft: "4%" }}>
+                    <View
+                      style={{ flex: 0.8, marginLeft: "4%", marginTop: "-1%" }}
+                    >
                       <ScrollView horizontal={true}>
                         <Text style={styles.text_Of_Details}>
                           {this.state.destination}
@@ -235,7 +248,8 @@ export default class BookingPage3_one extends React.Component {
                     <View
                       style={{
                         flex: 0.8,
-                        marginLeft: "4%"
+                        marginLeft: "4%",
+                        marginTop: "-0.5%"
                       }}
                     >
                       <Text style={{ color: "#474747", fontSize: 15 }}>
@@ -261,7 +275,13 @@ export default class BookingPage3_one extends React.Component {
                         source={require("../../assets/clock_icon.png")}
                       />
                     </View>
-                    <View style={{ flex: 0.8, marginLeft: "4%" }}>
+                    <View
+                      style={{
+                        flex: 0.8,
+                        marginLeft: "4%",
+                        marginTop: "-0.5%"
+                      }}
+                    >
                       <Text style={{ color: "#474747", fontSize: 15 }}>
                         {this.state.time}
                       </Text>
@@ -270,7 +290,7 @@ export default class BookingPage3_one extends React.Component {
                 </View>
               </View>
               {/* No of */}
-              <View style={styles.nameView}>
+              <View style={styles.last_pass}>
                 <View style={{ flex: 0.3 }}>
                   <Text style={styles.lableText}>No of passengers</Text>
                 </View>
@@ -288,7 +308,13 @@ export default class BookingPage3_one extends React.Component {
                     />
                   </View>
                   <View style={{ flex: 0.9 }}>
-                    <Text style={{ fontSize: 15, color: "#474747" }}>
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        color: "#474747",
+                        marginTop: "-0.5%"
+                      }}
+                    >
                       {this.state.noOfPerson}
                     </Text>
                   </View>
@@ -298,8 +324,7 @@ export default class BookingPage3_one extends React.Component {
                 <View
                   style={{
                     flexDirection: "row",
-                    alignSelf: "center",
-                    marginTop: "0%"
+                    alignSelf: "center"
                   }}
                 >
                   <Image
@@ -610,32 +635,41 @@ export default class BookingPage3_one extends React.Component {
                   <View style={{ flex: 1 }}>
                     <View
                       style={{
+                        flex: 0.5,
                         marginLeft: "4%",
                         marginRight: "4%",
+                        // marginTop: "8%",
                         backgroundColor: "blue",
-                        height: "25%",
-
-                        borderRadius: 25
+                        // height: "25%",
+                        borderRadius: 25,
+                        flexDirection: "row"
                       }}
-                    ></View>
+                    >
+                      {/* <View
+                        style={{
+                          flex: 0.5,
+                          backgroundColor: "red",
+                          alignItems: "center",
+                          justifyContent: "center"
+                        }}
+                      >
+                        <Text style={{ fontSize: 20, alignSelf: "center" }}>
+                          Online
+                        </Text>
+                      </View> */}
+                    </View>
                     <View
                       style={{
-                        height: "25%",
+                        flex: 0.5,
+                        // height: "25%",
                         marginLeft: "4%",
                         marginRight: "4%",
-                        marginTop: "15%",
+                        // marginTop: "6%",
                         backgroundColor: "blue",
                         borderRadius: 25
                       }}
                     ></View>
                   </View>
-                  {/* <View
-                    style={{
-                      flex: 0.5,
-                      backgroundColor: "red"
-                    }}
-                  > */}
-                  {/* </View> */}
                 </View>
               </View>
             </View>
@@ -685,7 +719,7 @@ const styles = StyleSheet.create({
     backgroundColor: "lightblue",
     marginLeft: "3%",
     marginRight: "3%",
-    marginBottom: "5%",
+    marginBottom: "3%",
     borderRadius: 20,
     shadowColor: "lightblue",
     shadowOffset: {
@@ -695,12 +729,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 1.5,
     shadowRadius: 3.84,
     elevation: 4,
-    paddingBottom: "1%",
     marginTop: "-10%"
   },
   ticket_outter_View: {
     flex: 0.25,
-    paddingBottom: "0.5%",
     // paddingTop: "5%",
 
     backgroundColor: "#269DF6"
@@ -755,6 +787,12 @@ const styles = StyleSheet.create({
     flex: 0.2,
     width: "85%",
     marginLeft: "8%",
+    marginTop: "3%"
+  },
+  last_pass: {
+    flex: 0.2,
+    width: "85%",
+    marginLeft: "8%",
     marginTop: "5%"
   },
   name_input_view: {
@@ -799,7 +837,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "85%",
     marginLeft: "8%",
-    marginTop: "5%"
+    marginTop: "4%"
   },
   driver_Detail_View: {
     flex: 0.28,
@@ -898,7 +936,8 @@ const styles = StyleSheet.create({
   sharingIcon: {
     height: 15,
     width: 14,
-    marginTop: "4%"
+    marginTop: "4.5%",
+    backgroundColor: "red"
   },
   waveView: {
     flex: 0.12

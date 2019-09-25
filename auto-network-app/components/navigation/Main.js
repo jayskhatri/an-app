@@ -47,7 +47,7 @@ const MainNavigation = createStackNavigator(
   {
     // BottomBar: {
     //   screen: BottomBar
-    // },6
+    // },
     BookingPageThird: {
       screen: BookingPageThird
     },

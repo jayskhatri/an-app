@@ -84,17 +84,17 @@ const styles = StyleSheet.create({
   },
   home_btn: {
     marginBottom: "8%",
-    width: "20%",
+    width: "28%",
     alignSelf: "center"
   },
   booking_btn: {
     marginBottom: "8%",
-    width: "20%",
+    width: "28%",
     alignSelf: "center"
   },
   myProfile_btn: {
     marginBottom: "8%",
-    width: "20%",
+    width: "28%",
     alignSelf: "center"
   },
   homeIcon: {
