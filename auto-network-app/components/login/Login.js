@@ -1,9 +1,17 @@
 import React from 'react';
 import * as firebase from 'firebase';
-import { StyleSheet, View  , Text  , TextInput , TouchableOpacity ,Platform,SafeAreaView, ImageBackground , Alert , Image , Dimensions} from 'react-native';
-import Header from '../header/header';
+import { StyleSheet, View  , Text  , TextInput , Platform , SafeAreaView, TouchableOpacity , ImageBackground , Alert , Image , Dimensions} from 'react-native';
+import {widthPercentageToDP  , heightPercentageToDP  } from 'react-native-responsive-screen';
+import { responsiveWidth , responsiveHeight , responsiveFontSize  } from 'react-native-responsive-dimensions';
+const { width , height } = Dimensions.get('window');
+import { createStackNavigator, createAppContainer } from "react-navigation";
+import LoginHeader from './loginheader';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
+import Header from '../header/header';
+// import console = require('console');
+// import console = require('console');
+
 export default class Login extends React.Component {
 
   constructor(){
@@ -11,7 +19,7 @@ export default class Login extends React.Component {
     this.state={
       email:"",
       password:""
-      
+
     };
     this.handleSetEmail = this.handleSetEmail.bind(this);
     this.handleSetPassword = this.handleSetPassword.bind(this);
@@ -20,22 +28,22 @@ export default class Login extends React.Component {
     this.registerForPushNotificationsAsync = this.registerForPushNotificationsAsync.bind(this);
   }
 
-  handleSetEmail(e){
-      const text = e.nativeEvent.text;
-      this.setState({email:text});
-  }
-
-  handleSetPassword(e){
+handleSetEmail(e){
     const text = e.nativeEvent.text;
-    this.setState({password:text});
-    //  console.log(this.state.password);
-  }
+    this.setState({email:text});
+}
 
-  signUpEvent(e){
-    this.props.navigation.navigate("signUp");
-  }
-  
-  registerForPushNotificationsAsync = async () => {
+handleSetPassword(e){
+   const text = e.nativeEvent.text;
+   this.setState({password:text});
+  //  console.log(this.state.password);
+}
+
+signUpEvent(e){
+  this.props.navigation.navigate("signUp");
+}
+
+registerForPushNotificationsAsync = async () => {
     console.log("poojan");
     const { status: existingStatus } = await Permissions.getAsync(
       Permissions.NOTIFICATIONS
@@ -55,24 +63,24 @@ export default class Login extends React.Component {
     let token = await Notifications.getExpoPushTokenAsync();
     console.log('token: ',token);
     firebase.auth().onAuthStateChanged(function(user) {
-      
+
       firebase.database().ref('Passengers/'+user.uid+'/Token/').set(
         {
           expo_token: token,
         }
-      ) 
+      )
     })
-    
+
   }
 
-  signInEvent(e){
+signInEvent(e){
 
   firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then( function()  {
 
     firebase.auth().onAuthStateChanged(function(user) {
       console.log("sign in event: ",user.emailVerified)
-        
-      if (user && user!=null) 
+
+      if (user && user!=null)
       {
         if(user.emailVerified){
           // registerForPushNotificationsAsync();
@@ -85,7 +93,7 @@ export default class Login extends React.Component {
           this.registerForPushNotificationsAsync();
           console.log('is profile completed: ', profile_completed);
           if(profile_completed){
-            this.props.navigation.navigate("mainScreen");  
+            this.props.navigation.navigate("mainScreen");
           }
           else{
             this.props.navigation.navigate("ProfilePageOne",{user: user});
@@ -106,7 +114,7 @@ export default class Login extends React.Component {
       Alert.alert(" Please Create Your Account ..");
       console.log(error);
     });
-    
+
   }
 
   render(){
@@ -114,79 +122,116 @@ export default class Login extends React.Component {
 <View style={styles.container}>
       <View style={styles.header}>
           {/* <LoginHeader /> */}
-          <SafeAreaView style={{backgroundColor:"#269DF9"}}>
-                <Text style={styles.headerText}>Sign in</Text>
-                <Header />
+          <SafeAreaView
+            style={{
+              backgroundColor: "#269DF9",
+              paddingTop: "2%"
+            }}
+          >
+            <Text style={styles.headerText}>Sign in</Text>
+            <Header />
           </SafeAreaView>
-      </View>
-      <View style={styles.signInView} >
-         <Text style={styles.signInlableOne} >Email Id / Phone No.</Text>
-         <View style={styles.outterLookOfInputBox}>
-          <TextInput 
-             style={styles.signInTextInputOne}
-             placeholder="Enter Email "
-             placeholderTextColor="#988c8c"
-             fontSize={16}
-             onChange={this.handleSetEmail}
-         />
-         </View>
-         <Text style={styles.signInlableOne} >Password</Text>
-         <View style={styles.outterLookOfSecondInputBox}>
-          <TextInput 
-             style={styles.signInTextInputOne}
-             placeholder="Enter Password "
-             placeholderTextColor="#988c8c"
+        </View>
+        <View style={styles.signInView}>
+          <Text style={styles.signInlableOne}>Email Id / Phone No.</Text>
+          <View style={styles.outterLookOfInputBox}>
+            <TextInput
+              style={styles.signInTextInputOne}
+              placeholder="Enter Email "
+              placeholderTextColor="#988c8c"
+              fontSize={16}
+              onChange={this.handleSetEmail}
+            />
+          </View>
+          <Text style={styles.signInlableOne}>Password</Text>
+          <View style={styles.outterLookOfSecondInputBox}>
+            <TextInput
+              style={styles.signInTextInputOne}
+              placeholder="Enter Password "
+              placeholderTextColor="#988c8c"
               secureTextEntry
-             fontSize={16}
-             onChange={this.handleSetPassword}
-         />
-         </View>
-      </View>
-      <View style={styles.signInButtonView}>
-            <View style={{flex:1,alignItems:"center",justifyContent:"center"}}>
-               <TouchableOpacity style={styles.goAutoButtonCss} onPress={this.signInEvent}>
-                          <Text style={{alignSelf:"center",fontSize:25,color:"#fff"}}>Go Auto</Text>
-                </TouchableOpacity>  
+              fontSize={16}
+              onChange={this.handleSetPassword}
+            />
+          </View>
+        </View>
+        <View style={styles.signInButtonView}>
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <TouchableOpacity
+              style={styles.goAutoButtonCss}
+              onPress={this.signInEvent}
+            >
+              <Text
+                style={{ alignSelf: "center", fontSize: 25, color: "#fff" }}
+              >
+                Go Auto
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.linkSignUpView}>
+          <View
+            style={{ flex: 1, marginTop: Platform.OS === "ios" ? "1%" : "0%" }}
+          >
+            <TouchableOpacity>
+              <Text style={{ color: "#269DF9", alignSelf: "center" }}>
+                {" "}
+                Forgot Password ?{" "}
+              </Text>
+            </TouchableOpacity>
+            <View
+              style={{
+                flexDirection: "row",
+                marginTop: Platform.OS === "ios" ? "5%" : "3%",
+                alignSelf: "center"
+              }}
+            >
+              <Text> Not joined Yet ? </Text>
+              <TouchableOpacity onPress={this.signUpEvent}>
+                <Text style={{ color: "#269DF9" }}> create Your account </Text>
+              </TouchableOpacity>
             </View>
-      </View>
-      <View style={styles.linkSignUpView}>
-          <View style={{flex:1,marginTop:Platform.OS === 'ios' ? "1%" : "0%"}}>
-                <TouchableOpacity>
-                    <Text style={{color:"#269DF9",alignSelf:"center"}}> Forgot Password ? </Text>
-                </TouchableOpacity>
-                <View style={{flexDirection:"row",marginTop:Platform.OS==='ios'?"5%":"3%",alignSelf:"center"}} >
-                    <Text> Not joined Yet ? </Text>
-                    <TouchableOpacity onPress={this.signUpEvent}>
-                        <Text style={{color:"#269DF9"}}> create Your account </Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={{flexDirection:"row",marginTop:Platform.OS==='ios'?"5%":"3%",alignSelf:"center"}} >
-                    <Text> Know Our  </Text>
-                    <TouchableOpacity>
-                        <Text style={{color:"#269DF9"}}> Privacy Policy and Terms & condition </Text>
-                    </TouchableOpacity>
-                </View>
+            <View
+              style={{
+                flexDirection: "row",
+                marginTop: Platform.OS === "ios" ? "5%" : "3%",
+                alignSelf: "center"
+              }}
+            >
+              <Text> Know Our </Text>
+              <TouchableOpacity>
+                <Text style={{ color: "#269DF9" }}>
+                  {" "}
+                  Privacy Policy and Terms & condition{" "}
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
-      </View>
-      <View style={styles.logoView} >
-          <View style={{flex:1,alignItems:"center",justifyContent:"center"}}>
-                <Image
-                    style={{
-                      height: "90%",
-                      width: "90%",
-                      marginLeft:"10%",marginBottom:"10%",marginRight:"10%",marginTop:"5%",
-                      resizeMode:"contain"
-                    }}
-                  source={require("../../assets/lastLogo.png")}
-                />
+        </View>
+        <View style={styles.logoView}>
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <Image
+              style={{
+                height: "90%",
+                width: "90%",
+                marginLeft: "10%",
+                marginBottom: "10%",
+                marginRight: "10%",
+                marginTop: "5%",
+                resizeMode: "contain"
+              }}
+              source={require("../../assets/lastLogo.png")}
+            />
           </View>
+        </View>
       </View>
-      
-</View>
-  );
+    );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {

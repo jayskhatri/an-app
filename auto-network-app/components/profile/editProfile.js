@@ -147,12 +147,15 @@ export default class editProfile extends React.Component {
                         <Image
                           style={{
                                alignSelf:"center",
-                               height:Platform.OS === 'ios' ? hp('22%') : hp('20.5%'), 
-                               width:Platform.OS === 'ios' ? wp('47%') : wp('34%') ,
+                              //  height:Platform.OS === 'ios' ? hp('22%') : hp('20.5%'), 
+                              //  width:Platform.OS === 'ios' ? wp('47%') : wp('34%') ,
+                              height:200,
+                              width:200,
                                 //  marginLeft:"5%",
                                //  marginTop:Platform.OS === 'ios' ? "-20%" : "-16%",
                   
-                              borderRadius: Platform.OS === 'ios' ? 95 : 100,
+                              // borderRadius: Platform.OS === 'ios' ? 95 : 100,
+                              borderRadius:100,
                               borderWidth:3,
                               borderColor:"black",
                               //  resizeMode:"contain"

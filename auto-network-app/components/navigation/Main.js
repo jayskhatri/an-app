@@ -1,21 +1,27 @@
 
 import React from "react";
 import mainScreen from '../home/mainScreen';
-import editProfile from '../profile/editProfile'
 import signUp from '../signup/SignUp';
 import { StyleSheet, Text, View, Easing, Animated , Image } from "react-native";
 import Login from "../login/Login";
 import ProfilePageOne from '../profile/profilePageOne';
 import ProfilePageSecond from '../profile/profilePageSecond';
 import ProfilePageThird from '../profile/profilePageThird';
-import ProfilePageFourth from '../profile/profilePageFourth';
+import ProfilePageFourth from '../profile/profilePgeFourth';
+import editProfile from '../profile/editProfile';
 import { createStackNavigator, createAppContainer } from "react-navigation";
-import Setting from '../setting/setting';
-import {responsiveFontSize} from 'react-native-responsive-dimensions';
-import checkUserStatus from '../utils/checkUserStatus'
-import MainTabNavigation from '../navigation/MainTabNavigator';
-import BookingPageOne from '../bookingSection/bookingPage1';
-import BookingPageSecond from '../bookingSection/bookingPage2';
+import Setting from "../setting/setting";
+import { responsiveFontSize } from "react-native-responsive-dimensions";
+import checkUserStatus from "../utils/checkUserStatus";
+import Header from "../header/header";
+import MainTabNavigation from "../navigation/MainTabNavigator";
+import BookingPageOne from "../bookingSection/bookingPage1";
+import BookingPageSecond from "../bookingSection/bookingPage2";
+import BookingPageThird from "../bookingSection/BookingPageThird";
+import BookingPageThird_one from "../bookingSection/BookingPage3_one";
+import HomeScreen from "../src/HomeScreen";
+import BottomBar from "../bottomTabBar/BottomBar";
+import Redirect from "../redirect";
 class Main extends React.Component {
   render() {
     return null;
@@ -49,7 +55,6 @@ const MainNavigation = createStackNavigator(
     ProfilePageOne:{
       screen: ProfilePageOne
     },
-    
     ProfilePageSecond:{
       screen:ProfilePageSecond
     },
@@ -57,6 +62,9 @@ const MainNavigation = createStackNavigator(
       screen : BookingPageSecond
     },
    
+    Login: {
+      screen: Login
+    },
     editProfile:{
       screen:editProfile
     },
@@ -66,17 +74,26 @@ const MainNavigation = createStackNavigator(
     signUp: {
       screen: signUp
     },
+
+    Header:{
+      screen:Header
+    },
     Setting:{
       screen:Setting
+    },
+    checkUserStatus:{
+      screen: checkUserStatus
     },
     ProfilePageThird:{
       screen:ProfilePageThird
     },
+
     mainScreen: {
       screen: mainScreen
     },
   },
   {
+    
       headerMode: "none",
   
       mode: "modal",
@@ -96,8 +113,10 @@ const MainNavigation = createStackNavigator(
           height:55
 
          },
+  
         // gesturesEnabled: true
       },
+    
   }
 );
 const App = createAppContainer(MainNavigation);
