@@ -7,7 +7,7 @@ import Login from "../login/Login";
 import ProfilePageOne from '../profile/profilePageOne';
 import ProfilePageSecond from '../profile/profilePageSecond';
 import ProfilePageThird from '../profile/profilePageThird';
-import ProfilePageFourth from '../profile/profilePgeFourth';
+import ProfilePageFourth from '../profile/profilePageFourth';
 import editProfile from '../profile/editProfile';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import Setting from "../setting/setting";
@@ -43,6 +43,12 @@ const MainNavigation = createStackNavigator(
     checkUserStatus:{
       screen: checkUserStatus
     },
+      HomeScreen:{
+        screen: HomeScreen,
+      },
+      mainScreen:{
+        screen: mainScreen
+      },
     Login: {
       screen: Login
     },
@@ -81,16 +87,12 @@ const MainNavigation = createStackNavigator(
     Setting:{
       screen:Setting
     },
-    checkUserStatus:{
-      screen: checkUserStatus
-    },
     ProfilePageThird:{
       screen:ProfilePageThird
     },
-
-    mainScreen: {
-      screen: mainScreen
-    },
+      BookingPageThird:{
+        screen: BookingPageThird
+      },
   },
   {
     

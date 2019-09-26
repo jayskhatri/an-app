@@ -6,7 +6,7 @@ import RadioForm,{RadioButton,RadioButtonInput,RadioButtonLabel} from "react-nat
 import Header from '../header/header';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import firebase from 'firebase';
-import DatePicker from 'react-native-datepicker'
+import DatePicker from 'react-native-datepicker';
 var options=[
   {label:"Male",value: 111},
   {label:"Female",value: 112},

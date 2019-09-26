@@ -26,7 +26,7 @@ export default class checkUserStatus extends React.Component {
                   console.log('profile completed: ',profile_completed);
                   if(profile_completed===true){
                     console.log("profile is completed bro");
-                    navigation.navigate("mainScreen");
+                    navigation.navigate("HomeScreen");
                   }else if(profile_completed ===false){
                     console.log("profile is not completed bro");
                     this.props.navigation.navigate("ProfilePageOne", {user: user});

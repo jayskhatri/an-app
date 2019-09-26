@@ -63,7 +63,7 @@ export default class profilePageFourth extends React.Component {
       has_profile_completed: true,
     });
 
-    this.props.navigation.navigate('mainScreen');
+    this.props.navigation.navigate('HomeScreen');
   }
 
   skipEvent(e){
@@ -84,7 +84,7 @@ export default class profilePageFourth extends React.Component {
       // owner_contact_number: navigation.getParam('owner_contact_number'),
       has_profile_completed: false,
     });
-    this.props.navigation.navigate('mainScreen');
+    this.props.navigation.navigate('HomeScreen');
   }
 
 

@@ -5,7 +5,6 @@ import {widthPercentageToDP  , heightPercentageToDP  } from 'react-native-respon
 import { responsiveWidth , responsiveHeight , responsiveFontSize  } from 'react-native-responsive-dimensions';
 const { width , height } = Dimensions.get('window');
 import { createStackNavigator, createAppContainer } from "react-navigation";
-import LoginHeader from './loginheader';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 import Header from '../header/header';
@@ -93,7 +92,7 @@ signInEvent(e){
           this.registerForPushNotificationsAsync();
           console.log('is profile completed: ', profile_completed);
           if(profile_completed){
-            this.props.navigation.navigate("mainScreen");
+            this.props.navigation.navigate("HomeScreen");
           }
           else{
             this.props.navigation.navigate("ProfilePageOne",{user: user});
