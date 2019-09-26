@@ -1,19 +1,27 @@
 import React from "react";
 import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  View
+    Image,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    SafeAreaView,
+    TouchableOpacity,
+    View, Alert
 } from "react-native";
 
 import Header from "../header/header";
 import BottomBar from "../bottomTabBar/BottomBar";
+import * as firebase from "firebase";
 
 export default class HomeScreen extends React.Component {
+    constructor(props){
+    super(props);
+    this.state={
+      notification:[]
+    }
+    this.logout = this.logout.bind(this);
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -44,11 +52,26 @@ export default class HomeScreen extends React.Component {
           <Text>Home Screen</Text>
           <Text>Home Screen</Text>
         </ScrollView>
+      <View >
+         <TouchableOpacity style={{marginTop:"3%",marginLeft:"5%"}} onPress={this.logout}>
+            <Text style={{fontSize:18}}>Logout</Text>
+         </TouchableOpacity>
+      </View>
+
         <View style={{ flex: 0.12, backgroundColor: "red" }}>
           <BottomBar {...this.props} />
         </View>
       </View>
     );
+  }
+  logout(){
+    const {navigation} = this.props;
+    firebase.auth().signOut().then(function(){
+      navigation.navigate("Login");
+    },function(error){
+      console.log("error in mainScreen: ",error)
+      Alert.alert(error);
+    });
   }
 }
 
