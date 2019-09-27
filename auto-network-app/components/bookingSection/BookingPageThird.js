@@ -489,6 +489,7 @@ export default class BookingPage3_one extends React.Component {
                   flex: 0.3,
                   position: "absolute",
                   top: 0,
+                  backgroundColor: "transparent",
                   width: "100%",
                   height: "100%"
                 }}
