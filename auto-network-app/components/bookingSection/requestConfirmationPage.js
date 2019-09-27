@@ -27,12 +27,12 @@ export default  class requestConfirmationPage extends React.Component {
     }
 
     async componentDidMount(){
-
-        let userRef=firebase.database().ref('requests/6SNKmlXwESZjkl4U2h6h2TBJSiz2/confirmation_status');
-
+        let user=await firebase.auth().currentUser;
+        let userRef=firebase.database().ref('requests/'+user.uid+'/confirmation_status');
+        console.log("userRef: ",userRef);
         userRef.on('value', function(snapshot) {
-            let confirmation_status=snapshot.val();
-            console.log(confirmation_status);
+            let confirmation_status=snapshot.val() ;
+            console.log('confirmation status: ',confirmation_status);
             if(confirmation_status==true)
             {
                 this.setState({
@@ -40,46 +40,57 @@ export default  class requestConfirmationPage extends React.Component {
                 })
             }
             else{
-                console.log('poojan')
                 this._findUserPosition();
             }
           }.bind(this));
     }
 
-    _findUserPosition= async(e)=>{
+    async _findUserPosition (e) {
+        console.log('in find user position');
+        navigator.geolocation.getCurrentPosition(
+          async(position) =>{
+                let user=firebase.auth().currentUser;
+                var userRef = firebase.database().ref('online_drivers/');
+                userRef.once('value').then(async function(snapshot) {
+                  let min=90000000 ;
+                  snapshot.forEach((userId) =>{
+                if(userId !== "GiROyZTiNdNZiuIJdVUTU72ewWr1"){
+                    console.log('in the if statement');
+                    let distance=geolib.getDistance(position.coords,userId.val().position.coords);
+                    if(min > distance)
+                    {
+                      min = distance;
+                      user_id=userId.key ;
+                      console.log("driver id: ",user_id) ;
+                    }
+                    }
+                  });
+                  this.setState({uid:user_id});
+                  firebase.database().ref('requests/'+user.uid).update({
+                    DriverId:user_id,
+                  });
+                  await this.sendNotificationTo(user_id);
+                }.bind(this))
+                ,
+                () => {
+                     alert('Position could not be determined.');
+                }
+          }
+      );
+    }
 
-        console.log('in the function');
-        // let user_id='';
-        //   navigator.geolocation.getCurrentPosition(
-        //     (position) =>{
-        //           var userRef = firebase.database().ref('online_drivers/');
-        //           userRef.once('value').then(function(snapshot) {
-        //             let min=900000000 ;
-        //             snapshot.forEach((userId) =>{
-        //               let distance=geolib.getDistance(position.coords,userId.val().position.coords);
-        //               if(min > distance)
-        //               {
-        //                 console.log("min: ",min);
-        //                 min = distance;
-        //                 user_id=userId.key;
-        //               }
-        //             });
-        //             console.log("user_id: ",user_id);
-        //             this.setState({uid:user_id});
-        //             console.log('in function;',this.state.uid)
-        //             this.sendNotification(user_id);
-        //           }.bind(this))
-        //           ,
-        //           () => {
-        //                alert('Position could not be determined.');
-        //           }
-        //     }
-        // );
-        firebase.database().ref('requests/6SNKmlXwESZjkl4U2h6h2TBJSiz2').update({
-            confirmation_status:true,
-        })
+    async sendNotificationTo(user_id){
+        let user= await firebase.auth().currentUser;
+        var tokenRef = firebase.database().ref('Passengers/'+user.uid+'/Token/expo_token');
+        
+        tokenRef.once('value').then(async(snapshot)=>{
+          let token = snapshot.val()
+          console.log('user_id',user);
+          console.log("please see here token: ",token);
+           await this.sendPushNotification(token);     
+        });
       }
-
+      
       sendPushNotification = async(token) =>{
 
         console.log("poojan");
@@ -105,24 +116,16 @@ export default  class requestConfirmationPage extends React.Component {
           body: JSON.stringify(message),
     
         });
-    }
     
-  
-      sendNotificationTo(user_id){
-        console.log("sendNotifications user_id: ",user_id);
-        var tokenRef = firebase.database().ref('Passengers/'+user_id+'/Token/expo_token');
-        
-        tokenRef.once('value').then((snapshot)=>{
-          let token = snapshot.val()
-          console.log('user_id2',user_id);
-        
-          console.log('uid: ',this.state.uid);
-          console.log("please see here token: ",token);
-          // token="ExponentPushToken[YcZDEzL7ZAsBZFJjc9hFoT]";
-          this.sendPushNotification(token);
-        });
+        const data = response._bodyInit;
+        console.log(`Status & Response ID-> ${JSON.stringify(data)}`);
+        let user=await firebase.auth().currentUser;
+        firebase.database().ref('requests/'+user.uid).update({
+            confirmation_status:true
+          });
+    
       }
-
+    
       render(){
           return(
         <View style={{flex:1}}>

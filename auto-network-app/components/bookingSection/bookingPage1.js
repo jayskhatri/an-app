@@ -45,8 +45,6 @@ export default  class BookingPageOne extends React.Component {
     }
     
     async componentDidMount(){
-      
-      await this._findUserPosition();
       this._notificationSubscription = Notifications.addListener(this._handleNotification);
       //  console.log("distance: ",distance);
     }
@@ -79,6 +77,7 @@ export default  class BookingPageOne extends React.Component {
   
       const data = response._bodyInit;
       console.log(`Status & Response ID-> ${JSON.stringify(data)}`);
+     
   
     };
   
@@ -92,37 +91,31 @@ export default  class BookingPageOne extends React.Component {
       this.setState({
         info: JSON.stringify(notification.data.Destination)
       })
-      console.log(this.state.notification);
-      console.log("poojan dharaiya");
     };
   
     
-    _findUserPosition = (e) => {
-      let user_id='';
+   async _findUserPosition (e) {
+      
         navigator.geolocation.getCurrentPosition(
           (position) =>{
                 var userRef = firebase.database().ref('online_drivers/');
-                userRef.once('value').then(function(snapshot) {
+                userRef.once('value').then(async function(snapshot) {
                   let min=900000000 ;
                   snapshot.forEach((userId) =>{
                     let distance=geolib.getDistance(position.coords,userId.val().position.coords);
                     if(min > distance)
                     {
-                      console.log("min: ",min);
                       min = distance;
                       user_id=userId.key;
                     }
                   });
                   this.setState({uid:user_id});
-                  let user=firebase.auth().currentUser;
-                  console.log('user: ',user)
-                  console.log("hey")
+                  let user=firebase.auth().currentUser ;
                   firebase.database().ref('requests/'+user.uid).set({
                     DriverId:user_id,
-                    confirmation_status:false
-                  })
-                  console.log('in function;',this.state.uid)
-                  this.sendNotificationTo(user_id) ;
+                    confirmation_status: false
+                  });
+                  await this.sendNotificationTo(user_id);
                 }.bind(this))
                 ,
                 () => {
@@ -130,28 +123,20 @@ export default  class BookingPageOne extends React.Component {
                 }
           }
       );
+      this.props.navigation.navigate("requestConfirmationPage");
     }
 
-    sendNotificationTo(user_id){
-      console.log("sendNotifications user_id: ",user_id);
-      user_id="6SNKmlXwESZjkl4U2h6h2TBJSiz2";
-      var tokenRef = firebase.database().ref('Passengers/'+user_id+'/Token/expo_token');
+    async sendNotificationTo(user_id){
+      let user= await firebase.auth().currentUser;
+      var tokenRef = firebase.database().ref('Passengers/'+user.uid+'/Token/expo_token');
       
-      tokenRef.once('value').then((snapshot)=>{
+      tokenRef.once('value').then(async(snapshot)=>{
         let token = snapshot.val()
-        console.log('user_id2',user_id);
-      
-        console.log('uid: ',this.state.uid);
+        console.log('user_id',user);
         console.log("please see here token: ",token);
-        // token="ExponentPushToken[YcZDEzL7ZAsBZFJjc9hFoT]";
-        this.sendPushNotification(token);
+        this.sendPushNotification(token);     
       });
     }
-
-    // async componentWillMount =>()=>{
-    //     await registerForPushNotificationsAsync();
-    //     await requestLocationPermission();
-    // }
   
     handleSetSource=(e)=>{
       const temp = e.nativeEvent.text;
@@ -163,8 +148,10 @@ export default  class BookingPageOne extends React.Component {
       this.setState({destination:temp});
     }
     
-    nextEvent=(e)=>{
-      this.props.navigation.navigate("requestConfirmationPage") ;
+    async nextEvent(e){
+        
+      this._findUserPosition();
+    
     }
   
     render=() =>{

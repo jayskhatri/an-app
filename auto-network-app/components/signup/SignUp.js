@@ -65,7 +65,6 @@ constructor(){
    }
    else
    {
-    console.log('IN else'); 
     Alert.alert('Password Mismatch !!');
    }
 

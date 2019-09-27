@@ -25,15 +25,15 @@ export default class checkUserStatus extends React.Component {
                   profile_completed = (snapshot.val() && snapshot.val().has_profile_completed);
                   console.log('profile completed: ',profile_completed);
                   if(profile_completed===true){
-                    console.log("profile is completed bro");
+                    
                     navigation.navigate("BookingPageOne");
+
                   }else if(profile_completed ===false){
-                    console.log("profile is not completed bro");
-                    this.props.navigation.navigate("BookingPageOne", {user: user});
+                    
+                    this.props.navigation.navigate("ProfilePageOne", {user: user});
                   }
                   else{
-                    console.log("Login Again");
-                    this.props.navigation.navigate("Login") ;
+                    this.props.navigation.navigate("ProfilePageOne", {user: user});
                   }
                 }
               },function(err){

@@ -36,11 +36,11 @@ export default class Login extends React.Component {
   }
   
   registerForPushNotificationsAsync = async () => {
-    console.log("poojan");
+    
     const { status: existingStatus } = await Permissions.getAsync(
       Permissions.NOTIFICATIONS
     );
-    console.log("dharaiya");
+    
     let finalStatus = existingStatus;
 
     if (existingStatus !== 'granted') {
@@ -49,7 +49,6 @@ export default class Login extends React.Component {
     }
 
     if (finalStatus !== 'granted') {
-      console.loh("granted");
       return;
     }
     let token = await Notifications.getExpoPushTokenAsync();
