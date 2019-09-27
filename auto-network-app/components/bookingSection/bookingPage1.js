@@ -61,7 +61,7 @@ export default  class BookingPageOne extends React.Component {
         // this will get true when user clicks find location inside modal
         modalMarkerLocation: 0, 
       }
-      this.previousEvent = this.previousEvent.bind(this);
+      // this.previousEvent = this.previousEvent.bind(this);
       this.handleSetSource = this.handleSetSource.bind(this);
       this.handleSetDestination = this.handleSetDestination.bind(this);
       this.nextEvent = this.nextEvent.bind(this);
@@ -154,7 +154,7 @@ export default  class BookingPageOne extends React.Component {
                 }
           }
       );
-      this.props.navigation.navigate("requestConfirmationPage");
+      // this.props.navigation.navigate("requestConfirmationPage");
     }
 
     async sendNotificationTo(user_id){
@@ -180,9 +180,8 @@ export default  class BookingPageOne extends React.Component {
     }
     
     async nextEvent(e){
-
       this._findUserPosition();
-
+      this.props.navigation.navigate("BookingPageSecond");
     }
   render() {
     return(
