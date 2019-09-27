@@ -60,6 +60,7 @@ export default class editProfile extends React.Component {
       autoNumber:"",
       ownerName:"",
       ownerContactNumber:"",
+      organisationEmailId:"",
     };
 
     this.editPhotoEvent = this.editPhotoEvent.bind(this);
@@ -70,6 +71,7 @@ export default class editProfile extends React.Component {
     this.changeautoNumberEvent = this.changeautoNumberEvent.bind(this);
     this.changeownerNameEvent = this.changeownerNameEvent.bind(this);
     this.changeownerContactNumberEvent = this.changeownerContactNumberEvent.bind(this);
+    this.changeOrganisationEmailIdEvent = this.changeOrganisationEmailIdEvent.bind(this);
     this.saveEvent = this.saveEvent.bind(this);
   }
   editPhotoEvent(e){
@@ -82,6 +84,10 @@ export default class editProfile extends React.Component {
   changeLastNameEvent(e){
     const temp = e.nativeEvent.text;
     this.setState({lastName:temp});
+  }
+  changeOrganisationEmailIdEvent(e){
+    const temp = e.nativeEvent.text;
+    this.setState({organisationEmailId:temp});
   }
   changeaadharNumberEvent(e){
     const temp = e.nativeEvent.text;
@@ -111,6 +117,7 @@ export default class editProfile extends React.Component {
   saveEvent(e){
     console.log("F name : ",this.state.firstName);
     console.log("L name : ",this.state.lastName);
+    console.log("O Email ID : ",this.state.organisationEmailId);
     console.log("date : ",this.state.birthdate);
     console.log("gender : ",this.state.gender);
     console.log("Aadhar no : ",this.state.aadharNumber);
@@ -196,10 +203,10 @@ export default class editProfile extends React.Component {
                   </View>
                   <View style={{flex:0.36,marginTop:"6%",width:"100%"}}>
                        <View style={{flex:0.26,width:"100%"}}>
-                             <View style={{flex:0.10,borderTopWidth:0.5,borderBottomColor:"#988c8c"}}>
+                                <View style={{flex:0.10,borderTopWidth:0.5,borderBottomColor:"#988c8c"}}>
                                  <Text style={{fontSize:20,marginLeft:"2%",marginTop:"3%"}}>Personal Information</Text>
                               </View>
-                              <View style={{  flex:0.20,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
+                                <View style={{flex:0.13,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
                                  <View style={{flex:0.40}}> 
                                    <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>First Name</Text>
                                  </View>
@@ -212,7 +219,7 @@ export default class editProfile extends React.Component {
                                         /> 
                                   </View>
                                 </View>  
-                                <View style={{flex:0.20,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
+                                <View style={{flex:0.13,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
                                      <View style={{flex:0.40}}> 
                                               <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Last Name</Text>
                                         </View>
@@ -225,6 +232,19 @@ export default class editProfile extends React.Component {
                                                 /> 
                                       </View>
                                 </View> 
+                                <View style={{flex:0.14,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
+                                     <View style={{flex:0.40}}> 
+                                              <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Organisation Email Id</Text>
+                                        </View>
+                                     <View style={{flex:0.60}}>
+                                               <TextInput
+                                                      placeholder="Enter Your Organisation Email Id"
+                                                      onChange = {this.changeOrganisationEmailIdEvent}
+                                                      value = {this.state.organisationEmailId}
+                                                      style={{borderBottomWidth:1,height:35,marginBottom:"2.5%",marginLeft:"5%",marginRight:"5%"}}
+                                                /> 
+                                      </View>
+                                </View>
                                 <View style={{flex:0.25,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
                                        <View style={{flex:0.40}}> 
                                               <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Birth Date</Text>
@@ -259,7 +279,7 @@ export default class editProfile extends React.Component {
                                                  />
                                            </View> 
                                    </View>
-                                   <View style={{flex:0.25,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
+                                <View style={{flex:0.25,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
                                           <View style={{flex:0.40}}> 
                                               <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Gender</Text>
                                           </View>

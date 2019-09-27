@@ -22,6 +22,7 @@ import HomeScreen from "../src/HomeScreen";
 import BottomBar from "../bottomTabBar/BottomBar";
 import Redirect from "../redirect";
 import requestConfirmationPage from "../bookingSection/requestConfirmationPage";
+import driver_page_one from "../driver/driver_page_one";
 class Main extends React.Component {
   render() {
     return null;
@@ -39,6 +40,12 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
+    driver_page_one: {
+      screen: driver_page_one
+    },
+    ProfilePageOne: {
+      screen: ProfilePageOne
+    },
     checkUserStatus: {
       screen: checkUserStatus
     },
@@ -60,9 +67,6 @@ const MainNavigation = createStackNavigator(
     },
     ProfilePageFourth: {
       screen: ProfilePageFourth
-    },
-    ProfilePageOne: {
-      screen: ProfilePageOne
     },
 
     ProfilePageSecond: {

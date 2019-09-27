@@ -1,16 +1,31 @@
-
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView , Platform , Image ,TextInput,TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Platform,
+  Image,
+  TextInput,
+  TouchableOpacity
+} from "react-native";
 import OptionsMenu from "react-native-options-menu";
-import RadioForm,{RadioButton,RadioButtonInput,RadioButtonLabel} from "react-native-simple-radio-button";
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import Header from '../header/header';
-import firebase from 'firebase';
+import RadioForm, {
+  RadioButton,
+  RadioButtonInput,
+  RadioButtonLabel
+} from "react-native-simple-radio-button";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from "react-native-responsive-screen";
+import Header from "../header/header";
+import firebase from "firebase";
 import MapPicker from "react-native-map-picker";
-import { Notifications } from 'expo';
-import * as Permissions from 'expo-permissions';
-import requestLocationPermission from '../utils/askForPermission'
-import * as geolib from 'geolib';
+import { Notifications } from "expo";
+import * as Permissions from "expo-permissions";
+import requestLocationPermission from "../utils/askForPermission";
+import * as geolib from "geolib";
 import SearchableDropdown from "react-native-searchable-dropdown";
 
 var source_place = [
@@ -40,152 +55,156 @@ var destination_place = [
   { id: 10, name: "instagram" }
 ];
 
-export default  class BookingPageOne extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        uid:'',
-        source:"",
-        user: '',
-        destination:"",
-        notification:{},
-        lastPosition: {
-          coords: {
-            latitude: 22.6007418,
-            longitude: 72.8255146,
-          }
-        },
-        isReadyToLoad:false,
-       
-        
-        // this will get true when user clicks find location inside modal
-        modalMarkerLocation: 0, 
-      }
-      // this.previousEvent = this.previousEvent.bind(this);
-      this.handleSetSource = this.handleSetSource.bind(this);
-      this.handleSetDestination = this.handleSetDestination.bind(this);
-      this.nextEvent = this.nextEvent.bind(this);
-      this._findUserPosition = this._findUserPosition.bind(this);
-      this.sendPushNotification = this.sendPushNotification.bind(this);
-      this.sendNotificationTo = this.sendNotificationTo.bind(this);
-    }
-    
-    async componentDidMount(){
-
-      await this._findUserPosition();
-      this._notificationSubscription = Notifications.addListener(this._handleNotification);
-      //  console.log("distance: ",distance);
-    }
-
-    sendPushNotification = async(token) =>{
-
-      console.log("poojan");
-      const message = {
-        to: token,
-        sound: 'default',
-        title: 'Booking Request',
-        body: 'Passenger Details:' ,
-        data: {
-          'Name': 'poojan dharaiya',
-          'source': 'Valetva Chowkdi',
-          'Destination': 'Nadiad',
+export default class BookingPageOne extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      uid: "",
+      source: "",
+      user: "",
+      destination: "",
+      notification: {},
+      lastPosition: {
+        coords: {
+          latitude: 22.6007418,
+          longitude: 72.8255146
         }
-      };
-  
-      const response = await fetch('https://exp.host/--/api/v2/push/send', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Accept-encoding': 'gzip, deflate',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(message),
-  
-      });
-  
-      const data = response._bodyInit;
-      console.log(`Status & Response ID-> ${JSON.stringify(data)}`);
+      },
+      isReadyToLoad: false,
 
-
+      // this will get true when user clicks find location inside modal
+      modalMarkerLocation: 0
     };
-  
-    // componentDidMount() {
-    //   this._notificationSubscription = Notifications.addListener(this._handleNotification);
-    // }
-  
-    _handleNotification = (notification) => {
-  
-      this.setState({ notification: notification });
-      this.setState({
-        info: JSON.stringify(notification.data.Destination)
-      })
-      console.log(this.state.notification);
-      console.log("poojan dharaiya");
+    this.previousEvent = this.previousEvent.bind(this);
+    this.handleSetSource = this.handleSetSource.bind(this);
+    this.handleSetDestination = this.handleSetDestination.bind(this);
+    this.nextEvent = this.nextEvent.bind(this);
+    this._findUserPosition = this._findUserPosition.bind(this);
+    this.sendPushNotification = this.sendPushNotification.bind(this);
+    this.sendNotificationTo = this.sendNotificationTo.bind(this);
+  }
+
+  async componentDidMount() {
+    await this._findUserPosition();
+    this._notificationSubscription = Notifications.addListener(
+      this._handleNotification
+    );
+    //  console.log("distance: ",distance);
+  }
+
+  sendPushNotification = async token => {
+    console.log("poojan");
+    const message = {
+      to: token,
+      sound: "default",
+      title: "Booking Request",
+      body: "Passenger Details:",
+      data: {
+        Name: "poojan dharaiya",
+        source: "Valetva Chowkdi",
+        Destination: "Nadiad"
+      }
     };
 
+    const response = await fetch("https://exp.host/--/api/v2/push/send", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Accept-encoding": "gzip, deflate",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(message)
+    });
 
-   async _findUserPosition (e) {
+    const data = response._bodyInit;
+    console.log(`Status & Response ID-> ${JSON.stringify(data)}`);
+  };
 
-        navigator.geolocation.getCurrentPosition(
-          (position) =>{
-                var userRef = firebase.database().ref('online_drivers/');
-                userRef.once('value').then(async function(snapshot) {
-                  let min=900000000 ;
-                  snapshot.forEach((userId) =>{
-                    let distance=geolib.getDistance(position.coords,userId.val().position.coords);
-                    if(min > distance)
-                    {
-                      console.log("min: ",min);
-                      min = distance;
-                      user_id=userId.key;
-                    }
-                  });
-                  this.setState({uid:user_id});
-                  let user=firebase.auth().currentUser ;
-                  firebase.database().ref('requests/'+user.uid).set({
-                    DriverId:user_id,
-                    confirmation_status: false
-                  });
-                  await this.sendNotificationTo(user_id);
-                }.bind(this))
-                ,
-                () => {
-                     alert('Position could not be determined.');
-                }
-          }
-      );
-      // this.props.navigation.navigate("requestConfirmationPage");
-    }
+  // componentDidMount() {
+  //   this._notificationSubscription = Notifications.addListener(this._handleNotification);
+  // }
 
-    async sendNotificationTo(user_id){
-      let user= await firebase.auth().currentUser;
-      var tokenRef = firebase.database().ref('Passengers/'+user.uid+'/Token/expo_token');
+  _handleNotification = notification => {
+    this.setState({ notification: notification });
+    this.setState({
+      info: JSON.stringify(notification.data.Destination)
+    });
+    console.log(this.state.notification);
+    console.log("poojan dharaiya");
+  };
 
-      tokenRef.once('value').then(async(snapshot)=>{
-        let token = snapshot.val()
-        console.log('user_id',user);
-        console.log("please see here token: ",token);
-        this.sendPushNotification(token);
-      });
-    }
-  
-    handleSetSource=(e)=>{
-      const temp = e.nativeEvent.text;
-      this.setState({source:temp});
-    }
-    
-    handleSetDestination=(e)=>{
-      const temp = e.nativeEvent.text;
-      this.setState({destination:temp});
-    }
-    
-    async nextEvent(e){
-      this._findUserPosition();
-      this.props.navigation.navigate("BookingPageSecond");
-    }
+  async _findUserPosition(e) {
+    navigator.geolocation.getCurrentPosition(position => {
+      var userRef = firebase.database().ref("online_drivers/");
+      userRef.once("value").then(
+        async function(snapshot) {
+          let min = 900000000;
+          snapshot.forEach(userId => {
+            let distance = geolib.getDistance(
+              position.coords,
+              userId.val().position.coords
+            );
+            if (min > distance) {
+              console.log("min: ", min);
+              min = distance;
+              user_id = userId.key;
+            }
+          });
+          this.setState({ uid: user_id });
+          let user = firebase.auth().currentUser;
+          firebase
+            .database()
+            .ref("requests/" + user.uid)
+            .set({
+              DriverId: user_id,
+              confirmation_status: false
+            });
+          await this.sendNotificationTo(user_id);
+        }.bind(this)
+      ),
+        () => {
+          alert("Position could not be determined.");
+        };
+    });
+    // this.props.navigation.navigate("requestConfirmationPage");
+  }
+
+  async sendNotificationTo(user_id) {
+    let user = await firebase.auth().currentUser;
+    var tokenRef = firebase
+      .database()
+      .ref("Passengers/" + user.uid + "/Token/expo_token");
+
+    tokenRef.once("value").then(async snapshot => {
+      let token = snapshot.val();
+      console.log("user_id", user);
+      console.log("please see here token: ", token);
+      this.sendPushNotification(token);
+    });
+  }
+
+  handleSetSource = e => {
+    const temp = e.nativeEvent.text;
+    this.setState({ source: temp });
+  };
+
+  handleSetDestination = e => {
+    const temp = e.nativeEvent.text;
+    this.setState({ destination: temp });
+  };
+
+  async nextEvent(e) {
+    this._findUserPosition();
+    this.props.navigation.navigate("BookingPageSecond");
+  }
+
+  previousEvent() {
+    this.props.navigation.navigate("HomeScreen");
+  }
+
   render() {
-    return(
-        <View style={styles.container}>
+    return (
+      <View style={styles.container}>
         <View style={{ flex: Platform.OS === "ios" ? 0.1 : 0.08 }}>
           <SafeAreaView style={styles.header}>
             <View>

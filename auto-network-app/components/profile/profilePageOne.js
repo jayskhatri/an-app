@@ -1,55 +1,75 @@
 import React from "react";
-import { StyleSheet, Text,StatusBar, View, SafeAreaView , Image ,TextInput,TouchableOpacity ,Platform  } from "react-native";
-import {KeyboardAvoidingView} from 'react-native';
-import RadioForm,{RadioButton,RadioButtonInput,RadioButtonLabel} from "react-native-simple-radio-button";
+import {
+  StyleSheet,
+  Text,
+  StatusBar,
+  View,
+  SafeAreaView,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  Platform
+} from "react-native";
+import { KeyboardAvoidingView } from "react-native";
+import RadioForm, {
+  RadioButton,
+  RadioButtonInput,
+  RadioButtonLabel
+} from "react-native-simple-radio-button";
 // const {widthOfScreen , heightOfScreen } = Dimensions.get('window');
-import Header from '../header/header';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import firebase from 'firebase';
-import DatePicker from 'react-native-datepicker';
-var options=[
-  {label:"Male",value: 111},
-  {label:"Female",value: 112},
-  {label:"Other",value: 113}
+import Header from "../header/header";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from "react-native-responsive-screen";
+import firebase from "firebase";
+import DatePicker from "react-native-datepicker";
+var options = [
+  { label: "Male", value: 111 },
+  { label: "Female", value: 112 },
+  { label: "Other", value: 113 }
 ];
-export default  class profilePageOne extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        active: 0,
-        first_name: '',
-        last_name: '',
-        birth_date: '',
-        gender: 111,
-      }
-      this.nextEvent = this.nextEvent.bind(this);
-    }
-    
-    nextEvent(e){
-        const {navigation} = this.props;
-        console.log("gender: ",this.state.gender,"email",navigation.getParam('user'));
-        this.props.navigation.navigate("ProfilePageFourth",
-          {
-            first_name: this.state.first_name,
-            last_name: this.state.last_name,
-            birth_date: this.state.birth_date,
-            gender: this.state.gender,
-            user: navigation.getParam('user')
-          }
-        );
-    }
-    
-    render() {
-    return(
-    <View style={styles.container}>
-        <SafeAreaView style={styles.header}>
+export default class profilePageOne extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      active: 0,
+      first_name: "",
+      last_name: "",
+      birth_date: "",
+      gender: 111
+    };
+    this.nextEvent = this.nextEvent.bind(this);
+  }
+
+  nextEvent(e) {
+    const { navigation } = this.props;
+    console.log(
+      "gender: ",
+      this.state.gender,
+      "email",
+      navigation.getParam("user")
+    );
+    this.props.navigation.navigate("ProfilePageFourth", {
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      birth_date: this.state.birth_date,
+      gender: this.state.gender,
+      user: navigation.getParam("user")
+    });
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
           <View style={{ flex: 0.7, backgroundColor: "#269DF9" }}>
             <Text style={styles.header_Text_Css}>Profile</Text>
           </View>
           <View style={{ flex: 0.3 }}>
             <Header />
           </View>
-        </SafeAreaView>
+        </View>
         <View style={styles.logoView}>
           <View style={styles.logo_inner_view}>
             <Image
@@ -172,7 +192,7 @@ export default  class profilePageOne extends React.Component {
         </View>
       </View>
     );
-    }
+  }
 }
 const styles = StyleSheet.create({
   container: {

@@ -17,16 +17,22 @@ firebase.initializeApp(firebaseConfig);
 export default class App extends React.Component {
   render() {
     return (
+      // <View style={styles.containerMain}>
       <View style={styles.container}>
         <Main />
       </View>
+      // </View>
     );
   }
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#269DF6",
-    paddingTop: StatusBar.currentHeight
+    paddingTop: StatusBar.currentHeight,
+    backgroundColor: "#269DF6"
+  },
+  containerMain: {
+    flex: 1,
+    backgroundColor: "#269DF6"
   }
 });

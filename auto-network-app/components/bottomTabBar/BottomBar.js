@@ -44,10 +44,10 @@ export default class BottomBar extends React.Component {
           <View style={styles.booking_btn}>
             <TouchableOpacity onPress={this.bookAutoEvent}>
               <Image
-                style={styles.homeIcon}
-                source={require("../../assets/Solid.png")}
+                style={styles.bookAutoIcon}
+                source={require("../../assets/icon.png")}
               />
-              <Text style={styles.Text}>Book Auto</Text>
+              <Text style={styles.booking_text}>Book Auto</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.myProfile_btn}>
@@ -105,5 +105,17 @@ const styles = StyleSheet.create({
   Text: {
     alignSelf: "center",
     fontSize: 15
+  },
+  bookAutoIcon: {
+    height: 60,
+    width: 60,
+    borderRadius: 30,
+    marginTop: "-40%",
+    marginBottom: "5%",
+    alignSelf: "center"
+  },
+  booking_text: {
+    fontSize: 15,
+    alignSelf: "center"
   }
 });

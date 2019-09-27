@@ -110,7 +110,7 @@ export default class setting extends React.Component {
               </View>
             </View>
           </View>
-          <View style={{ flex: 0.71, backgroundColor: "#fff" }}>
+          <View style={{ flex: 0.75, backgroundColor: "#fff" }}>
             <TouchableOpacity onPress={this.myAccountHandleEvent}>
               <View
                 style={{
@@ -265,7 +265,7 @@ export default class setting extends React.Component {
               </View>
             </TouchableOpacity>
           </View>
-          <View style={{ flex: 0.14, backgroundColor: "red" }}>
+          <View style={{ flex: 0.1 }}>
             <BottomBar {...this.props} />
           </View>
         </View>
