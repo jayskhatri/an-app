@@ -18,7 +18,7 @@ export default class Login extends React.Component {
     this.state={
       email:"",
       password:""
-
+      
     };
     this.handleSetEmail = this.handleSetEmail.bind(this);
     this.handleSetPassword = this.handleSetPassword.bind(this);
@@ -27,23 +27,23 @@ export default class Login extends React.Component {
     this.registerForPushNotificationsAsync = this.registerForPushNotificationsAsync.bind(this);
   }
 
-handleSetEmail(e){
+  handleSetEmail(e){
+      const text = e.nativeEvent.text;
+      this.setState({email:text});
+  }
+
+  handleSetPassword(e){
     const text = e.nativeEvent.text;
-    this.setState({email:text});
-}
+    this.setState({password:text});
+    //  console.log(this.state.password);
+  }
 
-handleSetPassword(e){
-   const text = e.nativeEvent.text;
-   this.setState({password:text});
-  //  console.log(this.state.password);
-}
+  signUpEvent(e){
+    this.props.navigation.navigate("signUp");
+  }
+  
+  registerForPushNotificationsAsync = async () => {
 
-signUpEvent(e){
-  this.props.navigation.navigate("signUp");
-}
-
-registerForPushNotificationsAsync = async () => {
-    console.log("poojan");
     const { status: existingStatus } = await Permissions.getAsync(
       Permissions.NOTIFICATIONS
     );
@@ -62,24 +62,24 @@ registerForPushNotificationsAsync = async () => {
     let token = await Notifications.getExpoPushTokenAsync();
     console.log('token: ',token);
     firebase.auth().onAuthStateChanged(function(user) {
-
+      
       firebase.database().ref('Passengers/'+user.uid+'/Token/').set(
         {
           expo_token: token,
         }
-      )
+      ) 
     })
-
+    
   }
 
-signInEvent(e){
+  signInEvent(e){
 
   firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then( function()  {
 
     firebase.auth().onAuthStateChanged(function(user) {
       console.log("sign in event: ",user.emailVerified)
-
-      if (user && user!=null)
+        
+      if (user && user!=null) 
       {
         if(user.emailVerified){
           // registerForPushNotificationsAsync();
@@ -231,6 +231,7 @@ signInEvent(e){
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {

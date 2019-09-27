@@ -47,13 +47,16 @@ export default class checkUserStatus extends React.Component {
       })
   }
   
+
   render() {
       return null
   }
-  
+
   componentWillMount() {
     this.checkStatus();
   }
+
+  
 }
 const styles = StyleSheet.create({
   container: {

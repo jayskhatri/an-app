@@ -8,7 +8,8 @@ export default class mainScreen extends React.Component {
   constructor(props){
     super(props);
     this.state={
-      notification:[]
+      notification:[],
+      info:''
     }
     this.logout = this.logout.bind(this);
     this.gotoBooking = this.gotoBooking.bind(this);
@@ -55,7 +56,7 @@ export default class mainScreen extends React.Component {
       <Text> Home Screen </Text> 
         <View style={{flex:0.10,backgroundColor:"#12afe3",flexDirection:"row"}}>
                      <TouchableOpacity style={{marginTop:"3%",marginLeft:"5%"}} onPress={this.logout}>
-                          <Text style={{fontSize:18}}>Logout</Text>
+                          <Text style={{fontSize:18}}>{this.state.info}</Text>
                      </TouchableOpacity>
               </View>
       </View>

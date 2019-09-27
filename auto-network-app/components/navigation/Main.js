@@ -1,6 +1,7 @@
 
 import React from "react";
 import mainScreen from '../home/mainScreen';
+import editProfile from '../profile/editProfile'
 import signUp from '../signup/SignUp';
 import { StyleSheet, Text, View, Easing, Animated , Image } from "react-native";
 import Login from "../login/Login";
@@ -8,7 +9,6 @@ import ProfilePageOne from '../profile/profilePageOne';
 import ProfilePageSecond from '../profile/profilePageSecond';
 import ProfilePageThird from '../profile/profilePageThird';
 import ProfilePageFourth from '../profile/profilePageFourth';
-import editProfile from '../profile/editProfile';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import Setting from "../setting/setting";
 import { responsiveFontSize } from "react-native-responsive-dimensions";
@@ -22,6 +22,7 @@ import BookingPageThird_one from "../bookingSection/BookingPage3_one";
 import HomeScreen from "../src/HomeScreen";
 import BottomBar from "../bottomTabBar/BottomBar";
 import Redirect from "../redirect";
+import requestConfirmationPage from '../bookingSection/requestConfirmationPage';
 class Main extends React.Component {
   render() {
     return null;
@@ -43,6 +44,7 @@ const MainNavigation = createStackNavigator(
     checkUserStatus:{
       screen: checkUserStatus
     },
+
       HomeScreen:{
         screen: HomeScreen,
       },
@@ -55,12 +57,16 @@ const MainNavigation = createStackNavigator(
     BookingPageOne : {
       screen : BookingPageOne
     },
+    requestConfirmationPage:{
+      screen:requestConfirmationPage
+    },
     ProfilePageFourth:{
       screen: ProfilePageFourth
     },
     ProfilePageOne:{
       screen: ProfilePageOne
     },
+    
     ProfilePageSecond:{
       screen:ProfilePageSecond
     },
@@ -68,9 +74,6 @@ const MainNavigation = createStackNavigator(
       screen : BookingPageSecond
     },
    
-    Login: {
-      screen: Login
-    },
     editProfile:{
       screen:editProfile
     },
@@ -95,7 +98,6 @@ const MainNavigation = createStackNavigator(
       },
   },
   {
-    
       headerMode: "none",
   
       mode: "modal",
@@ -115,10 +117,8 @@ const MainNavigation = createStackNavigator(
           height:55
 
          },
-  
         // gesturesEnabled: true
       },
-    
   }
 );
 const App = createAppContainer(MainNavigation);
