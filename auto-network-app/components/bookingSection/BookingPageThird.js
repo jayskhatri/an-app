@@ -38,6 +38,7 @@ export default class BookingPage3_one extends React.Component {
     };
     this.backEvent = this.backEvent.bind(this);
     this.handlePayModel = this.handlePayModel.bind(this);
+    this.handlePayModelClose = this.handlePayModelClose.bind(this);
   }
   backEvent() {
     this.props.navigation.navigate("BookingPageSecond");
@@ -57,6 +58,9 @@ export default class BookingPage3_one extends React.Component {
   }
   handlePayModel() {
     this.setState({ modalVisible: true });
+  }
+  handlePayModelClose() {
+    this.setState({ modalVisible: false });
   }
   render() {
     return (
@@ -476,11 +480,20 @@ export default class BookingPage3_one extends React.Component {
             <View
               style={{
                 flex: 1,
-                // backgroundColor: "",
                 alignItems: "center",
                 justifyContent: "center"
               }}
             >
+              <View
+                style={{
+                  flex: 0.3,
+                  position: "absolute",
+                  top: 0,
+                  width: "100%",
+                  height: "100%"
+                }}
+                onTouchEnd={this.handlePayModelClose}
+              ></View>
               <View style={styles.pop_up_first_view}>
                 <View style={styles.pop_up_header_view}>
                   <View
