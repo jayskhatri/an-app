@@ -490,7 +490,8 @@ export default class BookingPage3_one extends React.Component {
                   position: "absolute",
                   top: 0,
                   width: "100%",
-                  height: "100%"
+                  height: "100%",
+                  backgroundColor: "transparent"
                 }}
                 onTouchEnd={this.handlePayModelClose}
               ></View>
