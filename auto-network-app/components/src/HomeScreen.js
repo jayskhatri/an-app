@@ -26,15 +26,23 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <SafeAreaView style={styles.header}>
-          <View style={{ flex: 0.7, backgroundColor: "#269DF9" }}>
-            <Text style={styles.header_Text_Css}>HOME</Text>
-          </View>
-          <View style={{ flex: 0.3 }}>
+        <View style={styles.header}>
+          <SafeAreaView
+            style={{ backgroundColor: "#269DF9", paddingTop: "3%" }}
+          >
+            <Text
+              style={{
+                alignSelf: "center",
+                color: "#fff",
+                fontSize: 25
+              }}
+            >
+              Home
+            </Text>
             <Header />
-          </View>
-        </SafeAreaView>
-        <ScrollView style={{ marginTop: "15%", flex: 0.78 }}>
+          </SafeAreaView>
+        </View>
+        <ScrollView style={{ marginTop: "15%", flex: 0.68 }}>
           <Text>Home Screen</Text>
           <Text>Home Screen</Text>
           <Text>Home Screen</Text>
@@ -84,7 +92,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   header: {
-    flex: 0.1
+    flex: 0.2
   },
   header_Text_Css: {
     alignSelf: "center",

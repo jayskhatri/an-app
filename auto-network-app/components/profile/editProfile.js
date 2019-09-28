@@ -73,6 +73,7 @@ export default class editProfile extends React.Component {
     this.changeownerContactNumberEvent = this.changeownerContactNumberEvent.bind(this);
     this.changeOrganisationEmailIdEvent = this.changeOrganisationEmailIdEvent.bind(this);
     this.saveEvent = this.saveEvent.bind(this);
+    this.previousEvent = this.previousEvent.bind(this);
   }
   editPhotoEvent(e){
     this.props.navigation.navigate("ProfilePageFourth");
@@ -133,6 +134,9 @@ export default class editProfile extends React.Component {
     Alert.alert(' Successfully Save ');
 
   }
+  previousEvent(){
+    this.props.navigation.navigate("Setting");
+  }
   render() {
     let { image } = this.state;
     
@@ -141,12 +145,30 @@ export default class editProfile extends React.Component {
       // <View style={{flex:1}}>
        
           <View style={styles.container}>
-          <View style={styles.waveView}>
+          {/* <View style={styles.waveView}>
               <SafeAreaView style={{backgroundColor:"#269DF9"}}>
                 <Text style={{alignSelf:"center",color:"#fff",fontSize:25,marginTop:Platform.OS === 'android' ? "4%" : "0%"}}>Edit Profile</Text>
                 <Header />
               </SafeAreaView>
-          </View>
+          </View> */}
+          <View style={{ flex: 0.24  }}>
+          <SafeAreaView style={styles.header}>
+            <View style={{flex:0.20}}>
+              <TouchableOpacity onPress={this.previousEvent}>
+                <Image
+                  style={styles.backImage}
+                  source={require("../../assets/back1.png")}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={{flex:0.40}}>
+              <Text style={styles.headerText}>Edit Profile</Text>
+            </View>
+            <View style={{flex:0.20}}>
+            </View>
+          </SafeAreaView>
+          <Header />
+        </View>
           {this.state.load ? 
             (
           <ScrollView style={styles.userInfo}>
@@ -154,14 +176,8 @@ export default class editProfile extends React.Component {
                         <Image
                           style={{
                                alignSelf:"center",
-                              //  height:Platform.OS === 'ios' ? hp('22%') : hp('20.5%'), 
-                              //  width:Platform.OS === 'ios' ? wp('47%') : wp('34%') ,
                               height:200,
                               width:200,
-                                //  marginLeft:"5%",
-                               //  marginTop:Platform.OS === 'ios' ? "-20%" : "-16%",
-                  
-                              // borderRadius: Platform.OS === 'ios' ? 95 : 100,
                               borderRadius:100,
                               borderWidth:3,
                               borderColor:"black",
@@ -432,10 +448,18 @@ export default class editProfile extends React.Component {
                        </View>    
                        <View style={{flex:0.22,width:"100%",alignItems:"center"}}>
                                <View style={{flex:1,alignItems:"center",height:"40%",width:"80%",marginBottom:"8%",justifyContent:"center"}}>
-                               <TouchableOpacity style={{borderRadius:50,height:"50%",marginBottom:"3%",width:"80%",backgroundColor:"#269DF9"}}
+                               <TouchableOpacity style={{borderRadius:50,height:"50%",marginBottom:"3%",width:"50%",backgroundColor:"#269DF9",shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 5
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+
+              elevation: 2}}
                                                  onPress = {this.saveEvent}
                                >
-                                      <Text style={{fontSize:35,marginBottom:"7%",alignSelf:"center",letterSpacing:4,color:"#fff"}}>Save</Text>
+                                      <Text style={{fontSize:35,marginBottom:"7%",alignSelf:"center",letterSpacing:1,color:"#fff"}}>Save</Text>
                                </TouchableOpacity>                     
                                </View>
                        </View>      
@@ -488,5 +512,24 @@ const styles = StyleSheet.create({
   },
   userInfo: {
         flex:0.76
-  }
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    
+    backgroundColor: "#269DF9",
+    paddingTop: Platform.OS === "android" ? "5%" : "0%"
+  },
+  backImage: {
+    height: 60,
+    width: 60,
+    marginTop: "-13%",
+    resizeMode: "contain"
+  },
+  headerText: {
+    flex: 1,
+    alignSelf: "center",
+    color: "#fff",
+    fontSize: 30
+  },
 });

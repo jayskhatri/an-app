@@ -8,10 +8,8 @@ import {
   Platform,
   SafeAreaView,
   TouchableOpacity,
-  ImageBackground,
   Alert,
-  Image,
-  Dimensions
+  Image
 } from "react-native";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
@@ -265,7 +263,7 @@ export default class driver_page_one extends React.Component {
             </View>
             <Modal
               animationType="slide"
-              //   transparent={true}
+              transparent={true}
               visible={this.state.modalVisible}
               onRequestClose={() => {
                 Alert.alert("Modal has been closed.");

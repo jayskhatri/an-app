@@ -1,130 +1,152 @@
-import React from 'react';
-import * as firebase from 'firebase';
-import { StyleSheet, View  , Text  , TextInput , Platform , SafeAreaView, TouchableOpacity , ImageBackground , Alert , Image , Dimensions} from 'react-native';
-import {widthPercentageToDP  , heightPercentageToDP  } from 'react-native-responsive-screen';
-import { responsiveWidth , responsiveHeight , responsiveFontSize  } from 'react-native-responsive-dimensions';
-const { width , height } = Dimensions.get('window');
+import React from "react";
+import * as firebase from "firebase";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  Platform,
+  SafeAreaView,
+  TouchableOpacity,
+  ImageBackground,
+  Alert,
+  Image,
+  Dimensions
+} from "react-native";
+import {
+  widthPercentageToDP,
+  heightPercentageToDP
+} from "react-native-responsive-screen";
+import {
+  responsiveWidth,
+  responsiveHeight,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
+const { width, height } = Dimensions.get("window");
 import { createStackNavigator, createAppContainer } from "react-navigation";
-import { Notifications } from 'expo';
-import * as Permissions from 'expo-permissions';
-import Header from '../header/header';
+import { Notifications } from "expo";
+import * as Permissions from "expo-permissions";
+import Header from "../header/header";
 // import console = require('console');
 // import console = require('console');
 
 export default class Login extends React.Component {
-
-  constructor(){
+  constructor() {
     super();
-    this.state={
-      email:"",
-      password:""
-      
+    this.state = {
+      email: "",
+      password: ""
     };
     this.handleSetEmail = this.handleSetEmail.bind(this);
     this.handleSetPassword = this.handleSetPassword.bind(this);
     this.signUpEvent = this.signUpEvent.bind(this);
     this.signInEvent = this.signInEvent.bind(this);
-    this.registerForPushNotificationsAsync = this.registerForPushNotificationsAsync.bind(this);
+    this.registerForPushNotificationsAsync = this.registerForPushNotificationsAsync.bind(
+      this
+    );
   }
 
-  handleSetEmail(e){
-      const text = e.nativeEvent.text;
-      this.setState({email:text});
-  }
-
-  handleSetPassword(e){
+  handleSetEmail(e) {
     const text = e.nativeEvent.text;
-    this.setState({password:text});
+    this.setState({ email: text });
+  }
+
+  handleSetPassword(e) {
+    const text = e.nativeEvent.text;
+    this.setState({ password: text });
     //  console.log(this.state.password);
   }
 
-  signUpEvent(e){
+  signUpEvent(e) {
     this.props.navigation.navigate("signUp");
   }
-  
-  registerForPushNotificationsAsync = async () => {
 
+  registerForPushNotificationsAsync = async () => {
     const { status: existingStatus } = await Permissions.getAsync(
       Permissions.NOTIFICATIONS
     );
     console.log("dharaiya");
     let finalStatus = existingStatus;
 
-    if (existingStatus !== 'granted') {
+    if (existingStatus !== "granted") {
       const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
       finalStatus = status;
     }
 
-    if (finalStatus !== 'granted') {
+    if (finalStatus !== "granted") {
       console.loh("granted");
       return;
     }
     let token = await Notifications.getExpoPushTokenAsync();
-    console.log('token: ',token);
+    console.log("token: ", token);
     firebase.auth().onAuthStateChanged(function(user) {
-      
-      firebase.database().ref('Passengers/'+user.uid+'/Token/').set(
-        {
-          expo_token: token,
-        }
-      ) 
-    })
-    
-  }
-
-  signInEvent(e){
-
-  firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then( function()  {
-
-    firebase.auth().onAuthStateChanged(function(user) {
-      console.log("sign in event: ",user.emailVerified)
-        
-      if (user && user!=null) 
-      {
-        if(user.emailVerified){
-          // registerForPushNotificationsAsync();
-          Alert.alert("Login successful");
-          var userRef = firebase.database().ref('Passengers/'+user.uid);
-          var profile_completed;
-          userRef.once('value').then(function(snapshot){
-            profile_completed = (snapshot.val() && snapshot.val().personal_details.has_profile_completed)
-          });
-          this.registerForPushNotificationsAsync();
-          console.log('is profile completed: ', profile_completed);
-          if(profile_completed){
-            this.props.navigation.navigate("HomeScreen");
-          }
-          else{
-            this.props.navigation.navigate("ProfilePageOne",{user: user});
-          }
-        }
-        else {
-          Alert.alert("Verify your Email");
-        }
-      }
-    else {
-        Alert.alert("No User Exist");
-      }
-    }.bind(this));
-
-    }.bind(this))
-
-    .catch(function(error){
-      Alert.alert(" Please Create Your Account ..");
-      console.log(error);
+      firebase
+        .database()
+        .ref("Passengers/" + user.uid + "/Token/")
+        .set({
+          expo_token: token
+        });
     });
+  };
 
+  signInEvent(e) {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(
+        function() {
+          firebase.auth().onAuthStateChanged(
+            function(user) {
+              console.log("sign in event: ", user.emailVerified);
+
+              if (user && user != null) {
+                if (user.emailVerified) {
+                  // registerForPushNotificationsAsync();
+                  Alert.alert("Login successful");
+                  var userRef = firebase
+                    .database()
+                    .ref("Passengers/" + user.uid);
+                  var profile_completed;
+                  userRef.once("value").then(function(snapshot) {
+                    profile_completed =
+                      snapshot.val() &&
+                      snapshot.val().personal_details.has_profile_completed;
+                  });
+                  this.registerForPushNotificationsAsync();
+                  console.log("is profile completed: ", profile_completed);
+                  if (profile_completed) {
+                    this.props.navigation.navigate("HomeScreen");
+                  } else {
+                    this.props.navigation.navigate("ProfilePageOne", {
+                      user: user
+                    });
+                  }
+                } else {
+                  Alert.alert("Verify your Email");
+                }
+              } else {
+                Alert.alert("No User Exist");
+              }
+            }.bind(this)
+          );
+        }.bind(this)
+      )
+
+      .catch(function(error) {
+        Alert.alert(" Please Create Your Account ..");
+        console.log(error);
+      });
   }
 
-  render(){
-  return (
-<View style={styles.container}>
-      <View style={styles.header}>
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
           {/* <LoginHeader /> */}
           <SafeAreaView
             style={{
-              backgroundColor: "#269DF9",
-              paddingTop: "2%"
+              backgroundColor: "#269DF9"
+              // paddingTop: "2%"
             }}
           >
             <Text style={styles.headerText}>Sign in</Text>
@@ -232,78 +254,75 @@ export default class Login extends React.Component {
   }
 }
 
-
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1
   },
-  header:{
-    flex:0.20
+  header: {
+    flex: 0.2
   },
-  headerText:{
-    alignSelf:"center",
-    color:"#fff",
-    fontSize:25,
-    marginTop:Platform.OS === 'android' ? "4%" : "0%"
+  headerText: {
+    alignSelf: "center",
+    color: "#fff",
+    fontSize: 25
   },
-  signInView:{
-    flex:Platform.OS === 'ios' ? 0.18 : 0.23,
+  signInView: {
+    flex: Platform.OS === "ios" ? 0.18 : 0.23
     // backgroundColor:"red"
   },
-  signInlableOne:{
-    flex:0.15,
-    fontSize:15,
-    marginTop:"4%",
-    marginLeft:"15.5%",
+  signInlableOne: {
+    flex: 0.15,
+    fontSize: 15,
+    marginTop: "4%",
+    marginLeft: "15.5%"
   },
-  outterLookOfInputBox:{
-    flex:0.35,
-    borderWidth:0.5,
-    marginLeft:"10%",
-    marginTop:"1%",
-    marginRight:"10%",
-    borderRadius:25
+  outterLookOfInputBox: {
+    flex: 0.35,
+    borderWidth: 0.5,
+    marginLeft: "10%",
+    marginTop: "1%",
+    marginRight: "10%",
+    borderRadius: 25
   },
-  outterLookOfSecondInputBox:{
-    flex:0.35,
-    borderWidth:0.5,
-    marginTop:"1%",
-    marginLeft:"10%",
-    marginRight:"10%",
-    borderRadius:25
+  outterLookOfSecondInputBox: {
+    flex: 0.35,
+    borderWidth: 0.5,
+    marginTop: "1%",
+    marginLeft: "10%",
+    marginRight: "10%",
+    borderRadius: 25
   },
-  signInTextInputOne:{
-    flex:1,
-    paddingLeft:"2%",
-    marginTop:"5%",
-    marginLeft:"5%",
-    marginBottom:"1.8%",
-    marginRight:"3%",
-    borderRadius:15,
-    borderBottomColor:"#988c8c",
-    borderBottomWidth:1,
+  signInTextInputOne: {
+    flex: 1,
+    paddingLeft: "2%",
+    marginTop: "5%",
+    marginLeft: "5%",
+    marginBottom: "1.8%",
+    marginRight: "3%",
+    borderRadius: 15,
+    borderBottomColor: "#988c8c",
+    borderBottomWidth: 1
   },
-  linkSignUpView:{
-    flex:Platform.OS === 'ios' ? 0.15 : 0.15,
+  linkSignUpView: {
+    flex: Platform.OS === "ios" ? 0.15 : 0.15,
     // backgroundColor:"gray",
-    alignItems:"center",
-    justifyContent:"center"
+    alignItems: "center",
+    justifyContent: "center"
   },
-  logoView:{
-    flex:0.32,
+  logoView: {
+    flex: 0.32
     // backgroundColor:"red",
   },
-  signInButtonView:{
-    flex:0.15,
+  signInButtonView: {
+    flex: 0.15
     // backgroundColor:"gray"
   },
-  goAutoButtonCss:{
-    width:"70%",
-    height:"30%",
-    borderRadius:25,
-    backgroundColor:"#269DF9",
-    alignItems:"center",
-    justifyContent:"center"
+  goAutoButtonCss: {
+    width: "70%",
+    height: "30%",
+    borderRadius: 25,
+    backgroundColor: "#269DF9",
+    alignItems: "center",
+    justifyContent: "center"
   }
-
 });

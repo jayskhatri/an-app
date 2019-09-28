@@ -23,6 +23,7 @@ import BottomBar from "../bottomTabBar/BottomBar";
 import Redirect from "../redirect";
 import requestConfirmationPage from "../bookingSection/requestConfirmationPage";
 import driver_page_one from "../driver/driver_page_one";
+import Notification from "../setting/Notification";
 class Main extends React.Component {
   render() {
     return null;
@@ -40,6 +41,12 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
+    HomeScreen: {
+      screen: HomeScreen
+    },
+    Notification: {
+      screen: Notification
+    },
     driver_page_one: {
       screen: driver_page_one
     },
@@ -48,10 +55,6 @@ const MainNavigation = createStackNavigator(
     },
     checkUserStatus: {
       screen: checkUserStatus
-    },
-
-    HomeScreen: {
-      screen: HomeScreen
     },
     mainScreen: {
       screen: mainScreen
