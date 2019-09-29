@@ -145,30 +145,44 @@ export default class editProfile extends React.Component {
       // <View style={{flex:1}}>
        
           <View style={styles.container}>
-          {/* <View style={styles.waveView}>
-              <SafeAreaView style={{backgroundColor:"#269DF9"}}>
-                <Text style={{alignSelf:"center",color:"#fff",fontSize:25,marginTop:Platform.OS === 'android' ? "4%" : "0%"}}>Edit Profile</Text>
-                <Header />
-              </SafeAreaView>
-          </View> */}
-          <View style={{ flex: 0.24  }}>
-          <SafeAreaView style={styles.header}>
-            <View style={{flex:0.20}}>
-              <TouchableOpacity onPress={this.previousEvent}>
-                <Image
-                  style={styles.backImage}
-                  source={require("../../assets/back1.png")}
-                />
-              </TouchableOpacity>
+            <View style={styles.header}>
+          <SafeAreaView
+            style={{
+              flex: 1
+            }}
+          >
+            <View
+              style={{
+                flex: 0.4,
+                backgroundColor: "#269DF9",
+                flexDirection: "row",
+                justifyContent: "space-between"
+              }}
+            >
+              <View>
+                <TouchableOpacity onPress={this.previousEvent}>
+                  <Image
+                    style={{
+                      width: 70,
+                      height: 80,
+                      marginTop: "-12%",
+                      resizeMode: "contain"
+                    }}
+                    source={require("../../assets/back1.png")}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View>
+                <Text style={styles.headerText}>Edit Profile</Text>
+              </View>
+              <View></View>
             </View>
-            <View style={{flex:0.40}}>
-              <Text style={styles.headerText}>Edit Profile</Text>
-            </View>
-            <View style={{flex:0.20}}>
+            <View style={{ flex: 0.6 }}>
+              <Header />
             </View>
           </SafeAreaView>
-          <Header />
         </View>
+
           {this.state.load ? 
             (
           <ScrollView style={styles.userInfo}>
@@ -472,23 +486,7 @@ export default class editProfile extends React.Component {
               </View>
             )}
         </View>
-        /* // ) : 
-        // (
-          
-          // <View style={styles.containerActivityIndicator}>
-          //    <View style={styles.waveView}>
-          //    <SafeAreaView style={{backgroundColor:"#269DF9"}}>
-          //       <Text style={{alignSelf:"center",color:"#fff",fontSize:25,marginTop:Platform.OS === 'android' ? "4%" : "0%"}}>Edit Profile</Text>
-          //       <Header />
-          //     </SafeAreaView>
-          //     </View>
-          //     <View style={styles.ActivityIndicator}>
-          //       <ActivityIndicator  size="large"   color="#269DF9" />
-          //     </View>
-          // </View>
-        // ) */
-         
-      // </View>
+       
      
     );
   }
@@ -514,11 +512,7 @@ const styles = StyleSheet.create({
         flex:0.76
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    
-    backgroundColor: "#269DF9",
-    paddingTop: Platform.OS === "android" ? "5%" : "0%"
+    flex: 0.18
   },
   backImage: {
     height: 60,
@@ -527,9 +521,8 @@ const styles = StyleSheet.create({
     resizeMode: "contain"
   },
   headerText: {
-    flex: 1,
     alignSelf: "center",
     color: "#fff",
-    fontSize: 30
+    fontSize: 25
   },
 });

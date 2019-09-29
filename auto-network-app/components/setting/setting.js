@@ -5,7 +5,6 @@ import {
   View,
   SafeAreaView,
   Image,
-  StatusBar,
   TextInput,
   Platform,
   TouchableOpacity
@@ -41,7 +40,7 @@ export default class setting extends React.Component {
     this.props.navigation.navigate("History");
   }
   helpHandleEvent(e) {
-    console.log("Help");
+    this.props.navigation.navigate("Help");
   }
   render() {
     let { image } = this.state;
