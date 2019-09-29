@@ -24,6 +24,7 @@ import Redirect from "../redirect";
 import requestConfirmationPage from "../bookingSection/requestConfirmationPage";
 import driver_page_one from "../driver/driver_page_one";
 import Notification from "../setting/Notification";
+import History from "../setting/History";
 class Main extends React.Component {
   render() {
     return null;
@@ -41,12 +42,16 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
-    HomeScreen: {
-      screen: HomeScreen
+    History: {
+      screen: History
     },
     Notification: {
       screen: Notification
     },
+    HomeScreen: {
+      screen: HomeScreen
+    },
+
     driver_page_one: {
       screen: driver_page_one
     },
