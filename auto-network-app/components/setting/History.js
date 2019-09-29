@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import StarRating from "react-native-star-rating";
 import Header from "../header/header";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 function Item({ title, from, to, date, time, fare, driver_name, starCount }) {
   //   function onStarRatingPress(rating) {
@@ -280,7 +281,9 @@ export default class History extends React.Component {
   constructor() {
     super();
     this.state = {};
+    this.backEvent = this.backEvent.bind(this);
   }
+
   componentWillMount() {
     DATA.push({
       id: "4",
@@ -294,7 +297,9 @@ export default class History extends React.Component {
     });
     console.log(DATA);
   }
-
+  backEvent() {
+    this.props.navigation.navigate("Setting");
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -304,8 +309,31 @@ export default class History extends React.Component {
               flex: 1
             }}
           >
-            <View style={{ flex: 0.3, backgroundColor: "#269DF9" }}>
-              <Text style={styles.headerText}>History</Text>
+            <View
+              style={{
+                flex: 0.3,
+                backgroundColor: "#269DF9",
+                flexDirection: "row",
+                justifyContent: "space-between"
+              }}
+            >
+              <View>
+                <TouchableOpacity onPress={this.backEvent}>
+                  <Image
+                    style={{
+                      width: 70,
+                      height: 80,
+                      marginTop: "-12%",
+                      resizeMode: "contain"
+                    }}
+                    source={require("../../assets/back1.png")}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View>
+                <Text style={styles.headerText}>History</Text>
+              </View>
+              <View></View>
             </View>
             <View style={{ flex: 0.7 }}>
               <Header />

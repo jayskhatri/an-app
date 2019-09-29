@@ -42,16 +42,9 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
-    History: {
-      screen: History
-    },
-    Notification: {
-      screen: Notification
-    },
     HomeScreen: {
       screen: HomeScreen
     },
-
     driver_page_one: {
       screen: driver_page_one
     },
@@ -105,6 +98,12 @@ const MainNavigation = createStackNavigator(
     },
     BookingPageThird: {
       screen: BookingPageThird
+    },
+    History: {
+      screen: History
+    },
+    Notification: {
+      screen: Notification
     }
   },
   {

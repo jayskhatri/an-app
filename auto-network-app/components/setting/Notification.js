@@ -8,7 +8,8 @@ import {
   Platform,
   SafeAreaView,
   TouchableOpacity,
-  Switch
+  Switch,
+  Image
 } from "react-native";
 import Header from "../header/header";
 
@@ -19,6 +20,7 @@ export default class Notification extends React.Component {
       switchValue: false
     };
     this.toggleSwitch = this.toggleSwitch.bind(this);
+    this.backEvent = this.backEvent.bind(this);
   }
 
   toggleSwitch() {
@@ -28,7 +30,9 @@ export default class Notification extends React.Component {
       this.setState({ switchValue: true });
     }
   }
-
+  backEvent() {
+    this.props.navigation.navigate("Setting");
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -38,8 +42,31 @@ export default class Notification extends React.Component {
               flex: 1
             }}
           >
-            <View style={{ flex: 0.3, backgroundColor: "#269DF9" }}>
-              <Text style={styles.headerText}>Notification</Text>
+            <View
+              style={{
+                flex: 0.3,
+                backgroundColor: "#269DF9",
+                flexDirection: "row",
+                justifyContent: "space-between"
+              }}
+            >
+              <View>
+                <TouchableOpacity onPress={this.backEvent}>
+                  <Image
+                    style={{
+                      width: 70,
+                      height: 80,
+                      marginTop: "-12%",
+                      resizeMode: "contain"
+                    }}
+                    source={require("../../assets/back1.png")}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View>
+                <Text style={styles.headerText}>History</Text>
+              </View>
+              <View></View>
             </View>
             <View style={{ flex: 0.7 }}>
               <Header />

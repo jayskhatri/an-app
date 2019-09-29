@@ -35,10 +35,10 @@ export default class setting extends React.Component {
     this.props.navigation.navigate("editProfile");
   }
   notificationHandleEvent(e) {
-    console.log("Notification");
+    this.props.navigation.navigate("Notification");
   }
   historyHandleEvent(e) {
-    console.log("History");
+    this.props.navigation.navigate("History");
   }
   helpHandleEvent(e) {
     console.log("Help");
