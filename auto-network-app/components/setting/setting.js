@@ -62,7 +62,14 @@ export default class setting extends React.Component {
           </SafeAreaView>
         </View>
         <View style={styles.settingView}>
-          <View style={{ flex: 0.15, flexDirection: "row", width: "100%" }}>
+          <View
+            style={{
+              flex: 0.15,
+              flexDirection: "row",
+              width: "100%",
+              marginTop: Platform.OS === "ios" ? "-10%" : "0%"
+            }}
+          >
             <Image
               style={{
                 height: hp("12%"),

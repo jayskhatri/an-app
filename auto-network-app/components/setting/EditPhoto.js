@@ -20,7 +20,7 @@ import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 var options = [{ label: "Yes", value: 0 }, { label: "No", value: 1 }];
-export default class profilePageFourth extends React.Component {
+export default class EditPhoto extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,7 +34,7 @@ export default class profilePageFourth extends React.Component {
     };
     this.previousEvent = this.previousEvent.bind(this);
     this.nextEvent = this.nextEvent.bind(this);
-    this.skipEvent = this.skipEvent.bind(this);
+    this.backEvent = this.backEvent.bind(this);
   }
   previousEvent(e) {
     this.props.navigation.navigate("ProfilePageThird");
@@ -62,21 +62,8 @@ export default class profilePageFourth extends React.Component {
     this.props.navigation.navigate("HomeScreen");
   }
 
-  skipEvent(e) {
-    const { navigation } = this.props;
-    let user = navigation.getParam("user");
-    firebase
-      .database()
-      .ref("Passengers/" + user.uid + "/personal_details")
-      .set({
-        profile_pic_url: "",
-        first_name: navigation.getParam("first_name"),
-        last_name: navigation.getParam("last_name"),
-        birth_date: navigation.getParam("birth_date"),
-        gender: navigation.getParam("gender"),
-        has_profile_completed: false
-      });
-    this.props.navigation.navigate("HomeScreen");
+  backEvent(e) {
+    this.props.navigation.navigate("editProfile");
   }
 
   nextEvent(e) {
@@ -116,7 +103,7 @@ export default class profilePageFourth extends React.Component {
       <View style={styles.container}>
         <SafeAreaView style={styles.header}>
           <View style={{ flex: 0.7, backgroundColor: "#269DF9" }}>
-            <Text style={styles.header_Text_Css}>Profile</Text>
+            <Text style={styles.header_Text_Css}>Edit Photo</Text>
           </View>
           <View style={{ flex: 0.3 }}>
             <Header />
@@ -131,7 +118,7 @@ export default class profilePageFourth extends React.Component {
         <View style={styles.signUpView}>
           <View style={styles.details_box_header_view}>
             <Text style={styles.detail_box_header_text_css}>
-              Add Your Photo
+              Edit Your Photo
             </Text>
           </View>
           <View style={styles.second_view_of_detali_box}>
@@ -158,9 +145,9 @@ export default class profilePageFourth extends React.Component {
             <View style={styles.skip_next_btn_outter_view}>
               <TouchableOpacity
                 style={styles.skip_btn_css}
-                onPress={this.skipEvent}
+                onPress={this.backEvent}
               >
-                <Text style={styles.skip_next_btn_text_css}>Skip</Text>
+                <Text style={styles.skip_next_btn_text_css}>Back</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.skip_next_btn_outter_view}>
@@ -168,7 +155,7 @@ export default class profilePageFourth extends React.Component {
                 style={styles.next_btn_css}
                 onPress={this.nextEvent}
               >
-                <Text style={styles.skip_next_btn_text_css}>Next</Text>
+                <Text style={styles.skip_next_btn_text_css}>Save</Text>
               </TouchableOpacity>
             </View>
           </View>

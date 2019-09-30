@@ -83,7 +83,7 @@ export default class editProfile extends React.Component {
     this.previousEvent = this.previousEvent.bind(this);
   }
   editPhotoEvent(e){
-    this.props.navigation.navigate("ProfilePageFourth");
+    this.props.navigation.navigate("EditPhoto");
   }
   changeFirstNameEvent(e){
     const temp = e.nativeEvent.text;
@@ -145,9 +145,6 @@ export default class editProfile extends React.Component {
     this.props.navigation.navigate("Setting");
   }
   render() {
-    let { image } = this.state;
-    
-    
     return (
       // <View style={{flex:1}}>
        <DismissKeyboard>
@@ -194,6 +191,8 @@ export default class editProfile extends React.Component {
             (
           <ScrollView style={styles.userInfo}>
                   <View  style={{flex:0.64,width:"100%"}}>
+                      <View style={{flex:0.8 }}>
+                        <View style={{flex:0.7}}>
                         <Image
                           style={{
                                alignSelf:"center",
@@ -206,36 +205,44 @@ export default class editProfile extends React.Component {
                              }}   
                            source={require("../../assets/pic.jpg")}
                           />
-                         <TouchableOpacity onPress={this.editPhotoEvent}> 
+                        </View>
+                        <View style={{flex:0.3 , alignItems:"center" , justifyContent:"center"}}>
+                             <View style={{flex:1,alignSelf:"center",marginLeft:"28%",marginTop:"-13%", width:50,height:50}}>
+                             <TouchableOpacity onPress={this.editPhotoEvent} style={{ 
+                           width:50,
+                           height:50
+                           }}> 
                           <Image
                               style={{
                                     height: 50,
                                     width: 50,
                                     alignSelf: "center",
-                                    marginTop: "-12%",
-                                    marginLeft:"30%",
-                                    borderRadius:25
+                                    borderRadius:25,
                                 }}
                             source={require("../../assets/Component.png")}
                           />
                          </TouchableOpacity> 
+                             </View>
+
+                        </View>
+                      </View>
+                      <View style={{flex:0.2}}>
                       <View style={{flexDirection:"column",marginTop:"4%",alignItems:"center"}}>
                       <Text style={{fontSize:28}}>Sukhdev Prasad</Text>
                             <View style={{flexDirection:"row"}}>
                                 <Image 
                                style={{
-                                        marginTop:Platform.OS === 'android' ? "2.5%" : "-2%",
+                                        marginTop:Platform.OS === 'android' ? "1%" : "-2%",
                                         marginLeft:"2%",
                                         height: Platform.OS === 'ios' ? hp('4%') : hp('2%')  ,
                                         width:Platform.OS === 'ios' ? wp('4%') : wp('3%')   ,
-                                        // height:hp('10%'),
-                                        // width:wp('10%'),
                                         borderRadius:Platform.OS === 'ios' ? 20 : 50,
                                         resizeMode:"contain"
                                          }} 
                                      source={require('../../assets/varifiedlogo.png')} />
                                  <Text style={{fontSize:15}}> The Verified Driver </Text>
                             </View>
+                      </View>
                       </View>
                   </View>
                   <View style={{flex:0.36,marginTop:"6%",width:"100%"}}>
@@ -502,7 +509,6 @@ export default class editProfile extends React.Component {
 const styles = StyleSheet.create({
   containerActivityIndicator: {
     flex:1,
-
   },
   ActivityIndicator: {
     flex:86,

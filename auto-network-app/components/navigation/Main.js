@@ -38,6 +38,7 @@ import driver_page_one from "../driver/driver_page_one";
 import Notification from "../setting/Notification";
 import History from "../setting/History";
 import Help from "../setting/Help";
+import EditPhoto from "../setting/EditPhoto";
 class Main extends React.Component {
   render() {
     return null;
@@ -125,6 +126,9 @@ const MainNavigation = createStackNavigator(
     },
     Help: {
       screen: Help
+    },
+    EditPhoto: {
+      screen: EditPhoto
     }
   },
   {
