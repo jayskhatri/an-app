@@ -11,7 +11,8 @@ import {
   Keyboard,
   Alert,
   Image,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  StatusBar
 } from "react-native";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
@@ -133,6 +134,7 @@ export default class Login extends React.Component {
     return (
       <DismissKeyboard>
         <View style={styles.container}>
+          {/* <StatusBar backgroundColor="blue" /> */}
           <View style={styles.header}>
             <SafeAreaView
               style={{

@@ -2,6 +2,8 @@ import React from "react";
 import * as firebase from "firebase";
 import Main from "./components/navigation/Main";
 import { StyleSheet, Text, View, StatusBar } from "react-native";
+import { getStatusBarHeight } from "react-native-status-bar-height";
+import { Platform } from "@unimodules/core";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD0Hc4W-ZlHj1LBDVw0283zEsEir3c0Fh4",
@@ -28,7 +30,10 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight,
+    paddingTop:
+      Platform.OS === "android"
+        ? StatusBar.currentHeight
+        : getStatusBarHeight(),
     backgroundColor: "#269DF6"
   },
   containerMain: {

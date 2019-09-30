@@ -314,10 +314,11 @@ export default class History extends React.Component {
                 flex: 0.3,
                 backgroundColor: "#269DF9",
                 flexDirection: "row",
+                alignItems: "center",
                 justifyContent: "space-between"
               }}
             >
-              <View style={{ marginTop: "-4%" }}>
+              <View style={{ flex: 0.3 }}>
                 <TouchableOpacity onPress={this.backEvent}>
                   <Image
                     style={{
@@ -329,17 +330,17 @@ export default class History extends React.Component {
                   />
                 </TouchableOpacity>
               </View>
-              <View>
+              <View style={{ flex: 0.3 }}>
                 <Text style={styles.headerText}>History</Text>
               </View>
-              <View></View>
+              <View style={{ flex: 0.3 }}></View>
             </View>
             <View style={{ flex: 0.7 }}>
               <Header />
             </View>
           </SafeAreaView>
         </View>
-        <View style={{ flex: 0.82 }}>
+        <View style={{ flex: 0.78 }}>
           <FlatList
             data={DATA}
             renderItem={({ item }) => (
@@ -368,7 +369,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   header: {
-    flex: 0.18
+    flex: 0.22
   },
   headerText: {
     alignSelf: "center",

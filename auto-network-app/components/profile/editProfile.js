@@ -163,10 +163,11 @@ export default class editProfile extends React.Component {
                 flex: 0.4,
                 backgroundColor: "#269DF9",
                 flexDirection: "row",
+                alignItems:"center",
                 justifyContent: "space-between"
               }}
             >
-              <View style={{marginTop:"-4%"}}>
+              <View style={{ flex: 0.3 }}>
                 <TouchableOpacity onPress={this.previousEvent} >
                   <Image
                     style={{
@@ -178,10 +179,10 @@ export default class editProfile extends React.Component {
                   />
                 </TouchableOpacity>
               </View>
-              <View>
+              <View style={{ flex: 0.3 }}>
                 <Text style={styles.headerText}>Edit Profile</Text>
               </View>
-              <View></View>
+              <View style={{ flex: 0.3 }}></View>
             </View>
             <View style={{ flex: 0.6 }}>
               <Header />
@@ -515,10 +516,10 @@ const styles = StyleSheet.create({
     flex: 0.24
   },
   userInfo: {
-        flex:0.76
+        flex:0.78
   },
   header: {
-    flex: 0.18
+    flex: 0.22
   },
   backImage: {
     height: 60,
