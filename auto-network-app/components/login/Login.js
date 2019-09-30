@@ -8,28 +8,19 @@ import {
   Platform,
   SafeAreaView,
   TouchableOpacity,
-  ImageBackground,
+  Keyboard,
   Alert,
   Image,
-  Dimensions
+  TouchableWithoutFeedback
 } from "react-native";
-import {
-  widthPercentageToDP,
-  heightPercentageToDP
-} from "react-native-responsive-screen";
-import {
-  responsiveWidth,
-  responsiveHeight,
-  responsiveFontSize
-} from "react-native-responsive-dimensions";
-const { width, height } = Dimensions.get("window");
-import { createStackNavigator, createAppContainer } from "react-navigation";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Header from "../header/header";
-// import console = require('console');
-// import console = require('console');
-
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+);
 export default class Login extends React.Component {
   constructor() {
     super();
@@ -140,116 +131,147 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          {/* <LoginHeader /> */}
-          <SafeAreaView
-            style={{
-              backgroundColor: "#269DF9"
-              // paddingTop: "2%"
-            }}
-          >
-            <Text style={styles.headerText}>Sign in</Text>
-            <Header />
-          </SafeAreaView>
-        </View>
-        <View style={styles.signInView}>
-          <Text style={styles.signInlableOne}>Email Id / Phone No.</Text>
-          <View style={styles.outterLookOfInputBox}>
-            <TextInput
-              style={styles.signInTextInputOne}
-              placeholder="Enter Email "
-              placeholderTextColor="#988c8c"
-              fontSize={16}
-              onChange={this.handleSetEmail}
-            />
-          </View>
-          <Text style={styles.signInlableOne}>Password</Text>
-          <View style={styles.outterLookOfSecondInputBox}>
-            <TextInput
-              style={styles.signInTextInputOne}
-              placeholder="Enter Password "
-              placeholderTextColor="#988c8c"
-              secureTextEntry
-              fontSize={16}
-              onChange={this.handleSetPassword}
-            />
-          </View>
-        </View>
-        <View style={styles.signInButtonView}>
-          <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <TouchableOpacity
-              style={styles.goAutoButtonCss}
-              onPress={this.signInEvent}
+      <DismissKeyboard>
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <SafeAreaView
+              style={{
+                flex: 1
+              }}
             >
-              <Text
-                style={{ alignSelf: "center", fontSize: 25, color: "#fff" }}
+              <View
+                style={{
+                  flex: 0.3,
+                  backgroundColor: "#269DF9",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}
               >
-                Go Auto
-              </Text>
-            </TouchableOpacity>
+                <View>
+                  <Text style={styles.headerText}>Sign In</Text>
+                </View>
+              </View>
+              <View style={{ flex: 0.7 }}>
+                <Header />
+              </View>
+            </SafeAreaView>
           </View>
-        </View>
-        <View style={styles.linkSignUpView}>
-          <View
-            style={{ flex: 1, marginTop: Platform.OS === "ios" ? "1%" : "0%" }}
-          >
-            <TouchableOpacity>
-              <Text style={{ color: "#269DF9", alignSelf: "center" }}>
-                {" "}
-                Forgot Password ?{" "}
-              </Text>
-            </TouchableOpacity>
-            <View
-              style={{
-                flexDirection: "row",
-                marginTop: Platform.OS === "ios" ? "5%" : "3%",
-                alignSelf: "center"
-              }}
-            >
-              <Text> Not joined Yet ? </Text>
-              <TouchableOpacity onPress={this.signUpEvent}>
-                <Text style={{ color: "#269DF9" }}> create Your account </Text>
-              </TouchableOpacity>
+          <View style={styles.signInView}>
+            <Text style={styles.signInlableOne}>Email Id / Phone No.</Text>
+            <View style={styles.outterLookOfInputBox}>
+              <TextInput
+                style={styles.signInTextInputOne}
+                placeholder="Enter Email "
+                placeholderTextColor="#988c8c"
+                fontSize={16}
+                keyboardType="email-address"
+                // onSubmitEditing={Keyboard.dismiss}
+                // onBlur={Keyboard.dismiss}
+                onChange={this.handleSetEmail}
+              />
             </View>
+            <Text style={styles.signInlableOne}>Password</Text>
+            <View style={styles.outterLookOfSecondInputBox}>
+              <TextInput
+                style={styles.signInTextInputOne}
+                placeholder="Enter Password "
+                placeholderTextColor="#988c8c"
+                secureTextEntry
+                fontSize={16}
+                onChange={this.handleSetPassword}
+              />
+            </View>
+          </View>
+          <View style={styles.signInButtonView}>
             <View
               style={{
-                flexDirection: "row",
-                marginTop: Platform.OS === "ios" ? "5%" : "3%",
-                alignSelf: "center"
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center"
               }}
             >
-              <Text> Know Our </Text>
-              <TouchableOpacity>
-                <Text style={{ color: "#269DF9" }}>
-                  {" "}
-                  Privacy Policy and Terms & condition{" "}
+              <TouchableOpacity
+                style={styles.goAutoButtonCss}
+                onPress={this.signInEvent}
+              >
+                <Text
+                  style={{ alignSelf: "center", fontSize: 25, color: "#fff" }}
+                >
+                  Go Auto
                 </Text>
               </TouchableOpacity>
             </View>
           </View>
-        </View>
-        <View style={styles.logoView}>
-          <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <Image
+          <View style={styles.linkSignUpView}>
+            <View
               style={{
-                height: "90%",
-                width: "90%",
-                marginLeft: "10%",
-                marginBottom: "10%",
-                marginRight: "10%",
-                marginTop: "5%",
-                resizeMode: "contain"
+                flex: 1,
+                marginTop: Platform.OS === "ios" ? "1%" : "0%"
               }}
-              source={require("../../assets/lastLogo.png")}
-            />
+            >
+              <TouchableOpacity>
+                <Text style={{ color: "#269DF9", alignSelf: "center" }}>
+                  {" "}
+                  Forgot Password ?{" "}
+                </Text>
+              </TouchableOpacity>
+              <View
+                style={{
+                  flexDirection: "row",
+                  marginTop: Platform.OS === "ios" ? "5%" : "3%",
+                  alignSelf: "center"
+                }}
+              >
+                <Text> Not joined Yet ? </Text>
+                <TouchableOpacity onPress={this.signUpEvent}>
+                  <Text style={{ color: "#269DF9" }}>
+                    {" "}
+                    create Your account{" "}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  marginTop: Platform.OS === "ios" ? "5%" : "3%",
+                  alignSelf: "center"
+                }}
+              >
+                <Text> Know Our </Text>
+                <TouchableOpacity>
+                  <Text style={{ color: "#269DF9" }}>
+                    {" "}
+                    Privacy Policy and Terms & condition{" "}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+          <View style={styles.logoView}>
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <Image
+                style={{
+                  height: "90%",
+                  width: "90%",
+                  marginLeft: "10%",
+                  marginBottom: "10%",
+                  marginRight: "10%",
+                  marginTop: "5%",
+                  resizeMode: "contain"
+                }}
+                source={require("../../assets/lastLogo.png")}
+              />
+            </View>
           </View>
         </View>
-      </View>
+      </DismissKeyboard>
     );
   }
 }

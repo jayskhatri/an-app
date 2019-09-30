@@ -1,4 +1,16 @@
 import React from "react";
+import {
+  fromLeft,
+  fromTop,
+  fromRight,
+  fromBottom,
+  fadeIn,
+  fadeout,
+  zoomIn,
+  zoomOut,
+  flipY,
+  flipX
+} from "react-navigation-transitions";
 import mainScreen from "../home/mainScreen";
 import editProfile from "../profile/editProfile";
 import signUp from "../signup/SignUp";
@@ -42,7 +54,14 @@ const styles = StyleSheet.create({
 });
 
 const MainNavigation = createStackNavigator(
+  // const MainNavigation = createAnimatedSwitchNavigator(
   {
+    checkUserStatus: {
+      screen: checkUserStatus
+    },
+    ProfilePageOne: {
+      screen: ProfilePageOne
+    },
     HomeScreen: {
       screen: HomeScreen
     },
@@ -52,9 +71,7 @@ const MainNavigation = createStackNavigator(
     ProfilePageOne: {
       screen: ProfilePageOne
     },
-    checkUserStatus: {
-      screen: checkUserStatus
-    },
+
     mainScreen: {
       screen: mainScreen
     },
@@ -112,22 +129,7 @@ const MainNavigation = createStackNavigator(
   },
   {
     headerMode: "none",
-
-    mode: "modal",
-    defaultNavigationOptions: {
-      title: "AutoMitra",
-      headerLeft: <Main />,
-      headerTitleStyle: {
-        //  fontSize:35,
-        fontSize: responsiveFontSize(4),
-        marginLeft: "29%"
-      },
-      headerStyle: {
-        backgroundColor: "#269DF9",
-        height: 55
-      }
-      // gesturesEnabled: true
-    }
+    gesturesEnabled: false
   }
 );
 const App = createAppContainer(MainNavigation);

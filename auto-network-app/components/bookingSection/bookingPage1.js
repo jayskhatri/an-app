@@ -7,14 +7,11 @@ import {
   Platform,
   Image,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Keyboard,
+  TouchableWithoutFeedback
 } from "react-native";
 import OptionsMenu from "react-native-options-menu";
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel
-} from "react-native-simple-radio-button";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -54,7 +51,11 @@ var destination_place = [
   { id: 9, name: "gitlab" },
   { id: 10, name: "instagram" }
 ];
-
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+);
 export default class BookingPageOne extends React.Component {
   constructor(props) {
     super(props);
@@ -204,43 +205,44 @@ export default class BookingPageOne extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={{ flex: Platform.OS === "ios" ? 0.1 : 0.08 }}>
-          <SafeAreaView style={styles.header}>
-            <View>
-              <TouchableOpacity onPress={this.previousEvent}>
-                <Image
-                  style={styles.backImage}
-                  source={require("../../assets/back1.png")}
+      <DismissKeyboard>
+        <View style={styles.container}>
+          <View style={{ flex: Platform.OS === "ios" ? 0.1 : 0.08 }}>
+            <SafeAreaView style={styles.header}>
+              <View>
+                <TouchableOpacity onPress={this.previousEvent}>
+                  <Image
+                    style={styles.backImage}
+                    source={require("../../assets/back1.png")}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View>
+                <Text style={styles.headerText}>Book Your Tickets</Text>
+              </View>
+              <View>
+                <OptionsMenu
+                  button={require("../../assets/More.png")}
+                  buttonStyle={styles.optionButton}
+                  destructiveIndex={1}
+                  options={["Edit", "Delete", "Cancel"]}
+                  actions={[this.editPost, this.deletePost]}
                 />
-              </TouchableOpacity>
-            </View>
-            <View>
-              <Text style={styles.headerText}>Book Your Tickets</Text>
-            </View>
-            <View>
-              <OptionsMenu
-                button={require("../../assets/More.png")}
-                buttonStyle={styles.optionButton}
-                destructiveIndex={1}
-                options={["Edit", "Delete", "Cancel"]}
-                actions={[this.editPost, this.deletePost]}
-              />
-            </View>
-          </SafeAreaView>
-        </View>
-        <View style={styles.enterSourceDestinationView}>
-          <View style={styles.sourceDestinationInputView}>
-            <View style={styles.sourceTODestinationLine}>
-              <Image
-                style={styles.sourceTOdestinationImage}
-                source={require("../../assets/so_de_icon_side_line.png")}
-              />
-            </View>
-            <View style={styles.inputView}>
-              <View style={{ flex: 0.5, zIndex: 3 }}>
-                <View style={styles.outterLookOfInputBox}>
-                  {/* <TextInput
+              </View>
+            </SafeAreaView>
+          </View>
+          <View style={styles.enterSourceDestinationView}>
+            <View style={styles.sourceDestinationInputView}>
+              <View style={styles.sourceTODestinationLine}>
+                <Image
+                  style={styles.sourceTOdestinationImage}
+                  source={require("../../assets/so_de_icon_side_line.png")}
+                />
+              </View>
+              <View style={styles.inputView}>
+                <View style={{ flex: 0.5, zIndex: 3 }}>
+                  <View style={styles.outterLookOfInputBox}>
+                    {/* <TextInput
                     style={styles.signInTextInputOne}
                     placeholder="choose starting point, or click on the map  "
                     placeholderTextColor="#fff"
@@ -248,53 +250,53 @@ export default class BookingPageOne extends React.Component {
                     value={this.state.source}
                     onChange={this.handleSetSource}
                   /> */}
-                  <SearchableDropdown
-                    selectedItems={this.state.source}
-                    onItemSelect={item => {
-                      const items = this.state.source;
-                      if (item.name == "Current position") {
-                        // write a code for current position
-                      }
-                      this.setState({ source: items });
-                    }}
-                    containerStyle={styles.containerStyle}
-                    itemStyle={styles.itemStyle}
-                    itemTextStyle={styles.itemTextStyle}
-                    itemsContainerStyle={styles.itemsContainerStyle}
-                    items={source_place}
-                    // chip={true}
-                    // resetValue={false}
-                    textInputProps={{
-                      placeholder:
-                        "choose starting point, or click on the map ",
-                      fontSize: 14,
-                      placeholderTextColor: "#fff",
-                      underlineColorAndroid: "transparent",
-                      // onTextChange: text =>
-                      //   this.setState({ destination: text }),
-                      style: {
-                        paddingLeft: "2%",
-                        width: "95%",
-                        marginLeft: "3%",
-                        marginRight: "3%",
-                        position: "absolute",
-                        top: 10,
-                        borderRadius: 15,
-                        borderBottomColor: "#988c8c",
-                        borderBottomWidth: 1,
-                        zIndex: 3
-                      }
-                    }}
-                    listProps={{
-                      nestedScrollEnabled: true
-                    }}
-                  />
+                    <SearchableDropdown
+                      selectedItems={this.state.source}
+                      onItemSelect={item => {
+                        const items = this.state.source;
+                        if (item.name == "Current position") {
+                          // write a code for current position
+                        }
+                        this.setState({ source: items });
+                      }}
+                      containerStyle={styles.containerStyle}
+                      itemStyle={styles.itemStyle}
+                      itemTextStyle={styles.itemTextStyle}
+                      itemsContainerStyle={styles.itemsContainerStyle}
+                      items={source_place}
+                      // chip={true}
+                      // resetValue={false}
+                      textInputProps={{
+                        placeholder:
+                          "choose starting point, or click on the map ",
+                        fontSize: 14,
+                        placeholderTextColor: "#fff",
+                        underlineColorAndroid: "transparent",
+                        // onTextChange: text =>
+                        //   this.setState({ destination: text }),
+                        style: {
+                          paddingLeft: "2%",
+                          width: "95%",
+                          marginLeft: "3%",
+                          marginRight: "3%",
+                          position: "absolute",
+                          top: 10,
+                          borderRadius: 15,
+                          borderBottomColor: "#988c8c",
+                          borderBottomWidth: 1,
+                          zIndex: 3
+                        }
+                      }}
+                      listProps={{
+                        nestedScrollEnabled: true
+                      }}
+                    />
+                  </View>
+                  {/* <Text style={styles.textCss}>choose current location</Text> */}
                 </View>
-                {/* <Text style={styles.textCss}>choose current location</Text> */}
-              </View>
-              <View style={{ flex: 0.5 }}>
-                <View style={styles.outterLookOfInputBoxSecond}>
-                  {/* <TextInput
+                <View style={{ flex: 0.5 }}>
+                  <View style={styles.outterLookOfInputBoxSecond}>
+                    {/* <TextInput
                     style={styles.signInTextInputOne}
                     placeholder="choose destination "
                     placeholderTextColor="#fff"
@@ -302,85 +304,86 @@ export default class BookingPageOne extends React.Component {
                     value={this.state.destination}
                     onChange={this.handleSetDestination}
                   /> */}
-                  <SearchableDropdown
-                    multi={true}
-                    selectedItems={this.state.destination}
-                    onItemSelect={item => {
-                      const items = this.state.destination;
-                      if (item.name == "Current position") {
-                        // write a code for current position
-                      }
-                      // items.push(item);
-                      this.setState({ destination: items });
-                    }}
-                    containerStyle={styles.containerStyle}
-                    itemStyle={styles.itemStyle}
-                    itemTextStyle={styles.itemTextStyle}
-                    itemsContainerStyle={styles.itemsContainerStyle}
-                    items={destination_place}
-                    // defaultIndex={2}
-                    chip={true}
-                    resetValue={false}
-                    textInputProps={{
-                      placeholder: "choose destination",
-                      fontSize: 14,
-                      placeholderTextColor: "#fff",
-                      underlineColorAndroid: "transparent",
-                      // onTextChange: text => alert(text)
-                      style: {
-                        paddingLeft: "2%",
-                        width: "95%",
-                        marginLeft: "3%",
-                        marginRight: "3%",
-                        position: "absolute",
-                        top: 10,
-                        borderRadius: 15,
-                        borderBottomColor: "#988c8c",
-                        borderBottomWidth: 1,
-                        zIndex: 0
-                      }
-                    }}
-                    listProps={{
-                      nestedScrollEnabled: true
-                    }}
-                  />
+                    <SearchableDropdown
+                      multi={true}
+                      selectedItems={this.state.destination}
+                      onItemSelect={item => {
+                        const items = this.state.destination;
+                        if (item.name == "Current position") {
+                          // write a code for current position
+                        }
+                        // items.push(item);
+                        this.setState({ destination: items });
+                      }}
+                      containerStyle={styles.containerStyle}
+                      itemStyle={styles.itemStyle}
+                      itemTextStyle={styles.itemTextStyle}
+                      itemsContainerStyle={styles.itemsContainerStyle}
+                      items={destination_place}
+                      // defaultIndex={2}
+                      chip={true}
+                      resetValue={false}
+                      textInputProps={{
+                        placeholder: "choose destination",
+                        fontSize: 14,
+                        placeholderTextColor: "#fff",
+                        underlineColorAndroid: "transparent",
+                        // onTextChange: text => alert(text)
+                        style: {
+                          paddingLeft: "2%",
+                          width: "95%",
+                          marginLeft: "3%",
+                          marginRight: "3%",
+                          position: "absolute",
+                          top: 10,
+                          borderRadius: 15,
+                          borderBottomColor: "#988c8c",
+                          borderBottomWidth: 1,
+                          zIndex: 0
+                        }
+                      }}
+                      listProps={{
+                        nestedScrollEnabled: true
+                      }}
+                    />
+                  </View>
                 </View>
               </View>
+              <View style={styles.sourceDestinationSwapIcon}>
+                <TouchableOpacity>
+                  <Image
+                    style={styles.swapIcon}
+                    source={require("../../assets/sawap_icon.png")}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.sourceDestinationSwapIcon}>
-              <TouchableOpacity>
-                <Image
-                  style={styles.swapIcon}
-                  source={require("../../assets/sawap_icon.png")}
-                />
+            <View style={styles.nextButtonView}>
+              <TouchableOpacity
+                style={styles.nextButtonCss}
+                onPress={this.nextEvent}
+              >
+                <Text style={styles.nextButtonTextCss}> next </Text>
               </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.nextButtonView}>
-            <TouchableOpacity
-              style={styles.nextButtonCss}
-              onPress={this.nextEvent}
-            >
-              <Text style={styles.nextButtonTextCss}> next </Text>
-            </TouchableOpacity>
+          <View style={styles.waveView}>
+            <Image
+              style={styles.waveImageCss}
+              source={require("../../assets/wawe.png")}
+            ></Image>
+          </View>
+          <View style={styles.mapView}>
+            <View style={styles.mapTextView}>
+              <Text style={styles.mapTextCss}>
+                {" "}
+                find your destination on map{" "}
+              </Text>
+            </View>
+            <View style={styles.mapViewBorder}>{/* Map code */}</View>
           </View>
         </View>
-        <View style={styles.waveView}>
-          <Image
-            style={styles.waveImageCss}
-            source={require("../../assets/wawe.png")}
-          ></Image>
-        </View>
-        <View style={styles.mapView}>
-          <View style={styles.mapTextView}>
-            <Text style={styles.mapTextCss}>
-              {" "}
-              find your destination on map{" "}
-            </Text>
-          </View>
-          <View style={styles.mapViewBorder}>{/* Map code */}</View>
-        </View>
-      </View>
+      </DismissKeyboard>
     );
   }
 }

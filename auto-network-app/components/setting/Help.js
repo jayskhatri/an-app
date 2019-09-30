@@ -41,13 +41,12 @@ export default class Help extends React.Component {
                 justifyContent: "space-between"
               }}
             >
-              <View>
+              <View style={{ marginTop: "-4%" }}>
                 <TouchableOpacity onPress={this.backEvent}>
                   <Image
                     style={{
-                      width: 70,
-                      height: 80,
-                      marginTop: "-12%",
+                      width: 60,
+                      height: 70,
                       resizeMode: "contain"
                     }}
                     source={require("../../assets/back1.png")}

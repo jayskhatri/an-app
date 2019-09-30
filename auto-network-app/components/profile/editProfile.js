@@ -9,7 +9,9 @@ import {
   Alert,
   TextInput,
   Platform,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard
 } from "react-native";
 import RadioForm, {
   RadioButton,
@@ -41,6 +43,11 @@ var options=[
     {label:"Yes",value:0},
     {label:"No",value:1},
   ];
+  const DismissKeyboard = ({ children }) => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      {children}
+    </TouchableWithoutFeedback>
+  );
 export default class editProfile extends React.Component {
   constructor(props) {
     super(props);
@@ -143,12 +150,12 @@ export default class editProfile extends React.Component {
     
     return (
       // <View style={{flex:1}}>
-       
+       <DismissKeyboard>
           <View style={styles.container}>
             <View style={styles.header}>
           <SafeAreaView
             style={{
-              flex: 1
+              flex: 1,
             }}
           >
             <View
@@ -159,13 +166,12 @@ export default class editProfile extends React.Component {
                 justifyContent: "space-between"
               }}
             >
-              <View>
-                <TouchableOpacity onPress={this.previousEvent}>
+              <View style={{marginTop:"-4%"}}>
+                <TouchableOpacity onPress={this.previousEvent} >
                   <Image
                     style={{
-                      width: 70,
-                      height: 80,
-                      marginTop: "-12%",
+                      width: 60,
+                      height: 70,
                       resizeMode: "contain"
                     }}
                     source={require("../../assets/back1.png")}
@@ -486,7 +492,7 @@ export default class editProfile extends React.Component {
               </View>
             )}
         </View>
-       
+       </DismissKeyboard>
      
     );
   }

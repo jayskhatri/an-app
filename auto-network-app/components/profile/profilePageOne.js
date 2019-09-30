@@ -7,7 +7,8 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  Platform
+  Keyboard,
+  TouchableWithoutFeedback
 } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
 import RadioForm, {
@@ -15,19 +16,22 @@ import RadioForm, {
   RadioButtonInput,
   RadioButtonLabel
 } from "react-native-simple-radio-button";
-// const {widthOfScreen , heightOfScreen } = Dimensions.get('window');
 import Header from "../header/header";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
-import firebase from "firebase";
 import DatePicker from "react-native-datepicker";
 var options = [
   { label: "Male", value: 111 },
   { label: "Female", value: 112 },
   { label: "Other", value: 113 }
 ];
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+);
 export default class profilePageOne extends React.Component {
   constructor(props) {
     super(props);
@@ -60,136 +64,148 @@ export default class profilePageOne extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <View style={{ flex: 0.7, backgroundColor: "#269DF9" }}>
-            <Text style={styles.header_Text_Css}>Profile</Text>
-          </View>
-          <View style={{ flex: 0.3 }}>
-            <Header />
-          </View>
-        </View>
-        <View style={styles.logoView}>
-          <View style={styles.logo_inner_view}>
-            <Image
-              style={styles.logo_icon}
-              source={require("../../assets/bigAdminLogo.png")}
-            />
-          </View>
-        </View>
-
-        <View style={styles.signUpView}>
-          <View style={styles.outter_View_Input_detail_box}>
-            <View style={styles.scrollViewCss}>{/* Scroller code */}</View>
-            <View style={styles.first_second_input_box_outter_view}>
-              <View style={{ flex: 0.4 }}>
-                <Text style={styles.label_one_two_css}>First Name</Text>
-              </View>
-              <View style={{ flex: 0.6 }}>
-                <TextInput
-                  placeholder="Enter Your First Name"
-                  onChangeText={first_name => this.setState({ first_name })}
-                  value={this.state.first_name}
-                  style={styles.text_Input_one_css}
-                />
-              </View>
-            </View>
-            <KeyboardAvoidingView
-              style={styles.first_second_input_box_outter_view}
-              behavior="padding"
-              enabled
+      <DismissKeyboard>
+        <View style={styles.container}>
+          <SafeAreaView style={styles.header}>
+            <View
+              style={{
+                flex: 0.4,
+                backgroundColor: "#269DF9",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
             >
-              <View style={{ flex: 0.4 }}>
-                <Text style={styles.label_one_two_css}>Last Name</Text>
-              </View>
-              <View style={{ flex: 0.6 }}>
-                <TextInput
-                  placeholder="Enter Your Last Name"
-                  onChangeText={last_name => this.setState({ last_name })}
-                  value={this.state.last_name}
-                  style={styles.text_Input_second_css}
-                  theme={{
-                    color: {
-                      primary: "skyblue"
-                    }
-                  }}
-                />
-              </View>
-            </KeyboardAvoidingView>
-            <View style={styles.third_input_box_outter_view}>
-              <View style={{ flex: 0.4 }}>
-                <Text style={styles.label_third_fourh_css}>Birth Date</Text>
-              </View>
-              <View style={{ flex: 0.6 }}>
-                <DatePicker
-                  style={{ width: wp("60%"), marginLeft: "3%" }}
-                  mode="date"
-                  date={this.state.birth_date}
-                  placeholder="Enter Your Birth Date"
-                  format="DD-MM-YYYY"
-                  initial={this.state.birth_date}
-                  //  minDate="01-01-1990"
-                  //  maxDate="31-12-2003"
-                  confirmBtnText="Confirm"
-                  cancelBtnText="Cancel"
-                  customStyles={{
-                    dateIcon: {
-                      width: wp("1%"),
-                      position: "absolute",
-                      left: 0,
-                      top: 4,
-                      marginLeft: "10%"
-                    },
-                    dateInput: {
-                      marginLeft: "25%",
-                      borderWidth: 0,
-                      borderBottomWidth: 0.5
-                    }
-                    // ... You can check the source to find the other keys.
-                  }}
-                  onDateChange={birth_date => this.setState({ birth_date })}
-                  value={this.state.birth_date}
-                />
+              <View>
+                <Text style={styles.headerText}>Profile</Text>
               </View>
             </View>
-            <View style={styles.fourt_input_box_outter_view}>
-              <View style={{ flex: 0.4 }}>
-                <Text style={styles.label_third_fourh_css}>Gender</Text>
-              </View>
-              <View style={{ flex: 0.6 }}>
-                <RadioForm
-                  style={{ marginLeft: "5%", marginTop: "4%" }}
-                  radio_props={options}
-                  initial={this.state.gender}
-                  onPress={value => {
-                    this.setState({
-                      gender: value
-                    });
-                  }}
-                  buttonSize={7}
-                  buttonColor={"#000000"}
-                  labelStyle={{ fontSize: 16, marginRight: "7%" }}
-                  formHorizontal={true}
-                  buttonOuterSize={21}
-                  selectedButtonColor={"#43b9e0"}
-                  selectedLabelColor={"#0080ab"}
-                />
-              </View>
+            <View style={{ flex: 0.6 }}>
+              <Header />
             </View>
-            <View style={styles.last_fotter_outter_view}>
-              <TouchableOpacity style={styles.back_btn_css}>
-                <Text style={{ fontSize: 18 }}>Go Back</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.next_btn_css}
-                onPress={this.nextEvent}
+          </SafeAreaView>
+          <View style={styles.logoView}>
+            <View style={styles.logo_inner_view}>
+              <Image
+                style={styles.logo_icon}
+                source={require("../../assets/bigAdminLogo.png")}
+              />
+            </View>
+          </View>
+
+          <View style={styles.signUpView}>
+            <View style={styles.outter_View_Input_detail_box}>
+              <View style={styles.scrollViewCss}>{/* Scroller code */}</View>
+              <View style={styles.first_second_input_box_outter_view}>
+                <View style={{ flex: 0.4 }}>
+                  <Text style={styles.label_one_two_css}>First Name</Text>
+                </View>
+                <View style={{ flex: 0.6 }}>
+                  <TextInput
+                    placeholder="Enter Your First Name"
+                    onChangeText={first_name => this.setState({ first_name })}
+                    value={this.state.first_name}
+                    style={styles.text_Input_one_css}
+                  />
+                </View>
+              </View>
+              <KeyboardAvoidingView
+                style={styles.first_second_input_box_outter_view}
+                behavior="padding"
+                enabled
               >
-                <Text style={{ fontSize: 18 }}>Next</Text>
-              </TouchableOpacity>
+                <View style={{ flex: 0.4 }}>
+                  <Text style={styles.label_one_two_css}>Last Name</Text>
+                </View>
+                <View style={{ flex: 0.6 }}>
+                  <TextInput
+                    placeholder="Enter Your Last Name"
+                    onChangeText={last_name => this.setState({ last_name })}
+                    value={this.state.last_name}
+                    style={styles.text_Input_second_css}
+                    theme={{
+                      color: {
+                        primary: "skyblue"
+                      }
+                    }}
+                  />
+                </View>
+              </KeyboardAvoidingView>
+              <View style={styles.third_input_box_outter_view}>
+                <View style={{ flex: 0.4 }}>
+                  <Text style={styles.label_third_fourh_css}>Birth Date</Text>
+                </View>
+                <View style={{ flex: 0.6 }}>
+                  <DatePicker
+                    style={{ width: wp("60%"), marginLeft: "3%" }}
+                    mode="date"
+                    date={this.state.birth_date}
+                    placeholder="Enter Your Birth Date"
+                    format="DD-MM-YYYY"
+                    initial={this.state.birth_date}
+                    //  minDate="01-01-1990"
+                    //  maxDate="31-12-2003"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    customStyles={{
+                      dateIcon: {
+                        width: wp("1%"),
+                        position: "absolute",
+                        left: 0,
+                        top: 4,
+                        marginLeft: "10%"
+                      },
+                      dateInput: {
+                        marginLeft: "25%",
+                        borderWidth: 0,
+                        borderBottomWidth: 0.5
+                      }
+                      // ... You can check the source to find the other keys.
+                    }}
+                    onDateChange={birth_date => this.setState({ birth_date })}
+                    value={this.state.birth_date}
+                  />
+                </View>
+              </View>
+              <View style={styles.fourt_input_box_outter_view}>
+                <View style={{ flex: 0.4 }}>
+                  <Text style={styles.label_third_fourh_css}>Gender</Text>
+                </View>
+                <View style={{ flex: 0.6 }}>
+                  <RadioForm
+                    style={{ marginLeft: "5%", marginTop: "4%" }}
+                    radio_props={options}
+                    initial={this.state.gender}
+                    onPress={value => {
+                      this.setState({
+                        gender: value
+                      });
+                    }}
+                    buttonSize={7}
+                    buttonColor={"#000000"}
+                    labelStyle={{ fontSize: 16, marginRight: "7%" }}
+                    formHorizontal={true}
+                    buttonOuterSize={21}
+                    selectedButtonColor={"#43b9e0"}
+                    selectedLabelColor={"#0080ab"}
+                  />
+                </View>
+              </View>
+              <View style={styles.last_fotter_outter_view}>
+                <TouchableOpacity style={styles.back_btn_css}>
+                  <Text style={{ fontSize: 18 }}>Go Back</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.next_btn_css}
+                  onPress={this.nextEvent}
+                >
+                  <Text style={{ fontSize: 18 }}>Next</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>
-      </View>
+      </DismissKeyboard>
     );
   }
 }
@@ -200,7 +216,7 @@ const styles = StyleSheet.create({
   headerView: {
     flex: 0.1
   },
-  header_Text_Css: {
+  headerText: {
     alignSelf: "center",
     color: "#fff",
     fontSize: 25

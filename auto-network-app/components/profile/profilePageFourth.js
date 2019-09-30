@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   Alert
 } from "react-native";
-import firebase from 'firebase';
+import firebase from "firebase";
 import Header from "../header/header";
 import {
   widthPercentageToDP as wp,
@@ -27,10 +27,10 @@ export default class profilePageFourth extends React.Component {
       active: 0,
       image: null,
       isPicLoaded: true,
-      downloadUrl:'',
-      result:'',
-      uploading:false,
-      uid: ''
+      downloadUrl: "",
+      result: "",
+      uploading: false,
+      uid: ""
     };
     this.previousEvent = this.previousEvent.bind(this);
     this.nextEvent = this.nextEvent.bind(this);
@@ -40,57 +40,48 @@ export default class profilePageFourth extends React.Component {
     this.props.navigation.navigate("ProfilePageThird");
   }
 
-  submitUserDetails(){
-    const {navigation} = this.props;
-    let user = navigation.getParam('user');
+  submitUserDetails() {
+    const { navigation } = this.props;
+    let user = navigation.getParam("user");
     const thirtySecs = 30 * 1000;
-    firebase.storage().setMaxOperationRetryTime(thirtySecs)
-    this.setState({uid: user.uid});
-    console.log("submit details: ",this.state.uid);
-    firebase.database().ref('Passengers/' + user.uid + '/personal_details').set({
-      first_name: navigation.getParam('first_name'),
-      email_id: user.email,
-      last_name: navigation.getParam('last_name'),
-      birth_date: navigation.getParam('birth_date'),
-      gender: navigation.getParam('gender'),
-      // aadhar_number: navigation.getParam('aadhar_number'),
-      // license_number: navigation.getParam('license_number'),
-      // has_puc: navigation.getParam('has_puc'),
-      // auto_number: navigation.getParam('auto_number'),
-      // has_own_vehicle: navigation.getParam('has_own_vehicle'),
-      // owner_name: navigation.getParam('owner_name'),
-      // owner_contact_number: navigation.getParam('owner_contact_number'),
-      has_profile_completed: true,
-    });
+    firebase.storage().setMaxOperationRetryTime(thirtySecs);
+    this.setState({ uid: user.uid });
+    console.log("submit details: ", this.state.uid);
+    firebase
+      .database()
+      .ref("Passengers/" + user.uid + "/personal_details")
+      .set({
+        first_name: navigation.getParam("first_name"),
+        email_id: user.email,
+        last_name: navigation.getParam("last_name"),
+        birth_date: navigation.getParam("birth_date"),
+        gender: navigation.getParam("gender"),
+        has_profile_completed: true
+      });
 
-    this.props.navigation.navigate('HomeScreen');
+    this.props.navigation.navigate("HomeScreen");
   }
 
-  skipEvent(e){
-    const {navigation} = this.props;
-    let user = navigation.getParam('user');
-    firebase.database().ref('Passengers/'+ user.uid+'/personal_details').set({
-      profile_pic_url: '',
-      first_name: navigation.getParam('first_name'),
-      last_name: navigation.getParam('last_name'),
-      birth_date: navigation.getParam('birth_date'),
-      gender: navigation.getParam('gender'),
-      // aadhar_number: navigation.getParam('aadhar_number'),
-      // license_number: navigation.getParam('license_number'),
-      // has_puc: navigation.getParam('has_puc'),
-      // auto_number: navigation.getParam('auto_number'),
-      // has_own_vehicle: navigation.getParam('has_own_vehicle'),
-      // owner_name: navigation.getParam('owner_name'),
-      // owner_contact_number: navigation.getParam('owner_contact_number'),
-      has_profile_completed: false,
-    });
-    this.props.navigation.navigate('HomeScreen');
+  skipEvent(e) {
+    const { navigation } = this.props;
+    let user = navigation.getParam("user");
+    firebase
+      .database()
+      .ref("Passengers/" + user.uid + "/personal_details")
+      .set({
+        profile_pic_url: "",
+        first_name: navigation.getParam("first_name"),
+        last_name: navigation.getParam("last_name"),
+        birth_date: navigation.getParam("birth_date"),
+        gender: navigation.getParam("gender"),
+        has_profile_completed: false
+      });
+    this.props.navigation.navigate("HomeScreen");
   }
 
-
-  nextEvent(e){
+  nextEvent(e) {
     this._handleImagePicked(this.state.result);
-     this.submitUserDetails();
+    this.submitUserDetails();
   }
   componentDidMount() {
     this.getPermissionAsync();
@@ -202,15 +193,14 @@ export default class profilePageFourth extends React.Component {
   _pickImage = async () => {
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
-      aspect: [4, 4],
+      aspect: [4, 4]
     });
 
-    if(!pickerResult.cancelled) {
-      this.setState( {isPicLoaded:false});
-      this.setState({image:pickerResult.uri});
-      this.setState({result:pickerResult});
+    if (!pickerResult.cancelled) {
+      this.setState({ isPicLoaded: false });
+      this.setState({ image: pickerResult.uri });
+      this.setState({ result: pickerResult });
     }
-
   };
 
   _handleImagePicked = async pickerResult => {
@@ -222,7 +212,6 @@ export default class profilePageFourth extends React.Component {
         this.setState({ image: uploadUrl });
       }
     } catch (e) {
-
     } finally {
       this.setState({ uploading: false });
     }
@@ -238,19 +227,20 @@ async function uploadImageAsync(uri) {
     };
     xhr.onerror = function(e) {
       console.log(e);
-      reject(new TypeError('Network request failed'));
+      reject(new TypeError("Network request failed"));
     };
-    xhr.responseType = 'blob';
-    xhr.open('GET', uri, true);
+    xhr.responseType = "blob";
+    xhr.open("GET", uri, true);
     xhr.send(null);
   });
   console.log("hiii from uploading");
   let user = await firebase.auth().currentUser;
-  console.log("currentUser: ",user.uid);
+  console.log("currentUser: ", user.uid);
   const ref = firebase
     .storage()
     .ref("/Images/")
-    .child('Passengers/').child('pic2.jpg');
+    .child("Passengers/")
+    .child("pic2.jpg");
   const snapshot = await ref.put(blob);
 
   // We're done with the blob, close and release it
@@ -258,10 +248,13 @@ async function uploadImageAsync(uri) {
 
   let downloadurl = await snapshot.ref.getDownloadURL();
   console.log(downloadurl);
-  firebase.database().ref('Passengers/' + user.uid + '/personal_details/img').set({
-    profile_pic_url : downloadurl,
-  });
-  this.setState({downloadUrl : downloadurl});
+  firebase
+    .database()
+    .ref("Passengers/" + user.uid + "/personal_details/img")
+    .set({
+      profile_pic_url: downloadurl
+    });
+  this.setState({ downloadUrl: downloadurl });
 }
 
 const styles = StyleSheet.create({
@@ -352,4 +345,3 @@ const styles = StyleSheet.create({
     right: "10%"
   }
 });
-
