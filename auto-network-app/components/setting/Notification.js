@@ -35,41 +35,40 @@ export default class Notification extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <SafeAreaView
-            style={{
-              flex: 1
-            }}
-          >
-            <View
+          <View style={{ flex: 1 }}>
+            <SafeAreaView
               style={{
-                flex: 0.3,
-                backgroundColor: "#269DF9",
                 flexDirection: "row",
                 alignItems: "center",
-                justifyContent: "space-between"
+                flex: 0.4,
+                justifyContent: "space-between",
+                backgroundColor: "#269DF9"
               }}
             >
               <View style={{ flex: 0.3 }}>
-                <TouchableOpacity onPress={this.backEvent}>
+                <TouchableOpacity
+                  onPress={this.backEvent}
+                  style={{ width: 70, height: 30 }}
+                >
                   <Image
                     style={{
+                      height: 25,
                       width: 60,
-                      height: 70,
-                      resizeMode: "contain"
+                      alignSelf: "center"
                     }}
                     source={require("../../assets/back1.png")}
                   />
                 </TouchableOpacity>
               </View>
-              <View style={{ flex: 0.5 }}>
+              <View>
                 <Text style={styles.headerText}>Notification</Text>
               </View>
               <View style={{ flex: 0.3 }}></View>
-            </View>
-            <View style={{ flex: 0.7 }}>
+            </SafeAreaView>
+            <View style={{ flex: 0.6 }}>
               <Header />
             </View>
-          </SafeAreaView>
+          </View>
         </View>
         <View style={styles.notification_view}>
           <View style={styles.receive_broadcast_btn_view}>

@@ -89,41 +89,40 @@ export default class SignUp extends React.Component {
       <DismissKeyboard>
         <View style={styles.container}>
           <View style={styles.header}>
-            <SafeAreaView
-              style={{
-                flex: 1
-              }}
-            >
-              <View
+            <View style={{ flex: 1 }}>
+              <SafeAreaView
                 style={{
-                  flex: 0.3,
-                  backgroundColor: "#269DF9",
                   flexDirection: "row",
                   alignItems: "center",
-                  justifyContent: "space-between"
+                  flex: 0.4,
+                  justifyContent: "space-between",
+                  backgroundColor: "#269DF9"
                 }}
               >
                 <View style={{ flex: 0.3 }}>
-                  <TouchableOpacity onPress={this.backEvent}>
+                  <TouchableOpacity
+                    onPress={this.backEvent}
+                    style={{ width: 70, height: 30 }}
+                  >
                     <Image
                       style={{
+                        height: 25,
                         width: 60,
-                        height: 70,
-                        resizeMode: "contain"
+                        alignSelf: "center"
                       }}
                       source={require("../../assets/back1.png")}
                     />
                   </TouchableOpacity>
                 </View>
-                <View style={{ flex: 0.3 }}>
+                <View>
                   <Text style={styles.headerText}>Sign Up</Text>
                 </View>
                 <View style={{ flex: 0.3 }}></View>
-              </View>
-              <View style={{ flex: 0.7 }}>
+              </SafeAreaView>
+              <View style={{ flex: 0.6 }}>
                 <Header />
               </View>
-            </SafeAreaView>
+            </View>
           </View>
           <View style={styles.signInView}>
             <Text style={styles.signInlableOne}>Email Id / Phone No.</Text>
@@ -287,7 +286,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   logoView: {
-    flex: 0.29
+    flex: 0.27
     // backgroundColor:"red",
   },
   signInButtonView: {

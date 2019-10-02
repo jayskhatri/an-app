@@ -66,24 +66,27 @@ export default class profilePageOne extends React.Component {
     return (
       <DismissKeyboard>
         <View style={styles.container}>
-          <SafeAreaView style={styles.header}>
-            <View
-              style={{
-                flex: 0.4,
-                backgroundColor: "#269DF9",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center"
-              }}
-            >
-              <View>
-                <Text style={styles.headerText}>Profile</Text>
+          <View style={styles.header}>
+            <View style={{ flex: 1 }}>
+              <SafeAreaView
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  flex: 0.4,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#269DF9"
+                }}
+              >
+                <View>
+                  <Text style={styles.headerText}>Profile</Text>
+                </View>
+              </SafeAreaView>
+              <View style={{ flex: 0.6 }}>
+                <Header />
               </View>
             </View>
-            <View style={{ flex: 0.6 }}>
-              <Header />
-            </View>
-          </SafeAreaView>
+          </View>
           <View style={styles.logoView}>
             <View style={styles.logo_inner_view}>
               <Image
@@ -222,7 +225,7 @@ const styles = StyleSheet.create({
     fontSize: 25
   },
   logoView: {
-    flex: 0.35
+    flex: 0.25
   },
   logo_inner_view: {
     flex: 1,
@@ -241,7 +244,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   header: {
-    flex: 0.1
+    flex: 0.2
   },
   outter_View_Input_detail_box: {
     flex: 1,

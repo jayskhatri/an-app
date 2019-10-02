@@ -33,7 +33,7 @@ export default class EditPhoto extends React.Component {
       uid: ""
     };
     this.previousEvent = this.previousEvent.bind(this);
-    this.nextEvent = this.nextEvent.bind(this);
+    this.saveEvent = this.saveEvent.bind(this);
     this.backEvent = this.backEvent.bind(this);
   }
   previousEvent(e) {
@@ -66,7 +66,7 @@ export default class EditPhoto extends React.Component {
     this.props.navigation.navigate("editProfile");
   }
 
-  nextEvent(e) {
+  saveEvent(e) {
     this._handleImagePicked(this.state.result);
     this.submitUserDetails();
   }
@@ -101,17 +101,45 @@ export default class EditPhoto extends React.Component {
     let { image } = this.state;
     return (
       <View style={styles.container}>
-        <SafeAreaView style={styles.header}>
-          <View style={{ flex: 0.7, backgroundColor: "#269DF9" }}>
-            <Text style={styles.header_Text_Css}>Edit Photo</Text>
+        <View style={styles.header}>
+          <View style={{ flex: 1 }}>
+            <SafeAreaView
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                flex: 0.4,
+                justifyContent: "space-between",
+                backgroundColor: "#269DF9"
+              }}
+            >
+              <View style={{ flex: 0.3 }}>
+                <TouchableOpacity
+                  onPress={this.backEvent}
+                  style={{ width: 70, height: 30 }}
+                >
+                  <Image
+                    style={{
+                      height: 25,
+                      width: 60,
+                      alignSelf: "center"
+                    }}
+                    source={require("../../assets/back1.png")}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View>
+                <Text style={styles.headerText}>Edit Photo</Text>
+              </View>
+              <View style={{ flex: 0.3 }}></View>
+            </SafeAreaView>
+            <View style={{ flex: 0.6 }}>
+              <Header />
+            </View>
           </View>
-          <View style={{ flex: 0.3 }}>
-            <Header />
-          </View>
-        </SafeAreaView>
+        </View>
         <View style={styles.logoView}>
           <Image
-            style={styles.logoIconCss}
+            style={styles.logo_Icon_Css}
             source={require("../../assets/bigAdminLogo.png")}
           />
         </View>
@@ -142,20 +170,20 @@ export default class EditPhoto extends React.Component {
             </Text>
           </View>
           <View style={styles.last_fotter_view}>
-            <View style={styles.skip_next_btn_outter_view}>
+            {/* <View style={styles.skip_next_btn_outter_view}>
               <TouchableOpacity
                 style={styles.skip_btn_css}
                 onPress={this.backEvent}
               >
                 <Text style={styles.skip_next_btn_text_css}>Back</Text>
               </TouchableOpacity>
-            </View>
-            <View style={styles.skip_next_btn_outter_view}>
+            </View> */}
+            <View style={styles.save_btn_outter_view}>
               <TouchableOpacity
-                style={styles.next_btn_css}
-                onPress={this.nextEvent}
+                style={styles.save_btn_css}
+                onPress={this.saveEvent}
               >
-                <Text style={styles.skip_next_btn_text_css}>Save</Text>
+                <Text style={styles.save_btn_text_css}>Save</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -249,22 +277,22 @@ const styles = StyleSheet.create({
     flex: 1
   },
   header: {
-    flex: 0.1
+    flex: 0.22
   },
-  header_Text_Css: {
+  headerText: {
     alignSelf: "center",
     color: "#fff",
     fontSize: 25
   },
   logoView: {
-    flex: 0.5,
+    flex: 0.38,
     alignItems: "center",
     justifyContent: "center"
   },
   logo_Icon_Css: {
-    width: wp("55%"),
-    height: hp("23%"),
-    // resizeMode: "contain",
+    width: "80%",
+    height: "80%",
+    resizeMode: "contain",
     alignSelf: "center"
   },
   signUpView: {
@@ -310,13 +338,13 @@ const styles = StyleSheet.create({
     flex: 0.8,
     flexDirection: "row"
   },
-  skip_next_btn_outter_view: {
-    flex: 0.5,
+  save_btn_outter_view: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center"
   },
-  skip_next_btn_text_css: {
-    fontSize: 20,
+  save_btn_text_css: {
+    fontSize: 25,
     color: "#fff"
   },
   skip_btn_css: {
@@ -325,10 +353,10 @@ const styles = StyleSheet.create({
     left: "14%",
     alignSelf: "center"
   },
-  next_btn_css: {
-    marginTop: "1%",
-    alignSelf: "center",
-    position: "absolute",
-    right: "14%"
+  save_btn_css: {
+    // marginTop: "1%",
+    alignSelf: "center"
+    // position: "absolute",
+    // right: "14%"
   }
 });

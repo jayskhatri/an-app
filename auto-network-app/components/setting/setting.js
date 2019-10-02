@@ -47,19 +47,25 @@ export default class setting extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <SafeAreaView style={{ backgroundColor: "#269DF9" }}>
-            <Text
+          <View style={{ flex: 1 }}>
+            <SafeAreaView
               style={{
-                alignSelf: "center",
-                color: "#fff",
-                fontSize: 25,
-                marginTop: Platform.OS === "android" ? "4%" : "0%"
+                flexDirection: "row",
+                alignItems: "center",
+                flex: 0.4,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#269DF9"
               }}
             >
-              Home
-            </Text>
-            <Header />
-          </SafeAreaView>
+              <View>
+                <Text style={styles.headerText}>Home</Text>
+              </View>
+            </SafeAreaView>
+            <View style={{ flex: 0.6 }}>
+              <Header />
+            </View>
+          </View>
         </View>
         <View style={styles.settingView}>
           <View
@@ -287,9 +293,14 @@ const styles = StyleSheet.create({
     flex: 0.14
   },
   settingView: {
-    flex: 0.9
+    flex: 0.85
   },
   header: {
-    flex: 0.1
+    flex: 0.15
+  },
+  headerText: {
+    alignSelf: "center",
+    color: "#fff",
+    fontSize: 25
   }
 });

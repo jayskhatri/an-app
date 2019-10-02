@@ -149,43 +149,42 @@ export default class editProfile extends React.Component {
       // <View style={{flex:1}}>
        <DismissKeyboard>
           <View style={styles.container}>
-            <View style={styles.header}>
-          <SafeAreaView
-            style={{
-              flex: 1,
-            }}
-          >
-            <View
-              style={{
-                flex: 0.4,
-                backgroundColor: "#269DF9",
-                flexDirection: "row",
-                alignItems:"center",
-                justifyContent: "space-between"
-              }}
-            >
-              <View style={{ flex: 0.3 }}>
-                <TouchableOpacity onPress={this.previousEvent} >
-                  <Image
-                    style={{
-                      width: 60,
-                      height: 70,
-                      resizeMode: "contain"
-                    }}
-                    source={require("../../assets/back1.png")}
-                  />
-                </TouchableOpacity>
+          <View style={styles.header}>
+            <View style={{ flex: 1 }}>
+              <SafeAreaView
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  flex: 0.4,
+                  justifyContent: "space-between",
+                  backgroundColor: "#269DF9"
+                }}
+              >
+                <View style={{ flex: 0.3 }}>
+                  <TouchableOpacity
+                    onPress={this.previousEvent}
+                    style={{ width: 70, height: 30 }}
+                  >
+                    <Image
+                      style={{
+                        height: 25,
+                        width: 60,
+                        alignSelf: "center"
+                      }}
+                      source={require("../../assets/back1.png")}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View>
+                  <Text style={styles.headerText}>Edit Profile</Text>
+                </View>
+                <View style={{ flex: 0.3 }}></View>
+              </SafeAreaView>
+              <View style={{ flex: 0.6 }}>
+                <Header />
               </View>
-              <View style={{ flex: 0.3 }}>
-                <Text style={styles.headerText}>Edit Profile</Text>
-              </View>
-              <View style={{ flex: 0.3 }}></View>
             </View>
-            <View style={{ flex: 0.6 }}>
-              <Header />
-            </View>
-          </SafeAreaView>
-        </View>
+          </View>
 
           {this.state.load ? 
             (

@@ -28,145 +28,87 @@ export default class Help extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <SafeAreaView
-            style={{
-              flex: 1
-            }}
-          >
-            <View
+          <View style={{ flex: 1 }}>
+            <SafeAreaView
               style={{
-                flex: 0.3,
-                backgroundColor: "#269DF9",
                 flexDirection: "row",
                 alignItems: "center",
-                justifyContent: "space-between"
+                flex: 0.4,
+                justifyContent: "space-between",
+                backgroundColor: "#269DF9"
               }}
             >
               <View style={{ flex: 0.3 }}>
-                <TouchableOpacity onPress={this.backEvent}>
+                <TouchableOpacity
+                  onPress={this.backEvent}
+                  style={{ width: 70, height: 30 }}
+                >
                   <Image
                     style={{
+                      height: 25,
                       width: 60,
-                      height: 70,
-                      resizeMode: "contain"
+                      alignSelf: "center"
                     }}
                     source={require("../../assets/back1.png")}
                   />
                 </TouchableOpacity>
               </View>
-              <View style={{ flex: 0.3 }}>
+              <View>
                 <Text style={styles.headerText}>Help</Text>
               </View>
               <View style={{ flex: 0.3 }}></View>
-            </View>
-            <View style={{ flex: 0.7 }}>
+            </SafeAreaView>
+            <View style={{ flex: 0.6 }}>
               <Header />
             </View>
-          </SafeAreaView>
+          </View>
         </View>
         <View style={{ flex: 0.78, backgroundColor: "#fff" }}>
-          <TouchableOpacity onPress={this.myAccountHandleEvent}>
-            <View
-              style={{
-                width: "100%",
-                marginTop: "1%",
-                borderTopWidth: 0.5,
-                borderTopColor: "#988c8c",
-                flexDirection: "row"
-              }}
-            >
-              <View style={{ marginTop: "2%", marginLeft: "4%" }}>
+          <TouchableOpacity
+            onPress={this.faqHandleEvent}
+            style={styles.btn_view}
+          >
+            <View style={styles.btn_inner_view_1}>
+              <View style={styles.btn_inner_view_2}>
                 <Image
-                  style={{
-                    marginTop: "3%",
-                    flex: 1,
-                    height: hp("6%"),
-                    width: wp("6%"),
-                    resizeMode: "contain"
-                  }}
+                  style={styles.img_css}
                   source={require("../../assets/adminlogo.png")}
                 />
               </View>
-              <View
-                style={{
-                  flexDirection: "column",
-                  marginLeft: "5%",
-                  marginTop: "2%"
-                }}
-              >
-                <Text style={{ fontSize: Platform.OS === "ios" ? 23 : 18 }}>
-                  FAQ
-                </Text>
+              <View style={styles.btn_inner_view_3}>
+                <Text style={styles.text_css}>FAQ</Text>
               </View>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.notificationHandleEvent}>
-            <View
-              style={{
-                width: "100%",
-                marginTop: "4%",
-                borderTopWidth: 0.5,
-                borderTopColor: "#988c8c",
-                flexDirection: "row"
-              }}
-            >
-              <View style={{ marginTop: "2%", marginLeft: "4%" }}>
+          <TouchableOpacity
+            onPress={this.contactUsHandleEvent}
+            style={styles.btn_view}
+          >
+            <View style={styles.btn_inner_view_1}>
+              <View style={styles.btn_inner_view_2}>
                 <Image
-                  style={{
-                    marginTop: "3%",
-                    flex: 1,
-                    height: hp("6%"),
-                    width: wp("6%"),
-                    resizeMode: "contain"
-                  }}
+                  style={styles.img_css}
                   source={require("../../assets/NOTIFICATION.png")}
                 />
               </View>
-              <View
-                style={{
-                  flexDirection: "column",
-                  marginLeft: "5%",
-                  marginTop: "2%"
-                }}
-              >
-                <Text style={{ fontSize: Platform.OS === "ios" ? 23 : 18 }}>
-                  Contact us
-                </Text>
+              <View style={styles.btn_inner_view_3}>
+                <Text style={styles.text_css}>Contact us</Text>
               </View>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.historyHandleEvent}>
-            <View
-              style={{
-                width: "100%",
-                marginTop: "4%",
-                borderTopWidth: 0.5,
-                borderTopColor: "#988c8c",
-                flexDirection: "row"
-              }}
-            >
-              <View style={{ marginTop: "2%", marginLeft: "4%" }}>
+          <TouchableOpacity
+            onPress={this.privacyPolicyHandleEvent}
+            style={styles.last_btn_view}
+          >
+            <View style={styles.btn_inner_view_1}>
+              <View style={styles.btn_inner_view_2}>
                 <Image
-                  style={{
-                    marginTop: "3%",
-                    flex: 1,
-                    height: hp("6%"),
-                    width: wp("6%"),
-                    resizeMode: "contain"
-                  }}
+                  style={styles.img_css}
                   source={require("../../assets/HISTORY.png")}
                 />
               </View>
-              <View
-                style={{
-                  flexDirection: "column",
-                  marginLeft: "5%",
-                  marginTop: "2%"
-                }}
-              >
-                <Text style={{ fontSize: Platform.OS === "ios" ? 23 : 18 }}>
-                  Privacy policy
-                </Text>
+              <View style={styles.btn_inner_view_3}>
+                <Text style={styles.text_css}>Privacy policy</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -187,5 +129,46 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     color: "#fff",
     fontSize: 25
+  },
+  btn_view: {
+    flex: 0.08,
+    marginTop: "1%"
+  },
+  btn_inner_view_1: {
+    flex: 1,
+    width: "100%",
+    borderTopWidth: 0.5,
+    // backgroundColor: "red",
+    borderTopColor: "#988c8c",
+    flexDirection: "row"
+  },
+  btn_inner_view_2: {
+    flex: 0.15,
+    // backgroundColor: "yellow",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  img_css: {
+    flex: 1,
+    height: hp("6%"),
+    width: wp("6%"),
+    alignSelf: "center",
+    resizeMode: "contain"
+  },
+  btn_inner_view_3: {
+    // backgroundColor: "blue",
+    flex: 0.85,
+    flexDirection: "column",
+    justifyContent: "center"
+  },
+  text_css: {
+    textAlign: "left",
+    fontSize: 23
+  },
+  last_btn_view: {
+    flex: 0.08,
+    marginTop: "1%",
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#988c8c"
   }
 });

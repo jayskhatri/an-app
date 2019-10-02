@@ -134,30 +134,26 @@ export default class Login extends React.Component {
     return (
       <DismissKeyboard>
         <View style={styles.container}>
-          {/* <StatusBar backgroundColor="blue" /> */}
           <View style={styles.header}>
-            <SafeAreaView
-              style={{
-                flex: 1
-              }}
-            >
-              <View
+            <View style={{ flex: 1 }}>
+              <SafeAreaView
                 style={{
-                  flex: 0.3,
-                  backgroundColor: "#269DF9",
                   flexDirection: "row",
                   alignItems: "center",
-                  justifyContent: "center"
+                  flex: 0.4,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#269DF9"
                 }}
               >
                 <View>
                   <Text style={styles.headerText}>Sign In</Text>
                 </View>
-              </View>
-              <View style={{ flex: 0.7 }}>
+              </SafeAreaView>
+              <View style={{ flex: 0.6 }}>
                 <Header />
               </View>
-            </SafeAreaView>
+            </View>
           </View>
           <View style={styles.signInView}>
             <Text style={styles.signInlableOne}>Email Id / Phone No.</Text>
@@ -283,7 +279,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   header: {
-    flex: 0.2
+    flex: 0.22
   },
   headerText: {
     alignSelf: "center",
@@ -334,7 +330,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   logoView: {
-    flex: 0.32
+    flex: 0.3
     // backgroundColor:"red",
   },
   signInButtonView: {
