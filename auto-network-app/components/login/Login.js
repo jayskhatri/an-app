@@ -17,6 +17,8 @@ import {
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Header from "../header/header";
+import color from "../constants/Colors";
+import colors from "../constants/Colors";
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     {children}
@@ -143,7 +145,7 @@ export default class Login extends React.Component {
                   flex: 0.4,
                   justifyContent: "center",
                   alignItems: "center",
-                  backgroundColor: "#269DF9"
+                  backgroundColor: colors.color.blue_color
                 }}
               >
                 <View>
@@ -161,7 +163,7 @@ export default class Login extends React.Component {
               <TextInput
                 style={styles.signInTextInputOne}
                 placeholder="Enter Email "
-                placeholderTextColor="#988c8c"
+                placeholderTextColor={colors.color.placeholder_text_Color}
                 fontSize={16}
                 keyboardType="email-address"
                 // onSubmitEditing={Keyboard.dismiss}
@@ -174,7 +176,7 @@ export default class Login extends React.Component {
               <TextInput
                 style={styles.signInTextInputOne}
                 placeholder="Enter Password "
-                placeholderTextColor="#988c8c"
+                placeholderTextColor={colors.color.placeholder_text_Color}
                 secureTextEntry
                 fontSize={16}
                 onChange={this.handleSetPassword}
@@ -194,7 +196,11 @@ export default class Login extends React.Component {
                 onPress={this.signInEvent}
               >
                 <Text
-                  style={{ alignSelf: "center", fontSize: 25, color: "#fff" }}
+                  style={{
+                    alignSelf: "center",
+                    fontSize: 25,
+                    color: colors.color.white_color
+                  }}
                 >
                   Go Auto
                 </Text>
@@ -209,7 +215,12 @@ export default class Login extends React.Component {
               }}
             >
               <TouchableOpacity>
-                <Text style={{ color: "#269DF9", alignSelf: "center" }}>
+                <Text
+                  style={{
+                    color: colors.color.blue_color,
+                    alignSelf: "center"
+                  }}
+                >
                   {" "}
                   Forgot Password ?{" "}
                 </Text>
@@ -221,9 +232,12 @@ export default class Login extends React.Component {
                   alignSelf: "center"
                 }}
               >
-                <Text> Not joined Yet ? </Text>
+                <Text style={{ color: colors.color.black_color }}>
+                  {" "}
+                  Not joined Yet ?{" "}
+                </Text>
                 <TouchableOpacity onPress={this.signUpEvent}>
-                  <Text style={{ color: "#269DF9" }}>
+                  <Text style={{ color: colors.color.blue_color }}>
                     {" "}
                     create Your account{" "}
                   </Text>
@@ -236,9 +250,12 @@ export default class Login extends React.Component {
                   alignSelf: "center"
                 }}
               >
-                <Text> Know Our </Text>
+                <Text style={{ color: colors.color.black_color }}>
+                  {" "}
+                  Know Our{" "}
+                </Text>
                 <TouchableOpacity>
-                  <Text style={{ color: "#269DF9" }}>
+                  <Text style={{ color: colors.color.blue_color }}>
                     {" "}
                     Privacy Policy and Terms & condition{" "}
                   </Text>
@@ -276,25 +293,26 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: colors.color.white_color
   },
   header: {
     flex: 0.22
   },
   headerText: {
     alignSelf: "center",
-    color: "#fff",
+    color: colors.color.white_color,
     fontSize: 25
   },
   signInView: {
     flex: Platform.OS === "ios" ? 0.18 : 0.23
-    // backgroundColor:"red"
   },
   signInlableOne: {
     flex: 0.15,
     fontSize: 15,
     marginTop: "4%",
-    marginLeft: "15.5%"
+    marginLeft: "15.5%",
+    color: colors.color.black_color
   },
   outterLookOfInputBox: {
     flex: 0.35,
@@ -302,7 +320,8 @@ const styles = StyleSheet.create({
     marginLeft: "10%",
     marginTop: "1%",
     marginRight: "10%",
-    borderRadius: 25
+    borderRadius: 25,
+    borderColor: colors.color.black_color
   },
   outterLookOfSecondInputBox: {
     flex: 0.35,
@@ -310,7 +329,8 @@ const styles = StyleSheet.create({
     marginTop: "1%",
     marginLeft: "10%",
     marginRight: "10%",
-    borderRadius: 25
+    borderRadius: 25,
+    borderColor: colors.color.black_color
   },
   signInTextInputOne: {
     flex: 1,
@@ -320,28 +340,25 @@ const styles = StyleSheet.create({
     marginBottom: "1.8%",
     marginRight: "3%",
     borderRadius: 15,
-    borderBottomColor: "#988c8c",
+    borderBottomColor: colors.color.placeholder_text_Color,
     borderBottomWidth: 1
   },
   linkSignUpView: {
-    flex: Platform.OS === "ios" ? 0.15 : 0.15,
-    // backgroundColor:"gray",
+    flex: 0.15,
     alignItems: "center",
     justifyContent: "center"
   },
   logoView: {
     flex: 0.3
-    // backgroundColor:"red",
   },
   signInButtonView: {
     flex: 0.15
-    // backgroundColor:"gray"
   },
   goAutoButtonCss: {
     width: "70%",
     height: "30%",
     borderRadius: 25,
-    backgroundColor: "#269DF9",
+    backgroundColor: colors.color.blue_color,
     alignItems: "center",
     justifyContent: "center"
   }
