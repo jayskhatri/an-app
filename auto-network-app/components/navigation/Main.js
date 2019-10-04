@@ -28,7 +28,7 @@ import Header from "../header/header";
 import MainTabNavigation from "../navigation/MainTabNavigator";
 import BookingPageOne from "../bookingSection/bookingPage1";
 import BookingPageSecond from "../bookingSection/bookingPage2";
-import BookingPageThird from "../bookingSection/BookingPageThird";
+import BookingPage4 from "../bookingSection/BookingPage4";
 import BookingPageThird_one from "../bookingSection/BookingPage3_one";
 import HomeScreen from "../src/HomeScreen";
 import BottomBar from "../bottomTabBar/BottomBar";
@@ -39,6 +39,7 @@ import Notification from "../setting/Notification";
 import History from "../setting/History";
 import Help from "../setting/Help";
 import EditPhoto from "../setting/EditPhoto";
+import bookingPage3 from "../bookingSection/bookingPage3";
 class Main extends React.Component {
   render() {
     return null;
@@ -57,19 +58,29 @@ const styles = StyleSheet.create({
 const MainNavigation = createStackNavigator(
   // const MainNavigation = createAnimatedSwitchNavigator(
   {
+    HomeScreen: {
+      screen: HomeScreen
+    },
+    BookingPage4: {
+      screen: BookingPage4
+    },
+    BookingPageSecond: {
+      screen: BookingPageSecond
+    },
+
+    bookingPage3: {
+      screen: bookingPage3
+    },
+    checkUserStatus: {
+      screen: checkUserStatus
+    },
     ProfilePageFourth: {
       screen: ProfilePageFourth
     },
     ProfilePageOne: {
       screen: ProfilePageOne
     },
-    checkUserStatus: {
-      screen: checkUserStatus
-    },
 
-    HomeScreen: {
-      screen: HomeScreen
-    },
     driver_page_one: {
       screen: driver_page_one
     },
@@ -93,9 +104,6 @@ const MainNavigation = createStackNavigator(
     ProfilePageSecond: {
       screen: ProfilePageSecond
     },
-    BookingPageSecond: {
-      screen: BookingPageSecond
-    },
 
     editProfile: {
       screen: editProfile
@@ -116,9 +124,7 @@ const MainNavigation = createStackNavigator(
     ProfilePageThird: {
       screen: ProfilePageThird
     },
-    BookingPageThird: {
-      screen: BookingPageThird
-    },
+
     History: {
       screen: History
     },

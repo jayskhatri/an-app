@@ -216,7 +216,7 @@ export default class BookingPageSecond extends React.Component {
   nextEvent() {
     // console.log("next Event");
     console.log(this.state.timeOfJourney, this.state.isApOrPmSelect);
-    this.props.navigation.navigate("BookingPageThird");
+    this.props.navigation.navigate("bookingPage3");
   }
 
   render() {

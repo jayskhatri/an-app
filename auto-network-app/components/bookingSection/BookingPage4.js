@@ -18,8 +18,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
-
-export default class BookingPage3_one extends React.Component {
+import colors from "../constants/Colors";
+export default class BookingPage4 extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -33,15 +33,16 @@ export default class BookingPage3_one extends React.Component {
       driverName: "",
       autoNumber: "",
       totalAmount: "300",
-      perPersonAmount: "",
-      modalVisible: false
+      perPersonAmount: ""
     };
     this.backEvent = this.backEvent.bind(this);
-    this.handlePayModel = this.handlePayModel.bind(this);
-    this.handlePayModelClose = this.handlePayModelClose.bind(this);
+    this.handleHomeScreen = this.handleHomeScreen.bind(this);
   }
   backEvent() {
     this.props.navigation.navigate("BookingPageSecond");
+  }
+  handleHomeScreen() {
+    this.props.navigation.navigate("HomeScreen");
   }
   componentWillMount() {
     this.setState({ name: "Anuj Thakkar" });
@@ -56,43 +57,25 @@ export default class BookingPage3_one extends React.Component {
     this.setState({ totalAmount: "300" });
     this.setState({ perPersonAmount: "150" });
   }
-  handlePayModel() {
-    this.setState({ modalVisible: true });
-  }
-  handlePayModelClose() {
-    this.setState({ modalVisible: false });
-  }
   render() {
     return (
       <View style={styles.container}>
-        <View
-          style={{
-            backgroundColor: "#269DF9",
-            flex: 0.2 //change flex in andriod
-          }}
-        >
-          <SafeAreaView style={styles.header}>
-            <View style={styles.headerInnerView}>
-              <View style={{ alignSelfs: "center" }}>
-                <TouchableOpacity
-                  onPress={this.backEvent}
-                  style={{ alignSelfs: "center" }}
-                >
-                  <Image
-                    style={styles.backImage}
-                    source={require("../../assets/back1.png")}
-                  />
-                </TouchableOpacity>
+        <View style={styles.header}>
+          <View style={{ flex: 1 }}>
+            <SafeAreaView
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                flex: 0.4,
+                justifyContent: "space-between",
+                backgroundColor: colors.light.blue_color
+              }}
+            >
+              <View style={{ flex: 0.3 }}></View>
+              <View>
+                <Text style={styles.headerText}>Booking Confirmed</Text>
               </View>
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
-              >
-                <Text style={styles.headerText}>Continue Booking</Text>
-              </View>
-              <View style={{ alignSelfs: "center", marginTop: "1%" }}>
+              <View style={{ flex: 0.3 }}>
                 <OptionsMenu
                   button={require("../../assets/More.png")}
                   buttonStyle={styles.optionButton}
@@ -101,8 +84,11 @@ export default class BookingPage3_one extends React.Component {
                   actions={[this.helpPost]}
                 />
               </View>
-            </View>
-          </SafeAreaView>
+            </SafeAreaView>
+            <View
+              style={{ flex: 0.6, backgroundColor: colors.light.blue_color }}
+            ></View>
+          </View>
         </View>
         {/* Ticket View */}
         <View style={styles.ticket_outter_View}>
@@ -461,199 +447,13 @@ export default class BookingPage3_one extends React.Component {
         </View>
         <View style={styles.pop_up_view}>
           <TouchableOpacity
-            onPress={this.handlePayModel}
+            onPress={this.handleHomeScreen}
             style={styles.pay_btn_css}
           >
             <View style={{ alignSelf: "center", flexDirection: "row" }}>
-              <Text style={styles.pay_text_css}>Pay</Text>
+              <Text style={styles.pay_text_css}>Home</Text>
             </View>
           </TouchableOpacity>
-
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={this.state.modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-            }}
-          >
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center"
-              }}
-            >
-              <View
-                style={{
-                  flex: 0.3,
-                  position: "absolute",
-                  top: 0,
-                  backgroundColor: "transparent",
-                  width: "100%",
-                  height: "100%"
-                }}
-                onTouchEnd={this.handlePayModelClose}
-              ></View>
-              <View style={styles.pop_up_first_view}>
-                <View style={styles.pop_up_header_view}>
-                  <View
-                    style={{
-                      flex: 0.2,
-                      alignItems: "center",
-                      justifyContent: "center"
-                    }}
-                  >
-                    <View
-                      style={{
-                        alignSelf: "center",
-                        // position: "absolute",
-                        // bottom: "2%",
-                        borderBottomWidth: 2,
-                        borderColor: "#000"
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontSize: 20,
-                          textAlignVertical: "bottom"
-                        }}
-                      >
-                        Pay
-                      </Text>
-                    </View>
-                  </View>
-                  <View
-                    style={{
-                      flex: 0.6,
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "center"
-                    }}
-                  >
-                    <View style={{ flex: 0.25 }}>
-                      <Image
-                        style={styles.round_inner_image_css}
-                        source={require("../../assets/round_Pay.png")}
-                      />
-                    </View>
-                    <View
-                      style={{
-                        flex: 0.5,
-                        alignItems: "center",
-                        justifyContent: "center"
-                      }}
-                    >
-                      <View
-                        style={{
-                          alignSelf: "center",
-                          borderBottomWidth: 4,
-                          borderColor: "#269DF6"
-                        }}
-                      >
-                        <Text
-                          style={{
-                            fontSize: 50,
-                            color: "#269DF6"
-                          }}
-                        >
-                          RS.{this.state.totalAmount}
-                        </Text>
-                      </View>
-                    </View>
-                    <View style={{ flex: 0.25 }}>
-                      <Image
-                        style={styles.round_inner_image_css}
-                        source={require("../../assets/round_Pay.png")}
-                      />
-                    </View>
-                  </View>
-                  <View
-                    style={{
-                      flex: 0.2,
-                      alignItems: "center",
-                      justifyContent: "center"
-                    }}
-                  >
-                    <View
-                      style={{
-                        alignSelf: "center",
-                        borderBottomWidth: 2,
-                        borderColor: "#000"
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontSize: 20
-                        }}
-                      >
-                        Via
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={styles.payment_mode_view}>
-                  <View style={styles.first_mode_view}>
-                    <View style={styles.payment_mode_inner_view_1}>
-                      <View style={styles.first_payment_mode_text_view}>
-                        <Text style={styles.first_payment_mode_text_Css}>
-                          online
-                        </Text>
-                      </View>
-                      <View style={styles.first_payment_mode_icon_view}>
-                        <View
-                          style={{
-                            flex: 1,
-                            marginRight: "2%",
-                            // alignItems: "center",
-                            justifyContent: "center"
-                            // backgroundColor: "green"
-                          }}
-                        >
-                          <TouchableOpacity>
-                            <Image
-                              style={styles.first_payment_mode_Image}
-                              source={require("../../assets/paytm_icon.png")}
-                            />
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                    </View>
-                  </View>
-                  <View style={styles.first_mode_view}>
-                    <View style={styles.payment_mode_inner_view_2}>
-                      <View style={styles.first_payment_mode_text_view}>
-                        <Text style={styles.first_payment_mode_text_Css}>
-                          Offline
-                        </Text>
-                      </View>
-                      <View style={styles.first_payment_mode_icon_view}>
-                        <View
-                          style={{
-                            flex: 1,
-                            marginRight: "2%",
-                            // alignItems: "center",
-                            justifyContent: "center"
-                            // backgroundColor: "green"
-                          }}
-                        >
-                          {/* <Image
-                            style={styles.first_payment_mode_Image}
-                            source={require("../../assets/paytm_icon.png")}
-                          /> */}
-                          <TouchableOpacity>
-                            <Text style={styles.second_payment_mode_text_css}>
-                              Cash On Drive
-                            </Text>
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </Modal>
         </View>
       </View>
     );
@@ -666,13 +466,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   header: {
-    backgroundColor: "#269DF9",
-    flex: Platform.OS === "ios" ? 0.4 : 0.5
+    flex: 0.2
   },
   headerInnerView: {
-    marginTop: Platform.OS === "android" ? "7%" : " 3%",
     flexDirection: "row",
-    justifyContent: "space-between"
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "blue"
   },
   backImage: {
     height: 60,
@@ -682,17 +483,14 @@ const styles = StyleSheet.create({
     resizeMode: "contain"
   },
   headerText: {
-    flex: 1,
-    alignSelf: "center",
     color: "#fff",
-    fontSize: 30
+    fontSize: 30,
+    alignSelf: "center"
   },
   optionButton: {
     width: 32,
     height: 35,
-    marginRight: "3%",
-    resizeMode: "contain",
-    alignSelf: "center"
+    resizeMode: "contain"
   },
   ticketView: {
     flex: 1,
@@ -921,100 +719,7 @@ const styles = StyleSheet.create({
   waveView: {
     flex: 0.12
   },
-  payment_mode_view: {
-    flex: 0.6,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    width: "100%",
-    height: "100%"
-  },
-  first_mode_view: {
-    flex: 0.38,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  payment_mode_inner_view_1: {
-    width: "85%",
-    height: "60%",
-    marginLeft: "2%",
-    marginRight: "2%",
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: "#000",
-    backgroundColor: "#fff",
-    alignSelf: "center",
-    flexDirection: "row",
-    alignSelf: "center",
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 13
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
 
-    elevation: 4
-  },
-  first_payment_mode_text_Css: {
-    fontSize: 18,
-    color: "#474747"
-  },
-  first_payment_mode_text_view: {
-    flex: 0.37,
-    height: "80%",
-    borderRightWidth: 1.5,
-    justifyContent: "center",
-    textAlign: "left",
-    paddingLeft: "2%"
-  },
-  first_payment_mode_icon_view: {
-    flex: 0.59,
-    height: "80%",
-    flexDirection: "row",
-    paddingRight: "2%",
-    paddingLeft: "4%",
-    backgroundColor: "transparent"
-  },
-  first_payment_mode_Image: {
-    height: "80%",
-    alignSelf: "center",
-    resizeMode: "contain"
-  },
-  second_payment_mode_text_css: {
-    fontSize: 25,
-    color: "blue",
-    textAlign: "center"
-  },
-  round_inner_image_css: {
-    resizeMode: "contain",
-    width: "50%",
-    height: "50%",
-    alignSelf: "center"
-  },
-  payment_mode_inner_view_2: {
-    width: "85%",
-    height: "60%",
-    marginLeft: "2%",
-    marginRight: "2%",
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: "#000",
-    backgroundColor: "#fff",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 13
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 4
-  },
   pop_up_view: {
     flex: 0.15,
     alignItems: "center",
@@ -1043,25 +748,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: "1%",
     color: "#269DF9"
-  },
-  pop_up_first_view: {
-    flex: 0.7,
-    backgroundColor: "#fff",
-    width: "100%",
-    height: "55%",
-    alignItems: "center",
-    position: "absolute",
-    bottom: 0,
-    borderWidth: 1.5,
-    borderColor: "#000",
-    borderTopLeftRadius: 35,
-    borderTopRightRadius: 35
-  },
-  pop_up_header_view: {
-    flex: 0.4,
-    width: "100%",
-    height: "100%",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20
   }
 });
