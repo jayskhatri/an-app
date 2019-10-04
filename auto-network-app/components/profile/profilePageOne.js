@@ -22,10 +22,12 @@ import {
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
 import DatePicker from "react-native-datepicker";
+import colors from "../constants/Colors";
+import { Colors } from "react-native-paper";
 var options = [
-  { label: "Male", value: 111 },
-  { label: "Female", value: 112 },
-  { label: "Other", value: 113 }
+  { label: "Male", value: 0 },
+  { label: "Female", value: 1 },
+  { label: "Other", value: 2 }
 ];
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -40,7 +42,7 @@ export default class profilePageOne extends React.Component {
       first_name: "",
       last_name: "",
       birth_date: "",
-      gender: 111
+      gender: 0
     };
     this.nextEvent = this.nextEvent.bind(this);
   }
@@ -75,7 +77,7 @@ export default class profilePageOne extends React.Component {
                   flex: 0.4,
                   justifyContent: "center",
                   alignItems: "center",
-                  backgroundColor: "#269DF9"
+                  backgroundColor: colors.light.blue_color
                 }}
               >
                 <View>
@@ -126,11 +128,6 @@ export default class profilePageOne extends React.Component {
                     onChangeText={last_name => this.setState({ last_name })}
                     value={this.state.last_name}
                     style={styles.text_Input_second_css}
-                    theme={{
-                      color: {
-                        primary: "skyblue"
-                      }
-                    }}
                   />
                 </View>
               </KeyboardAvoidingView>
@@ -140,7 +137,10 @@ export default class profilePageOne extends React.Component {
                 </View>
                 <View style={{ flex: 0.6 }}>
                   <DatePicker
-                    style={{ width: wp("60%"), marginLeft: "3%" }}
+                    style={{
+                      width: wp("60%"),
+                      marginLeft: "3%"
+                    }}
                     mode="date"
                     date={this.state.birth_date}
                     placeholder="Enter Your Birth Date"
@@ -185,24 +185,32 @@ export default class profilePageOne extends React.Component {
                       });
                     }}
                     buttonSize={7}
-                    buttonColor={"#000000"}
+                    buttonColor={colors.light.black_color}
                     labelStyle={{ fontSize: 16, marginRight: "7%" }}
                     formHorizontal={true}
                     buttonOuterSize={21}
-                    selectedButtonColor={"#43b9e0"}
-                    selectedLabelColor={"#0080ab"}
+                    selectedButtonColor={colors.light.blue_color}
+                    selectedLabelColor={colors.light.blue_color}
                   />
                 </View>
               </View>
               <View style={styles.last_fotter_outter_view}>
                 <TouchableOpacity style={styles.back_btn_css}>
-                  <Text style={{ fontSize: 18 }}>Go Back</Text>
+                  <Text
+                    style={{ fontSize: 18, color: colors.light.black_color }}
+                  >
+                    Go Back
+                  </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.next_btn_css}
                   onPress={this.nextEvent}
                 >
-                  <Text style={{ fontSize: 18 }}>Next</Text>
+                  <Text
+                    style={{ fontSize: 18, color: colors.light.black_color }}
+                  >
+                    Next
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -221,7 +229,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     alignSelf: "center",
-    color: "#fff",
+    color: colors.light.white_color,
     fontSize: 25
   },
   logoView: {
@@ -257,13 +265,13 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   scrollViewCss: {
-    backgroundColor: "#12afe3",
+    backgroundColor: colors.light.dark_blue,
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
     flex: 0.12
   },
   text_Input_one_css: {
-    borderBottomColor: "black",
+    borderBottomColor: colors.light.black_color,
     borderBottomWidth: 1,
     height: 35,
     marginBottom: "1%",
@@ -273,16 +281,18 @@ const styles = StyleSheet.create({
   label_one_two_css: {
     fontSize: 18,
     marginTop: "2.5%",
-    marginLeft: "5%"
+    marginLeft: "5%",
+    color: colors.light.black_color
   },
   first_second_input_box_outter_view: {
     flex: 0.2,
-    backgroundColor: "white",
+    backgroundColor: colors.light.white_color,
     borderWidth: 0.5
   },
   text_Input_second_css: {
     borderBottomWidth: 1,
     height: 35,
+    borderColor: colors.light.black_color,
     marginBottom: "1%",
     marginLeft: "5%",
     marginRight: "5%"
@@ -290,21 +300,22 @@ const styles = StyleSheet.create({
   label_third_fourh_css: {
     fontSize: 18,
     marginTop: "3%",
-    marginLeft: "5%"
+    marginLeft: "5%",
+    color: colors.light.black_color
   },
   third_input_box_outter_view: {
     flex: 0.22,
-    backgroundColor: "white",
+    backgroundColor: colors.light.white_color,
     borderWidth: 0.5
   },
   fourt_input_box_outter_view: {
     flex: 0.19,
-    backgroundColor: "white",
+    backgroundColor: colors.light.white_color,
     borderWidth: 0.5
   },
   last_fotter_outter_view: {
     flex: 0.07,
-    backgroundColor: "#12afe3",
+    backgroundColor: colors.light.dark_blue,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     paddingBottom: "4%",

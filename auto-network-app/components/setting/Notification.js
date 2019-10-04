@@ -10,7 +10,7 @@ import {
   Image
 } from "react-native";
 import Header from "../header/header";
-
+import colors from "../constants/Colors";
 export default class Notification extends React.Component {
   constructor() {
     super();
@@ -42,7 +42,7 @@ export default class Notification extends React.Component {
                 alignItems: "center",
                 flex: 0.4,
                 justifyContent: "space-between",
-                backgroundColor: "#269DF9"
+                backgroundColor: colors.light.blue_color
               }}
             >
               <View style={{ flex: 0.3 }}>
@@ -99,14 +99,15 @@ export default class Notification extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: colors.light.white_color
   },
   header: {
     flex: 0.22
   },
   headerText: {
     alignSelf: "center",
-    color: "#fff",
+    color: colors.light.white_color,
     fontSize: 25
   },
   notification_view: {
@@ -126,7 +127,8 @@ const styles = StyleSheet.create({
   broadcast_text_css: {
     fontSize: 20,
     textAlign: "left",
-    paddingLeft: "3%"
+    paddingLeft: "3%",
+    color: colors.light.black_color
   },
   receive_broadcast_btn_inner_view_3: {
     flex: 0.2,
@@ -140,11 +142,11 @@ const styles = StyleSheet.create({
   receive_broadcast_btn_inner_view_1: {
     width: "95%",
     height: "75%",
-    backgroundColor: "#fff",
+    backgroundColor: colors.light.white_color,
     borderRadius: 15,
     flexDirection: "row",
     borderWidth: 1,
-    shadowColor: "black",
+    shadowColor: colors.light.black_color,
     shadowOffset: {
       width: 0,
       height: 5
@@ -164,11 +166,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     paddingTop: "2%",
     marginBottom: "5%",
-    backgroundColor: "#fff",
+    backgroundColor: colors.light.white_color,
     borderRadius: 15,
     flexDirection: "row",
     borderWidth: 1,
-    shadowColor: "black",
+    shadowColor: colors.light.black_color,
     shadowOffset: {
       width: 0,
       height: 5

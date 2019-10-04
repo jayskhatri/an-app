@@ -14,6 +14,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
+import colors from "../constants/Colors";
 export default class Help extends React.Component {
   constructor() {
     super();
@@ -35,7 +36,7 @@ export default class Help extends React.Component {
                 alignItems: "center",
                 flex: 0.4,
                 justifyContent: "space-between",
-                backgroundColor: "#269DF9"
+                backgroundColor: colors.light.blue_color
               }}
             >
               <View style={{ flex: 0.3 }}>
@@ -63,7 +64,7 @@ export default class Help extends React.Component {
             </View>
           </View>
         </View>
-        <View style={{ flex: 0.78, backgroundColor: "#fff" }}>
+        <View style={{ flex: 0.78 }}>
           <TouchableOpacity
             onPress={this.faqHandleEvent}
             style={styles.btn_view}
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     alignSelf: "center",
-    color: "#fff",
+    color: colors.light.white_color,
     fontSize: 25
   },
   btn_view: {
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
     width: "100%",
     borderTopWidth: 0.5,
     // backgroundColor: "red",
-    borderTopColor: "#988c8c",
+    borderTopColor: colors.light.placeholder_text_Color,
     flexDirection: "row"
   },
   btn_inner_view_2: {
@@ -163,12 +164,13 @@ const styles = StyleSheet.create({
   },
   text_css: {
     textAlign: "left",
-    fontSize: 23
+    fontSize: 23,
+    color: colors.light.black_color
   },
   last_btn_view: {
     flex: 0.08,
     marginTop: "1%",
     borderBottomWidth: 0.5,
-    borderBottomColor: "#988c8c"
+    borderBottomColor: colors.light.placeholder_text_Color
   }
 });

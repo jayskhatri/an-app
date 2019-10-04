@@ -145,7 +145,7 @@ export default class Login extends React.Component {
                   flex: 0.4,
                   justifyContent: "center",
                   alignItems: "center",
-                  backgroundColor: colors.color.blue_color
+                  backgroundColor: colors.light.blue_color
                 }}
               >
                 <View>
@@ -163,7 +163,7 @@ export default class Login extends React.Component {
               <TextInput
                 style={styles.signInTextInputOne}
                 placeholder="Enter Email "
-                placeholderTextColor={colors.color.placeholder_text_Color}
+                placeholderTextColor={colors.light.placeholder_text_Color}
                 fontSize={16}
                 keyboardType="email-address"
                 // onSubmitEditing={Keyboard.dismiss}
@@ -176,7 +176,7 @@ export default class Login extends React.Component {
               <TextInput
                 style={styles.signInTextInputOne}
                 placeholder="Enter Password "
-                placeholderTextColor={colors.color.placeholder_text_Color}
+                placeholderTextColor={colors.light.placeholder_text_Color}
                 secureTextEntry
                 fontSize={16}
                 onChange={this.handleSetPassword}
@@ -199,7 +199,7 @@ export default class Login extends React.Component {
                   style={{
                     alignSelf: "center",
                     fontSize: 25,
-                    color: colors.color.white_color
+                    color: colors.light.white_color
                   }}
                 >
                   Go Auto
@@ -217,7 +217,7 @@ export default class Login extends React.Component {
               <TouchableOpacity>
                 <Text
                   style={{
-                    color: colors.color.blue_color,
+                    color: colors.light.blue_color,
                     alignSelf: "center"
                   }}
                 >
@@ -232,12 +232,12 @@ export default class Login extends React.Component {
                   alignSelf: "center"
                 }}
               >
-                <Text style={{ color: colors.color.black_color }}>
+                <Text style={{ color: colors.light.black_color }}>
                   {" "}
                   Not joined Yet ?{" "}
                 </Text>
                 <TouchableOpacity onPress={this.signUpEvent}>
-                  <Text style={{ color: colors.color.blue_color }}>
+                  <Text style={{ color: colors.light.blue_color }}>
                     {" "}
                     create Your account{" "}
                   </Text>
@@ -250,12 +250,12 @@ export default class Login extends React.Component {
                   alignSelf: "center"
                 }}
               >
-                <Text style={{ color: colors.color.black_color }}>
+                <Text style={{ color: colors.light.black_color }}>
                   {" "}
                   Know Our{" "}
                 </Text>
                 <TouchableOpacity>
-                  <Text style={{ color: colors.color.blue_color }}>
+                  <Text style={{ color: colors.light.blue_color }}>
                     {" "}
                     Privacy Policy and Terms & condition{" "}
                   </Text>
@@ -294,14 +294,14 @@ export default class Login extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.color.white_color
+    backgroundColor: colors.light.white_color
   },
   header: {
     flex: 0.22
   },
   headerText: {
     alignSelf: "center",
-    color: colors.color.white_color,
+    color: colors.light.white_color,
     fontSize: 25
   },
   signInView: {
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginTop: "4%",
     marginLeft: "15.5%",
-    color: colors.color.black_color
+    color: colors.light.black_color
   },
   outterLookOfInputBox: {
     flex: 0.35,
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
     marginTop: "1%",
     marginRight: "10%",
     borderRadius: 25,
-    borderColor: colors.color.black_color
+    borderColor: colors.light.black_color
   },
   outterLookOfSecondInputBox: {
     flex: 0.35,
@@ -330,7 +330,7 @@ const styles = StyleSheet.create({
     marginLeft: "10%",
     marginRight: "10%",
     borderRadius: 25,
-    borderColor: colors.color.black_color
+    borderColor: colors.light.black_color
   },
   signInTextInputOne: {
     flex: 1,
@@ -340,7 +340,7 @@ const styles = StyleSheet.create({
     marginBottom: "1.8%",
     marginRight: "3%",
     borderRadius: 15,
-    borderBottomColor: colors.color.placeholder_text_Color,
+    borderBottomColor: colors.light.placeholder_text_Color,
     borderBottomWidth: 1
   },
   linkSignUpView: {
@@ -358,7 +358,7 @@ const styles = StyleSheet.create({
     width: "70%",
     height: "30%",
     borderRadius: 25,
-    backgroundColor: colors.color.blue_color,
+    backgroundColor: colors.light.blue_color,
     alignItems: "center",
     justifyContent: "center"
   }

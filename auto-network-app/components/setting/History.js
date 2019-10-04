@@ -11,7 +11,7 @@ import {
 import StarRating from "react-native-star-rating";
 import Header from "../header/header";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
+import colors from "../constants/Colors";
 function Item({ title, from, to, date, time, fare, driver_name, starCount }) {
   //   function onStarRatingPress(rating) {
   //     this.setState({
@@ -141,7 +141,7 @@ function Item({ title, from, to, date, time, fare, driver_name, starCount }) {
           <Text
             style={{
               fontSize: 16,
-              color: "#fff"
+              color: colors.light.white_color
               // textAlignVertical: "center"
             }}
           >
@@ -159,7 +159,7 @@ function Item({ title, from, to, date, time, fare, driver_name, starCount }) {
           <Text
             style={{
               fontSize: 16,
-              color: "#474747",
+              color: colors.light.light_black,
               textAlignVertical: "center"
             }}
           >
@@ -178,7 +178,7 @@ function Item({ title, from, to, date, time, fare, driver_name, starCount }) {
           <Text
             style={{
               fontSize: 16,
-              color: "#fff"
+              color: colors.light.white_color
               // textAlignVertical: "center"
             }}
           >
@@ -196,7 +196,7 @@ function Item({ title, from, to, date, time, fare, driver_name, starCount }) {
           <Text
             style={{
               fontSize: 16,
-              color: "#474747",
+              color: colors.light.light_black,
               textAlignVertical: "center"
             }}
           >
@@ -215,7 +215,7 @@ function Item({ title, from, to, date, time, fare, driver_name, starCount }) {
           <Text
             style={{
               fontSize: 16,
-              color: "#fff"
+              color: colors.light.white_color
               // textAlignVertical: "center"
             }}
           >
@@ -232,8 +232,8 @@ function Item({ title, from, to, date, time, fare, driver_name, starCount }) {
         >
           <StarRating
             starSize={25}
-            emptyStarColor="black"
-            fullStarColor="yellow"
+            emptyStarColor={colors.light.black_color}
+            fullStarColor={colors.light.yellow_color}
             disabled={false}
             maxStars={5}
             rating={starCount}
@@ -311,7 +311,7 @@ export default class History extends React.Component {
                 alignItems: "center",
                 flex: 0.4,
                 justifyContent: "space-between",
-                backgroundColor: "#269DF9"
+                backgroundColor: colors.light.blue_color
               }}
             >
               <View style={{ flex: 0.3 }}>
@@ -372,13 +372,11 @@ const styles = StyleSheet.create({
   },
   headerText: {
     alignSelf: "center",
-    color: "#fff",
+    color: colors.light.white_color,
     fontSize: 25
   },
   item: {
     flex: 1,
-
-    backgroundColor: "#f9c2ff",
     height: "100%",
     padding: "2%",
     marginVertical: "2%",
@@ -388,7 +386,7 @@ const styles = StyleSheet.create({
     fontSize: 32
   },
   CardView: {
-    backgroundColor: "lightblue",
+    backgroundColor: colors.light.light_blue,
     height: 250,
     padding: "2%",
     width: "95%",
@@ -399,7 +397,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: "2%",
     borderRadius: 25,
-    shadowColor: "lightblue",
+    shadowColor: colors.light.light_blue,
     shadowOffset: {
       width: 0,
       height: 4
@@ -436,7 +434,7 @@ const styles = StyleSheet.create({
     height: "100%",
     marginTop: "4%",
     borderBottomWidth: 1,
-    borderBottomColor: "#fff",
+    borderBottomColor: colors.light.white_color,
     alignItems: "center",
     justifyContent: "center"
   },
@@ -447,7 +445,7 @@ const styles = StyleSheet.create({
     height: "100%",
     marginTop: "2%",
     borderBottomWidth: 1,
-    borderBottomColor: "#fff",
+    borderBottomColor: colors.light.white_color,
     alignItems: "center",
     justifyContent: "center"
   },
@@ -458,14 +456,14 @@ const styles = StyleSheet.create({
     height: "100%",
     marginTop: "2%",
     borderBottomWidth: 1,
-    borderBottomColor: "#fff",
+    borderBottomColor: colors.light.white_color,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: "1%"
   },
   lableText: {
     fontSize: 10,
-    color: "#fff",
+    color: colors.light.white_color,
     alignSelf: "center",
     position: "absolute",
     left: 0,
@@ -475,7 +473,7 @@ const styles = StyleSheet.create({
     flex: 0.7,
     width: "100%",
     height: "100%",
-    borderBottomColor: "#fff",
+    borderBottomColor: colors.light.white_color,
     borderBottomWidth: 1,
     flexDirection: "row"
   },
@@ -490,7 +488,7 @@ const styles = StyleSheet.create({
   text_Of_Details: {
     fontSize: 16,
     alignSelf: "center",
-    color: "#474747",
+    color: colors.light.light_black,
     position: "relative",
     bottom: "5%"
   },
@@ -503,7 +501,7 @@ const styles = StyleSheet.create({
     left: 0
   },
   date_time_text_css: {
-    color: "#474747",
+    color: colors.light.light_black,
     fontSize: 16,
     position: "absolute",
     bottom: "10%"

@@ -15,7 +15,7 @@ import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Header from "../header/header";
 import { Modal } from "react-native-paper";
-
+import colors from "../constants/Colors";
 export default class driver_page_one extends React.Component {
   constructor() {
     super();
@@ -143,7 +143,7 @@ export default class driver_page_one extends React.Component {
               {/* <LoginHeader /> */}
               <SafeAreaView
                 style={{
-                  backgroundColor: "#269DF9",
+                  backgroundColor: colors.light.blue_color,
                   paddingTop: "2%"
                 }}
               >

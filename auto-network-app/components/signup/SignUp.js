@@ -97,7 +97,7 @@ export default class SignUp extends React.Component {
                   alignItems: "center",
                   flex: 0.4,
                   justifyContent: "space-between",
-                  backgroundColor: colors.color.blue_color
+                  backgroundColor: colors.light.blue_color
                 }}
               >
                 <View style={{ flex: 0.3 }}>
@@ -131,7 +131,7 @@ export default class SignUp extends React.Component {
               <TextInput
                 style={styles.signInTextInputOne}
                 placeholder="Enter Email "
-                placeholderTextColor={colors.color.placeholder_text_Color}
+                placeholderTextColor={colors.light.placeholder_text_Color}
                 fontSize={16}
                 onChange={this.handleSetEmail}
               />
@@ -141,7 +141,7 @@ export default class SignUp extends React.Component {
               <TextInput
                 style={styles.signInTextInputOne}
                 placeholder="Enter Password "
-                placeholderTextColor={colors.color.placeholder_text_Color}
+                placeholderTextColor={colors.light.placeholder_text_Color}
                 secureTextEntry
                 fontSize={16}
                 onChange={this.handleSetPassword}
@@ -152,7 +152,7 @@ export default class SignUp extends React.Component {
               <TextInput
                 style={styles.signInTextInputOne}
                 placeholder="Enter Password "
-                placeholderTextColor={colors.color.placeholder_text_Color}
+                placeholderTextColor={colors.light.placeholder_text_Color}
                 secureTextEntry
                 fontSize={16}
                 onChange={this.handleConfirmPassword}
@@ -175,7 +175,7 @@ export default class SignUp extends React.Component {
                   style={{
                     alignSelf: "center",
                     fontSize: 25,
-                    color: colors.color.white_color
+                    color: colors.light.white_color
                   }}
                 >
                   Go Auto
@@ -197,12 +197,12 @@ export default class SignUp extends React.Component {
                   alignSelf: "center"
                 }}
               >
-                <Text style={{ color: colors.color.black_color }}>
+                <Text style={{ color: colors.light.black_color }}>
                   {" "}
                   Know Our{" "}
                 </Text>
                 <TouchableOpacity>
-                  <Text style={{ color: colors.color.blue_color }}>
+                  <Text style={{ color: colors.light.blue_color }}>
                     {" "}
                     Privacy Policy and Terms & condition{" "}
                   </Text>
@@ -241,14 +241,14 @@ export default class SignUp extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.color.white_color
+    backgroundColor: colors.light.white_color
   },
   header: {
     flex: 0.2
   },
   headerText: {
     alignSelf: "center",
-    color: colors.color.white_color,
+    color: colors.light.white_color,
     fontSize: 25
   },
   signInView: {
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginTop: "4%",
     marginLeft: "15.5%",
-    color: colors.color.black_color
+    color: colors.light.black_color
   },
   outterLookOfInputBox: {
     flex: 0.35,
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     marginTop: "1%",
     marginRight: "10%",
     borderRadius: 25,
-    borderColor: colors.color.placeholder_text_Color
+    borderColor: colors.light.placeholder_text_Color
   },
   outterLookOfSecondInputBox: {
     flex: 0.35,
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     marginLeft: "10%",
     marginRight: "10%",
     borderRadius: 25,
-    borderColor: colors.color.placeholder_text_Color
+    borderColor: colors.light.placeholder_text_Color
   },
   signInTextInputOne: {
     flex: 1,
@@ -309,7 +309,7 @@ const styles = StyleSheet.create({
     width: "70%",
     height: "30%",
     borderRadius: 25,
-    backgroundColor: colors.color.blue_color,
+    backgroundColor: colors.light.blue_color,
     alignItems: "center",
     justifyContent: "center"
   }

@@ -19,6 +19,7 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
+import colors from "../constants/Colors";
 var options = [{ label: "Yes", value: 0 }, { label: "No", value: 1 }];
 export default class profilePageFourth extends React.Component {
   constructor(props) {
@@ -122,7 +123,7 @@ export default class profilePageFourth extends React.Component {
                 alignItems: "center",
                 flex: 0.4,
                 justifyContent: "space-between",
-                backgroundColor: "#269DF9"
+                backgroundColor: colors.light.blue_color
               }}
             >
               <View style={{ flex: 0.3 }}>
@@ -294,7 +295,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     alignSelf: "center",
-    color: "#fff",
+    color: colors.light.white_color,
     fontSize: 25
   },
   logoView: {
@@ -310,7 +311,7 @@ const styles = StyleSheet.create({
   },
   signUpView: {
     flex: 0.4,
-    backgroundColor: "#12afe3",
+    backgroundColor: colors.light.dark_blue,
     height: "100%",
     width: wp("92%"),
     marginLeft: "3%",
@@ -325,7 +326,7 @@ const styles = StyleSheet.create({
   },
   detail_box_header_text_css: {
     fontSize: 25,
-    color: "white"
+    color: colors.light.white_color
   },
   profile_icon_css: {
     height: 120,
@@ -336,14 +337,14 @@ const styles = StyleSheet.create({
   },
   second_view_of_detali_box: {
     flex: 3,
-    backgroundColor: "#fff",
+    backgroundColor: colors.light.white_color,
     margin: 20,
     borderRadius: 20
   },
   second_view_of_detali_box_inner_text_css: {
     alignSelf: "center",
     fontSize: 20,
-    color: "#c9c8c8",
+    color: colors.light.placeholder_text_Color,
     position: "absolute",
     bottom: "5%"
   },
@@ -358,7 +359,7 @@ const styles = StyleSheet.create({
   },
   skip_next_btn_text_css: {
     fontSize: 20,
-    color: "#fff"
+    color: colors.light.white_color
   },
   skip_btn_css: {
     marginLeft: "3%",

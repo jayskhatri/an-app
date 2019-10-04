@@ -29,7 +29,7 @@ import * as Permissions from "expo-permissions";
 import DatePicker from 'react-native-datepicker'
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-navigation";
-// import console = require("console");s
+import colors from '../constants/Colors';
 var options=[
     {label:"Male",value: 0},
     {label:"Female",value: 1},
@@ -147,7 +147,7 @@ export default class editProfile extends React.Component {
   render() {
     return (
       // <View style={{flex:1}}>
-       <DismissKeyboard>
+      //  <DismissKeyboard>
           <View style={styles.container}>
           <View style={styles.header}>
             <View style={{ flex: 1 }}>
@@ -157,7 +157,7 @@ export default class editProfile extends React.Component {
                   alignItems: "center",
                   flex: 0.4,
                   justifyContent: "space-between",
-                  backgroundColor: "#269DF9"
+                  backgroundColor: colors.light.blue_color
                 }}
               >
                 <View style={{ flex: 0.3 }}>
@@ -199,7 +199,7 @@ export default class editProfile extends React.Component {
                               width:200,
                               borderRadius:100,
                               borderWidth:3,
-                              borderColor:"black",
+                              borderColor:colors.light.black_color,
                               //  resizeMode:"contain"
                              }}   
                            source={require("../../assets/pic.jpg")}
@@ -227,7 +227,7 @@ export default class editProfile extends React.Component {
                       </View>
                       <View style={{flex:0.2}}>
                       <View style={{flexDirection:"column",marginTop:"4%",alignItems:"center"}}>
-                      <Text style={{fontSize:28}}>Sukhdev Prasad</Text>
+                      <Text style={{fontSize:28 , color:colors.light.black_color}}>Sukhdev Prasad</Text>
                             <View style={{flexDirection:"row"}}>
                                 <Image 
                                style={{
@@ -239,19 +239,19 @@ export default class editProfile extends React.Component {
                                         resizeMode:"contain"
                                          }} 
                                      source={require('../../assets/varifiedlogo.png')} />
-                                 <Text style={{fontSize:15}}> The Verified Driver </Text>
+                                 <Text style={{fontSize:15 , color:colors.light.black_color}}> The Verified Driver </Text>
                             </View>
                       </View>
                       </View>
                   </View>
                   <View style={{flex:0.36,marginTop:"6%",width:"100%"}}>
                        <View style={{flex:0.26,width:"100%"}}>
-                                <View style={{flex:0.10,borderTopWidth:0.5,borderBottomColor:"#988c8c"}}>
-                                 <Text style={{fontSize:20,marginLeft:"2%",marginTop:"3%"}}>Personal Information</Text>
+                                <View style={{flex:0.10,borderTopWidth:0.5,borderBottomColor:colors.light.placeholder_text_Color}}>
+                                 <Text style={{fontSize:20,marginLeft:"2%",marginTop:"3%",color:colors.light.black_color}}>Personal Information</Text>
                               </View>
-                                <View style={{flex:0.13,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
+                                <View style={{flex:0.13,borderBottomWidth:0.5,borderBottomColor:colors.light.placeholder_text_Color}}>
                                  <View style={{flex:0.40}}> 
-                                   <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>First Name</Text>
+                                   <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%',color:colors.light.black_color}}>First Name</Text>
                                  </View>
                                  <View style={{flex:0.60}}>
                                        <TextInput
@@ -262,9 +262,9 @@ export default class editProfile extends React.Component {
                                         /> 
                                   </View>
                                 </View>  
-                                <View style={{flex:0.13,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
+                                <View style={{flex:0.13,borderBottomWidth:0.5,borderBottomColor:colors.light.placeholder_text_Color}}>
                                      <View style={{flex:0.40}}> 
-                                              <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Last Name</Text>
+                                              <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%',color:colors.light.black_color}}>Last Name</Text>
                                         </View>
                                      <View style={{flex:0.60}}>
                                                <TextInput
@@ -275,11 +275,12 @@ export default class editProfile extends React.Component {
                                                 /> 
                                       </View>
                                 </View> 
-                                <View style={{flex:0.14,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
+                                <View style={{flex:0.14,borderBottomWidth:0.5,borderBottomColor:colors.light.placeholder_text_Color}}>
                                      <View style={{flex:0.40}}> 
-                                              <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Organisation Email Id</Text>
+                                              <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%',color:colors.light.black_color}}>Organisation Email Id</Text>
                                         </View>
                                      <View style={{flex:0.60}}>
+
                                                <TextInput
                                                       placeholder="Enter Your Organisation Email Id"
                                                       onChange = {this.changeOrganisationEmailIdEvent}
@@ -288,9 +289,9 @@ export default class editProfile extends React.Component {
                                                 /> 
                                       </View>
                                 </View>
-                                <View style={{flex:0.25,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
+                                <View style={{flex:0.25,borderBottomWidth:0.5,borderBottomColor:colors.light.placeholder_text_Color}}>
                                        <View style={{flex:0.40}}> 
-                                              <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Birth Date</Text>
+                                              <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%',color:colors.light.black_color}}>Birth Date</Text>
                                        </View>
                                        <View style={{flex:0.60}}> 
                                                <DatePicker
@@ -322,9 +323,9 @@ export default class editProfile extends React.Component {
                                                  />
                                            </View> 
                                    </View>
-                                <View style={{flex:0.25,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
+                                <View style={{flex:0.25,borderBottomWidth:0.5,borderBottomColor:colors.light.placeholder_text_Color}}>
                                           <View style={{flex:0.40}}> 
-                                              <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Gender</Text>
+                                              <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%',color:colors.light.black_color}}>Gender</Text>
                                           </View>
                                           <View style={{flex:0.60}}>
                                               <RadioForm
@@ -338,23 +339,23 @@ export default class editProfile extends React.Component {
                                                       console.log(this.state.gender);
                                                   }}
                                                   buttonSize={7}  
-                                                  buttonColor={'#000000'}
+                                                  buttonColor={colors.light.black_color}
                                                   labelStyle={{fontSize:16,marginRight:'7%'}}
                                                   formHorizontal={true}
                                                   buttonOuterSize={21}
-                                                  selectedButtonColor={'#43b9e0'}
-                                                  selectedLabelColor={'#0080ab'}
+                                                  selectedButtonColor={colors.light.blue_color}
+                                                  selectedLabelColor={colors.light.blue_color}
                                               />
                                           </View>
                                     </View>
                        </View>
                        <View style={{flex:0.26,width:"100%"}}>
-                             <View style={{flex:0.10,borderTopWidth:0.5,borderTopColor:"#988c8c",borderBottomColor:"#988c8c",borderBottomWidth:0.5}}>
-                                 <Text style={{fontSize:20,marginLeft:"2%",marginTop:"2%",marginBottom:"2%"}}>Required Information</Text>
+                             <View style={{flex:0.10,borderTopWidth:0.5,borderTopColor:colors.light.placeholder_text_Color,borderBottomColor:colors.light.placeholder_text_Color,borderBottomWidth:0.5}}>
+                                 <Text style={{fontSize:20,marginLeft:"2%",marginTop:"2%",marginBottom:"2%",color:colors.light.black_color}}>Required Information</Text>
                               </View>
-                              <View style={{  flex:0.30,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
+                              <View style={{  flex:0.30,borderBottomWidth:0.5,borderBottomColor:colors.light.placeholder_text_Color}}>
                                    <View style={{flex:0.40}}> 
-                                        <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Aadhar No.</Text>
+                                        <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%',color:colors.light.black_color}}>Aadhar No.</Text>
                                    </View>
                                    <View style={{flex:0.60}}>
                                         <TextInput
@@ -365,9 +366,9 @@ export default class editProfile extends React.Component {
                                          /> 
                                   </View>
                                </View>
-                               <View style={{flex:0.30,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
+                               <View style={{flex:0.30}}>
                                       <View style={{flex:0.40}}> 
-                                          <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Licence No.</Text>
+                                          <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%',color:colors.light.black_color}}>Licence No.</Text>
                                       </View>
                                       <View style={{flex:0.60}}>
                                            <TextInput
@@ -378,9 +379,11 @@ export default class editProfile extends React.Component {
                                            /> 
                                        </View>
                                  </View>
-                                 <View style={{flex:0.30,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
+                                 <View style={{flex:0.30,
+                                 borderTopWidth:0.5,borderTopColor:colors.light.placeholder_text_Color,
+                                 borderBottomWidth:0.5,borderBottomColor:colors.light.placeholder_text_Color}}>
                                         <View style={{flex:0.40}}> 
-                                              <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Do You Have PUC?</Text>
+                                              <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%',color:colors.light.black_color}}>Do You Have PUC?</Text>
                                         </View>
                                         <View style={{flex:0.60}}>
                                               <RadioForm
@@ -393,12 +396,12 @@ export default class editProfile extends React.Component {
                                                           })
                                                         }}
                                                           buttonSize={7}
-                                                          buttonColor={'#000000'}
+                                                          buttonColor={colors.light.black_color}
                                                           labelStyle={{fontSize:16,marginRight:"6%"}}
                                                           formHorizontal={true}
                                                           buttonOuterSize={21}
-                                                          selectedButtonColor={'#43b9e0'}
-                                                          selectedLabelColor={'#0080ab'}
+                                                          selectedButtonColor={colors.light.blue_color}
+                                                          selectedLabelColor={colors.light.blue_color}
                                               />
                                           </View>
                                    </View>
@@ -406,12 +409,12 @@ export default class editProfile extends React.Component {
                                    
                        </View>  
                        <View style={{flex:0.26,width:"100%",marginBottom:"5%"}}>
-                              <View style={{flex:0.10,borderTopWidth:0.5,borderBottomColor:"#988c8c",borderTopColor:"#988c8c",borderBottomWidth:0.5}}>
-                                 <Text style={{fontSize:20,marginLeft:"2%",marginTop:"2%",marginBottom:"2%"}}>Other Details</Text>
+                              <View style={{flex:0.10,borderBottomColor:colors.light.placeholder_text_Color,borderBottomWidth:0.5}}>
+                                 <Text style={{fontSize:20,marginLeft:"2%",marginTop:"2%",marginBottom:"2%",color:colors.light.black_color}}>Other Details</Text>
                               </View>
-                              <View style={{  flex:0.30,backgroundColor:"white",borderBottomColor:"#988c8c",borderBottomWidth:0.5}}>
+                              <View style={{  flex:0.30,borderBottomColor:colors.light.placeholder_text_Color,borderBottomWidth:0.5}}>
                                    <View style={{flex:0.40}}> 
-                                        <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Auto No.</Text>
+                                        <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%',color:colors.light.black_color}}>Auto No.</Text>
                                    </View>
                                    <View style={{flex:0.60}}>
                                         <TextInput
@@ -422,9 +425,9 @@ export default class editProfile extends React.Component {
                                          /> 
                                   </View>
                                </View>
-                               <View style={{flex:0.20,backgroundColor:"white",borderBottomColor:"#988c8c",borderBottomWidth:0.5}}>
+                               <View style={{flex:0.20,borderBottomColor:colors.light.placeholder_text_Color,borderBottomWidth:0.5}}>
                                         <View style={{flex:0.40}}> 
-                                            <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Do you have your own vehivle ?</Text>
+                                            <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%',color:colors.light.black_color}}>Do you have your own vehivle ?</Text>
                                         </View>
                                         <View style={{flex:0.60}}>
                                            <RadioForm
@@ -437,18 +440,18 @@ export default class editProfile extends React.Component {
                                                     });
                                                   }}
                                                   buttonSize={7}
-                                                  buttonColor={'#000000'}
+                                                  buttonColor={colors.light.black_color}
                                                   labelStyle={{fontSize:16,marginRight:"6%"}}
                                                   formHorizontal={true}
                                                   buttonOuterSize={21}
-                                                  selectedButtonColor={'#43b9e0'}
-                                                  selectedLabelColor={'#0080ab'}
+                                                  selectedButtonColor={colors.light.blue_color}
+                                                  selectedLabelColor={colors.light.blue_color}
                                                   />
                                          </View>
                                  </View>
-                                 <View style={{flex:0.22,backgroundColor:"white",borderBottomColor:"#988c8c",borderWidth:0.5}}>
+                                 <View style={{flex:0.22,borderBottomColor:colors.light.placeholder_text_Color,borderWidth:0.5}}>
                                   <View style={{flex:0.40}}> 
-                                          <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Owner Name</Text>
+                                          <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%',color:colors.light.black_color}}>Owner Name</Text>
                                       </View>
                                       <View style={{flex:0.60}}> 
                                           <TextInput
@@ -459,9 +462,9 @@ export default class editProfile extends React.Component {
                                           /> 
                                       </View> 
                                     </View>
-                                    <View style={{flex:0.19,backgroundColor:"white",borderBottomColor:"#988c8c",borderWidth:0.5}}>
+                                    <View style={{flex:0.19,borderBottomColor:colors.light.placeholder_text_Color,borderWidth:0.5}}>
                                     < View style={{flex:0.40}}> 
-                                          <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Owner Contact No.</Text>
+                                          <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%',color:colors.light.black_color}}>Owner Contact No.</Text>
                                       </View>
                                       <View style={{flex:0.60}}>
                                       <TextInput
@@ -475,18 +478,19 @@ export default class editProfile extends React.Component {
                        </View>    
                        <View style={{flex:0.22,width:"100%",alignItems:"center"}}>
                                <View style={{flex:1,alignItems:"center",height:"40%",width:"80%",marginBottom:"8%",justifyContent:"center"}}>
-                               <TouchableOpacity style={{borderRadius:50,height:"50%",marginBottom:"3%",width:"50%",backgroundColor:"#269DF9",shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 5
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
+                               <TouchableOpacity style={{borderRadius:50,height:"50%",marginBottom:"3%",width:"50%",backgroundColor:colors.light.blue_color,
+                               shadowColor: colors.light.black_color,
+                                                shadowOffset: {
+                                                  width: 0,
+                                                  height: 5
+                                                },
+                                                shadowOpacity: 0.25,
+                                                shadowRadius: 3.84,
 
-              elevation: 2}}
+                                                elevation: 2}}
                                                  onPress = {this.saveEvent}
                                >
-                                      <Text style={{fontSize:35,marginBottom:"7%",alignSelf:"center",letterSpacing:1,color:"#fff"}}>Save</Text>
+                                      <Text style={{fontSize:35,marginBottom:"7%",alignSelf:"center",letterSpacing:1,color:colors.light.white_color}}>Save</Text>
                                </TouchableOpacity>                     
                                </View>
                        </View>      
@@ -495,11 +499,11 @@ export default class editProfile extends React.Component {
             ) :
             (
               <View style={styles.ActivityIndicator}>
-                <ActivityIndicator  size="large"   color="#269DF9" />
+                <ActivityIndicator  size="large"   color={colors.light.blue_color} />
               </View>
             )}
         </View>
-       </DismissKeyboard>
+      //  </DismissKeyboard>
      
     );
   }
@@ -515,7 +519,8 @@ const styles = StyleSheet.create({
     justifyContent:"center"
   },
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor:colors.light.white_color
   },
   waveView: {
     flex: 0.24
@@ -534,7 +539,8 @@ const styles = StyleSheet.create({
   },
   headerText: {
     alignSelf: "center",
-    color: "#fff",
-    fontSize: 25
+    color: colors.light.white_color,
+    fontSize: 25,
+
   },
 });

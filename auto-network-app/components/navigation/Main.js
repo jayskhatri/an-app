@@ -57,20 +57,21 @@ const styles = StyleSheet.create({
 const MainNavigation = createStackNavigator(
   // const MainNavigation = createAnimatedSwitchNavigator(
   {
-    checkUserStatus: {
-      screen: checkUserStatus
+    ProfilePageFourth: {
+      screen: ProfilePageFourth
     },
     ProfilePageOne: {
       screen: ProfilePageOne
     },
+    checkUserStatus: {
+      screen: checkUserStatus
+    },
+
     HomeScreen: {
       screen: HomeScreen
     },
     driver_page_one: {
       screen: driver_page_one
-    },
-    ProfilePageOne: {
-      screen: ProfilePageOne
     },
 
     mainScreen: {
