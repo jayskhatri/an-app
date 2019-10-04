@@ -26,21 +26,13 @@ var options=[
     {label:"Male",value: 0},
     {label:"Female",value: 1},
     {label:"Other",value: 2}
-  ];
-  var optionsForAutoPuc=[
-    {label:"Yes",value:0},
-    {label:"No",value:1},
-  ];
-  var optionsForOwnAuto=[
-    {label:"Yes",value:0},
-    {label:"No",value:1},
-  ];
+];
 export default class editProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       active: 0,
-      gender:0,
+      gender:null,
       has_puc:0,
       own_Auto:0,
       is_loaded:false,
@@ -92,6 +84,7 @@ export default class editProfile extends React.Component {
           is_loaded:true,
           old_values: null,
         });
+        console.log("gender: ",this.state.gender);
       }
     });
     this.setState({is_loaded:true});
@@ -135,7 +128,7 @@ export default class editProfile extends React.Component {
     });
 
     let user = await firebase.auth().currentUser;
-    var personalDetailsRef = firebase.database().ref('drivers/'+user.uid+'/personal_details');
+    var personalDetailsRef = firebase.database().ref('Passengers/'+user.uid+'/personal_details');
 
     personalDetailsRef.update({
       first_name: this.state.firstName,

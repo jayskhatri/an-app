@@ -8,9 +8,9 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import firebase from 'firebase';
 import DatePicker from 'react-native-datepicker';
 var options=[
-  {label:"Male",value: 111},
-  {label:"Female",value: 112},
-  {label:"Other",value: 113}
+  {label:"Male",value: 0},
+  {label:"Female",value: 1},
+  {label:"Other",value: 2}
 ];
 export default  class profilePageOne extends React.Component {
     constructor(props) {
@@ -20,7 +20,7 @@ export default  class profilePageOne extends React.Component {
         first_name: '',
         last_name: '',
         birth_date: '',
-        gender: 111,
+        gender: null,
       }
       this.nextEvent = this.nextEvent.bind(this);
     }
