@@ -4,11 +4,8 @@ import {
   Text,
   View,
   SafeAreaView,
-  Platform,
   Image,
-  TextInput,
   TouchableOpacity,
-  Alert
 } from "react-native";
 import firebase from 'firebase';
 import Header from "../header/header";
@@ -53,6 +50,7 @@ export default class profilePageFourth extends React.Component {
       last_name: navigation.getParam('last_name'),
       birth_date: navigation.getParam('birth_date'),
       gender: navigation.getParam('gender'),
+      profile_pic_url: '',
       // aadhar_number: navigation.getParam('aadhar_number'),
       // license_number: navigation.getParam('license_number'),
       // has_puc: navigation.getParam('has_puc'),
@@ -250,18 +248,23 @@ async function uploadImageAsync(uri) {
   const ref = firebase
     .storage()
     .ref("/Images/")
-    .child('Passengers/').child('pic2.jpg');
+    .child('Passengers/')
+    .child(user.uid);
   const snapshot = await ref.put(blob);
+  console.log("look here awaited snapshot: ", snapshot);
 
   // We're done with the blob, close and release it
   blob.close();
 
   let downloadurl = await snapshot.ref.getDownloadURL();
   console.log(downloadurl);
-  firebase.database().ref('Passengers/' + user.uid + '/personal_details/img').set({
-    profile_pic_url : downloadurl,
-  });
-  this.setState({downloadUrl : downloadurl});
+  firebase
+    .database()
+    .ref("Passengers/" + user.uid + "/personal_details/")
+    .update({
+      profile_pic_url: downloadurl
+    });
+  this.setState({ downloadUrl: downloadurl });
 }
 
 const styles = StyleSheet.create({

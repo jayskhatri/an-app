@@ -33,7 +33,7 @@ export default class checkUserStatus extends React.Component {
                   }
                   else{
                     console.log("Login Again");
-                    this.props.navigation.navigate("Login");
+                    this.props.navigation.navigate("ProfilePageOne", {user: user});
                   }
                 }
               },function(err){

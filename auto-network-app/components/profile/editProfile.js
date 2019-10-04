@@ -11,23 +11,17 @@ import {
   Platform,
   TouchableOpacity
 } from "react-native";
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel
-} from "react-native-simple-radio-button";
+import RadioForm from "react-native-simple-radio-button";
 
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
-import * as ImagePicker from "expo-image-picker";
-import Constants from "expo-constants";
-import * as Permissions from "expo-permissions";
-import DatePicker from 'react-native-datepicker'
+import DatePicker from 'react-native-datepicker';
+import firebase from 'firebase';
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-navigation";
-// import console = require("console");s
+
 var options=[
     {label:"Male",value: 0},
     {label:"Female",value: 1},
@@ -49,7 +43,7 @@ export default class editProfile extends React.Component {
       gender:0,
       has_puc:0,
       own_Auto:0,
-      load:false,
+      is_loaded:false,
       image: null,
       isPicLoaded: true,
       birthdate:"",
@@ -71,6 +65,36 @@ export default class editProfile extends React.Component {
     this.changeownerNameEvent = this.changeownerNameEvent.bind(this);
     this.changeownerContactNumberEvent = this.changeownerContactNumberEvent.bind(this);
     this.saveEvent = this.saveEvent.bind(this);
+  }
+  async componentWillMount(){
+    this.setState({is_loaded:false});
+
+    console.log("component will mount edit profile");
+    let user = await firebase.auth().currentUser;
+    var userRef = firebase.database().ref('Passengers/'+user.uid);
+
+    var personal_details = null;
+
+    userRef.once('value').then((snapshot)=>{
+      if(snapshot!=null){
+        
+        personal_details = (snapshot.val() && snapshot.val().personal_details);
+
+        this.setState({
+          gender:personal_details.gender,
+          is_loaded:false,
+          image: personal_details.profile_pic_url,
+          isPicLoaded: true,
+          birthdate:personal_details.birth_date,
+          firstName:personal_details.first_name,
+          lastName:personal_details.last_name,
+          profile_pic_url : personal_details.profile_pic_url,
+          is_loaded:true,
+          old_values: null,
+        });
+      }
+    });
+    this.setState({is_loaded:true});
   }
   editPhotoEvent(e){
     this.props.navigation.navigate("ProfilePageFourth");
@@ -103,33 +127,51 @@ export default class editProfile extends React.Component {
     const temp = e.nativeEvent.text;
     this.setState({ownerContactNumber:temp});
   }
-  componentWillMount(){
-    console.log("load code");
-    // write a code for fatching data of user from db
-    this.setState({load:true});
+
+  async updateDetails(){
+
+    this.setState({
+      is_loaded: false,
+    });
+
+    let user = await firebase.auth().currentUser;
+    var personalDetailsRef = firebase.database().ref('drivers/'+user.uid+'/personal_details');
+
+    personalDetailsRef.update({
+      first_name: this.state.firstName,
+      email_id: user.email,
+      last_name: this.state.lastName,
+      birth_date: this.state.birthdate,
+      gender: this.state.gender,
+      has_profile_completed: true,
+    });
+
+    Alert.alert("Successfully Data Saved");
+
+    this.setState({
+      is_loaded: true,
+    });
   }
+
   saveEvent(e){
-    console.log("F name : ",this.state.firstName);
-    console.log("L name : ",this.state.lastName);
-    console.log("date : ",this.state.birthdate);
-    console.log("gender : ",this.state.gender);
-    console.log("Aadhar no : ",this.state.aadharNumber);
-    console.log("licence no : ",this.state.licenceNumber);
-    console.log("PUC : ",this.state.has_puc);
-    console.log("Auto no : ",this.state.autoNumber);
-    console.log("Own vehicle : ",this.state.own_Auto);
-    console.log("owner Name : ",this.state.ownerName);
-    console.log("owner contact number : ",this.state.ownerContactNumber);
-
-    // write a code for update perticuler user data
-
-    Alert.alert(' Successfully Save ');
+    // Works on both iOS and Android
+    Alert.alert(
+      'Do you want to update the changes?',
+      '',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => this.updateDetails()},
+      ],
+      {cancelable: false},
+    );
 
   }
   render() {
-    let { image } = this.state;
-    
-    
+      
     return (
       // <View style={{flex:1}}>
        
@@ -140,11 +182,12 @@ export default class editProfile extends React.Component {
                 <Header />
               </SafeAreaView>
           </View>
-          {this.state.load ? 
+          {this.state.is_loaded ? 
             (
           <ScrollView style={styles.userInfo}>
                   <View  style={{flex:0.64,width:"100%"}}>
-                        <Image
+                  { this.state.profile_pic_url ? 
+                    <Image
                           style={{
                                alignSelf:"center",
                               //  height:Platform.OS === 'ios' ? hp('22%') : hp('20.5%'), 
@@ -160,8 +203,29 @@ export default class editProfile extends React.Component {
                               borderColor:"black",
                               //  resizeMode:"contain"
                              }}   
-                           source={require("../../assets/pic.jpg")}
-                          />
+                           source={{uri: this.state.profile_pic_url}}  
+                        />
+                       :  
+                       <Image
+                          style={{
+                               alignSelf:"center",
+                              //  height:Platform.OS === 'ios' ? hp('22%') : hp('20.5%'), 
+                              //  width:Platform.OS === 'ios' ? wp('47%') : wp('34%') ,
+                              height:200,
+                              width:200,
+                                //  marginLeft:"5%",
+                               //  marginTop:Platform.OS === 'ios' ? "-20%" : "-16%",
+                  
+                              // borderRadius: Platform.OS === 'ios' ? 95 : 100,
+                              borderRadius:100,
+                              borderWidth:3,
+                              borderColor:"black",
+                              //  resizeMode:"contain"
+                             }}   
+                             source={require("../../assets/pic.jpg")}
+                        />
+                        }
+
                          <TouchableOpacity onPress={this.editPhotoEvent}> 
                           <Image
                               style={{
@@ -176,7 +240,7 @@ export default class editProfile extends React.Component {
                           />
                          </TouchableOpacity> 
                       <View style={{flexDirection:"column",marginTop:"4%",alignItems:"center"}}>
-                      <Text style={{fontSize:28}}>Sukhdev Prasad</Text>
+                      <Text style={{fontSize:28}}>{this.state.firstName + " " + this.state.lastName}</Text>
                             <View style={{flexDirection:"row"}}>
                                 <Image 
                                style={{
@@ -285,131 +349,6 @@ export default class editProfile extends React.Component {
                                           </View>
                                     </View>
                        </View>
-                       <View style={{flex:0.26,width:"100%"}}>
-                             <View style={{flex:0.10,borderTopWidth:0.5,borderTopColor:"#988c8c",borderBottomColor:"#988c8c",borderBottomWidth:0.5}}>
-                                 <Text style={{fontSize:20,marginLeft:"2%",marginTop:"2%",marginBottom:"2%"}}>Required Information</Text>
-                              </View>
-                              <View style={{  flex:0.30,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
-                                   <View style={{flex:0.40}}> 
-                                        <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Aadhar No.</Text>
-                                   </View>
-                                   <View style={{flex:0.60}}>
-                                        <TextInput
-                                              placeholder="Enter Your Aadhar No."
-                                              onChange = {this.changeaadharNumberEvent}
-                                              value = {this.state.aadharNumber}
-                                               style={{borderBottomWidth:1,height:35,marginBottom:"2.5%",marginLeft:"5%",marginRight:"5%"}}
-                                         /> 
-                                  </View>
-                               </View>
-                               <View style={{flex:0.30,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
-                                      <View style={{flex:0.40}}> 
-                                          <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Licence No.</Text>
-                                      </View>
-                                      <View style={{flex:0.60}}>
-                                           <TextInput
-                                              placeholder="Enter Your Licence No."
-                                              onChange = {this.changelicenceNumberEvent}
-                                              value = {this.state.licenceNumber}
-                                              style={{borderBottomWidth:1,height:35,marginBottom:"2.5%",marginLeft:"5%",marginRight:"5%"}}
-                                           /> 
-                                       </View>
-                                 </View>
-                                 <View style={{flex:0.30,backgroundColor:"white",borderBottomWidth:0.5,borderBottomColor:"#988c8c"}}>
-                                        <View style={{flex:0.40}}> 
-                                              <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Do You Have PUC?</Text>
-                                        </View>
-                                        <View style={{flex:0.60}}>
-                                              <RadioForm
-                                                        style={{marginLeft:"5%",marginTop:"4%",marginBottom:"2.5%"}} 
-                                                        radio_props={optionsForAutoPuc}
-                                                        initial={this.state.has_puc} 
-                                                        onPress={(value)=>{
-                                                        this.setState({
-                                                            has_puc: value
-                                                          })
-                                                        }}
-                                                          buttonSize={7}
-                                                          buttonColor={'#000000'}
-                                                          labelStyle={{fontSize:16,marginRight:"6%"}}
-                                                          formHorizontal={true}
-                                                          buttonOuterSize={21}
-                                                          selectedButtonColor={'#43b9e0'}
-                                                          selectedLabelColor={'#0080ab'}
-                                              />
-                                          </View>
-                                   </View>
-                                
-                                   
-                       </View>  
-                       <View style={{flex:0.26,width:"100%",marginBottom:"5%"}}>
-                              <View style={{flex:0.10,borderTopWidth:0.5,borderBottomColor:"#988c8c",borderTopColor:"#988c8c",borderBottomWidth:0.5}}>
-                                 <Text style={{fontSize:20,marginLeft:"2%",marginTop:"2%",marginBottom:"2%"}}>Other Details</Text>
-                              </View>
-                              <View style={{  flex:0.30,backgroundColor:"white",borderBottomColor:"#988c8c",borderBottomWidth:0.5}}>
-                                   <View style={{flex:0.40}}> 
-                                        <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Auto No.</Text>
-                                   </View>
-                                   <View style={{flex:0.60}}>
-                                        <TextInput
-                                              placeholder="Enter Your vehicle auto rickshaw no. "
-                                              onChange = {this.changeautoNumberEvent}
-                                              value = {this.state.autoNumber}
-                                               style={{borderBottomWidth:1,height:35,marginBottom:"2.5%",marginLeft:"5%",marginRight:"5%"}}
-                                         /> 
-                                  </View>
-                               </View>
-                               <View style={{flex:0.20,backgroundColor:"white",borderBottomColor:"#988c8c",borderBottomWidth:0.5}}>
-                                        <View style={{flex:0.40}}> 
-                                            <Text style={{fontSize:18,marginTop:"2.5%",marginLeft:'5%'}}>Do you have your own vehivle ?</Text>
-                                        </View>
-                                        <View style={{flex:0.60}}>
-                                           <RadioForm
-                                                  style={{marginLeft:"5%",marginTop:"4%",marginBottom:"2.5%"}} 
-                                                  radio_props={optionsForOwnAuto}
-                                                  initial={this.state.own_Auto} 
-                                                  onPress={(value)=>{
-                                                    this.setState({
-                                                      own_Auto: value
-                                                    });
-                                                  }}
-                                                  buttonSize={7}
-                                                  buttonColor={'#000000'}
-                                                  labelStyle={{fontSize:16,marginRight:"6%"}}
-                                                  formHorizontal={true}
-                                                  buttonOuterSize={21}
-                                                  selectedButtonColor={'#43b9e0'}
-                                                  selectedLabelColor={'#0080ab'}
-                                                  />
-                                         </View>
-                                 </View>
-                                 <View style={{flex:0.22,backgroundColor:"white",borderBottomColor:"#988c8c",borderWidth:0.5}}>
-                                  <View style={{flex:0.40}}> 
-                                          <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Owner Name</Text>
-                                      </View>
-                                      <View style={{flex:0.60}}> 
-                                          <TextInput
-                                            placeholder="Enter Your vehicle owner name"
-                                            onChange = {this.changeownerNameEvent}
-                                            value = {this.state.ownerName}
-                                            style={{borderBottomWidth:1,height:35,marginBottom:"2.5%",marginLeft:"5%",marginRight:"5%"}}
-                                          /> 
-                                      </View> 
-                                    </View>
-                                    <View style={{flex:0.19,backgroundColor:"white",borderBottomColor:"#988c8c",borderWidth:0.5}}>
-                                    < View style={{flex:0.40}}> 
-                                          <Text style={{fontSize:18,marginTop:"3%",marginLeft:'5%'}}>Owner Contact No.</Text>
-                                      </View>
-                                      <View style={{flex:0.60}}>
-                                      <TextInput
-                                            placeholder="Enter Your vehicle owner contact No."
-                                            onChange = {this.changeownerContactNumberEvent}
-                                            value = {this.state.ownerContactNumber}
-                                            style={{borderBottomWidth:1,height:35,marginBottom:"2.5%",marginLeft:"5%",marginRight:"5%"}}
-                                          /> 
-                                      </View>
-                                    </View>   
-                       </View>    
                        <View style={{flex:0.22,width:"100%",alignItems:"center"}}>
                                <View style={{flex:1,alignItems:"center",height:"40%",width:"80%",marginBottom:"8%",justifyContent:"center"}}>
                                <TouchableOpacity style={{borderRadius:50,height:"50%",marginBottom:"3%",width:"80%",backgroundColor:"#269DF9"}}

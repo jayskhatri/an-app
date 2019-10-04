@@ -84,10 +84,10 @@ export default class Login extends React.Component {
         if(user.emailVerified){
           // registerForPushNotificationsAsync();
           Alert.alert("Login successful");
-          var userRef = firebase.database().ref('Passengers/'+user.uid);
+          var userRef = firebase.database().ref('Passengers/'+user.uid+'/personal_details');
           var profile_completed;
           userRef.once('value').then(function(snapshot){
-            profile_completed = (snapshot.val() && snapshot.val().personal_details.has_profile_completed)
+            profile_completed = (snapshot.val() && snapshot.val().has_profile_completed)
           });
           this.registerForPushNotificationsAsync();
           console.log('is profile completed: ', profile_completed);
