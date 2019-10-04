@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   StyleSheet,
@@ -18,11 +17,18 @@ import {
 } from "react-native";
 import Modal from "react-native-modal";
 import OptionsMenu from "react-native-options-menu";
-import RadioForm,{RadioButton,RadioButtonInput,RadioButtonLabel} from "react-native-simple-radio-button";
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import Header from '../header/header';
-import firebase from 'firebase';
-import DatePicker from 'react-native-datepicker'
+import RadioForm, {
+  RadioButton,
+  RadioButtonInput,
+  RadioButtonLabel
+} from "react-native-simple-radio-button";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from "react-native-responsive-screen";
+import Header from "../header/header";
+import firebase from "firebase";
+import DatePicker from "react-native-datepicker";
 
 export default class BookingPageSecond extends React.Component {
   constructor(props) {
@@ -40,7 +46,8 @@ export default class BookingPageSecond extends React.Component {
       numberOfPassenger: "Number Of passenger",
       currentDate: "",
       fullAuto: false,
-      tempPassenger: ""
+      tempPassenger: "",
+      isApOrPmSelect: ""
     };
     this.toggleSwitch = this.toggleSwitch.bind(this);
     this.setDate = this.setDate.bind(this);
@@ -136,7 +143,17 @@ export default class BookingPageSecond extends React.Component {
         minute: 0
       });
       if (action !== DatePickerAndroid.dismissedAction) {
-        var fullTime = hour + " : " + minute;
+        var h = hour;
+        if (h > 12) {
+          console.log("--");
+          h = h - 12;
+          this.setState({ isApOrPmSelect: " PM" });
+          var fullTime = h + " : " + minute + " " + this.state.isApOrPmSelect;
+        } else {
+          this.setState({ isApOrPmSelect: " AM" });
+          var fullTime = h + " : " + minute + " " + this.state.isApOrPmSelect;
+        }
+
         this.setState({ timeOfJourney: fullTime });
       }
     } catch ({ code, message }) {
@@ -198,7 +215,8 @@ export default class BookingPageSecond extends React.Component {
   }
   nextEvent() {
     // console.log("next Event");
-    this.props.navigation.navigate("BookingPageThird");
+    console.log(this.state.timeOfJourney, this.state.isApOrPmSelect);
+    this.props.navigation.navigate("bookingPage3");
   }
 
   render() {

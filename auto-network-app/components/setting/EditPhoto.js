@@ -4,8 +4,11 @@ import {
   Text,
   View,
   SafeAreaView,
+  Platform,
   Image,
+  TextInput,
   TouchableOpacity,
+  Alert
 } from "react-native";
 import firebase from "firebase";
 import Header from "../header/header";
@@ -18,7 +21,7 @@ import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import colors from "../constants/Colors";
 var options = [{ label: "Yes", value: 0 }, { label: "No", value: 1 }];
-export default class profilePageFourth extends React.Component {
+export default class EditPhoto extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,8 +34,8 @@ export default class profilePageFourth extends React.Component {
       uid: ""
     };
     this.previousEvent = this.previousEvent.bind(this);
-    this.nextEvent = this.nextEvent.bind(this);
-    this.skipEvent = this.skipEvent.bind(this);
+    this.saveEvent = this.saveEvent.bind(this);
+    this.backEvent = this.backEvent.bind(this);
   }
   previousEvent(e) {
     this.props.navigation.navigate("ProfilePageThird");
@@ -42,47 +45,29 @@ export default class profilePageFourth extends React.Component {
     const { navigation } = this.props;
     let user = navigation.getParam("user");
     const thirtySecs = 30 * 1000;
-    firebase.storage().setMaxOperationRetryTime(thirtySecs)
-    this.setState({uid: user.uid});
-    console.log("submit details: ",this.state.uid);
-    firebase.database().ref('Passengers/' + user.uid + '/personal_details').set({
-      first_name: navigation.getParam('first_name'),
-      email_id: user.email,
-      last_name: navigation.getParam('last_name'),
-      birth_date: navigation.getParam('birth_date'),
-      gender: navigation.getParam('gender'),
-      profile_pic_url: '',
-      // aadhar_number: navigation.getParam('aadhar_number'),
-      // license_number: navigation.getParam('license_number'),
-      // has_puc: navigation.getParam('has_puc'),
-      // auto_number: navigation.getParam('auto_number'),
-      // has_own_vehicle: navigation.getParam('has_own_vehicle'),
-      // owner_name: navigation.getParam('owner_name'),
-      // owner_contact_number: navigation.getParam('owner_contact_number'),
-      has_profile_completed: true,
-    });
-
-    this.props.navigation.navigate("HomeScreen");
-  }
-
-  skipEvent(e) {
-    const { navigation } = this.props;
-    let user = navigation.getParam("user");
+    firebase.storage().setMaxOperationRetryTime(thirtySecs);
+    this.setState({ uid: user.uid });
+    console.log("submit details: ", this.state.uid);
     firebase
       .database()
       .ref("Passengers/" + user.uid + "/personal_details")
       .set({
-        profile_pic_url: "",
         first_name: navigation.getParam("first_name"),
+        email_id: user.email,
         last_name: navigation.getParam("last_name"),
         birth_date: navigation.getParam("birth_date"),
         gender: navigation.getParam("gender"),
-        has_profile_completed: false
+        has_profile_completed: true
       });
+
     this.props.navigation.navigate("HomeScreen");
   }
 
-  nextEvent(e) {
+  backEvent(e) {
+    this.props.navigation.navigate("editProfile");
+  }
+
+  saveEvent(e) {
     this._handleImagePicked(this.state.result);
     this.submitUserDetails();
   }
@@ -130,7 +115,7 @@ export default class profilePageFourth extends React.Component {
             >
               <View style={{ flex: 0.3 }}>
                 <TouchableOpacity
-                  onPress={this.previousEvent}
+                  onPress={this.backEvent}
                   style={{ width: 70, height: 30 }}
                 >
                   <Image
@@ -144,7 +129,7 @@ export default class profilePageFourth extends React.Component {
                 </TouchableOpacity>
               </View>
               <View>
-                <Text style={styles.headerText}>Profile</Text>
+                <Text style={styles.headerText}>Edit Photo</Text>
               </View>
               <View style={{ flex: 0.3 }}></View>
             </SafeAreaView>
@@ -162,7 +147,7 @@ export default class profilePageFourth extends React.Component {
         <View style={styles.signUpView}>
           <View style={styles.details_box_header_view}>
             <Text style={styles.detail_box_header_text_css}>
-              Add Your Photo
+              Edit Your Photo
             </Text>
           </View>
           <View style={styles.second_view_of_detali_box}>
@@ -186,20 +171,20 @@ export default class profilePageFourth extends React.Component {
             </Text>
           </View>
           <View style={styles.last_fotter_view}>
-            <View style={styles.skip_next_btn_outter_view}>
+            {/* <View style={styles.skip_next_btn_outter_view}>
               <TouchableOpacity
                 style={styles.skip_btn_css}
-                onPress={this.skipEvent}
+                onPress={this.backEvent}
               >
-                <Text style={styles.skip_next_btn_text_css}>Skip</Text>
+                <Text style={styles.skip_next_btn_text_css}>Back</Text>
               </TouchableOpacity>
-            </View>
-            <View style={styles.skip_next_btn_outter_view}>
+            </View> */}
+            <View style={styles.save_btn_outter_view}>
               <TouchableOpacity
-                style={styles.next_btn_css}
-                onPress={this.nextEvent}
+                style={styles.save_btn_css}
+                onPress={this.saveEvent}
               >
-                <Text style={styles.skip_next_btn_text_css}>Next</Text>
+                <Text style={styles.save_btn_text_css}>Save</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -270,10 +255,9 @@ async function uploadImageAsync(uri) {
   const ref = firebase
     .storage()
     .ref("/Images/")
-    .child('Passengers/')
-    .child(user.uid);
+    .child("Passengers/")
+    .child("pic2.jpg");
   const snapshot = await ref.put(blob);
-  console.log("look here awaited snapshot: ", snapshot);
 
   // We're done with the blob, close and release it
   blob.close();
@@ -282,8 +266,8 @@ async function uploadImageAsync(uri) {
   console.log(downloadurl);
   firebase
     .database()
-    .ref("Passengers/" + user.uid + "/personal_details/")
-    .update({
+    .ref("Passengers/" + user.uid + "/personal_details/img")
+    .set({
       profile_pic_url: downloadurl
     });
   this.setState({ downloadUrl: downloadurl });
@@ -355,13 +339,13 @@ const styles = StyleSheet.create({
     flex: 0.8,
     flexDirection: "row"
   },
-  skip_next_btn_outter_view: {
-    flex: 0.5,
+  save_btn_outter_view: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center"
   },
-  skip_next_btn_text_css: {
-    fontSize: 20,
+  save_btn_text_css: {
+    fontSize: 25,
     color: colors.light.white_color
   },
   skip_btn_css: {
@@ -370,10 +354,7 @@ const styles = StyleSheet.create({
     left: "14%",
     alignSelf: "center"
   },
-  next_btn_css: {
-    marginTop: "1%",
-    alignSelf: "center",
-    position: "absolute",
-    right: "14%"
+  save_btn_css: {
+    alignSelf: "center"
   }
 });

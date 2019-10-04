@@ -5,6 +5,7 @@ import {
   View,
   SafeAreaView,
   Image,
+  TextInput,
   Platform,
   TouchableOpacity
 } from "react-native";
@@ -14,7 +15,7 @@ import {
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
 import BottomBar from "../bottomTabBar/BottomBar";
-
+import colors from "../constants/Colors";
 var options = [{ label: "Yes", value: 0 }, { label: "No", value: 1 }];
 export default class setting extends React.Component {
   constructor(props) {
@@ -33,35 +34,48 @@ export default class setting extends React.Component {
     this.props.navigation.navigate("editProfile");
   }
   notificationHandleEvent(e) {
-    console.log("Notification");
+    this.props.navigation.navigate("Notification");
   }
   historyHandleEvent(e) {
-    console.log("History");
+    this.props.navigation.navigate("History");
   }
   helpHandleEvent(e) {
-    console.log("Help");
+    this.props.navigation.navigate("Help");
   }
   render() {
     let { image } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <SafeAreaView style={{ backgroundColor: "#269DF9" }}>
-            <Text
+          <View style={{ flex: 1 }}>
+            <SafeAreaView
               style={{
-                alignSelf: "center",
-                color: "#fff",
-                fontSize: 25,
-                marginTop: Platform.OS === "android" ? "4%" : "0%"
+                flexDirection: "row",
+                alignItems: "center",
+                flex: 0.4,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: colors.light.blue_color
               }}
             >
-              Home
-            </Text>
-            <Header />
-          </SafeAreaView>
+              <View>
+                <Text style={styles.headerText}>Home</Text>
+              </View>
+            </SafeAreaView>
+            <View style={{ flex: 0.6 }}>
+              <Header />
+            </View>
+          </View>
         </View>
         <View style={styles.settingView}>
-          <View style={{ flex: 0.15, flexDirection: "row", width: "100%" }}>
+          <View
+            style={{
+              flex: 0.15,
+              flexDirection: "row",
+              width: "100%",
+              marginTop: Platform.OS === "ios" ? "-10%" : "0%"
+            }}
+          >
             <Image
               style={{
                 height: hp("12%"),
@@ -70,7 +84,7 @@ export default class setting extends React.Component {
                 marginTop: "-3%",
                 borderRadius: Platform.OS === "ios" ? 50 : 60,
                 borderWidth: 3,
-                borderColor: "#fff"
+                borderColor: colors.light.white_color
               }}
               source={require("../../assets/pic.jpg")}
             />
@@ -81,13 +95,16 @@ export default class setting extends React.Component {
                 marginLeft: "3%"
               }}
             >
-              <Text style={{ fontSize: 23 }}>Dummy Jubair</Text>
+              <Text style={{ fontSize: 23, color: colors.light.black_color }}>
+                Dummy Jubair
+              </Text>
               <View style={{ flexDirection: "row" }}>
                 <Text
                   style={{
                     fontSize: 14,
                     opacity: 0.6,
-                    marginTop: Platform.OS === "android" ? "0%" : "4%"
+                    marginTop: Platform.OS === "android" ? "0%" : "4%",
+                    color: colors.light.black_color
                   }}
                 >
                   The Verified Driver
@@ -98,8 +115,6 @@ export default class setting extends React.Component {
                     marginLeft: "4%",
                     height: Platform.OS === "ios" ? hp("4%") : hp("2%"),
                     width: Platform.OS === "ios" ? wp("4%") : wp("3%"),
-                    // height:hp('10%'),
-                    // width:wp('10%'),
                     borderRadius: Platform.OS === "ios" ? 20 : 50,
                     resizeMode: "contain"
                   }}
@@ -108,14 +123,16 @@ export default class setting extends React.Component {
               </View>
             </View>
           </View>
-          <View style={{ flex: 0.71, backgroundColor: "#fff" }}>
+          <View
+            style={{ flex: 0.75, backgroundColor: colors.light.white_color }}
+          >
             <TouchableOpacity onPress={this.myAccountHandleEvent}>
               <View
                 style={{
                   width: "100%",
                   marginTop: "1%",
                   borderTopWidth: 0.5,
-                  borderTopColor: "#988c8c",
+                  borderTopColor: colors.light.placeholder_text_Color,
                   flexDirection: "row"
                 }}
               >
@@ -138,10 +155,21 @@ export default class setting extends React.Component {
                     marginTop: "2%"
                   }}
                 >
-                  <Text style={{ fontSize: Platform.OS === "ios" ? 23 : 18 }}>
+                  <Text
+                    style={{
+                      fontSize: Platform.OS === "ios" ? 23 : 18,
+                      color: colors.light.black_color
+                    }}
+                  >
                     My Account
                   </Text>
-                  <Text style={{ fontSize: 13, opacity: 0.6 }}>
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      opacity: 0.6,
+                      color: colors.light.black_color
+                    }}
+                  >
                     Personal Info , Auto details
                   </Text>
                 </View>
@@ -153,7 +181,7 @@ export default class setting extends React.Component {
                   width: "100%",
                   marginTop: "4%",
                   borderTopWidth: 0.5,
-                  borderTopColor: "#988c8c",
+                  borderTopColor: colors.light.placeholder_text_Color,
                   flexDirection: "row"
                 }}
               >
@@ -176,10 +204,21 @@ export default class setting extends React.Component {
                     marginTop: "2%"
                   }}
                 >
-                  <Text style={{ fontSize: Platform.OS === "ios" ? 23 : 18 }}>
+                  <Text
+                    style={{
+                      fontSize: Platform.OS === "ios" ? 23 : 18,
+                      color: colors.light.black_color
+                    }}
+                  >
                     Notifications
                   </Text>
-                  <Text style={{ fontSize: 13, opacity: 0.6 }}>
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      opacity: 0.6,
+                      color: colors.light.black_color
+                    }}
+                  >
                     Online/Offilne , message
                   </Text>
                 </View>
@@ -191,7 +230,7 @@ export default class setting extends React.Component {
                   width: "100%",
                   marginTop: "4%",
                   borderTopWidth: 0.5,
-                  borderTopColor: "#988c8c",
+                  borderTopColor: colors.light.placeholder_text_Color,
                   flexDirection: "row"
                 }}
               >
@@ -214,10 +253,23 @@ export default class setting extends React.Component {
                     marginTop: "2%"
                   }}
                 >
-                  <Text style={{ fontSize: Platform.OS === "ios" ? 23 : 18 }}>
-                    HISTORY
+                  <Text
+                    style={{
+                      fontSize: Platform.OS === "ios" ? 23 : 18,
+                      color: colors.light.black_color
+                    }}
+                  >
+                    History
                   </Text>
-                  <Text style={{ fontSize: 13, opacity: 0.6 }}>history</Text>
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      opacity: 0.6,
+                      color: colors.light.black_color
+                    }}
+                  >
+                    history
+                  </Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -227,10 +279,10 @@ export default class setting extends React.Component {
                   width: "100%",
                   marginTop: "4%",
                   borderTopWidth: 0.5,
-                  borderTopColor: "#988c8c",
+                  borderTopColor: colors.light.placeholder_text_Color,
                   flexDirection: "row",
                   borderBottomWidth: 0.5,
-                  borderBottomColor: "#988c8c"
+                  borderBottomColor: colors.light.placeholder_text_Color
                 }}
               >
                 <View style={{ marginTop: "0%", marginLeft: "4%" }}>
@@ -253,17 +305,28 @@ export default class setting extends React.Component {
                     marginTop: "2%"
                   }}
                 >
-                  <Text style={{ fontSize: Platform.OS === "ios" ? 23 : 18 }}>
+                  <Text
+                    style={{
+                      fontSize: Platform.OS === "ios" ? 23 : 18,
+                      color: colors.light.black_color
+                    }}
+                  >
                     HELP
                   </Text>
-                  <Text style={{ fontSize: 13, opacity: 0.6 }}>
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      opacity: 0.6,
+                      color: colors.light.black_color
+                    }}
+                  >
                     FAQ , Contact us , Privacy policy{" "}
                   </Text>
                 </View>
               </View>
             </TouchableOpacity>
           </View>
-          <View style={{ flex: 0.14, backgroundColor: "red" }}>
+          <View style={{ flex: 0.1 }}>
             <BottomBar {...this.props} />
           </View>
         </View>
@@ -273,15 +336,21 @@ export default class setting extends React.Component {
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: colors.light.white_color
   },
   waveView: {
     flex: 0.14
   },
   settingView: {
-    flex: 0.9
+    flex: 0.85
   },
   header: {
-    flex: 0.1
+    flex: 0.15
+  },
+  headerText: {
+    alignSelf: "center",
+    color: colors.light.white_color,
+    fontSize: 25
   }
 });
