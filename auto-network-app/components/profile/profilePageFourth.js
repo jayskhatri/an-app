@@ -52,6 +52,7 @@ export default class profilePageFourth extends React.Component {
       birth_date: navigation.getParam('birth_date'),
       gender: navigation.getParam('gender'),
       profile_pic_url: '',
+      organizational_id: '',
       // aadhar_number: navigation.getParam('aadhar_number'),
       // license_number: navigation.getParam('license_number'),
       // has_puc: navigation.getParam('has_puc'),

@@ -58,6 +58,9 @@ const styles = StyleSheet.create({
 const MainNavigation = createStackNavigator(
   // const MainNavigation = createAnimatedSwitchNavigator(
   {
+    checkUserStatus: {
+      screen: checkUserStatus
+    },
     HomeScreen: {
       screen: HomeScreen
     },
@@ -70,9 +73,6 @@ const MainNavigation = createStackNavigator(
 
     bookingPage3: {
       screen: bookingPage3
-    },
-    checkUserStatus: {
-      screen: checkUserStatus
     },
     ProfilePageFourth: {
       screen: ProfilePageFourth
