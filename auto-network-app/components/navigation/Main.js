@@ -40,6 +40,8 @@ import History from "../setting/History";
 import Help from "../setting/Help";
 import EditPhoto from "../setting/EditPhoto";
 import bookingPage3 from "../bookingSection/bookingPage3";
+import ContactUs from "../helpSection/ContactUs";
+import FAQ from "../helpSection/FAQ";
 class Main extends React.Component {
   render() {
     return null;
@@ -56,11 +58,23 @@ const styles = StyleSheet.create({
 });
 
 const MainNavigation = createStackNavigator(
-  // const MainNavigation = createAnimatedSwitchNavigator(
   {
+    FAQ: {
+      screen: FAQ
+    },
+    checkUserStatus: {
+      screen: checkUserStatus
+    },
+    ContactUs: {
+      screen: ContactUs
+    },
     HomeScreen: {
       screen: HomeScreen
     },
+    Redirect: {
+      screen: Redirect
+    },
+
     BookingPage4: {
       screen: BookingPage4
     },
@@ -71,9 +85,7 @@ const MainNavigation = createStackNavigator(
     bookingPage3: {
       screen: bookingPage3
     },
-    checkUserStatus: {
-      screen: checkUserStatus
-    },
+
     ProfilePageFourth: {
       screen: ProfilePageFourth
     },

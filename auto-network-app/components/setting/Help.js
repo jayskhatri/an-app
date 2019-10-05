@@ -20,10 +20,14 @@ export default class Help extends React.Component {
     super();
     this.state = {};
     this.backEvent = this.backEvent.bind(this);
+    this.contactUsHandleEvent = this.contactUsHandleEvent.bind(this);
   }
 
   backEvent() {
     this.props.navigation.navigate("Setting");
+  }
+  contactUsHandleEvent() {
+    this.props.navigation.navigate("ContactUs");
   }
   render() {
     return (
