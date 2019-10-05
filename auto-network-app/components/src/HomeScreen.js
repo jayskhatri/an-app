@@ -13,6 +13,9 @@ import {
 import Header from "../header/header";
 import BottomBar from "../bottomTabBar/BottomBar";
 import * as firebase from "firebase";
+import { YellowBox } from 'react-native';
+
+YellowBox.ignoreWarnings(['Setting a timer','Accessing view']);
 
 export default class HomeScreen extends React.Component {
   constructor(props) {

@@ -259,19 +259,6 @@ export default class editProfile extends React.Component {
                         <View style={{flex:0.2}}>
                           <View style={{flexDirection:"column",marginTop:"4%",alignItems:"center"}}>
                           <Text style={{fontSize:28 , color:colors.light.black_color}}>{this.state.firstName  + " " + this.state.lastName}</Text>
-                                <View style={{flexDirection:"row"}}>
-                                    <Image 
-                                  style={{
-                                            marginTop:Platform.OS === 'android' ? "1%" : "-2%",
-                                            marginLeft:"2%",
-                                            height: Platform.OS === 'ios' ? hp('4%') : hp('2%')  ,
-                                            width:Platform.OS === 'ios' ? wp('4%') : wp('3%')   ,
-                                            borderRadius:Platform.OS === 'ios' ? 20 : 50,
-                                            resizeMode:"contain"
-                                            }} 
-                                        source={require('../../assets/varifiedlogo.png')} />
-                                    <Text style={{fontSize:15 , color:colors.light.black_color}}> The Verified Driver </Text>
-                                </View>
                           </View>
                         </View>
                     </View>

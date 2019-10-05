@@ -1,14 +1,11 @@
 import React from "react";
-import { StyleSheet, Text,StatusBar, View, SafeAreaView , Image ,TextInput,TouchableOpacity ,Keyboard, TouchableWithoutFeedback  } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView , Image ,TextInput,TouchableOpacity ,Keyboard, TouchableWithoutFeedback  } from "react-native";
 import {KeyboardAvoidingView} from 'react-native';
-import RadioForm,{RadioButton,RadioButtonInput,RadioButtonLabel} from "react-native-simple-radio-button";
-// const {widthOfScreen , heightOfScreen } = Dimensions.get('window');
+import RadioForm from "react-native-simple-radio-button";
 import Header from '../header/header';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import firebase from 'firebase';
 import DatePicker from 'react-native-datepicker';
 import colors from "../constants/Colors";
-import { Colors } from "react-native-paper";
 
 var options = [
   { label: "Male", value: 0 },

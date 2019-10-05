@@ -126,7 +126,7 @@ export default class SignUp extends React.Component {
             </View>
           </View>
           <View style={styles.signInView}>
-            <Text style={styles.signInlableOne}>Email Id / Phone No.</Text>
+            <Text style={styles.signInlableOne}>Email Id</Text>
             <View style={styles.outterLookOfInputBox}>
               <TextInput
                 style={styles.signInTextInputOne}

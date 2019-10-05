@@ -12,12 +12,11 @@ import {
   Alert,
   Image,
   TouchableWithoutFeedback,
-  StatusBar
+  ActivityIndicator
 } from "react-native";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Header from "../header/header";
-import color from "../constants/Colors";
 import colors from "../constants/Colors";
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -29,7 +28,8 @@ export default class Login extends React.Component {
     super();
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      is_loaded: false
     };
     this.handleSetEmail = this.handleSetEmail.bind(this);
     this.handleSetPassword = this.handleSetPassword.bind(this);
@@ -82,9 +82,18 @@ export default class Login extends React.Component {
       ) 
     })
     
-  }    
+  }
+  componentWillMount(){
+    this.setState({
+      is_loaded:true
+    })
+  }
 
   signInEvent(e) {
+    this.setState({
+      is_loaded: false,
+    });
+
     firebase
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -128,8 +137,15 @@ export default class Login extends React.Component {
       )
 
       .catch(function(error) {
-        Alert.alert(" Please Create Your Account ..");
+        if(String(error).includes("The password is invalid")){
+          Alert.alert("Email ID or Password is wrong");  
+        }
+        else
+          Alert.alert(" Please Create Your Account ..");
         console.log(error);
+      });
+      this.setState({
+        is_loaded : true
       });
   }
 
@@ -159,7 +175,7 @@ export default class Login extends React.Component {
             </View>
           </View>
           <View style={styles.signInView}>
-            <Text style={styles.signInlableOne}>Email Id / Phone No.</Text>
+            <Text style={styles.signInlableOne}>Email Id</Text>
             <View style={styles.outterLookOfInputBox}>
               <TextInput
                 style={styles.signInTextInputOne}
@@ -167,8 +183,6 @@ export default class Login extends React.Component {
                 placeholderTextColor={colors.light.placeholder_text_Color}
                 fontSize={16}
                 keyboardType="email-address"
-                // onSubmitEditing={Keyboard.dismiss}
-                // onBlur={Keyboard.dismiss}
                 onChange={this.handleSetEmail}
               />
             </View>
@@ -235,12 +249,12 @@ export default class Login extends React.Component {
               >
                 <Text style={{ color: colors.light.black_color }}>
                   {" "}
-                  Not joined Yet ?{" "}
+                  Not joined yet ?{" "}
                 </Text>
                 <TouchableOpacity onPress={this.signUpEvent}>
                   <Text style={{ color: colors.light.blue_color }}>
                     {" "}
-                    create Your account{" "}
+                    create your account{" "}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -265,27 +279,28 @@ export default class Login extends React.Component {
             </View>
           </View>
           <View style={styles.logoView}>
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center"
-              }}
-            >
-              <Image
-                style={{
-                  height: "90%",
-                  width: "90%",
-                  marginLeft: "10%",
-                  marginBottom: "10%",
-                  marginRight: "10%",
-                  marginTop: "5%",
-                  resizeMode: "contain"
-                }}
-                source={require("../../assets/lastLogo.png")}
-              />
-            </View>
-          </View>
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
+                >
+                  <Image
+                    style={{
+                      height: "90%",
+                      width: "90%",
+                      marginLeft: "10%",
+                      marginBottom: "10%",
+                      marginRight: "10%",
+                      marginTop: "5%",
+                      resizeMode: "contain"
+                    }}
+                    source={require("../../assets/lastLogo.png")}
+                  />
+                </View>
+              </View>
+                      
         </View>
       </DismissKeyboard>
     );
@@ -293,6 +308,15 @@ export default class Login extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  containerActivityIndicator: {
+    flex:1,
+
+  },
+  ActivityIndicator: {
+    flex:86,
+    alignItems:"center",
+    justifyContent:"center"
+  },
   container: {
     flex: 1,
     backgroundColor: colors.light.white_color

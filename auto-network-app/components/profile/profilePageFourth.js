@@ -5,6 +5,8 @@ import {
   View,
   SafeAreaView,
   Image,
+  Modal,
+  ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
 import firebase from "firebase";
@@ -28,39 +30,38 @@ export default class profilePageFourth extends React.Component {
       downloadUrl: "",
       result: "",
       uploading: false,
-      uid: ""
+      uid: "",
+      is_loaded:false,
     };
     this.previousEvent = this.previousEvent.bind(this);
     this.nextEvent = this.nextEvent.bind(this);
     this.skipEvent = this.skipEvent.bind(this);
   }
+  componentWillMount(){
+    this.setState({
+      is_loaded: true    
+    })
+  }
   previousEvent(e) {
     this.props.navigation.navigate("ProfilePageThird");
   }
 
-  submitUserDetails() {
+  async submitUserDetails() {
     const { navigation } = this.props;
     let user = navigation.getParam("user");
-    const thirtySecs = 30 * 1000;
-    firebase.storage().setMaxOperationRetryTime(thirtySecs)
-    this.setState({uid: user.uid});
-    console.log("submit details: ",this.state.uid);
-    firebase.database().ref('Passengers/' + user.uid + '/personal_details').set({
+    await firebase.database().ref('Passengers/' + user.uid + '/personal_details').set({
       first_name: navigation.getParam('first_name'),
       email_id: user.email,
       last_name: navigation.getParam('last_name'),
       birth_date: navigation.getParam('birth_date'),
       gender: navigation.getParam('gender'),
-      profile_pic_url: '',
+      profile_pic_url: this.state.profile_pic_url,
       organizational_id: '',
-      // aadhar_number: navigation.getParam('aadhar_number'),
-      // license_number: navigation.getParam('license_number'),
-      // has_puc: navigation.getParam('has_puc'),
-      // auto_number: navigation.getParam('auto_number'),
-      // has_own_vehicle: navigation.getParam('has_own_vehicle'),
-      // owner_name: navigation.getParam('owner_name'),
-      // owner_contact_number: navigation.getParam('owner_contact_number'),
       has_profile_completed: true,
+    });
+    
+    this.setState({
+      is_loaded: true
     });
 
     this.props.navigation.navigate("HomeScreen");
@@ -80,11 +81,17 @@ export default class profilePageFourth extends React.Component {
         gender: navigation.getParam("gender"),
         has_profile_completed: false
       });
+      this.setState({
+        is_loaded: true
+      });
     this.props.navigation.navigate("HomeScreen");
   }
 
-  nextEvent(e) {
-    this._handleImagePicked(this.state.result);
+  async nextEvent(e) {
+    this.setState({
+      is_loaded: false,
+    });
+    await this._handleImagePicked(this.state.result);
     this.submitUserDetails();
   }
   componentDidMount() {
@@ -154,57 +161,63 @@ export default class profilePageFourth extends React.Component {
             </View>
           </View>
         </View>
-        <View style={styles.logoView}>
-          <Image
-            style={styles.logo_Icon_Css}
-            source={require("../../assets/bigAdminLogo.png")}
-          />
-        </View>
-        <View style={styles.signUpView}>
-          <View style={styles.details_box_header_view}>
-            <Text style={styles.detail_box_header_text_css}>
-              Add Your Photo
-            </Text>
-          </View>
-          <View style={styles.second_view_of_detali_box}>
-            <TouchableOpacity onPress={this._pickImage}>
-              {/* ,elevetion:11 */}
-              {this.state.isPicLoaded ? (
+        { this.state.is_loaded ?
+            <View style={{flex: 1}}>
+              <View style={styles.logoView}>
                 <Image
-                  style={styles.profile_icon_css}
-                  source={require("../../assets/Component.png")}
+                  style={styles.logo_Icon_Css}
+                  source={require("../../assets/bigAdminLogo.png")}
                 />
-              ) : (
-                <Image
-                  style={styles.profile_icon_css}
-                  source={{ uri: image }}
-                ></Image>
-              )}
-            </TouchableOpacity>
+              </View>
+              <View style={styles.signUpView}>
+              <View style={styles.details_box_header_view}>
+                <Text style={styles.detail_box_header_text_css}>
+                  Add Your Photo
+                </Text>
+              </View>
+              <View style={styles.second_view_of_detali_box}>
+                <TouchableOpacity onPress={this._pickImage}>
+                  {/* ,elevetion:11 */}
+                  {this.state.isPicLoaded ? (
+                    <Image
+                      style={styles.profile_icon_css}
+                      source={require("../../assets/Component.png")}
+                    />
+                  ) : (
+                    <Image
+                      style={styles.profile_icon_css}
+                      source={{ uri: image }}
+                    ></Image>
+                  )}
+                </TouchableOpacity>
 
-            <Text style={styles.second_view_of_detali_box_inner_text_css}>
-              Hello, dear
-            </Text>
-          </View>
-          <View style={styles.last_fotter_view}>
-            <View style={styles.skip_next_btn_outter_view}>
-              <TouchableOpacity
-                style={styles.skip_btn_css}
-                onPress={this.skipEvent}
-              >
-                <Text style={styles.skip_next_btn_text_css}>Skip</Text>
-              </TouchableOpacity>
+                <Text style={styles.second_view_of_detali_box_inner_text_css}>
+                  Hello, dear
+                </Text>
+              </View>
+              <View style={styles.last_fotter_view}>
+                <View style={styles.skip_next_btn_outter_view}>
+                  <TouchableOpacity
+                    style={styles.skip_btn_css}
+                    onPress={this.skipEvent}
+                  >
+                    <Text style={styles.skip_next_btn_text_css}>Skip</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.skip_next_btn_outter_view}>
+                  <TouchableOpacity
+                    style={styles.next_btn_css}
+                    onPress={this.nextEvent}
+                  >
+                    <Text style={styles.skip_next_btn_text_css}>Next</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
-            <View style={styles.skip_next_btn_outter_view}>
-              <TouchableOpacity
-                style={styles.next_btn_css}
-                onPress={this.nextEvent}
-              >
-                <Text style={styles.skip_next_btn_text_css}>Next</Text>
-              </TouchableOpacity>
             </View>
-          </View>
-        </View>
+            :
+            <CustomProgressBar/>
+        }
       </View>
     );
   }
@@ -237,6 +250,10 @@ export default class profilePageFourth extends React.Component {
 
   _handleImagePicked = async pickerResult => {
     try {
+      this.setState({
+        is_loaded: false,
+      });
+      
       this.setState({ uploading: true });
 
       if (!pickerResult.cancelled) {
@@ -249,6 +266,7 @@ export default class profilePageFourth extends React.Component {
     }
   };
 }
+
 async function uploadImageAsync(uri) {
   // Why are we using XMLHttpRequest? See:
   // https://github.com/expo/expo/issues/2402#issuecomment-443726662
@@ -287,8 +305,18 @@ async function uploadImageAsync(uri) {
     .update({
       profile_pic_url: downloadurl
     });
-  this.setState({ downloadUrl: downloadurl });
 }
+
+const CustomProgressBar = ({ visible }) => (
+  <Modal onRequestClose={() => null} visible={visible}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ borderRadius: 10, backgroundColor: 'white', padding: 25 }}>
+        <Text style={{ fontSize: 20, fontWeight: '200' }}>Loading</Text>
+        <ActivityIndicator size="large" />
+      </View>
+    </View>
+  </Modal>
+);
 
 const styles = StyleSheet.create({
   container: {

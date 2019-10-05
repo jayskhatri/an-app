@@ -1,6 +1,7 @@
 import React from "react";
 import {
   StyleSheet,
+  ActivityIndicator,
   View
 } from "react-native";
 import firebase from 'firebase';
@@ -49,11 +50,21 @@ export default class checkUserStatus extends React.Component {
   
 
   render() {
-      return null
+      return(
+        <View style={styles.ActivityIndicator}>
+          <ActivityIndicator  size="large"   color="#269DF9" />
+        </View>
+      )
   }
 
   componentWillMount() {
+    this.setState({
+      is_loaded: false
+    });
     this.checkStatus();
+    this.setState({
+      is_loaded: true
+    });
   }
 
   
@@ -62,5 +73,13 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     flex: 1
+  },
+  containerActivityIndicator: {
+    flex:1,
+  },
+  ActivityIndicator: {
+    // flex:86,
+    alignItems:"center",
+    justifyContent:"center"
   },
 });
