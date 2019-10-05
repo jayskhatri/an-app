@@ -62,7 +62,7 @@ export default class editProfile extends React.Component {
 
     var personal_details = null;
 
-    userRef.once('value').then((snapshot)=>{
+    await userRef.once('value').then((snapshot)=>{
       if(snapshot!=null){
         
         personal_details = (snapshot.val() && snapshot.val().personal_details);
@@ -416,7 +416,7 @@ const styles = StyleSheet.create({
     flex:1,
   },
   ActivityIndicator: {
-    flex:86,
+    // flex:86,
     alignItems:"center",
     justifyContent:"center"
   },
