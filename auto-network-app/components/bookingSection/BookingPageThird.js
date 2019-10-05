@@ -54,63 +54,119 @@ export default class BookingPage3_one extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View
-          style={{
-            backgroundColor: "#269DF9",
-            flex: 0.2 //change flex in andriod
-          }}
-        >
-          <SafeAreaView style={styles.header}>
-            <View style={styles.headerInnerView}>
-              <View style={{ alignSelfs: "center" }}>
-                <TouchableOpacity
-                  onPress={this.backEvent}
-                  style={{ alignSelfs: "center" }}
-                >
+        <View style={{
+          width:"100%",
+          flex:.035,
+          backgroundColor:"#269DF9"
+        }}/>
+        <SafeAreaView 
+        style={{ 
+          flex: Platform.OS === "ios" ? 0.08 : 0.08,
+          flexDirection:"row",
+          justifyContent:"space-between",
+          alignItems:"center",
+          backgroundColor: "#269DF9",
+          }}>
+              <TouchableOpacity 
+                style={{
+                  flex:0.1,
+                  height:"100%",
+                  alignItems:"center",
+                  justifyContent:"center",
+                }}
+                onPress={this.backEvent}>
                   <Image
-                    style={styles.backImage}
+                    style={{
+                      maxHeight:60,
+                      maxWidth:60,
+                      resizeMode:"contain",
+                    }}
                     source={require("../../assets/back1.png")}
                   />
-                </TouchableOpacity>
-              </View>
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
+              </TouchableOpacity>
+              <View 
+              style={{
+                flex:0.8,
+                alignItems:"center",
+                justifyContent:"center"
+              }}
               >
-                <Text style={styles.headerText}>Continue Booking</Text>
-              </View>
-              <View style={{ alignSelfs: "center", marginTop: "1%" }}>
-                <OptionsMenu
-                  button={require("../../assets/More.png")}
-                  buttonStyle={styles.optionButton}
-                  destructiveIndex={1}
-                  options={["Help"]}
-                  actions={[this.helpPost]}
-                />
-              </View>
+              <Text style={{
+                alignItems:"center",
+                justifyContent:"center",
+                color:"#fff",
+                textAlignVertical:"center",
+                fontSize:22
+              }}>Book Your Tickets</Text>
             </View>
-          </SafeAreaView>
-        </View>
-        {/* Ticket View */}
-        <View style={styles.ticket_outter_View}>
+            <View
+             style={{
+              flex:0.1,
+              height:"100%",
+              alignItems:"center",
+              justifyContent:"center"
+            }}>
+              <OptionsMenu
+                button={require("../../assets/More.png")}
+                buttonStyle={{
+                  maxHeight:30,
+                    maxWidth:30,
+                    resizeMode:"contain",
+                    alignItems:"center",
+                    justifyContent:"center"
+                }}
+                destructiveIndex={1}
+                options={["Edit", "Delete", "Cancel"]}
+                actions={[this.editPost, this.deletePost]}
+              />
+            </View>
+        </SafeAreaView>
+    
+        <View style={{
+           flex: 0.50,
+           backgroundColor: "#269DF6"
+        }}>
           <View style={styles.ticketView}>
-            {/* Header View */}
-            <View style={styles.ticket_headerView}>
-              <View style={styles.header_confirm_logo_view}>
-                <View style={styles.outter_View_Of_Confirm_Icon}>
-                  <Image
-                    style={styles.confirm_Image}
-                    source={require("../../assets/Before_confirm_Icon.png")}
-                  />
-                </View>
-              </View>
 
-              <View style={styles.header_text_view}>
-                <Text style={styles.headerText_Css}>Review Your Details</Text>
-              </View>
-            </View>
+<             View style={{
+                flex: 0.15,
+                flexDirection: "row",
+                borderTopLeftRadius: 15,
+                borderTopRightRadius: 15,
+                justifyContent: "space-between",
+                alignItems:"center",
+              }}>
+                <View style={{
+                  flex: 0.10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 10,
+                  backgroundColor: "#269DF9",
+                }}>
+                    <Image
+                      style={{
+                        maxHeight: 30,
+                        maxWidth:30,
+                        resizeMode: 'center'
+                      }}
+                      source={require("../../assets/Before_confirm_Icon.png")}
+                    />
+                  </View>
+                  <View style={{
+                   flex: 0.85,
+                   alignItems: "center",
+                   justifyContent: "center",
+                   borderBottomWidth: 2,
+                   borderBottomColor: "#fff",
+                  }}>
+                  <Text style={{
+                    color: "#000",
+                    fontSize: 20,
+                  }}>Review Your Details
+                  </Text>
+                </View>
+                  </View>
+              
 
             <View style={styles.user_Details_View}>
               <View style={styles.nameView}>
@@ -143,7 +199,6 @@ export default class BookingPage3_one extends React.Component {
                 </View>
               </View>
 
-              {/* source to destination view */}
               <View style={styles.source_destinatio_view}>
                 <View style={{ flex: 0.5 }}>
                   <View style={{ flex: 0.3 }}>
@@ -199,7 +254,6 @@ export default class BookingPage3_one extends React.Component {
                   </View>
                 </View>
               </View>
-              {/* Date And Time View */}
               <View style={styles.source_destinatio_view}>
                 <View style={{ flex: 0.5 }}>
                   <View style={{ flex: 0.3 }}>
@@ -255,7 +309,6 @@ export default class BookingPage3_one extends React.Component {
                   </View>
                 </View>
               </View>
-              {/* No of */}
               <View style={styles.nameView}>
                 <View style={{ flex: 0.3 }}>
                   <Text style={styles.lableText}>No of passengers</Text>
@@ -309,11 +362,13 @@ export default class BookingPage3_one extends React.Component {
           </View>
         </View>
         <View style={styles.waveView}>
-          {/* <View style={{ position: "absolute", top: -8 }}> */}
           <Header />
-          {/* </View> */}
         </View>
-        <View style={styles.driver_Detail_View}>
+        <View style={{
+           flex: 0.35,
+           alignItems: "center",
+           justifyContent: "center",
+        }}>
           <View style={styles.driver_Detail_outter_View}>
             <View style={styles.driver_detail_view_1}>
               <View style={styles.Auto_driver_text_view}>
@@ -339,13 +394,11 @@ export default class BookingPage3_one extends React.Component {
                     justifyContent: "center",
                     paddingLeft: "4%",
                     color: "grey"
-                    // backgroundColor: "red"
                   }}
                 >
                   <View
                     style={{
                       width: "100%",
-                      // flex: 0.4,
                       overflow: "hidden",
                       alignSelf: "center"
                     }}
@@ -359,7 +412,6 @@ export default class BookingPage3_one extends React.Component {
                   <View
                     style={{
                       flexDirection: "row"
-                      // flex: 0.6
                     }}
                   >
                     <Text style={styles.varified_text_css}>
@@ -393,7 +445,6 @@ export default class BookingPage3_one extends React.Component {
               flex: 0.33,
               alignItems: "center",
               justifyContent: "center"
-              // backgroundColor: "blue"
             }}
           >
             <View style={styles.driver_detail_view_1}>
@@ -409,7 +460,9 @@ export default class BookingPage3_one extends React.Component {
                     Rs. {this.state.totalAmount}
                   </Text>
                 </View>
-                <Text style={{ color: "#474747" }}>
+                <Text style={{ color: "#474747",
+                  fontSize:10
+              }}>
                   Rs. {this.state.perPersonAmount} per person
                 </Text>
               </View>
@@ -417,47 +470,43 @@ export default class BookingPage3_one extends React.Component {
           </View>
         </View>
 
-        <View
-          style={{
-            flex: 0.15,
-            alignItems: "center",
-            justifyContent: "center"
-          }}
-        >
-          <TouchableOpacity
-            style={{
-              width: "40%",
-              height: "30%",
-              backgroundColor: "#fff",
-              borderRadius: Platform.OS === "ios" ? 34 : 25,
-              alignSelf: "center",
-              alignItems: "center",
-              justifyContent: "center",
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 5
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
 
-              elevation: 2
-            }}
-          >
-            <View style={{ alignSelf: "center", flexDirection: "row" }}>
-              <Text
-                style={{
-                  alignSelf: "center",
-                  fontSize: 20,
-                  marginLeft: "1%",
-                  color: "#269DF9"
-                }}
-              >
-                Pay
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+        <View style={{
+            flex:0.15,
+            alignItems:"center",
+            justifyContent:"center",
+            width:"100%",
+            height:"100%",
+          }}>
+            <TouchableOpacity
+              style={{
+                width:"30%",
+                height:"40%",
+                backgroundColor:"#269DF9",
+                borderRadius:30,
+                alignItems:"center",
+                justifyContent:"center",
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 1
+                },
+                shadowOpacity: 1.5,
+                shadowRadius: 5,
+                elevation: 4
+              }}
+              onPress={this.pay}
+            >
+              <Text style={{
+                color:"#fff",
+                margin:"5%",
+                fontSize:18,
+                fontWeight:"bold"
+              }}> Pay </Text>
+            </TouchableOpacity>
+          </View>
+
+
       </View>
     );
   }
@@ -468,42 +517,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff"
   },
-  header: {
-    backgroundColor: "#269DF9",
-    flex: Platform.OS === "ios" ? 0.4 : 0.5
-  },
-  headerInnerView: {
-    marginTop: Platform.OS === "android" ? "7%" : " 3%",
-    flexDirection: "row",
-    justifyContent: "space-between"
-  },
-  backImage: {
-    height: 60,
-    width: 60,
-    alignSelf: "center",
-    marginTop: "-18%",
-    resizeMode: "contain"
-  },
-  headerText: {
-    flex: 1,
-    alignSelf: "center",
-    color: "#fff",
-    fontSize: 30
-  },
-  optionButton: {
-    width: 32,
-    height: 35,
-    marginRight: "3%",
-    resizeMode: "contain",
-    alignSelf: "center"
-  },
   ticketView: {
-    flex: 1,
+    flex: .98,
+    marginTop:"5%",
     backgroundColor: "lightblue",
     marginLeft: "3%",
     marginRight: "3%",
     borderRadius: 20,
     shadowColor: "lightblue",
+    padding:"2%",
     shadowOffset: {
       width: 0,
       height: 1
@@ -511,17 +533,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 1.5,
     shadowRadius: 3.84,
     elevation: 4,
-    paddingBottom: "13%",
-    marginTop: -85
   },
   ticket_outter_View: {
-    flex: 0.25,
-    paddingBottom: "0.5%",
-    paddingTop: "5%",
+    flex: 0.5,
     backgroundColor: "#269DF6"
   },
   ticket_headerView: {
-    flex: 0.2,
+    flex: 0.1,
     backgroundColor: "lightblue",
     flexDirection: "row",
     borderTopLeftRadius: 15,
@@ -627,7 +645,7 @@ const styles = StyleSheet.create({
     marginLeft: "2%",
     marginRight: "2%",
     borderRadius: 15,
-    borderColor: "#000",
+    borderColor: "transparent",
     borderWidth: 0.5,
     backgroundColor: "#fff",
     alignSelf: "center",
@@ -647,6 +665,7 @@ const styles = StyleSheet.create({
     flex: 0.37,
     height: "80%",
     borderRightWidth: 1.5,
+    borderRightColor:"grey",
     justifyContent: "center",
     textAlign: "left",
     paddingLeft: "2%"
@@ -684,8 +703,6 @@ const styles = StyleSheet.create({
   verifiedIcon: {
     marginTop: Platform.OS === "android" ? "0%" : "0%",
     marginLeft: "-2%",
-    // width: 30,
-    // height: 15,
     marginLeft: "1.5%",
     height: Platform.OS === "ios" ? 14 : hp("2%"),
     width: Platform.OS === "ios" ? 14 : wp("3%"),

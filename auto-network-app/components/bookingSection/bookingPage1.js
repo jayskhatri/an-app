@@ -10,11 +10,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import OptionsMenu from "react-native-options-menu";
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel
-} from "react-native-simple-radio-button";
+import MapPicker from "react-native-map-picker";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -78,52 +74,152 @@ export default class profilePageSecond extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{ flex: Platform.OS === "ios" ? 0.1 : 0.08 }}>
-          <SafeAreaView style={styles.header}>
-            <View>
-              <TouchableOpacity onPress={this.previousEvent}>
-                <Image
-                  style={styles.backImage}
-                  source={require("../../assets/back1.png")}
-                />
+        <View style={{
+          width:"100%",
+          flex:.035,
+          backgroundColor:"#269DF9"
+        }}/>
+        <SafeAreaView 
+        style={{ 
+          flex: Platform.OS === "ios" ? 0.08 : 0.08,
+          flexDirection:"row",
+          justifyContent:"space-between",
+          alignItems:"center",
+          backgroundColor: "#269DF9",
+          }}>
+              <TouchableOpacity 
+                style={{
+                  flex:0.1,
+                  height:"100%",
+                  alignItems:"center",
+                  justifyContent:"center",
+                }}
+                onPress={this.previousEvent}>
+                  <Image
+                    style={{
+                      maxHeight:60,
+                      maxWidth:60,
+                      resizeMode:"contain",
+                    }}
+                    source={require("../../assets/back1.png")}
+                  />
               </TouchableOpacity>
+              <View 
+              style={{
+                flex:0.8,
+                alignItems:"center",
+                justifyContent:"center"
+              }}
+              >
+              <Text style={{
+                alignItems:"center",
+                justifyContent:"center",
+                color:"#fff",
+                textAlignVertical:"center",
+                fontSize:22
+              }}>Book Your Tickets</Text>
             </View>
-            <View>
-              <Text style={styles.headerText}>Book Your Tickets</Text>
-            </View>
-            <View>
+            <View
+             style={{
+              flex:0.1,
+              height:"100%",
+              alignItems:"center",
+              justifyContent:"center"
+            }}>
               <OptionsMenu
                 button={require("../../assets/More.png")}
-                buttonStyle={styles.optionButton}
+                buttonStyle={{
+                  maxHeight:30,
+                    maxWidth:30,
+                    resizeMode:"contain",
+                    alignItems:"center",
+                    justifyContent:"center"
+                }}
                 destructiveIndex={1}
                 options={["Edit", "Delete", "Cancel"]}
                 actions={[this.editPost, this.deletePost]}
               />
             </View>
-          </SafeAreaView>
-        </View>
-        <View style={styles.enterSourceDestinationView}>
-          <View style={styles.sourceDestinationInputView}>
-            <View style={styles.sourceTODestinationLine}>
+        </SafeAreaView>
+        
+        
+        <View style={{
+          flex: Platform.OS === "ios" ? 0.35: 0.35,
+          alignItems:"center",
+          backgroundColor: "#269DF9",
+        }}>
+          <View style={{
+            flex:0.9,
+            flexDirection:"row",
+            alignItems:"center",
+            justifyContent:"space-between",
+          }}>
+            <View style={{
+              flex:0.1,
+              alignItems:"center",
+              justifyContent:"center",
+              height:"100%",
+            }}>
               <Image
-                style={styles.sourceTOdestinationImage}
+                style={{
+                  maxHeight:"60%",
+                  maxWidth:"60%",
+                  resizeMode:"contain",
+                }}
                 source={require("../../assets/so_de_icon_side_line.png")}
               />
             </View>
-            <View style={styles.inputView}>
-              <View
-                style={{ flex: 0.5, zIndex: 2 /*backgroundColor: "green"*/ }}
-              >
-                <View style={styles.outterLookOfInputBox}>
-                  {/* <TextInput
-                    style={styles.signInTextInputOne}
-                    placeholder="choose starting point, or click on the map  "
-                    placeholderTextColor="#fff"
-                    fontSize={14}
-                    value={this.state.source}
-                    onChange={this.handleSetSource}
-                  /> */}
+            <View style={{
+              flex:0.8,
+              flexDirection:"column",
+              alignItems:"center",
+              justifyContent:"space-around",
+              height:"100%",
+            }}>
+             
                   <SearchableDropdown
+                    containerStyle={{
+                      width:"100%",
+                      height:"25%",
+                      borderRadius:30,
+                      borderWidth:1,
+                      borderColor:"#FFF",
+                      alignItems:"center",
+                      justifyContent:"center",
+                      paddingLeft:"5%",
+                      paddingRight:"5%",
+                      zIndex:1,
+                      position:"relative"
+                    }}
+
+                    itemsContainerStyle={{
+                      width:"100%",
+                      maxHeight:150,
+                      padding:"2%",
+                      position:"absolute",
+                      top:"100%",
+                      backgroundColor:"#fff",
+                      borderBottomRightRadius:15,
+                      borderTopLeftRadius:15,
+                      shadowColor: "#000",
+                      shadowOffset: {
+                        width: 0,
+                        height: 1
+                      },
+                      shadowOpacity: 1.5,
+                      shadowRadius: 5,
+                      elevation: 4
+                    }}
+
+                    itemStyle={{
+                      paddingVertical:"5%",
+                      paddingLeft:"5%"
+                    }}
+                    itemTextStyle={{
+                      color:"#222"
+                    }}
+                    
+
                     selectedItems={this.state.source}
                     onItemSelect={item => {
                       const items = this.state.source;
@@ -132,52 +228,69 @@ export default class profilePageSecond extends React.Component {
                       }
                       this.setState({ source: items });
                     }}
-                    containerStyle={styles.containerStyle}
-                    itemStyle={styles.itemStyle}
-                    itemTextStyle={styles.itemTextStyle}
-                    itemsContainerStyle={styles.itemsContainerStyle}
+        
                     items={source_place}
-                    // chip={true}
-                    // resetValue={false}
+                  
                     textInputProps={{
-                      placeholder:
-                        "choose starting point, or click on the map ",
+
+                      placeholder:"choose starting point, or click on the map ",
                       fontSize: 14,
-                      placeholderTextColor: "#fff",
-                      underlineColorAndroid: "transparent",
-                      // onTextChange: text =>
-                      //   this.setState({ destination: text }),
+                      placeholderTextColor:"#fff",   
                       style: {
-                        paddingLeft: "2%",
-                        width: "95%",
-                        marginLeft: "3%",
-                        marginRight: "3%",
-                        position: "absolute",
-                        top: 20,
-                        borderRadius: 15,
-                        borderBottomColor: "#988c8c",
-                        borderBottomWidth: 1,
-                        zIndex: 3
+                        borderBottomColor:"#c3c3c3",
+                        borderBottomWidth:1,
+                        color:"#fff",
+                        zIndex:2
                       }
                     }}
+
                     listProps={{
-                      nestedScrollEnabled: true
+                      nestedScrollEnabled:true,
                     }}
                   />
-                </View>
-                {/* <Text style={styles.textCss}>choose current location</Text> */}
-              </View>
-              <View style={{ flex: 0.5 /*backgroundColor: "red"*/ }}>
-                <View style={styles.outterLookOfInputBoxSecond}>
-                  {/* <TextInput
-                    style={styles.signInTextInputOne}
-                    placeholder="choose destination "
-                    placeholderTextColor="#fff"
-                    fontSize={14}
-                    value={this.state.destination}
-                    onChange={this.handleSetDestination}
-                  /> */}
+
                   <SearchableDropdown
+                    containerStyle={{
+                      width:"100%",
+                      height:"25%",
+                      borderRadius:30,
+                      borderWidth:1,
+                      borderColor:"#FFF",
+                      alignItems:"center",
+                      justifyContent:"center",
+                      paddingLeft:"5%",
+                      paddingRight:"5%",
+                      zIndex:0,
+                      position:"relative"
+                    }}
+
+                    itemsContainerStyle={{
+                      width:"100%",
+                      maxHeight:150,
+                      padding:"2%",
+                      position:"absolute",
+                      top:"100%",
+                      backgroundColor:"#fff",
+                      borderBottomRightRadius:15,
+                      borderTopLeftRadius:15,
+                      shadowColor: "#000",
+                      shadowOffset: {
+                        width: 0,
+                        height: 1
+                      },
+                      shadowOpacity: 1.5,
+                      shadowRadius: 5,
+                      elevation: 4
+                    }}
+
+                    itemStyle={{
+                      paddingVertical:"5%",
+                      paddingLeft:"5%"
+                    }}
+                    itemTextStyle={{
+                      color:"#222"
+                    }}
+
                     multi={true}
                     selectedItems={this.state.destination}
                     onItemSelect={item => {
@@ -188,72 +301,149 @@ export default class profilePageSecond extends React.Component {
                       // items.push(item);
                       this.setState({ destination: items });
                     }}
-                    containerStyle={styles.containerStyle}
-                    itemStyle={styles.itemStyle}
-                    itemTextStyle={styles.itemTextStyle}
-                    itemsContainerStyle={styles.itemsContainerStyle}
+                   
                     items={destination_place}
-                    // defaultIndex={2}
                     chip={true}
                     resetValue={false}
+               
                     textInputProps={{
-                      placeholder: "choose destination",
+
+                      placeholder:"choose destination point, or click on the map ",
                       fontSize: 14,
-                      placeholderTextColor: "#fff",
-                      underlineColorAndroid: "transparent",
-                      // onTextChange: text => alert(text)
+                      placeholderTextColor:"#fff",
+                     
                       style: {
-                        paddingLeft: "2%",
-                        width: "95%",
-                        marginLeft: "3%",
-                        marginRight: "3%",
-                        position: "absolute",
-                        top: 20,
-                        borderRadius: 15,
-                        borderBottomColor: "#988c8c",
-                        borderBottomWidth: 1,
-                        zIndex: 0
+                        borderBottomColor:"#c3c3c3",
+                        borderBottomWidth:1,
+                        color:"#fff",
+                        zIndex:2
                       }
                     }}
+
                     listProps={{
                       nestedScrollEnabled: true
                     }}
                   />
-                </View>
-              </View>
             </View>
-            <View style={styles.sourceDestinationSwapIcon}>
-              <TouchableOpacity>
+         
+              <TouchableOpacity style={{
+                 flex:0.1,
+                 alignItems:"center",
+                 justifyContent:"center",
+              }}>
                 <Image
-                  style={styles.swapIcon}
+                  style={{
+                    maxHeight:25,
+                    maxWidth:25,
+                    resizeMode:"contain"
+                  }}
                   source={require("../../assets/sawap_icon.png")}
                 />
               </TouchableOpacity>
-            </View>
           </View>
-          <View style={styles.nextButtonView}>
+
+
+
+
+
+
+
+          <View style={{
+            flex:0.15,
+            alignItems:"center",
+            justifyContent:"center",
+            width:"100%",
+            height:"100%",
+            zIndex:-2,
+          }}>
             <TouchableOpacity
-              style={styles.nextButtonCss}
+              style={{
+                width:"30%",
+                height:"100%",
+                backgroundColor:"#fff",
+                borderRadius:30,
+                alignItems:"center",
+                justifyContent:"center",
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 1
+                },
+                shadowOpacity: 1.5,
+                shadowRadius: 5,
+                elevation: 4
+              }}
               onPress={this.nextEvent}
             >
-              <Text style={styles.nextButtonTextCss}> next </Text>
+              <Text style={{
+                color:"#269DF9",
+                fontSize:18,
+                fontWeight:"bold",
+                margin:"5%"
+              }}> Next </Text>
             </TouchableOpacity>
           </View>
-        </View>
-        <View style={styles.waveView}>
+
+          </View>
+
+
+
+
+
+        <View style={{
+          flex:0.10,
+          alignItems:"flex-start",
+          justifyContent:"center",
+          zIndex:-20,
+        }}>
           <Image
-            style={styles.waveImageCss}
+            style={{
+              width:"100%",
+              height:"100%",
+              resizeMode:"stretch"
+            }}
             source={require("../../assets/wawe.png")}
           ></Image>
         </View>
+
+
+
+
+
+
         <View style={styles.mapView}>
           <View style={styles.mapTextView}>
             <Text style={styles.mapTextCss}>
-              {" "}
-              find your destination on map{" "}
+              find your destination on map
             </Text>
           </View>
-          <View style={styles.mapViewBorder}>{/* Map code */}</View>
+          <View style={styles.mapViewBorder}>
+            <MapPicker style={styles.map}
+              minZoomLevel={10}
+              initialCoordinate={{
+                latitude: 22.5975015,
+                longitude: 72.8238184,
+              }}
+              
+              buttonStyle={{
+                width:undefined,
+                backgroundColor:"#008CF8",
+                borderRadius:50,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 1
+                },
+                shadowOpacity: 1.5,
+                shadowRadius: 5,
+                elevation: 4
+              }}
+              textStyle={{
+                margin:"5%"
+              }}
+              onLocationSelect={({latitude, longitude})=>console.log(longitude)}
+            />
+          </View>
         </View>
       </View>
     );
@@ -263,184 +453,46 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: "#269DF9",
-    paddingTop: Platform.OS === "android" ? "5%" : "0%"
-  },
-  backImage: {
-    height: 60,
-    width: 60,
-    marginTop: "-22%",
-    resizeMode: "contain"
-  },
-  headerText: {
-    flex: 1,
-    alignSelf: "center",
-    color: "#fff",
-    fontSize: 30
-  },
-  optionButton: {
-    width: 32,
-    height: 35,
-    marginRight: "3%",
-    resizeMode: "contain"
-  },
-  enterSourceDestinationView: {
-    flex: Platform.OS === "ios" ? 0.4 : 0.42,
-    backgroundColor: "#269DF9",
-    paddingTop: "2%"
-  },
-  sourceDestinationInputView: {
-    flex: 0.8,
-    flexDirection: "row"
-  },
-  sourceTODestinationLine: {
-    flex: 0.15,
-    // backgroundColor:"red",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  nextButtonView: {
-    flex: 0.2,
-    zIndex: -1,
-    alignItems: "center",
-    justifyContent: "center"
-    // marginTop: Platform.OS === "ios" ? "-18%" : "-14%",
-  },
-  sourceTOdestinationImage: {
-    height: 120,
-    width: 60,
-    alignSelf: "center",
-    resizeMode: "contain"
-  },
-  inputView: {
-    flex: 0.75,
-    flexDirection: "column"
-  },
-  outterLookOfInputBox: {
-    borderWidth: 0.5,
-    height: 45,
-    marginTop: Platform.OS === "ios" ? "28%" : "23%",
-    borderRadius: 25,
-    borderColor: "#fff"
-    // zIndex: 4
-  },
-  signInTextInputOne: {
-    paddingLeft: "2%",
-    width: "95%",
-    marginLeft: "3%",
-    marginRight: "3%",
-    position: "absolute",
-    bottom: 6,
-    borderRadius: 15,
-    borderBottomColor: "#988c8c",
-    borderBottomWidth: 1
-  },
-  textCss: {
-    alignSelf: "center",
-    color: "#fff",
-    fontSize: 10
-  },
-  outterLookOfInputBoxSecond: {
-    borderWidth: 0.5,
-    height: 45,
-    marginTop: "5%",
-    borderRadius: 25,
-    borderColor: "#fff"
-  },
-  sourceDestinationSwapIcon: {
-    flex: 0.1,
-    // backgroundColor:"red",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  swapIcon: {
-    height: 25,
-    width: 25,
-    alignSelf: "center"
-  },
-  nextButtonCss: {
-    alignSelf: "center",
-    width: "35%",
-    height: "55%",
-    backgroundColor: "#fff",
-    borderRadius: 25,
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1
-    },
-    shadowOpacity: 1.5,
-    shadowRadius: 5,
-    elevation: 4
-  },
-  nextButtonTextCss: {
-    color: "#269DF9",
-    alignSelf: "center",
-    fontSize: 20
-  },
-  waveView: {
-    flex: Platform.OS === "ios" ? 0.1 : 0.11,
-    zIndex: -3
-  },
-  waveImageCss: {
-    width: wp("100%"),
-    height: hp("13%"),
-    marginTop: Platform.OS === "ios" ? "-6%" : "-3%",
-    resizeMode: "contain"
-  },
   mapView: {
-    flex: Platform.OS === "ios" ? 0.4 : 0.39,
-    backgroundColor: "#fff"
-  },
-  mapViewBorder: {
-    flex: 0.9,
-    marginTop: "1%",
-    width: "100%",
-    height: "100%",
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
-    backgroundColor: "lightblue"
+    flex:0.70,
   },
   mapTextView: {
-    flex: 0.1,
+    flex: 0.05,
     marginLeft: "25%",
     marginRight: "25%",
     alignItems: "center",
     justifyContent: "center",
     borderBottomColor: "#bbbbbb",
-    borderBottomWidth: 0.5
+    borderBottomWidth: 0.5,
   },
   mapTextCss: {
-    position: "absolute",
-    bottom: 0,
-    color: "#bbbbbb"
+    color: "#bbbbbb",
+    backgroundColor:"transparent",
   },
-  containerStyle: {
-    padding: 5
+  mapViewBorder: {
+    flex: 0.95,
+    marginTop: "2.5%",
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    overflow:"hidden",
+    position:"relative",
+    backgroundColor:"transparent",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 10,
+      height: 10,
+    },
+    shadowOpacity: 1,
+    shadowRadius: Platform.OS === "ios" ? 10: 50,
+    elevation:10
   },
-  itemStyle: {
-    padding: 12,
-    marginTop: 5,
-    width: "95%",
-    alignSelf: "center"
-    // backgroundColor: "lightblue",
-    // borderColor: "#bbb",
-    // borderWidth: 1,
-    // borderRadius: 5
-  },
-  itemTextStyle: {
-    color: "#222"
-  },
-  itemsContainerStyle: {
-    maxHeight: 200,
-    backgroundColor: "#fff",
-    marginTop: 43,
-    borderBottomRightRadius: 15,
-    borderTopLeftRadius: 15
+  map:{
+    width:"100%",
+    height:"100%",
+    position:"absolute",
+    top:0,
+    bottom:0,
+    left:0,
+    right:0,
   }
 });

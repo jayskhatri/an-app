@@ -18,7 +18,7 @@ import {
 import Modal from "react-native-modal";
 import OptionsMenu from "react-native-options-menu";
 import Header from "../header/header";
-
+// import LinearGradient from 'react-native-linear-gradient';
 export default class BookingPageSecond extends React.Component {
   constructor(props) {
     super(props);
@@ -49,9 +49,7 @@ export default class BookingPageSecond extends React.Component {
     this.backEvent = this.backEvent.bind(this);
     this.helpPost = this.helpPost.bind(this);
     this.nextEvent = this.nextEvent.bind(this);
-    this.toggleDropDownConfirmModal = this.toggleDropDownConfirmModal.bind(
-      this
-    );
+    this.toggleDropDownConfirmModal = this.toggleDropDownConfirmModal.bind(this);
     this.toggleDropDownCancleModal = this.toggleDropDownCancleModal.bind(this);
     this.toggleDropDownModal = this.toggleDropDownModal.bind(this);
   }
@@ -92,14 +90,15 @@ export default class BookingPageSecond extends React.Component {
     const temp = this.state.tempPassenger;
     this.setState({ numberOfPassenger: temp });
     console.log("toggle num of passsenger: ", this.state.numberOfPassenger);
-    // if (this.state.numberOfPassenger == "6") {
-    //   this.setState({ fullAuto: true });
-    // } else {
-    //   this.setState({ fullAuto: false, switchValue: false });
-    // }
-    // this.setState({
-    //   isDropDownModelVisible: !this.state.isDropDownModelVisible
-    // });wwww
+    if (this.state.numberOfPassenger == "6") {
+      this.setState({ fullAuto: true });
+    } else {
+      this.setState({ fullAuto: false, switchValue: false });
+    }
+    this.setState({
+      isDropDownModelVisible: !this.state.isDropDownModelVisible
+    });
+    
   };
 
   toggleDropDownCancleModal = () => {
@@ -192,7 +191,7 @@ export default class BookingPageSecond extends React.Component {
     console.log("help");
   }
   nextEvent() {
-    console.log("next Event");
+    this.props.navigation.navigate("BookingPageThird");
   }
 
   render() {
@@ -200,30 +199,76 @@ export default class BookingPageSecond extends React.Component {
     let max = new Date();
     return (
       <View style={styles.container}>
-        <View style={{ flex: Platform.OS === "ios" ? 0.1 : 0.08 }}>
-          <SafeAreaView style={styles.header}>
-            <View>
-              <TouchableOpacity onPress={this.backEvent}>
-                <Image
-                  style={styles.backImage}
-                  source={require("../../assets/back1.png")}
-                />
+        <View
+        style={{
+            width:"100%",
+            flex:0.035,
+            backgroundColor:"#269DF9"
+        }}/>
+        <SafeAreaView 
+        style={{ 
+          flex: Platform.OS === "ios" ? 0.08 : 0.08,
+          flexDirection:"row",
+          justifyContent:"space-between",
+          alignItems:"center",
+          backgroundColor: "#269DF9",
+          }}>
+              <TouchableOpacity 
+                style={{
+                  flex:0.1,
+                  height:"100%",
+                  alignItems:"center",
+                  justifyContent:"center",
+                }}
+                onPress={this.backEvent}>
+                  <Image
+                    style={{
+                      maxHeight:60,
+                      maxWidth:60,
+                      resizeMode:"contain",
+                    }}
+                    source={require("../../assets/back1.png")}
+                  />
               </TouchableOpacity>
+              <View 
+              style={{
+                flex:0.8,
+                alignItems:"center",
+                justifyContent:"center"
+              }}
+              >
+              <Text style={{
+                alignItems:"center",
+                justifyContent:"center",
+                color:"#fff",
+                textAlignVertical:"center",
+                fontSize:22
+              }}>Book Your Tickets</Text>
             </View>
-            <View>
-              <Text style={styles.headerText}>Continue Booking</Text>
-            </View>
-            <View>
+            <View
+             style={{
+              flex:0.1,
+              height:"100%",
+              alignItems:"center",
+              justifyContent:"center"
+            }}>
               <OptionsMenu
                 button={require("../../assets/More.png")}
-                buttonStyle={styles.optionButton}
+                buttonStyle={{
+                  maxHeight:30,
+                    maxWidth:30,
+                    resizeMode:"contain",
+                    alignItems:"center",
+                    justifyContent:"center"
+                }}
                 destructiveIndex={1}
-                options={["Help"]}
-                actions={[this.helpPost]}
+                options={["Edit", "Delete", "Cancel"]}
+                actions={[this.editPost, this.deletePost]}
               />
             </View>
-          </SafeAreaView>
-        </View>
+        </SafeAreaView>
+        
+      
         <View style={styles.inputView}>
           <View style={styles.S_D_view}>
             <View style={styles.sourceTODestinationLine}>
@@ -259,53 +304,98 @@ export default class BookingPageSecond extends React.Component {
               </View>
             </View>
           </View>
-          <View style={styles.Input_Date_Time_view}>
-            <View style={styles.outter_view_Input_Date_Time}>
-              <View style={styles.header_view_D_T}>
-                <View style={styles.header_DT_logo_view}>
-                  <View style={styles.outterViewOfDtIcon}>
+
+
+          <View style={{
+            backgroundColor: "#269DF6",
+            flex:0.33,
+            alignItems:"center",
+            justifyContent: "center",
+          }}>
+            <View style={{
+               width: "90%",
+               height: "90%",
+               backgroundColor: "lightblue",
+               borderRadius: 15,
+               alignItems:"center",
+               justifyContent:"center"
+            }}>
+              <View style={{
+                flex: 0.3,
+                flexDirection: "row",
+                borderTopLeftRadius: 15,
+                borderTopRightRadius: 15,
+                justifyContent: "space-between",
+                alignItems:"center",
+              }}>
+                <View style={{
+                  flex: 0.10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 10,
+                  backgroundColor: "#269DF9",
+                }}>
                     <Image
-                      style={styles.date_time_Image}
+                      style={{
+                        maxHeight: 30,
+                        maxWidth:30,
+                        resizeMode: 'center'
+                      }}
                       source={require("../../assets/ccalender_and_clock_icon.png")}
                     />
                   </View>
-                </View>
-                <View style={styles.header_DT_text_view}>
-                  <Text style={styles.header_D_T_text}>
-                    Journey Date And Time
+
+                <View style={{
+                   flex: 0.85,
+                   alignItems: "center",
+                   justifyContent: "center",
+                   borderBottomWidth: 2,
+                   borderBottomColor: "#fff",
+                  }}>
+                  <Text style={{
+                    color: "#000",
+                    fontSize: 20,
+                  }}>Journey Date And Time
                   </Text>
                 </View>
               </View>
-              <View style={styles.enter_Date_Time_View}>
-                <View style={{ flex: 0.1 }}>
+
+              <View style={{
+                flex: 0.3,
+                marginLeft: "10%",
+                marginRight: "2.5%",
+                borderBottomWidth: 1.5,
+                borderBottomColor: "#fff",
+                flexDirection: "row",
+              }}>
+                <View style={{ 
+                  flex: 0.1,
+                  alignItems:"flex-start",
+                  justifyContent:"flex-end",
+                 }}>
                   <Image
-                    style={styles.calenderIcon}
+                    style={{
+                      flex:1,
+                      maxHeight: 25,
+                      maxWidth: 20,
+                      resizeMode: "contain",
+                      marginBottom:"2%",
+                    }}
                     source={require("../../assets/calender_ion.png")}
                   />
                 </View>
 
-                <View
-                  style={{
-                    flex: 0.5,
-                    flexDirection: "column"
-                  }}
-                >
-                  <View
-                    style={{
-                      flex: 0.4,
-                      position: "absolute",
-                      bottom: 3,
-                      height: "100%",
-                      width: "100%",
-                      backgroundColor: "yellow",
-                      alignItems: "flex-end"
-                    }}
-                  >
                     {Platform.OS === "ios" ? (
                       <TouchableOpacity
                         onPress={this.toggleDateModal}
-                        style={styles.enterDateBtnCss}
-                      >
+                        style={{
+                          flex:0.5,
+                          width:"100%",
+                          height:"100%",
+                          flexDirection:"row",
+                          alignItems:"flex-end",
+                          justifyContent:"flex-start",
+                        }}>
                         <Text style={styles.text}>
                           {this.state.dateOfJourney}
                         </Text>
@@ -313,18 +403,24 @@ export default class BookingPageSecond extends React.Component {
                     ) : (
                       <TouchableOpacity
                         onPress={this.opeanDatePicker}
-                        style={styles.enterDateBtnCss}
+                        style={{
+                          flex:0.5,
+                          width:"100%",
+                          height:"100%",
+                          flexDirection:"row",
+                          alignItems:"flex-end",
+                          justifyContent:"flex-start",
+                        }}
                       >
                         <Text style={styles.text}>
-                          {" "}
-                          {this.state.dateOfJourney}{" "}
+                          {this.state.dateOfJourney}
                         </Text>
                       </TouchableOpacity>
                     )}
-                  </View>
+               
                   <View
                     style={{
-                      flex: 0.6,
+                      flex: 0,
                       alignItems: "center",
                       justifyContent: "center"
                     }}
@@ -350,7 +446,6 @@ export default class BookingPageSecond extends React.Component {
                             onDateChange={this.setDate}
                             mode="date"
                             minimumDate={min}
-                            // maximumDate={max + 3}
                             style={{
                               borderRadius: 25,
                               marginLeft: "2%",
@@ -378,65 +473,74 @@ export default class BookingPageSecond extends React.Component {
                       </View>
                     </Modal>
                   </View>
-                </View>
-                <View
-                  style={{ flex: 0.4, flexDirection: "row", marginLeft: "5%" }}
-                >
+
+                <View style={{ 
+                  flex: 0.4, 
+                  flexDirection: "row",
+                  alignItems:"flex-end",
+                  justifyContent:"center"
+                  }}>
                   <TouchableOpacity
                     onPress={this.presentDateEvent}
-                    style={{ width: "40%" }}
                   >
-                    <Text style={styles.date_today_today}>Today</Text>
+                    <Text style={{
+                      color: "#fff"
+                    }}>
+                      Today</Text>
                   </TouchableOpacity>
                   <Text
                     style={{
-                      position: "absolute",
-                      bottom: 3,
-                      marginLeft: "33%",
                       color: "#fff"
                     }}
                   >
                     {" "}
                     |{" "}
                   </Text>
-                  <TouchableOpacity
-                    style={{
-                      marginLeft: "5%",
-                      // backgroundColor: "blue",
-                      width: "100%"
-                    }}
-                  >
-                    <Text style={styles.date_today_tomorrow}>Tomorrow</Text>
+                  <TouchableOpacity>
+                    <Text style={{
+                      color: "#fff"
+                    }}>
+                      Tomorrow</Text>
                   </TouchableOpacity>
                 </View>
               </View>
 
-              {/* --- */}
-
-              <View style={styles.enter_Date_Time_View}>
-                <View style={{ flex: 0.1 }}>
+              <View style={{
+                flex: 0.3,
+                marginLeft: "10%",
+                marginRight: "2.5%",
+                borderBottomWidth: 1.5,
+                borderBottomColor: "#fff",
+                flexDirection: "row",
+              }}>
+              <View style={{ 
+                  flex: 0.1,
+                  alignItems:"flex-start",
+                  justifyContent:"flex-end",
+                 }}>
                   <Image
-                    style={styles.calenderIcon}
+                    style={{
+                      flex:1,
+                      maxHeight: 25,
+                      maxWidth: 20,
+                      resizeMode: "contain",
+                      marginBottom:"2%",
+                    }}
                     source={require("../../assets/clock_icon.png")}
                   />
                 </View>
 
-                <View
-                  style={{
-                    flex: 0.5
-                  }}
-                >
-                  <View
-                    style={{
-                      flex: 0.4,
-                      position: "absolute",
-                      bottom: 3
-                    }}
-                  >
                     {Platform.OS === "ios" ? (
                       <TouchableOpacity
                         onPress={this.toggleTimeModal}
-                        style={styles.enterDateBtnCss}
+                        style={{
+                          flex:0.7,
+                          width:"100%",
+                          height:"100%",
+                          flexDirection:"row",
+                          alignItems:"flex-end",
+                          justifyContent:"flex-start",
+                        }}
                       >
                         <Text style={styles.text}>
                           {this.state.timeOfJourney}
@@ -445,17 +549,24 @@ export default class BookingPageSecond extends React.Component {
                     ) : (
                       <TouchableOpacity
                         onPress={this.opeanTimePicker}
-                        style={styles.enterDateBtnCss}
+                        style={{
+                          flex:0.7,
+                          width:"100%",
+                          height:"100%",
+                          flexDirection:"row",
+                          alignItems:"flex-end",
+                          justifyContent:"flex-start",
+                        }}
                       >
                         <Text style={styles.text}>
                           {this.state.timeOfJourney}
                         </Text>
                       </TouchableOpacity>
                     )}
-                  </View>
+
                   <View
                     style={{
-                      flex: 0.6,
+                      flex: 0,
                       alignItems: "center",
                       justifyContent: "center"
                     }}
@@ -507,69 +618,142 @@ export default class BookingPageSecond extends React.Component {
                       </View>
                     </Modal>
                   </View>
-                </View>
-                <View
-                  style={{
-                    flex: 0.4,
-                    flexDirection: "row",
-                    marginLeft: "5%"
-                  }}
-                >
+
                   <TouchableOpacity
                     onPress={this.presentTimeEvent}
-                    style={{ width: "100%" }}
-                  >
-                    <View
-                      style={{
-                        position: "absolute",
-                        right: 31,
-                        bottom: 0
-                      }}
-                    >
-                      <Text style={styles.date_today_today}>Now</Text>
-                    </View>
+                    style={{ 
+                      flex: 0.2,
+                      flexDirection:"row",
+                      width: "100%",
+                      alignItems:"flex-end",
+                      justifyContent:"center",
+                      height:"100%"
+                   }}>
+                      <Text style={{
+                        color: "#fff"
+                        }}>
+                          Now</Text>
                   </TouchableOpacity>
                 </View>
               </View>
             </View>
-          </View>
-          <View style={styles.Input_Date_Time_view}>
-            <View style={styles.outter_view_Input_Date_Time}>
-              <View style={styles.header_view_D_T}>
-                <View style={styles.header_DT_logo_view}>
-                  <View style={styles.outterViewOfDtIcon}>
+
+
+            <View style={{
+            backgroundColor: "#269DF6",
+            flex:0.33,
+            alignItems:"center",
+            justifyContent: "center",
+            }}>
+            <View style={{
+               width: "90%",
+               height: "90%",
+               backgroundColor: "lightblue",
+               borderRadius: 15,
+               alignItems:"center",
+               justifyContent:"center"
+            }}>
+              <View style={{
+                flex: 0.3,
+                flexDirection: "row",
+                borderTopLeftRadius: 15,
+                borderTopRightRadius: 15,
+                justifyContent: "space-between",
+                alignItems:"center",
+              }}>
+                <View style={{
+                  flex: 0.10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 10,
+                  backgroundColor: "#269DF9",
+                }}>
                     <Image
-                      style={styles.date_time_Image}
+                      style={{
+                        maxHeight: 30,
+                        maxWidth:30,
+                        resizeMode: 'center'
+                      }}
                       source={require("../../assets/group_of_ppl.png")}
                     />
                   </View>
-                </View>
-                <View style={styles.header_DT_text_view}>
-                  <Text style={styles.header_Time_text}>Passenger Details</Text>
+
+                <View style={{
+                   flex: 0.85,
+                   alignItems: "center",
+                   justifyContent: "center",
+                   borderBottomWidth: 2,
+                   borderBottomColor: "#fff",
+                  }}>
+                  <Text style={{
+                    color: "#000",
+                    fontSize: 20,
+                  }}>Passenger Details
+                  </Text>
                 </View>
               </View>
-              <View style={styles.enter_Date_Time_View}>
-                <View style={{ flex: 0.1, flexDirection: "row" }}>
+
+              <View style={{
+                flex: 0.3,
+                marginLeft: "10%",
+                marginRight: "2.5%",
+                borderBottomWidth: 1.5,
+                borderBottomColor: "#fff",
+                flexDirection: "row",
+              }}>
+                <View style={{ 
+                  flex: 0.1,
+                  alignItems:"flex-start",
+                  justifyContent:"flex-end",
+                 }}>
                   <Image
-                    style={styles.personIcon}
+                    style={{
+                      flex:1,
+                      maxHeight: 25,
+                      maxWidth: 20,
+                      resizeMode: "contain",
+                      marginBottom:"2%",
+                    }}
                     source={require("../../assets/person.png")}
                   />
                 </View>
-                <KeyboardAvoidingView style={{ flex: 0.5 }}>
-                  <View style={{ position: "absolute", bottom: 5 }}>
-                    <TouchableOpacity
+
+                    {Platform.OS === "ios" ? (
+                      <TouchableOpacity
                       onPress={this.toggleDropDownModal}
-                      style={styles.enterDateBtnCss}
-                    >
-                      <Text style={styles.text}>
-                        {" "}
-                        {this.state.numberOfPassenger}{" "}
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
+                        style={{
+                          flex:0.5,
+                          width:"100%",
+                          height:"100%",
+                          flexDirection:"row",
+                          alignItems:"flex-end",
+                          justifyContent:"flex-start",
+                        }}>
+                        <Text style={styles.text}>
+                          {this.state.numberOfPassenger}
+                        </Text>
+                      </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity
+                      onPress={this.toggleDropDownModal}
+                        style={{
+                          flex:0.5,
+                          width:"100%",
+                          height:"100%",
+                          flexDirection:"row",
+                          alignItems:"flex-end",
+                          justifyContent:"flex-start",
+                        }}
+                      >
+                        <Text style={styles.text}>
+                          {this.state.numberOfPassenger}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+               
                   <View
                     style={{
-                      flex: 0.6,
+                      flex: 0,
                       alignItems: "center",
                       justifyContent: "center"
                     }}
@@ -638,109 +822,145 @@ export default class BookingPageSecond extends React.Component {
                       </View>
                     </Modal>
                   </View>
-                </KeyboardAvoidingView>
-                <View
-                  style={{
-                    flex: 0.4,
-                    flexDirection: "row",
-                    height: "100%"
-                  }}
-                >
-                  <View
+
+                <View style={{ 
+                  flex: 0.4, 
+                  flexDirection: "row",
+                  alignItems:"flex-end",
+                  justifyContent:"flex-end"
+                  }}>
+                  <TouchableOpacity
+                    onPress={this.singlePersonEvent}
+                  >
+                    <Text style={{
+                      color: "#fff"
+                    }}>
+                      Single</Text>
+                  </TouchableOpacity>
+                  <Text
                     style={{
-                      height: "100%",
-                      flexDirection: "row",
-                      position: "absolute",
-                      top: "5%",
-                      marginLeft: "31%"
+                      color: "#fff"
                     }}
                   >
-                    <TouchableOpacity
-                      onPress={this.singlePersonEvent}
-                      style={styles.numberOfPassenger_btn_css}
-                    >
-                      <Text style={styles.numberOfPassenger_text_css}>
-                        Single
-                      </Text>
-                    </TouchableOpacity>
-                    <View
-                      style={{
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: 60
-                      }}
-                    >
-                      <Text style={styles.numberOfPassenger_text_css}> | </Text>
-                    </View>
-                    <TouchableOpacity
-                      onPress={this.twoPersonEvent}
-                      style={styles.numberOfPassenger_btn_css}
-                    >
-                      <Text style={styles.numberOfPassenger_text_css}>Two</Text>
-                    </TouchableOpacity>
-                  </View>
+                    {" "}
+                    |{" "}
+                  </Text>
+                  <TouchableOpacity 
+                   onPress={this.twoPersonEvent}>
+                    <Text style={{
+                      color: "#fff"
+                    }}>
+                      Two</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
-              <View style={styles.enter_Date_Time_View}>
-                <View style={{ flex: 0.1, flexDirection: "row" }}>
+
+              <View style={{
+                flex: 0.3,
+                marginLeft: "10%",
+                marginRight: "2.5%",
+                borderBottomWidth: 1.5,
+                borderBottomColor: "#fff",
+                flexDirection: "row",
+              }}>
+              <View style={{ 
+                  flex: 0.1,
+                  alignItems:"flex-start",
+                  justifyContent:"flex-end",
+                 }}>
                   <Image
-                    style={styles.personIcon}
+                    style={{
+                      flex:1,
+                      maxHeight: 25,
+                      maxWidth: 20,
+                      resizeMode: "contain",
+                      marginBottom:"2%",
+                    }}
                     source={require("../../assets/Solid.png")}
                   />
                 </View>
-                <View style={{ flex: 0.6 }}>
-                  <Text style={styles.sharing_text_css}>
-                    {" "}
-                    Allow For Sharing Auto{" "}
-                  </Text>
-                </View>
-                <View style={{ flex: 0.3, flexDirection: "row" }}>
+
                   <View
                     style={{
-                      flexDirection: "row",
-                      position: "absolute",
-                      bottom: 5,
-                      marginLeft: "31%"
+                      flex:0.7,
+                      width:"100%",
+                      height:"100%",
+                      flexDirection:"row",
+                      alignItems:"flex-end",
+                      justifyContent:"flex-start",
                     }}
                   >
-                    <Switch
-                      style={{ position: "absolute", bottom: 3 }}
+                    <Text style={styles.text}>
+                      Allow For Sharing Auto
+                    </Text>
+                  </View>
+                
+                  <Switch
+                      style={{ flex: 0.2,
+                        flexDirection:"row",
+                        width: "100%",
+                        // height:"100%",
+                        alignSelf:"flex-end",
+                        justifyContent:"flex-end",
+                        // backgroundColor:"red"
+                       }}
                       onValueChange={this.toggleSwitch}
                       disabled={this.state.fullAuto ? true : false}
                       value={this.state.switchValue}
                     />
-                  </View>
                 </View>
               </View>
             </View>
-          </View>
+
+
+
+
         </View>
-        <View style={{ flex: 0.2 }}>
+        <View style={{ flex: 0.3}}>
           <View style={{ flex: 0.5 }}>
             <Header />
           </View>
-          <View style={{ flex: 0.5 }}>
+
+          {/* <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']}> */}
+          <View style={{
+            flex:0.3,
+            alignItems:"center",
+            justifyContent:"center",
+            width:"100%",
+            height:"100%",
+          }}>
+           
             <TouchableOpacity
-              onPress={this.nextEvent}
               style={{
-                backgroundColor: "#fff",
-                borderColor: "#000",
-                borderWidth: 0.5,
-                width: "30%",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "40%",
-                borderRadius: 20,
-                alignSelf: "center"
+                width:"30%",
+                height:"60%",
+                //backgroundColor:"#269DF9",
+                borderRadius:30,
+                alignItems:"center",
+                justifyContent:"center",
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 1
+                },
+                shadowOpacity: 1.5,
+                shadowRadius: 5,
+                elevation: 4
               }}
+              onPress={this.nextEvent}
             >
-              <Text
-                style={{ alignSelf: "center", fontSize: 23, color: "#269DF6" }}
-              >
-                Next
-              </Text>
+              
+              <Text style={{
+                color:"#fff",
+                margin:"5%",
+                fontSize:18,
+                fontWeight:"bold",
+              }}> Next </Text>
+              
             </TouchableOpacity>
+            
           </View>
+          {/* </LinearGradient> */}
         </View>
       </View>
     );
@@ -750,68 +970,42 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: "#269DF9",
-    paddingTop: Platform.OS === "android" ? "5%" : "0%"
-  },
-  backImage: {
-    height: 60,
-    width: 60,
-    marginTop: "-22%",
-    resizeMode: "contain"
-  },
-  headerText: {
-    flex: 1,
-    alignSelf: "center",
-    color: "#fff",
-    fontSize: 30
-  },
-  optionButton: {
-    width: 32,
-    height: 35,
-    marginRight: "3%",
-    resizeMode: "contain"
-  },
   inputView: {
     flex: 0.7,
     backgroundColor: "#269DF9"
   },
   S_D_view: {
     flex: 0.33,
-    //   backgroundColor:"orange",
     flexDirection: "row"
   },
   sourceTODestinationLine: {
     flex: 0.15,
-    // backgroundColor:"red",
     alignItems: "center",
     justifyContent: "center"
   },
   sourceTOdestinationImage: {
     height: "50%",
-    width: 60,
+    width: "100%",
     alignSelf: "center",
     resizeMode: "contain"
   },
   S_D_input_view: {
-    flex: 0.85,
-    flexDirection: "column"
+    flex: 1,
+    flexDirection: "column",
   },
   s_input_view: {
-    flex: 0.5,
+    flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   d_input_view: {
-    flex: 0.5,
+    flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   outter_view_s_input: {
     borderWidth: 0.5,
-    height: "38%",
+    height: "50%",
     width: "90%",
     position: "absolute",
     left: 0,
@@ -830,148 +1024,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     color: "#4d4d4d"
   },
-  Input_Date_Time_view: {
-    flex: 0.35,
-    backgroundColor: "#269DF6",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  outter_view_Input_Date_Time: {
-    width: "90%",
-    height: "85%",
-    padding: "2%",
-    backgroundColor: "lightblue",
-    borderRadius: 25
-  },
-  header_view_D_T: {
-    flex: 0.25,
-    backgroundColor: "lightblue",
-    flexDirection: "row",
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    justifyContent: "space-between"
-  },
-  date_time_Image: {
-    height: 30,
-    width: 30,
-    alignSelf: "center",
-    resizeMode: "contain"
-  },
-  header_DT_logo_view: {
-    flex: 0.15,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  outterViewOfDtIcon: {
-    width: 40,
-    padding: "5%",
-    backgroundColor: "#269DF9",
-    borderRadius: 10
-  },
-  header_DT_text_view: {
-    flex: 0.85,
-    alignItems: "center",
-    justifyContent: "center",
-    borderBottomWidth: 2,
-    borderBottomColor: "#fff",
-    marginLeft: "2%",
-    marginRight: "2%"
-  },
-  header_D_T_text: {
-    alignSelf: "center",
-    color: "#000",
-    fontSize: 20,
-    position: "absolute",
-    left: "8%"
-  },
-  header_Time_text: {
-    alignSelf: "center",
-    color: "#000",
-    fontSize: 20,
-    position: "absolute",
-    left: "16%"
-  },
-  enter_Date_Time_View: {
-    flex: 0.3,
-    marginTop: "2%",
-    marginLeft: "10%",
-    marginRight: "5%",
-    borderBottomWidth: 1.5,
-    borderBottomColor: "#fff",
-    flexDirection: "row"
-  },
-  date_today_tomorrow: {
-    color: "#fff",
-    position: "absolute",
-    bottom: 3
-  },
-  date_today_today: {
-    position: "absolute",
-    bottom: 3,
-    color: "#fff"
-  },
-  timeInputView: {},
-  personIcon: {
-    height: 20,
-    width: 15,
-    position: "absolute",
-    bottom: 8,
-    resizeMode: "contain"
-  },
-  numberOfPassenger: {
-    position: "absolute",
-    bottom: 5
-  },
-  sharing_text_css: {
-    fontSize: 14,
-    position: "absolute",
-    bottom: 5,
-    color: "#454647",
-    marginLeft: "-2%"
-  },
-  modalBtnCss: {
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    marginLeft: "3%",
-    marginRight: "3%",
-    height: "11%",
-    marginTop: "1%",
-    backgroundColor: "#fff"
-  },
-  enterDateBtnCss: {
-    // height: "100%",
-    width: "100%",
-    alignSelf: "flex-end",
-    backgroundColor: "red"
-  },
-  calenderIcon: {
-    height: 20,
-    width: 15,
-    position: "absolute",
-    bottom: 5,
-    resizeMode: "contain"
-  },
-  modelInnerView2: {
-    alignSelf: "center",
-    width: "100%"
-  },
-  modelInnerView1: {
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1
-  },
   text: {
     fontSize: 14,
-    color: "#454647"
-  },
-  numberOfPassenger_btn_css: {
-    height: 60,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  numberOfPassenger_text_css: {
-    color: "#fff",
-    textAlign: "center"
+    color: "#454647",
   }
 });

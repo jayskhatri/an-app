@@ -25,9 +25,9 @@ import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import DatePicker from 'react-native-datepicker'
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-navigation";
-// import console = require("console");s
+// import console = require("console");
 var options=[
     {label:"Male",value: 0},
     {label:"Female",value: 1},

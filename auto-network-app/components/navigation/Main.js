@@ -6,20 +6,20 @@ import Login from "../login/Login";
 import ProfilePageOne from "../profile/profilePageOne";
 import ProfilePageSecond from "../profile/profilePageSecond";
 import ProfilePageThird from "../profile/profilePageThird";
-import ProfilePageFourth from "../profile/profilePgeFourth";
+// import ProfilePageFourth from "../profile/profilePgeFourth";
 import editProfile from "../profile/editProfile";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import Setting from "../setting/setting";
 import { responsiveFontSize } from "react-native-responsive-dimensions";
 import checkUserStatus from "../utils/checkUserStatus";
 import Header from "../header/header";
-import MainTabNavigation from "../navigation/MainTabNavigator";
+// import MainTabNavigation from "../navigation/MainTabNavigator";
 import BookingPageOne from "../bookingSection/bookingPage1";
 import BookingPageSecond from "../bookingSection/bookingPage2";
 import BookingPageThird from "../bookingSection/BookingPageThird";
 import BookingPageThird_one from "../bookingSection/BookingPage3_one";
 import HomeScreen from "../src/HomeScreen";
-import BottomBar from "../bottomTabBar/BottomBar";
+// import BottomBar from "../bottomTabBar/BottomBar";
 import Redirect from "../redirect";
 class Main extends React.Component {
   render() {
@@ -45,18 +45,23 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
-    HomeScreen: {
-      screen: HomeScreen
-    },
     BookingPageThird_one: {
       screen: BookingPageThird_one
     },
-    // BottomBar: {
-    //   screen: BottomBar
-    // },
     BookingPageThird: {
       screen: BookingPageThird
     },
+    BookingPageSecond: {
+      screen: BookingPageSecond
+    },
+    HomeScreen: {
+      screen: HomeScreen
+    },
+    
+    // BottomBar: {
+    //   screen: BottomBar
+    // },
+   
 
     BookingPageOne: {
       screen: BookingPageOne
@@ -68,12 +73,11 @@ const MainNavigation = createStackNavigator(
     Login: {
       screen: Login
     },
+
     editProfile: {
       screen: editProfile
     },
-    BookingPageSecond: {
-      screen: BookingPageSecond
-    },
+  
 
     ProfilePageOne: {
       screen: ProfilePageOne
@@ -118,9 +122,9 @@ const MainNavigation = createStackNavigator(
       headerStyle: {
         backgroundColor: "#269DF9",
         height: 55
-      }
+      },
 
-      // gesturesEnabled: true
+      gesturesEnabled: true
     }
   }
 );
