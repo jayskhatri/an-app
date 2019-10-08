@@ -19,6 +19,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
+import * as firebase from 'firebase'
 import colors from "../constants/Colors";
 export default class BookingPage3 extends React.Component {
   constructor() {
@@ -47,19 +48,25 @@ export default class BookingPage3 extends React.Component {
   backEvent() {
     this.props.navigation.navigate("BookingPageSecond");
   }
-  componentWillMount() {
-    this.setState({ name: "Anuj Thakkar" });
-    this.setState({ source: "changa , Aanand ..." });
-    this.setState({ destination: "Big Bazzar , Aanand ..." });
-    this.setState({ date: "25/9/2019" });
-    this.setState({ time: "9:30" });
+  async componentWillMount() {
+    const {navigation} = this.props;
+   
+    // console.log('name: ',fname);
+    this.setState({ name: navigation.getParam('name') });
+    this.setState({ source: navigation.getParam('source') });
+    this.setState({ destination: navigation.getParam('destination')});
+    this.setState({ date: navigation.getParam('dateOfJourney') });
+    this.setState({ time: navigation.getParam('timeOfJourney') });
+    this.setState({ isAmOrPmSelect: navigation.getParam('isAmOrPmSelect')})
     this.setState({ selectAmOrPm: "AM" });
-    this.setState({ noOfPerson: "2" });
+    this.setState({ switchValue: navigation.getParam('switchValue')});
+    this.setState({ noOfPerson: navigation.getParam('numberOfPassenger') });
     this.setState({ driverName: "Sukhdev Prasad ...." });
-    this.setState({ autoNumber: "Gj 03 HP 2503" });
+    this.setState({ autoNumber: "Gj 03 HP 2503" }) ;
     this.setState({ totalAmount: "300" });
     this.setState({ perPersonAmount: "150" });
   }
+
   handlePayModel() {
     this.setState({ modalVisible: true });
   }
@@ -68,6 +75,41 @@ export default class BookingPage3 extends React.Component {
       this.setState({ modalVisible: false });
     }
   }
+
+  calculateFare=()=>{
+
+    let source=this.state.source;
+    let destination=this.state.destination;
+
+    let fareRef=firebase.database().ref('fare/'+source);
+    fareRef.once('value').then(async function(snapshot){
+
+      let fare=snapshot.child(destination).val();
+      this.setState({
+        totalAmount:fare,
+      })
+    })
+    this.handlePayModel();
+  }
+
+  bookNow=async ()=>{
+    let user=firebase.auth().currentUser;
+    await firebase.database().ref('requests/'+user.uid).set({
+      DriverId:'',
+      confirmation_status: false
+    });
+    this.props.navigation.navigate('requestConfirmationPage',{
+      name : this.state.name,
+      source : this.state.source,
+      destination : this.state.destination,
+      totalAmount : this.state.totalAmount,
+      noOfPerson : this.state.noOfPerson,
+      switchValue : this.state.switchValue,
+      date : this.state.date,
+      time : this.state.time
+    });
+  }
+
   paytmMode() {
     this.setState({ activityModelVisible: true });
 
@@ -380,7 +422,7 @@ export default class BookingPage3 extends React.Component {
 
         <View style={styles.btn_view}>
           <TouchableOpacity
-            onPress={this.handlePayModel}
+            onPress={this.calculateFare}
             style={styles.pay_btn_css}
           >
             <View style={{ alignSelf: "center", flexDirection: "row" }}>

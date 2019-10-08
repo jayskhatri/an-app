@@ -68,13 +68,26 @@ export default class BookingPageSecond extends React.Component {
     this.toggleDropDownModal = this.toggleDropDownModal.bind(this);
   }
 
-  componentWillMount() {
-    // write a code fatch source and destination
-    // var date = new Date().getDate();
-    // var month = new Date().getMonth() + 1;
-    // var year = new Date().getFullYear();
-    // this.setState({ currentDate: date + " / " + month + " / " + year });
+  async componentWillMount() {
+    
+    const {navigation} = this.props;
+    this.setState({
+      source:navigation.getParam("source"),
+      destination:navigation.getParam("destination")
+    })
+    console.log('source',navigation.getParam('source'));
+    let user=firebase.auth().currentUser;
+    let userRef=await firebase.database().ref('Passengers/'+user.uid+'/personal_details/first_name/');
+    let fname=''
+    await userRef.once('value').then(async(snapshot)=>{
+       fname = snapshot.val();
+       console.log("name2:",fname );
+    });
+    this.setState({
+      name:fname
+    })
   }
+
   toggleSwitch(e) {
     if (this.state.switchValue == true) {
       this.setState({ switchValue: false });
@@ -213,11 +226,20 @@ export default class BookingPageSecond extends React.Component {
   helpPost() {
     console.log("help");
   }
-  nextEvent() {
+  async nextEvent() {
     // console.log("next Event");
-    console.log(this.state.timeOfJourney, this.state.isApOrPmSelect);
-    this.props.navigation.navigate("bookingPage3");
-  }
+   
+    this.props.navigation.navigate("bookingPage3",{
+      source:this.state.source,
+      destination:this.state.destination,
+      dateOfJourney:this.state.dateOfJourney,
+      timeOfJourney:this.state.timeOfJourney,
+      numberOfPassenger:this.state.numberOfPassenger,
+      switchValue:this.state.switchValue,
+      isAmOrPmSelect:this.state.isAmOrPmSelect,
+      name:this.state.name
+  })
+}
 
   render() {
     let min = new Date();
