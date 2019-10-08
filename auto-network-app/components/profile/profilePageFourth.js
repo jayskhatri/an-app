@@ -49,13 +49,12 @@ export default class profilePageFourth extends React.Component {
   async submitUserDetails() {
     const { navigation } = this.props;
     let user = navigation.getParam("user");
-    await firebase.database().ref('Passengers/' + user.uid + '/personal_details').set({
+    await firebase.database().ref('Passengers/' + user.uid + '/personal_details').update({
       first_name: navigation.getParam('first_name'),
       email_id: user.email,
       last_name: navigation.getParam('last_name'),
       birth_date: navigation.getParam('birth_date'),
       gender: navigation.getParam('gender'),
-      profile_pic_url: this.state.profile_pic_url,
       organizational_id: '',
       has_profile_completed: true,
     });
@@ -302,7 +301,7 @@ async function uploadImageAsync(uri) {
   firebase
     .database()
     .ref("Passengers/" + user.uid + "/personal_details/")
-    .update({
+    .set({
       profile_pic_url: downloadurl
     });
 }
