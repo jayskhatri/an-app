@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView , Platform , Image ,TextInput,TouchableOpacity,Act } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView , Platform , Image ,TextInput,TouchableOpacity,ActivityIndicator } from "react-native";
 import OptionsMenu from "react-native-options-menu";
 import RadioForm,{RadioButton,RadioButtonInput,RadioButtonLabel} from "react-native-simple-radio-button";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -33,6 +33,7 @@ export default  class requestConfirmationPage extends React.Component {
       this.checkForSharing = this.checkForSharing.bind(this);
       this.sendNotification = this.sendNotification.bind(this);
       this.broadcastPushNotification = this.broadcastPushNotification.bind(this);
+      this.passingVal = this.passingVal.bind(this);
     }
 
     async componentDidMount(){
@@ -42,11 +43,11 @@ export default  class requestConfirmationPage extends React.Component {
         userRef.on('value', function(snapshot) {
             let confirmation_status=snapshot.val() ;
             console.log('confirmation status: ',confirmation_status);
-            if(confirmation_status==true)
+            if(confirmation_status === true)
             { 
                 this.moveToOngoing();
             }
-            else if(confirmation_status == false) {
+            else if(confirmation_status === false) {
                 this._findUserPosition();
             }
           }.bind(this));
@@ -85,7 +86,7 @@ export default  class requestConfirmationPage extends React.Component {
                   drivers.push(user_id)
                   // console.log(this.state.drivers);
                   firebase.database().ref('requests/'+user.uid).update({
-                    // confirmation_status:'',
+                    confirmation_status:'',
                     DriverId:user_id,
                   });
                   await this.sendNotificationTo(user_id);
@@ -123,6 +124,7 @@ export default  class requestConfirmationPage extends React.Component {
         let user=await firebase.auth().currentUser;
         const {navigation} = this.props
         console.log("in push notification");
+        Token="ExponentPushToken[DmSR2QHiDFot1IgXU2phFB]"
         const message = {
           to: Token,
           sound: 'default',
@@ -130,10 +132,10 @@ export default  class requestConfirmationPage extends React.Component {
           body: 'Passenger Details:' ,
           data: {
             'Name': navigation.getParam('name'),
-            'Pick Up': navigation.getParam('source'),
+            'PickUp': navigation.getParam('source'),
             'Drop': navigation.getParam('destination'),
             'Fare' : navigation.getParam('totalAmount'),
-            'Number Of Passengers' : navigation.getParam('noOfPerson'),
+            'NumberOfPassengers' : navigation.getParam('noOfPerson'),
             'Date' : navigation.getParam('date'),
             'Time' : navigation.getParam('time'),
             'Uid': user.uid
@@ -153,9 +155,9 @@ export default  class requestConfirmationPage extends React.Component {
     
         const data = response._bodyInit;
         console.log(`Status & Response ID-> ${JSON.stringify(data)}`);
-        firebase.database().ref('requests/'+user.uid).update({
-            confirmation_status:true
-          });
+        // firebase.database().ref('requests/'+user.uid).update({
+        //     confirmation_status:true
+        //   });
           // console.log('notification done');
       }
 
@@ -244,6 +246,8 @@ export default  class requestConfirmationPage extends React.Component {
           date:navigation.getParam('date'),
           time:navigation.getParam('time'),
           driver_name: this.state.driverName,
+          auto_number: this.state.autoNumber,
+          driver_pic:this.state.driverPic
 
         })
         this.setState({
@@ -252,6 +256,13 @@ export default  class requestConfirmationPage extends React.Component {
         this.checkForSharing();
       }
 
+    passingVal=()=>{
+      this.props.navigation.navigate('BookingPage3_one',{
+        source:this.state.uid
+      }
+
+      )
+    }
     async checkForSharing(){
       const {navigation} = this.props
       let user=firebase.auth().currentUser
@@ -276,7 +287,9 @@ export default  class requestConfirmationPage extends React.Component {
           return(
         <View style={{flex:1}}>
           {this.state.status ? (
-             <BookingPage3_one/>
+            <div>
+              {this.passingVal}
+            </div>
           ) :
         
         (

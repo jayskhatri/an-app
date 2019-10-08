@@ -44,6 +44,7 @@ export default class BookingPage3 extends React.Component {
     this.handlePayModelClose = this.handlePayModelClose.bind(this);
     this.paytmMode = this.paytmMode.bind(this);
     this.cashOnDriveMode = this.cashOnDriveMode.bind(this);
+    this.calculateFare = this.calculateFare.bind(this);
   }
   backEvent() {
     this.props.navigation.navigate("BookingPageSecond");
@@ -76,19 +77,22 @@ export default class BookingPage3 extends React.Component {
     }
   }
 
-  calculateFare=()=>{
+  calculateFare= async ()=>{
 
     let source=this.state.source;
     let destination=this.state.destination;
+    let fare;
 
     let fareRef=firebase.database().ref('fare/'+source);
-    fareRef.once('value').then(async function(snapshot){
+    await fareRef.once('value').then(async function(snapshot){
 
-      let fare=snapshot.child(destination).val();
+      fare=snapshot.child(destination).val();
+      console.log('fare: ',fare);
       this.setState({
-        totalAmount:fare,
+        totalAmount: fare
       })
-    })
+
+    }.bind(this));
     this.handlePayModel();
   }
 
@@ -110,13 +114,27 @@ export default class BookingPage3 extends React.Component {
     });
   }
 
-  paytmMode() {
+ async paytmMode() {
     this.setState({ activityModelVisible: true });
 
     // write a code for paytm and then below two state can unhide and both set false and redirect
     this.setState({ activityModelVisible: false });
     this.setState({ modalVisible: false });
-    this.props.navigation.navigate("BookingPage4");
+    let user=firebase.auth().currentUser;
+    await firebase.database().ref('requests/'+user.uid).set({
+      DriverId:'',
+      confirmation_status: false
+    });
+    this.props.navigation.navigate('requestConfirmationPage',{
+      name : this.state.name,
+      source : this.state.source,
+      destination : this.state.destination,
+      totalAmount : this.state.totalAmount,
+      noOfPerson : this.state.noOfPerson,
+      switchValue : this.state.switchValue,
+      date : this.state.date,
+      time : this.state.time
+    });
   }
   cashOnDriveMode() {
     this.setState({ activityModelVisible: true });

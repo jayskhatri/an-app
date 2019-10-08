@@ -19,6 +19,8 @@ import {
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
 import colors from "../constants/Colors";
+import * as firebase from 'firebase'
+// import { database } from "firebase";
 export default class BookingPage4 extends React.Component {
   constructor() {
     super();
@@ -45,6 +47,13 @@ export default class BookingPage4 extends React.Component {
     this.props.navigation.navigate("HomeScreen");
   }
   componentWillMount() {
+
+    let user = firebase.auth().currentUser;
+    let rideRef=firebase.database().ref('Passengers/'+user.uid+'/ongoing_rides');
+    rideRef.once('value').then(async function(snapshot){
+      let Name=snapshot.child()
+      
+    })
     this.setState({ name: "Anuj Thakkar" });
     this.setState({ source: "changa , Aanand ..." });
     this.setState({ destination: "Big Bazzar , Aanand ..." });

@@ -18,8 +18,8 @@ import {
 } from "react-native-responsive-screen";
 
 export default class BookingPage3_one extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       name: "",
       source: "",
@@ -38,9 +38,12 @@ export default class BookingPage3_one extends React.Component {
   backEvent() {
     this.props.navigation.navigate("BookingPageThird_one");
   }
-  componentWillMount() {
+  componentWillMount(props) {
+    const {navigation} = this.props;
+    let uid=navigation.getParam('source')
+    console.log('uid: ',uid)
     this.setState({ name: "Anuj Thakkar" });
-    this.setState({ source: "changa , Aanand ..." });
+    this.setState({ source: navigation.getParam('source') });
     this.setState({ destination: "Big Bazzar , Aanand ..." });
     this.setState({ date: "25/9/2019" });
     this.setState({ time: "9:30" });

@@ -146,15 +146,15 @@ export default class BookingPageOne extends React.Component {
               <View style={styles.inputView}>
                 <View style={{ flex: 0.5, zIndex: 3 }}>
                   <View style={styles.outterLookOfInputBox}>
-                    {/* <TextInput
+                    <TextInput
                     style={styles.signInTextInputOne}
                     placeholder="choose starting point, or click on the map  "
                     placeholderTextColor="#fff"
                     fontSize={14}
                     value={this.state.source}
                     onChange={this.handleSetSource}
-                  /> */}
-                    <SearchableDropdown
+                  />
+                    {/* <SearchableDropdown
                       selectedItems={this.state.source}
                       onItemSelect={item => {
                         const items = this.state.source;
@@ -194,21 +194,21 @@ export default class BookingPageOne extends React.Component {
                       listProps={{
                         nestedScrollEnabled: true
                       }}
-                    />
+                    /> */}
                   </View>
                   {/* <Text style={styles.textCss}>choose current location</Text> */}
                 </View>
                 <View style={{ flex: 0.5 }}>
                   <View style={styles.outterLookOfInputBoxSecond}>
-                    {/* <TextInput
+                    <TextInput
                     style={styles.signInTextInputOne}
                     placeholder="choose destination "
                     placeholderTextColor="#fff"
                     fontSize={14}
                     value={this.state.destination}
                     onChange={this.handleSetDestination}
-                  /> */}
-                    <SearchableDropdown
+                  />
+                    {/* <SearchableDropdown
                       multi={true}
                       selectedItems={this.state.destination}
                       onItemSelect={item => {
@@ -249,7 +249,7 @@ export default class BookingPageOne extends React.Component {
                       listProps={{
                         nestedScrollEnabled: true
                       }}
-                    />
+                    /> */}
                   </View>
                 </View>
               </View>
