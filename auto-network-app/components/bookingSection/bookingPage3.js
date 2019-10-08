@@ -398,7 +398,20 @@ export default class BookingPage3 extends React.Component {
                     style={styles.sharingIcon}
                     source={require("../../assets/Solid.png")}
                   />
-                  <Text
+                  {this.state.switchValue ? (
+                <Text
+                style={{
+                  fontSize: 12,
+                  marginLeft: "1%",
+                  marginTop: "4%",
+
+                  color: "#fff"
+                }}
+              >
+                You Have allowed for sharing auto with another passengers
+              </Text>
+              ) : (
+                <Text
                     style={{
                       fontSize: 12,
                       marginLeft: "1%",
@@ -407,8 +420,10 @@ export default class BookingPage3 extends React.Component {
                       color: "#fff"
                     }}
                   >
-                    You Have allowed for sharing auto with another passengers
+                    You Have Not allowed for sharing auto with another passengers
                   </Text>
+              )}
+                 
                 </View>
               </View>
             </View>
