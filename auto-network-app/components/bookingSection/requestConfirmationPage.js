@@ -101,7 +101,7 @@ export default  class requestConfirmationPage extends React.Component {
 
     async sendNotificationTo(user_id){
         let user= await firebase.auth().currentUser;
-        let tokenRef = firebase.database().ref('Passengers/'+user.uid+'/Token/expo_token');
+        let tokenRef = firebase.database().ref('online_drivers/'+user_id+'/token');
         
         tokenRef.once('value').then(async(snapshot)=>{
           let token = snapshot.val()
@@ -124,7 +124,7 @@ export default  class requestConfirmationPage extends React.Component {
         let user=await firebase.auth().currentUser;
         const {navigation} = this.props
         console.log("in push notification");
-        Token="ExponentPushToken[DmSR2QHiDFot1IgXU2phFB]"
+        // Token="ExponentPushToken[DmSR2QHiDFot1IgXU2phFB]"
         const message = {
           to: Token,
           sound: 'default',
