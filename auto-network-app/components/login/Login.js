@@ -1,5 +1,7 @@
 import React from "react";
+
 import * as firebase from "firebase";
+
 import {
   StyleSheet,
   View,
@@ -17,7 +19,6 @@ import {
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Header from "../header/header";
-import color from "../constants/Colors";
 import colors from "../constants/Colors";
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>

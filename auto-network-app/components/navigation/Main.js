@@ -59,14 +59,14 @@ const styles = StyleSheet.create({
 
 const MainNavigation = createStackNavigator(
   {
-    FAQ: {
-      screen: FAQ
-    },
     checkUserStatus: {
       screen: checkUserStatus
     },
     ContactUs: {
       screen: ContactUs
+    },
+    FAQ: {
+      screen: FAQ
     },
     HomeScreen: {
       screen: HomeScreen

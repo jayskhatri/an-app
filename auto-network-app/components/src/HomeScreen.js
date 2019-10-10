@@ -147,28 +147,239 @@ export default class HomeScreen extends React.Component {
           </View>
         </View>
         <View style={{ flex: 0.69 }}>
-          <View
-            style={{
-              flex: 0.8,
-              alignItems: "center",
-              justifyContent: "center"
-              // backgroundColor: "blue"
-            }}
-          >
-            <Carousel
-              ref={c => {
-                this._carousel = c;
+          {/* <ScrollView style={{ flex: 1, backgroundColor: "blue" }}> */}
+          <View style={{ flex: 1 }}>
+            <View
+              style={{
+                flex: 0.5,
+                alignItems: "center",
+                justifyContent: "center"
+                // backgroundColor: "blue"
               }}
-              data={this.state.entries}
-              renderItem={this._renderItem}
-              sliderWidth={700}
-              itemWidth={350}
-              onSnapToItem={index => this.setState({ activeSlide: index })}
-              style={{ width: "100%", flex: 0.9, alignSelf: "center" }}
-            />
-            {this.pagination}
+            >
+              <Carousel
+                ref={c => {
+                  this._carousel = c;
+                }}
+                data={this.state.entries}
+                renderItem={this._renderItem}
+                sliderWidth={700}
+                itemWidth={350}
+                onSnapToItem={index => this.setState({ activeSlide: index })}
+                style={{ width: "100%", flex: 0.9, alignSelf: "center" }}
+              />
+              {this.pagination}
+            </View>
+
+            <View style={styles.CardView}>
+              {/* <View style={{ flex: 0.1 }}></View> */}
+              <View
+                style={{
+                  flex: 0.9,
+                  alignSelf: "center",
+                  alignItems: "center",
+                  justifyContent: "center"
+                  // backgroundColor: "red"
+                }}
+              >
+                <View style={styles.header_of_cart_details}>
+                  <View
+                    style={{
+                      flex: 1,
+                      width: "100%",
+                      height: "100%",
+                      backgroundColor: colors.light.white_color,
+                      borderRadius: 25
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 28,
+                        color: colors.light.light_black,
+                        position: "absolute",
+                        bottom: 10,
+                        alignSelf: "center"
+                      }}
+                    >
+                      Header
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.driver_name_view}>
+                  <View
+                    style={{
+                      flex: 0.2,
+                      width: "100%",
+                      height: "100%"
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        color: colors.light.white_color,
+                        position: "absolute",
+                        bottom: 10
+                      }}
+                    >
+                      Name :{" "}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flex: 0.8,
+                      width: "100%",
+                      height: "100%"
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        color: colors.light.light_black,
+                        position: "absolute",
+                        bottom: 10,
+                        marginLeft: "3%"
+                      }}
+                    >
+                      King
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.source_destinatio_view}>
+                  <View style={{ flex: 0.5 }}>
+                    <View style={{ flex: 0.3 }}>
+                      <Text style={styles.lableText}>from</Text>
+                    </View>
+                    <View style={styles.name_input_view}>
+                      <View
+                        style={{
+                          flex: 0.2,
+                          alignItems: "center",
+                          justifyContent: "center"
+                        }}
+                      >
+                        <Image
+                          style={styles.lable_Image}
+                          source={require("../../assets/sourceIcon.png")}
+                        />
+                      </View>
+                      <View
+                        style={{
+                          flex: 0.8,
+                          marginLeft: "4%",
+                          marginTop: "-1%",
+                          width: "100%",
+                          height: "100%"
+                        }}
+                      >
+                        <ScrollView horizontal={true}>
+                          <Text style={styles.text_Of_Details}>
+                            changa .........
+                          </Text>
+                        </ScrollView>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={{ marginLeft: "7%", flex: 0.5 }}>
+                    <View style={{ flex: 0.3 }}>
+                      <Text style={styles.lableText}>To</Text>
+                    </View>
+                    <View style={styles.name_input_view}>
+                      <View
+                        style={{
+                          flex: 0.2,
+
+                          alignItems: "center",
+                          justifyContent: "center"
+                        }}
+                      >
+                        <Image
+                          style={styles.destinationIcon}
+                          source={require("../../assets/destinationIcon.png")}
+                        />
+                      </View>
+                      <View
+                        style={{
+                          flex: 0.8,
+                          marginLeft: "4%",
+                          marginTop: "-1%",
+                          width: "100%",
+                          height: "100%"
+                        }}
+                      >
+                        <ScrollView horizontal={true}>
+                          <Text style={styles.text_Of_Details}>
+                            vvnager .............
+                          </Text>
+                        </ScrollView>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.date_time_view}>
+                  <View style={{ flex: 0.5 }}>
+                    <View style={{ flex: 0.3 }}>
+                      <Text style={styles.lableText}>Date</Text>
+                    </View>
+                    <View style={styles.name_input_view}>
+                      <View
+                        style={{
+                          flex: 0.2,
+                          alignItems: "center",
+                          justifyContent: "center"
+                        }}
+                      >
+                        <Image
+                          style={styles.lable_Image}
+                          source={require("../../assets/calender_ion.png")}
+                        />
+                      </View>
+                      <View
+                        style={{
+                          flex: 0.8,
+                          marginLeft: "4%",
+                          width: "100%",
+                          height: "100%"
+                        }}
+                      >
+                        <Text style={styles.date_time_text_css}>12/06/19</Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={{ marginLeft: "7%", flex: 0.5 }}>
+                    <View style={{ flex: 0.3 }}>
+                      <Text style={styles.lableText}>Time</Text>
+                    </View>
+                    <View style={styles.name_input_view}>
+                      <View
+                        style={{
+                          flex: 0.2,
+                          alignItems: "center",
+                          justifyContent: "center"
+                        }}
+                      >
+                        <Image
+                          style={styles.lable_Image}
+                          source={require("../../assets/clock_icon.png")}
+                        />
+                      </View>
+                      <View
+                        style={{
+                          flex: 0.8,
+                          marginLeft: "4%",
+                          width: "100%",
+                          height: "100%"
+                        }}
+                      >
+                        <Text style={styles.date_time_text_css}>10:00 AM</Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+              {/* <View style={{ flex: 0.17 }}></View> */}
+            </View>
           </View>
-          <ScrollView style={{ flex: 0.2 }}>
+          {/* <View style={{ flex: 0.2 }}>
             <Accordion
               activeSections={activeSections}
               sections={CONTENT}
@@ -179,7 +390,8 @@ export default class HomeScreen extends React.Component {
               duration={400}
               onChange={this.setSections}
             />
-          </ScrollView>
+          </View> */}
+          {/* </ScrollView> */}
         </View>
         <View style={{ flex: 0.09 }}>
           <BottomBar {...this.props} />
@@ -234,5 +446,120 @@ const styles = StyleSheet.create({
   },
   inactive: {
     backgroundColor: "lightblue"
+  },
+  CardView: {
+    backgroundColor: colors.light.light_blue,
+    flex: 0.35,
+    width: "95%",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    borderRadius: 25,
+    shadowColor: colors.light.light_blue,
+    shadowOffset: {
+      width: 0,
+      height: 4
+    },
+    shadowOpacity: 1.5,
+    shadowRadius: 3.84,
+    elevation: 4
+  },
+  fare_Details_View: {
+    flex: 1,
+    alignSelf: "center",
+    marginTop: "2%"
+  },
+  source_destinatio_view: {
+    flex: 0.25,
+    flexDirection: "row",
+    width: "85%",
+    height: "100%"
+    // marginTop: "3%"
+    // backgroundColor: "yellow"
+  },
+  date_time_view: {
+    flex: 0.25,
+    flexDirection: "row",
+    width: "85%",
+    height: "100%"
+    // marginTop: "4%"
+    // backgroundColor: "green"
+  },
+
+  driver_name_view: {
+    flex: 0.25,
+    flexDirection: "row",
+    width: "85%",
+    height: "100%",
+    borderBottomWidth: 1,
+    borderBottomColor: colors.light.white_color,
+    alignItems: "center",
+    justifyContent: "center"
+    // backgroundColor: "blue"
+  },
+  start_view: {
+    flex: 0.2,
+    flexDirection: "row",
+    width: "85%",
+    height: "100%",
+    marginTop: "2%",
+    borderBottomWidth: 1,
+    borderBottomColor: colors.light.white_color,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: "1%"
+  },
+  lableText: {
+    fontSize: 10,
+    color: colors.light.white_color,
+    alignSelf: "center",
+    position: "absolute",
+    left: 0,
+    bottom: "5%"
+  },
+  name_input_view: {
+    flex: 0.7,
+    width: "100%",
+    height: "100%",
+    borderBottomColor: colors.light.white_color,
+    borderBottomWidth: 1,
+    flexDirection: "row"
+  },
+  lable_Image: {
+    width: "70%",
+    height: "70%",
+    resizeMode: "contain",
+    alignSelf: "center",
+    position: "absolute",
+    left: 0
+  },
+  text_Of_Details: {
+    fontSize: 16,
+    alignSelf: "center",
+    color: colors.light.light_black,
+    position: "absolute",
+    bottom: 6
+  },
+  destinationIcon: {
+    width: "50%",
+    height: "70%",
+    resizeMode: "contain",
+    alignSelf: "center",
+    position: "absolute",
+    left: 0
+  },
+  date_time_text_css: {
+    color: colors.light.light_black,
+    fontSize: 16,
+    position: "absolute",
+    bottom: 6
+  },
+  header_of_cart_details: {
+    flex: 0.25,
+    flexDirection: "row",
+    width: "85%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
