@@ -5,6 +5,7 @@ import {
   Text,
   SafeAreaView,
   ScrollView,
+  TouchableOpacity,
   View,
 } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
