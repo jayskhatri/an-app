@@ -41,6 +41,9 @@ export default class OnGoingBookingDetails extends React.Component {
   }
   componentWillMount() {
     const {navigation} = this.props;
+    let fare=parseInt(navigation.getParam('Fare'));
+    let persons=parseInt(navigation.getParam('Passengers'));
+    let person_amount=(fare/persons) ;
     this.setState({ name: navigation.getParam('Passenger_Name')});
     this.setState({ source: navigation.getParam('Source') });
     this.setState({ destination: navigation.getParam('Destination') });
@@ -51,7 +54,7 @@ export default class OnGoingBookingDetails extends React.Component {
     this.setState({ driverName: navigation.getParam('Driver_Name') });
     this.setState({ autoNumber: navigation.getParam('Auto_Number') });
     this.setState({ totalAmount: navigation.getParam('Fare') });
-    this.setState({ perPersonAmount: "150" });
+    this.setState({ perPersonAmount: person_amount });
     this.setState({ driver_pic:navigation.getParam('Driver_Pic')})
   }
   render() {
