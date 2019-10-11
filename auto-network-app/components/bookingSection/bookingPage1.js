@@ -260,6 +260,7 @@ export default class BookingPageOne extends React.Component {
                       if (item.name == "Current position") {
                         // write a code for current position
                       }
+                      this.handleSetSource();
                       this.setState({ source: items });
                     }}
 
@@ -267,7 +268,7 @@ export default class BookingPageOne extends React.Component {
 
                     textInputProps={{
                       // value={this.state.source}
-                      // onChange={this.handleSetSource} //TODO
+                      // onChange={this.handleSetSource}, //TODO
                       placeholder:"choose starting point, or click on the map ",
                       fontSize: 14,
                       placeholderTextColor:"#fff",

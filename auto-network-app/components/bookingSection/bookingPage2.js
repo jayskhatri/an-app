@@ -73,7 +73,8 @@ export default class BookingPageSecond extends React.Component {
       source:navigation.getParam("source"),
       destination:navigation.getParam("destination")
     })
-    console.log('source',navigation.getParam('source'));
+    
+    console.log('source naims: ',navigation.getParam('source'));
     let user=firebase.auth().currentUser;
     let userRef=await firebase.database().ref('Passengers/'+user.uid+'/personal_details/first_name/');
     let fname=''
