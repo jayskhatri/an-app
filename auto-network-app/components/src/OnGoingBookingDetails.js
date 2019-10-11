@@ -31,7 +31,8 @@ export default class OnGoingBookingDetails extends React.Component {
       driverName: "",
       autoNumber: "",
       totalAmount: "300",
-      perPersonAmount: ""
+      perPersonAmount: "",
+      driver_pic:''
     };
     this.backEvent = this.backEvent.bind(this);
   }
@@ -51,6 +52,7 @@ export default class OnGoingBookingDetails extends React.Component {
     this.setState({ autoNumber: navigation.getParam('Auto_Number') });
     this.setState({ totalAmount: navigation.getParam('Fare') });
     this.setState({ perPersonAmount: "150" });
+    this.setState({ driver_pic:navigation.getParam('Driver_Pic')})
   }
   render() {
     return (
@@ -359,7 +361,7 @@ export default class OnGoingBookingDetails extends React.Component {
                 >
                   <Image
                     style={styles.Deiver_Profile_Image}
-                    source={require("../../assets/pic.jpg")}
+                    source={{uri: this.state.driver_pic}}
                   />
                 </View>
                 <View

@@ -71,18 +71,13 @@ export default class HomeScreen extends React.Component {
       let value=snapshot.val();
       console.log('ongoing object ',value);
       if(value !== null && value!==''){
-          let DriverName=value.driver_name;
-          let Source=value.source;
-          let Destination=value.destination;
-          let Datee=value.date;
-          let Time=value.time;
 
           this.setState({
-            driver_name:DriverName,
-            source:Source,
-            destination:Destination,
-            date:Datee,
-            time:Time,
+            driver_name:value.driver_name,
+            source:value.source,
+            destination:value.destination,
+            date:value.date,
+            time:value.time,
             display:true,
             fare:value.fare,
             NoOfPassenger:value.number_of_passengers,
@@ -91,13 +86,6 @@ export default class HomeScreen extends React.Component {
             driver_pic:value.driver_pic
           })
           console.log('source: ',this.state.source);
-          console.log('source des: ',this.state.destination);
-          console.log('source date: ',this.state.date);
-          console.log('source time: ',this.state.time);
-          console.log('source fare: ',this.state.fare);
-          console.log('source number: ',this.state.NoOfPassenger);
-          console.log('source auto: ',this.state.auto_number);
-          console.log('source driver: ',this.state.source);
           
       }
       
@@ -114,7 +102,8 @@ export default class HomeScreen extends React.Component {
       Time:this.state.time,
       Passengers:this.state.NoOfPassenger,
       Passenger_Name:this.state.passenger_name,
-      Auto_Number:this.state.auto_number
+      Auto_Number:this.state.auto_number,
+      Driver_Pic:this.state.driver_pic
     });
   }
   _renderItem({ item, index }) {
