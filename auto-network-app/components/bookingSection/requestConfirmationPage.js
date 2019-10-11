@@ -205,7 +205,7 @@ export default  class requestConfirmationPage extends React.Component {
           // console.log('notification done');
       }
 
-     async moveToOngoing=()=>{
+     moveToOngoing=async()=>{
         let user=firebase.auth().currentUser;
 
         let reqRef=firebase.database().ref('requests/');
@@ -289,9 +289,9 @@ export default  class requestConfirmationPage extends React.Component {
           return(
         <View style={{flex:1}}>
           {this.state.status ? (
-            // <div>
-            //   {this.passingVal}
-            // </div>
+            <div>
+              {this.passingVal}
+            </div>
           ) :
         
         (
