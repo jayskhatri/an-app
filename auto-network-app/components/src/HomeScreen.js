@@ -47,8 +47,12 @@ export default class HomeScreen extends React.Component {
       activeSections: [],
       multipleSelect: false
     };
+    this.handleGoToDetailsEvent = this.handleGoToDetailsEvent.bind(this);
   }
-
+  handleGoToDetailsEvent(e) {
+    console.log("IN");
+    this.props.navigation.navigate("OnGoingBookingDetails");
+  }
   _renderItem({ item, index }) {
     return (
       <View
@@ -146,7 +150,6 @@ export default class HomeScreen extends React.Component {
           </View>
         </View>
         <View style={{ flex: 0.69 }}>
-          {/* <ScrollView style={{ flex: 1, backgroundColor: "blue" }}> */}
           <View style={{ flex: 1 }}>
             <View
               style={{
@@ -169,9 +172,10 @@ export default class HomeScreen extends React.Component {
               />
               {this.pagination}
             </View>
-
-            <View style={styles.CardView}>
-              {/* <View style={{ flex: 0.1 }}></View> */}
+            <TouchableOpacity
+              onPress={this.handleGoToDetailsEvent}
+              style={styles.CardView}
+            >
               <View
                 style={{
                   flex: 0.9,
@@ -375,8 +379,8 @@ export default class HomeScreen extends React.Component {
                   </View>
                 </View>
               </View>
-              {/* <View style={{ flex: 0.17 }}></View> */}
-            </View>
+          
+            </TouchableOpacity>
           </View>
           {/* <View style={{ flex: 0.2 }}>
             <Accordion
