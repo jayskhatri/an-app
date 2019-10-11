@@ -39,16 +39,17 @@ export default class OnGoingBookingDetails extends React.Component {
     this.props.navigation.navigate("HomeScreen");
   }
   componentWillMount() {
-    this.setState({ name: "Anuj Thakkar" });
-    this.setState({ source: "changa , Aanand ..." });
-    this.setState({ destination: "Big Bazzar , Aanand ..." });
-    this.setState({ date: "25/9/2019" });
-    this.setState({ time: "9:30" });
+    const {navigation} = this.props;
+    this.setState({ name: navigation.getParam('Passenger_Name')});
+    this.setState({ source: navigation.getParam('Source') });
+    this.setState({ destination: navigation.getParam('Destination') });
+    this.setState({ date:navigation.getParam('Date')});
+    this.setState({ time:navigation.getParam('Time') });
     this.setState({ selectAmOrPm: "AM" });
-    this.setState({ noOfPerson: "2" });
-    this.setState({ driverName: "Sukhdev Prasad ...." });
-    this.setState({ autoNumber: "Gj 03 HP 2503" });
-    this.setState({ totalAmount: "300" });
+    this.setState({ noOfPerson: navigation.getParam('Passengers') });
+    this.setState({ driverName: navigation.getParam('Driver_Name') });
+    this.setState({ autoNumber: navigation.getParam('Auto_Number') });
+    this.setState({ totalAmount: navigation.getParam('Fare') });
     this.setState({ perPersonAmount: "150" });
   }
   render() {

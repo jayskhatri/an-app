@@ -13,26 +13,27 @@ import Header from "../header/header";
 import BottomBar from "../bottomTabBar/BottomBar";
 
 import colors from "../constants/Colors";
+import * as firebase from 'firebase'
 import * as Animatable from "react-native-animatable";
 import Collapsible from "react-native-collapsible";
 import Accordion from "react-native-collapsible/Accordion";
-const CONTENT = [
-  {
-    title: "Terms and Conditions",
-    content:
-      'The following terms and conditions, together with any referenced documents (collectively, "Terms of Use") form a legal agreement between you and your employer, employees, agents, contractors and any other entity on whose behalf you accept these terms (collectively, “you” and “your”), and ServiceNow, Inc. (“ServiceNow,” “we,” “us” and “our”).'
-  },
-  {
-    title: "Privacy Policy",
-    content:
-      "A Privacy Policy agreement is the agreement where you specify if you collect personal data from your users, what kind of personal data you collect and what you do with that data."
-  },
-  {
-    title: "Return Policy",
-    content:
-      "Our Return & Refund Policy template lets you get started with a Return and Refund Policy agreement. This template is free to download and use.According to TrueShip study, over 60% of customers review a Return/Refund Policy before they make a purchasing decision."
-  }
-];
+// const CONTENT = [
+//   {
+//     title: "Terms and Conditions",
+//     content:
+//       'The following terms and conditions, together with any referenced documents (collectively, "Terms of Use") form a legal agreement between you and your employer, employees, agents, contractors and any other entity on whose behalf you accept these terms (collectively, “you” and “your”), and ServiceNow, Inc. (“ServiceNow,” “we,” “us” and “our”).'
+//   },
+//   {
+//     title: "Privacy Policy",
+//     content:
+//       "A Privacy Policy agreement is the agreement where you specify if you collect personal data from your users, what kind of personal data you collect and what you do with that data."
+//   },
+//   {
+//     title: "Return Policy",
+//     content:
+//       "Our Return & Refund Policy template lets you get started with a Return and Refund Policy agreement. This template is free to download and use.According to TrueShip study, over 60% of customers review a Return/Refund Policy before they make a purchasing decision."
+//   }
+// ];
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -46,13 +47,75 @@ export default class HomeScreen extends React.Component {
       ],
       activeSlide: 0,
       activeSections: [],
-      multipleSelect: false
+      multipleSelect: false,
+      source:'',
+      destination:'',
+      driver_name:'',
+      date:'',
+      time:'',
+      fare:'',
+      NoOfPassenger:'',
+      passenger_name:'',
+      auto_number:'',
+      driver_pic:'',
+      display:false
     };
     this.handleGoToDetailsEvent = this.handleGoToDetailsEvent.bind(this);
   }
+
+  async componentDidMount(){
+    let user=await firebase.auth().currentUser;
+    let rideRef=await firebase.database().ref('Passengers/'+user.uid+'/ongoing_rides');
+
+    rideRef.on('value', async function(snapshot) {
+      let value=snapshot.val();
+      console.log('ongoing object ',value);
+      if(value !== null && value!==''){
+          let DriverName=value.driver_name;
+          let Source=value.source;
+          let Destination=value.destination;
+          let Datee=value.date;
+          let Time=value.time;
+
+          this.setState({
+            driver_name:DriverName,
+            source:Source,
+            destination:Destination,
+            date:Datee,
+            time:Time,
+            display:true,
+            fare:value.fare,
+            NoOfPassenger:value.number_of_passengers,
+            auto_number:value.auto_number,
+            passenger_name:value.passenger_name,
+            driver_pic:value.driver_pic
+          })
+          console.log('source: ',this.state.source);
+          console.log('source des: ',this.state.destination);
+          console.log('source date: ',this.state.date);
+          console.log('source time: ',this.state.time);
+          console.log('source fare: ',this.state.fare);
+          console.log('source number: ',this.state.NoOfPassenger);
+          console.log('source auto: ',this.state.auto_number);
+          console.log('source driver: ',this.state.source);
+          
+      }
+      
+    }.bind(this));
+  }
   handleGoToDetailsEvent(e) {
     console.log("IN");
-    this.props.navigation.navigate("OnGoingBookingDetails");
+    this.props.navigation.navigate("OnGoingBookingDetails",{
+      Driver_Name:this.state.driver_name,
+      Source:this.state.source,
+      Destination:this.state.destination,
+      Fare:this.state.fare,
+      Date:this.state.date,
+      Time:this.state.time,
+      Passengers:this.state.NoOfPassenger,
+      Passenger_Name:this.state.passenger_name,
+      Auto_Number:this.state.auto_number
+    });
   }
   _renderItem({ item, index }) {
     return (
@@ -173,6 +236,7 @@ export default class HomeScreen extends React.Component {
               />
               {this.pagination}
             </View>
+            {this.state.display ? (
             <TouchableOpacity
               onPress={this.handleGoToDetailsEvent}
               style={styles.CardView}
@@ -225,7 +289,7 @@ export default class HomeScreen extends React.Component {
                         bottom: 10
                       }}
                     >
-                      Name :{" "}
+                      Name :{''}
                     </Text>
                   </View>
                   <View
@@ -244,7 +308,7 @@ export default class HomeScreen extends React.Component {
                         marginLeft: "3%"
                       }}
                     >
-                      King
+                     {this.state.driver_name}
                     </Text>
                   </View>
                 </View>
@@ -277,7 +341,7 @@ export default class HomeScreen extends React.Component {
                       >
                         <ScrollView horizontal={true}>
                           <Text style={styles.text_Of_Details}>
-                            changa .........
+                           {this.state.source}
                           </Text>
                         </ScrollView>
                       </View>
@@ -312,7 +376,7 @@ export default class HomeScreen extends React.Component {
                       >
                         <ScrollView horizontal={true}>
                           <Text style={styles.text_Of_Details}>
-                            vvnager .............
+                            {this.state.destination}
                           </Text>
                         </ScrollView>
                       </View>
@@ -345,7 +409,7 @@ export default class HomeScreen extends React.Component {
                           height: "100%"
                         }}
                       >
-                        <Text style={styles.date_time_text_css}>12/06/19</Text>
+                        <Text style={styles.date_time_text_css}>{this.state.date}</Text>
                       </View>
                     </View>
                   </View>
@@ -374,7 +438,7 @@ export default class HomeScreen extends React.Component {
                           height: "100%"
                         }}
                       >
-                        <Text style={styles.date_time_text_css}>10:00 AM</Text>
+                        <Text style={styles.date_time_text_css}>{this.state.time}</Text>
                       </View>
                     </View>
                   </View>
@@ -382,6 +446,11 @@ export default class HomeScreen extends React.Component {
               </View>
           
             </TouchableOpacity>
+            ):(
+              <View>
+                <Text>No Upcoming Rides</Text>
+            </View>
+            )}
           </View>
           {/* <View style={{ flex: 0.2 }}>
             <Accordion

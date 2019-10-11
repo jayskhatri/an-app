@@ -249,8 +249,8 @@ export default  class requestConfirmationPage extends React.Component {
           time:navigation.getParam('time'),
           driver_name: this.state.driverName,
           auto_number: this.state.autoNumber,
-          driver_pic:this.state.driverPic
-
+          driver_pic:this.state.driverPic,
+          passenger_name:navigation.getParam('Name')
         })
         this.setState({
           status:true
