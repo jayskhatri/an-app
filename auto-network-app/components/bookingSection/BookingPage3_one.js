@@ -57,56 +57,84 @@ export default class BookingPage3_one extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View
-          style={{
-            backgroundColor: "transparent",
-            flex: 0.2 //change flex in andriod
-          }}
-        >
-          <SafeAreaView style={styles.header}>
-            <View style={styles.headerInnerView}>
-              <View style={{ alignSelfs: "center" }}>
-                <TouchableOpacity
-                  onPress={this.backEvent}
-                  style={{ alignSelfs: "center" }}
-                >
+      
+        <View style={{
+          width:"100%",
+          flex:.035,
+          backgroundColor:"#269DF9"
+        }}/>
+        <SafeAreaView 
+        style={{ 
+          flex: Platform.OS === "ios" ? 0.08 : 0.08,
+          flexDirection:"row",
+          justifyContent:"space-between",
+          alignItems:"center",
+          backgroundColor: "#269DF9",
+          }}>
+              <TouchableOpacity 
+                style={{
+                  flex:0.1,
+                  height:"100%",
+                  alignItems:"center",
+                  justifyContent:"center",
+                }}
+                onPress={this.backEvent}>
                   <Image
-                    style={styles.backImage}
+                    style={{
+                      maxHeight:60,
+                      maxWidth:60,
+                      resizeMode:"contain",
+                    }}
                     source={require("../../assets/back1.png")}
                   />
-                </TouchableOpacity>
-              </View>
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
+              </TouchableOpacity>
+              <View 
+              style={{
+                flex:0.8,
+                alignItems:"center",
+                justifyContent:"center"
+              }}
               >
-                <Text style={styles.headerText}>Tickets</Text>
-              </View>
-              <View style={{ alignSelfs: "center", marginTop: "1%" }}>
-                <OptionsMenu
-                  button={require("../../assets/More.png")}
-                  buttonStyle={styles.optionButton}
-                  destructiveIndex={1}
-                  options={["Help"]}
-                  actions={[this.helpPost]}
-                />
-              </View>
+              <Text style={{
+                alignItems:"center",
+                justifyContent:"center",
+                color:"#fff",
+                textAlignVertical:"center",
+                fontSize:22
+              }}>Book Your Tickets</Text>
             </View>
-          </SafeAreaView>
-          <View
+            <View
+             style={{
+              flex:0.1,
+              height:"100%",
+              alignItems:"center",
+              justifyContent:"center"
+            }}>
+              <OptionsMenu
+                button={require("../../assets/More.png")}
+                buttonStyle={{
+                  maxHeight:30,
+                    maxWidth:30,
+                    resizeMode:"contain",
+                    alignItems:"center",
+                    justifyContent:"center"
+                }}
+                destructiveIndex={1}
+                options={["Edit", "Delete", "Cancel"]}
+                actions={[this.editPost, this.deletePost]}
+              />
+            </View>
+        </SafeAreaView>
+        <View
             style={{
-              flex: Platform.OS === "ios" ? 0.6 : 0.5,
-              paddingTop: Platform.OS === "ios" ? "0%" : "1%"
+              flex:0.1,
             }}
           >
             <Header />
           </View>
-        </View>
-        {/* Ticket View */}
+        
         <View style={styles.ticketView}>
-          {/* Header View */}
+        
           <View style={styles.ticket_headerView}>
             <View style={styles.header_confirm_logo_view}>
               <View style={styles.outter_View_Of_Confirm_Icon}>
@@ -316,113 +344,114 @@ export default class BookingPage3_one extends React.Component {
               </View>
             </View>
           </View>
-          <View style={styles.driver_Detail_View}>
-            <View style={styles.driver_Detail_outter_View}>
-              <View style={styles.driver_detail_view_1}>
-                <View style={styles.Auto_driver_text_view}>
-                  <Text style={styles.Auto_driver_text_Css}>Auto Driver</Text>
+        
+
+           <View style={{
+           flex: 0.35,
+           alignItems: "center",
+           justifyContent: "center",
+        }}>
+          <View style={styles.driver_Detail_outter_View}>
+            <View style={styles.driver_detail_view_1}>
+              <View style={styles.Auto_driver_text_view}>
+                <Text style={styles.Auto_driver_text_Css}>Auto Driver</Text>
+              </View>
+              <View style={styles.Auto_Deiver_profile}>
+                <View
+                  style={{
+                    flex: 0.24,
+                    marginRight: "2%",
+                    justifyContent: "center"
+                  }}
+                >
+                  <Image
+                    style={styles.Deiver_Profile_Image}
+                    source={require("../../assets/pic.jpg")}
+                  />
                 </View>
-                {/* <View style={styles.pipeView}></View> */}
-                <View style={styles.Auto_Deiver_profile}>
+                <View
+                  style={{
+                    flex: 0.76,
+                    alignSelf: "center",
+                    justifyContent: "center",
+                    paddingLeft: "4%",
+                    color: "grey"
+                  }}
+                >
                   <View
                     style={{
-                      flex: 0.24,
-                      marginRight: "2%",
-                      // alignItems: "center",
-                      justifyContent: "center"
-                      // backgroundColor: "green"
+                      width: "100%",
+                      overflow: "hidden",
+                      alignSelf: "center"
                     }}
                   >
+                    <ScrollView horizontal={true}>
+                      <Text style={styles.Deiver_name_text_css}>
+                        {this.state.driverName}
+                      </Text>
+                    </ScrollView>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row"
+                    }}
+                  >
+                    <Text style={styles.varified_text_css}>
+                      The Verified Driver
+                    </Text>
                     <Image
-                      style={styles.Deiver_Profile_Image}
-                      source={require("../../assets/pic.jpg")}
+                      style={styles.verifiedIcon}
+                      source={require("../../assets/varifiedlogo.png")}
                     />
                   </View>
-                  <View
-                    style={{
-                      flex: 0.76,
-                      alignSelf: "center",
-                      justifyContent: "center",
-                      paddingLeft: "4%",
-                      color: "grey"
-                      // backgroundColor: "red"
-                    }}
-                  >
-                    <View
-                      style={{
-                        width: "100%",
-                        // flex: 0.4,
-                        overflow: "hidden",
-                        alignSelf: "center"
-                      }}
-                    >
-                      <ScrollView horizontal={true}>
-                        <Text style={styles.Deiver_name_text_css}>
-                          {this.state.driverName}
-                        </Text>
-                      </ScrollView>
-                    </View>
-                    <View
-                      style={{
-                        flexDirection: "row"
-                        // flex: 0.6
-                      }}
-                    >
-                      <Text style={styles.varified_text_css}>
-                        The Verified Driver
-                      </Text>
-                      <Image
-                        style={styles.verifiedIcon}
-                        source={require("../../assets/varifiedlogo.png")}
-                      />
-                    </View>
-                  </View>
                 </View>
               </View>
             </View>
-            <View style={styles.driver_Detail_outter_View}>
-              <View style={styles.driver_detail_view_1}>
-                <View style={styles.Auto_driver_text_view}>
-                  <Text style={styles.Auto_driver_text_Css}>Auto Number</Text>
-                </View>
-                <View style={styles.Auto_number_view}>
-                  <View style={styles.Auto_number_View_Css}>
-                    <Text style={styles.Auto_number_text_css}>
-                      {this.state.autoNumber}
-                    </Text>
-                  </View>
-                </View>
+          </View>
+          <View style={styles.driver_Detail_outter_View}>
+            <View style={styles.driver_detail_view_1}>
+              <View style={styles.Auto_driver_text_view}>
+                <Text style={styles.Auto_driver_text_Css}>Auto Number</Text>
               </View>
-            </View>
-            <View
-              style={{
-                flex: 0.34,
-                alignItems: "center",
-                justifyContent: "center",
-                paddingBottom: "3%"
-              }}
-            >
-              <View style={styles.driver_detail_view_1}>
-                <View style={styles.Auto_driver_text_view}>
-                  <Text style={styles.Auto_driver_text_Css}>
-                    Fare Calculation
-                  </Text>
-                </View>
-                {/* <View style={styles.pipeView}></View> */}
-                <View style={styles.Auto_number_view}>
-                  <View style={styles.Auto_number_View_Css}>
-                    <Text style={styles.Auto_number_text_css}>
-                      Rs. {this.state.totalAmount}
-                    </Text>
-                  </View>
-                  <Text style={{ color: "#474747" }}>
-                    Rs. {this.state.perPersonAmount} per person
+              <View style={styles.Auto_number_view}>
+                <View style={styles.Auto_number_View_Css}>
+                  <Text style={styles.Auto_number_text_css}>
+                    {this.state.autoNumber}
                   </Text>
                 </View>
               </View>
             </View>
           </View>
+          <View
+            style={{
+              flex: 0.33,
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <View style={styles.driver_detail_view_1}>
+              <View style={styles.Auto_driver_text_view}>
+                <Text style={styles.Auto_driver_text_Css}>
+                  Fare Calculation
+                </Text>
+              </View>
+
+              <View style={styles.Auto_number_view}>
+                <View style={styles.Auto_number_View_Css}>
+                  <Text style={styles.Auto_number_text_css}>
+                    Rs. {this.state.totalAmount}
+                  </Text>
+                </View>
+                <Text style={{ color: "#474747",
+                  fontSize:10
+              }}>
+                  Rs. {this.state.perPersonAmount} per person
+                </Text>
+              </View>
+            </View>
+          </View>
         </View>
+        </View> 
         <View
           style={{
             flex: 0.2,
@@ -476,52 +505,28 @@ export default class BookingPage3_one extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
-  },
-  header: {
-    backgroundColor: "#269DF9",
-    flex: Platform.OS === "ios" ? 0.4 : 0.5
-  },
-  headerInnerView: {
-    marginTop: Platform.OS === "android" ? "7%" : " 3%",
-    flexDirection: "row",
-    justifyContent: "space-between"
-  },
-  backImage: {
-    height: 60,
-    width: 60,
-    alignSelf: "center",
-    marginTop: "-18%",
-    resizeMode: "contain"
-  },
-  headerText: {
-    flex: 1,
-    alignSelf: "center",
-    color: "#fff",
-    fontSize: 30
-  },
-  optionButton: {
-    width: 32,
-    height: 35,
-    marginRight: "3%",
-    resizeMode: "contain",
-    alignSelf: "center"
+    backgroundColor: "#fff",
+    position:"relative"
   },
   ticketView: {
-    flex: 0.6,
+
+    flex: .8,
     backgroundColor: "lightblue",
-    marginLeft: "3%",
-    marginRight: "3%",
+    alignSelf:"center",
+    alignItems:"center",
+    justifyContent:"center",
+    padding:"2%",
     borderRadius: 20,
-    marginTop: -85,
     shadowColor: "lightblue",
+    // position:"absolute",
+    // top:"12%",
+    marginTop:"-5%",
     shadowOffset: {
       width: 0,
       height: 1
     },
     shadowOpacity: 1.5,
     shadowRadius: 3.84,
-
     elevation: 4
   },
   ticket_headerView: {
@@ -568,13 +573,14 @@ const styles = StyleSheet.create({
     color: "#000"
   },
   user_Details_View: {
-    flex: 0.4
+    flex: 0.4,
+    alignItems:"center",
+    justifyContent:"center"
   },
   nameView: {
-    flex: 0.2,
+    flex: 0.15,
     width: "85%",
-    marginLeft: "8%",
-    marginTop: "5%"
+    marginTop: "2%"
   },
   name_input_view: {
     flex: 0.7,
@@ -610,26 +616,27 @@ const styles = StyleSheet.create({
     color: "#474747"
   },
   source_destinatio_view: {
-    flex: 0.2,
+    flex: 0.15,
     flexDirection: "row",
     width: "85%",
-    marginLeft: "8%",
-    marginTop: "5%"
+    marginTop: "2%"
   },
   driver_Detail_View: {
-    marginTop: Platform.OS === "ios" ? "4%" : "6%",
-    flex: 0.52,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20
+    flex: 0.3,
+    // overflow:"hidden"
   },
   driver_Detail_outter_View: {
-    flex: 0.33
+    flex: 0.40,
+    height:"100%",
+    width:"100%",
+    // overflow:"hidden"
   },
   driver_detail_view_1: {
-    width: "96%",
-    height: "90%",
-    marginLeft: "2%",
-    marginRight: "2%",
+    // overflow:"hidden",
+    flex:.5,
+    width: "100%",
+    height: "100%",
+    margin:"2%",
     borderRadius: 15,
     backgroundColor: "#fff",
     alignSelf: "center",
@@ -650,6 +657,7 @@ const styles = StyleSheet.create({
     flex: 0.37,
     height: "80%",
     borderRightWidth: 1.5,
+    borderRightColor:"grey",
     justifyContent: "center",
     textAlign: "left",
     paddingLeft: "2%"
@@ -658,11 +666,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#474747"
   },
-  pipeView: {
-    flex: 0.04,
-    borderLeftWidth: 1,
-    height: "80%"
-  },
+  // pipeView: {
+  //   flex: 0.04,
+  //   borderLeftWidth: 1,
+  //   height: "80%"
+  // },
   Auto_Deiver_profile: {
     flex: 0.59,
     height: "80%",

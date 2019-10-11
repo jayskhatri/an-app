@@ -14,13 +14,9 @@ export default class header extends React.Component {
       <View style={styles.container}>
         <Image
           style={{
-            width: wp("100%"),
-            // height: "110%",
-            height: Platform.OS === "android" ? hp("13%") : hp("10%"),
-            resizeMode: "contain",
-            // marginTop: "-3%"
-            position: "absolute",
-            top: -8
+            width:"100%",
+            height:"100%",
+            resizeMode:"stretch"
           }}
           source={require("../../assets/wawe.png")}
         ></Image>
@@ -30,6 +26,7 @@ export default class header extends React.Component {
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor:"transparent"
   }
 });

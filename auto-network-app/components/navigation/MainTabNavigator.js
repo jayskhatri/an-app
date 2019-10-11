@@ -9,6 +9,7 @@
 import HomeScreen from "../src/HomeScreen";
 import LinksScreen from "../src/LinksScreen";
 import BookingPageOne from "../bookingSection/bookingPage1";
+// import BookingPageSecond from "../bookingSection/bookingPage21"
 import SettingsScreen from "../src/SettingsScreen";
 import Redirect from "../redirect";
 
