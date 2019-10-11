@@ -83,6 +83,8 @@ export default  class requestConfirmationPage extends React.Component {
 
                   }.bind(this));
                   this.setState({uid:user_id}) ;
+                  console.log("uid: ",this.state.uid);
+                  
                   drivers.push(user_id)
                   // console.log(this.state.drivers);
                   firebase.database().ref('requests/'+user.uid).update({
@@ -203,7 +205,7 @@ export default  class requestConfirmationPage extends React.Component {
           // console.log('notification done');
       }
 
-      moveToOngoing=()=>{
+     async moveToOngoing=()=>{
         let user=firebase.auth().currentUser;
 
         let reqRef=firebase.database().ref('requests/');
@@ -211,22 +213,22 @@ export default  class requestConfirmationPage extends React.Component {
         let fname='';
         let lname='';
         let name='';
-        let fnameRef=firebase.database().ref('drivers/'+this.state.uid+'/personal_details/first_name')
+        let fnameRef=await firebase.database().ref('drivers/'+this.state.uid+'/personal_details/first_name')
         fnameRef.once('value').then(async(snapshot)=>{
           fname = snapshot.val();
         })
-        let lnameRef=firebase.database().ref('drivers/'+this.state.uid+'/personal_details/last_name')
+        let lnameRef=await firebase.database().ref('drivers/'+this.state.uid+'/personal_details/last_name')
         lnameRef.once('value').then(async(snapshot)=>{
           lname = snapshot.val();
         })
         name=fname+' '+lname;
         let url='';
-        let picRef=firebase.database().ref('drivers/'+this.state.uid+'/personal_details/profile_pic_url')
+        let picRef=await firebase.database().ref('drivers/'+this.state.uid+'/personal_details/profile_pic_url')
         picRef.once('value').then(async(snapshot)=>{
           url = snapshot.val();
         })
         let autoNo=''
-        let autoRef=firebase.database().ref('drivers/'+this.state.uid+'/auto_details/auto_number')
+        let autoRef=await firebase.database().ref('drivers/'+this.state.uid+'/auto_details/auto_number')
         autoRef.once('value').then(async(snapshot)=>{
           autoNo = snapshot.val();
         })
@@ -235,7 +237,7 @@ export default  class requestConfirmationPage extends React.Component {
           driverPic:url,
           autoNumber:autoNo
         })
-        let  rideRef=firebase.database().ref('Passengers/'+user.uid+'/ongoing_rides/');
+        let  rideRef=await firebase.database().ref('Passengers/'+user.uid+'/ongoing_rides/');
         const {navigation} = this.props
         rideRef.set({
           source:navigation.getParam('source'),
@@ -287,9 +289,9 @@ export default  class requestConfirmationPage extends React.Component {
           return(
         <View style={{flex:1}}>
           {this.state.status ? (
-            <div>
-              {this.passingVal}
-            </div>
+            // <div>
+            //   {this.passingVal}
+            // </div>
           ) :
         
         (
