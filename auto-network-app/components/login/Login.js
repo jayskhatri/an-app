@@ -1,5 +1,7 @@
 import React from "react";
+
 import * as firebase from "firebase";
+
 import {
   StyleSheet,
   View,

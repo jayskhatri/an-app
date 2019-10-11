@@ -7,7 +7,8 @@ const colors = {
     light_blue: "lightblue",
     light_black: "#474747",
     yellow_color: "yellow",
-    dark_blue: "#12afe3"
+    dark_blue: "#12afe3",
+    member_card_color: "#e5e5e5"
   }
 };
 
