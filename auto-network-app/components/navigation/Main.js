@@ -42,6 +42,7 @@ import EditPhoto from "../setting/EditPhoto";
 import bookingPage3 from "../bookingSection/bookingPage3";
 import ContactUs from "../helpSection/ContactUs";
 import FAQ from "../helpSection/FAQ";
+import OnGoingBookingDetails from "../src/OnGoingBookingDetails";
 class Main extends React.Component {
   render() {
     return null;
@@ -148,6 +149,9 @@ const MainNavigation = createStackNavigator(
     },
     EditPhoto: {
       screen: EditPhoto
+    },
+    OnGoingBookingDetails: {
+      screen: OnGoingBookingDetails
     }
   },
   {
