@@ -10,6 +10,7 @@ import * as Permissions from 'expo-permissions';
 import requestLocationPermission from '../utils/askForPermission'
 import * as geolib from 'geolib';
 import BookingPage3_one from "./BookingPage3_one";
+import OnGoingBookingDetails from "../src/OnGoingBookingDetails";
 
 export default  class requestConfirmationPage extends React.Component {
 
@@ -249,8 +250,8 @@ export default  class requestConfirmationPage extends React.Component {
           time:navigation.getParam('time'),
           driver_name: this.state.driverName,
           auto_number: this.state.autoNumber,
-          driver_pic:this.state.driverPic
-
+          driver_pic:this.state.driverPic,
+          passenger_name:navigation.getParam('Name')
         })
         this.setState({
           status:true
@@ -289,9 +290,7 @@ export default  class requestConfirmationPage extends React.Component {
           return(
         <View style={{flex:1}}>
           {this.state.status ? (
-            <div>
-              {this.passingVal}
-            </div>
+           <HomeScreen/>
           ) :
         
         (
