@@ -70,13 +70,22 @@ export default class HomeScreen extends React.Component {
     this.handleGoToDetailsEvent = this.handleGoToDetailsEvent.bind(this);
   }
 
-  async componentDidMount() {
+  async componentWillMount() {
     let user = await firebase.auth().currentUser;
-    let rideRef = await firebase
+    let rideRef = firebase
       .database()
       .ref("Passengers/" + user.uid + "/ongoing_rides");
 
-    rideRef.on(
+      let name=''
+      await firebase.database().ref('Passengers/'+user.uid+'/personal_details/first_name').once('value').then((snapshot)=>{
+         name=snapshot.val()
+        
+      })
+      this.setState({
+        passenger_name:name
+      })
+    
+    await rideRef.on(
       "value",
       async function(snapshot) {
         let value = snapshot.val();
@@ -92,16 +101,19 @@ export default class HomeScreen extends React.Component {
             fare: value.fare,
             NoOfPassenger: value.number_of_passengers,
             auto_number: value.auto_number,
-            // passenger_name: value.passenger_name1,
             driver_pic: value.driver_pic
           });
           console.log("source: ", this.state.source);
         }
       }.bind(this)
     );
+
+    
   }
-  handleGoToDetailsEvent(e) {
+  async handleGoToDetailsEvent() {
     console.log("IN");
+    let user=await firebase.auth().currentUser
+  
     this.props.navigation.navigate("OnGoingBookingDetails", {
       Driver_Name: this.state.driver_name,
       Source: this.state.source,
@@ -115,6 +127,7 @@ export default class HomeScreen extends React.Component {
       Driver_Pic: this.state.driver_pic
     });
   }
+
   _renderItem({ item, index }) {
     return (
       <View
@@ -189,7 +202,7 @@ export default class HomeScreen extends React.Component {
   render() {
     const { multipleSelect, activeSections } = this.state;
     return (
-      <View style={styles.container}>
+<View style={styles.container}>
         <View style={styles.header}>
           <View style={{ flex: 1 }}>
             <SafeAreaView
@@ -234,227 +247,212 @@ export default class HomeScreen extends React.Component {
               />
               {this.pagination}
             </View>
-            {this.state.display ? (
-              <TouchableOpacity
-                onPress={this.handleGoToDetailsEvent}
-                style={styles.CardView}
+            {/* <View style={{ flex: 0.05 }}></View> */}
+            <TouchableOpacity
+              onPress={this.handleGoToDetailsEvent}
+              style={styles.CardView}
+            >
+              <View
+                style={{
+                  flex: 0.98,
+                  alignSelf: "center",
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}
               >
-                <View
-                  style={{
-                    flex: 0.9,
-                    alignSelf: "center",
-                    alignItems: "center",
-                    justifyContent: "center"
-                    // backgroundColor: "red"
-                  }}
-                >
-                  <View style={styles.header_of_cart_details}>
-                    <View
+                <View style={styles.header_of_cart_details}>
+                  <View
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      backgroundColor: colors.light.white_color,
+                      borderRadius: 25
+                    }}
+                  >
+                    <Text
                       style={{
-                        flex: 1,
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: colors.light.white_color,
-                        borderRadius: 25
+                        fontSize: 25,
+                        color: colors.light.light_black,
+                        textAlign: "center",
+                        textAlignVertical: "center"
                       }}
                     >
-                      <Text
+                      Header
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.driver_name_view}>
+                  <View
+                    style={{
+                      flex: 0.2,
+                      width: "100%",
+                      height: "100%"
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        color: colors.light.white_color,
+                        position: "absolute",
+                        bottom: "7%"
+                      }}
+                    >
+                      Name :{" "}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flex: 0.8,
+                      width: "100%",
+                      height: "100%"
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        color: colors.light.light_black,
+                        position: "absolute",
+                        bottom: "7%",
+                        marginLeft: "1.5%"
+                      }}
+                    >
+                      {this.state.passenger_name}
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.source_destinatio_view}>
+                  <View style={{ flex: 0.5 }}>
+                    <View style={{ flex: 0.3 }}>
+                      <Text style={styles.lableText}>from</Text>
+                    </View>
+                    <View style={styles.name_input_view}>
+                      <View
                         style={{
-                          fontSize: 28,
-                          color: colors.light.light_black,
-                          position: "absolute",
-                          bottom: 10,
-                          alignSelf: "center"
+                          flex: 0.2,
+                          alignItems: "center",
+                          justifyContent: "center"
                         }}
                       >
-                        Header
-                      </Text>
+                        <Image
+                          style={styles.lable_Image}
+                          source={require("../../assets/sourceIcon.png")}
+                        />
+                      </View>
+                      <View
+                        style={{
+                          flex: 0.8,
+                          marginLeft: "4%",
+                          width: "100%",
+                          height: "100%"
+                        }}
+                      >
+                        <ScrollView horizontal={true}>
+                          <Text style={styles.text_Of_Details}>
+                           {this.state.source}
+                          </Text>
+                        </ScrollView>
+                      </View>
                     </View>
                   </View>
-                  <View style={styles.driver_name_view}>
-                    <View
-                      style={{
-                        flex: 0.3,
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "red"
-                      }}
-                    >
-                      <Text
+                  <View style={{ marginLeft: "7%", flex: 0.5 }}>
+                    <View style={{ flex: 0.3 }}>
+                      <Text style={styles.lableText}>To</Text>
+                    </View>
+                    <View style={styles.name_input_view}>
+                      <View
                         style={{
-                          fontSize: 15,
-                          color: colors.light.white_color,
-                          position: "absolute",
-                          bottom: "1%"
-                        }}
-                      >
-                        Name :{""}
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        flex: 0.7,
-                        width: "100%",
-                        height: "100%"
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontSize: 15,
-                          color: colors.light.light_black,
-                          position: "absolute",
-                          bottom: 10,
-                          marginLeft: "1.5%"
-                        }}
-                      >
-                        {this.state.driver_name}
-                      </Text>
-                    </View>
-                  </View>
-                  <View style={styles.source_destinatio_view}>
-                    <View style={{ flex: 0.5 }}>
-                      <View style={{ flex: 0.3 }}>
-                        <Text style={styles.lableText}>from</Text>
-                      </View>
-                      <View style={styles.name_input_view}>
-                        <View
-                          style={{
-                            flex: 0.2,
-                            alignItems: "center",
-                            justifyContent: "center"
-                          }}
-                        >
-                          <Image
-                            style={styles.lable_Image}
-                            source={require("../../assets/sourceIcon.png")}
-                          />
-                        </View>
-                        <View
-                          style={{
-                            flex: 0.8,
-                            marginLeft: "4%",
-                            marginTop: "-1%",
-                            width: "100%",
-                            height: "100%"
-                          }}
-                        >
-                          <ScrollView horizontal={true}>
-                            <Text style={styles.text_Of_Details}>
-                              {this.state.source}
-                            </Text>
-                          </ScrollView>
-                        </View>
-                      </View>
-                    </View>
-                    <View style={{ marginLeft: "7%", flex: 0.5 }}>
-                      <View style={{ flex: 0.3 }}>
-                        <Text style={styles.lableText}>To</Text>
-                      </View>
-                      <View style={styles.name_input_view}>
-                        <View
-                          style={{
-                            flex: 0.2,
+                          flex: 0.2,
 
-                            alignItems: "center",
-                            justifyContent: "center"
-                          }}
-                        >
-                          <Image
-                            style={styles.destinationIcon}
-                            source={require("../../assets/destinationIcon.png")}
-                          />
-                        </View>
-                        <View
-                          style={{
-                            flex: 0.8,
-                            marginLeft: "4%",
-                            marginTop: "-1%",
-                            width: "100%",
-                            height: "100%"
-                          }}
-                        >
-                          <ScrollView horizontal={true}>
-                            <Text style={styles.text_Of_Details}>
-                              {this.state.destination}
-                            </Text>
-                          </ScrollView>
-                        </View>
+                          alignItems: "center",
+                          justifyContent: "center"
+                        }}
+                      >
+                        <Image
+                          style={styles.destinationIcon}
+                          source={require("../../assets/destinationIcon.png")}
+                        />
                       </View>
-                    </View>
-                  </View>
-                  <View style={styles.date_time_view}>
-                    <View style={{ flex: 0.5 }}>
-                      <View style={{ flex: 0.3 }}>
-                        <Text style={styles.lableText}>Date</Text>
-                      </View>
-                      <View style={styles.name_input_view}>
-                        <View
-                          style={{
-                            flex: 0.2,
-                            alignItems: "center",
-                            justifyContent: "center"
-                          }}
-                        >
-                          <Image
-                            style={styles.lable_Image}
-                            source={require("../../assets/calender_ion.png")}
-                          />
-                        </View>
-                        <View
-                          style={{
-                            flex: 0.8,
-                            marginLeft: "4%",
-                            width: "100%",
-                            height: "100%"
-                          }}
-                        >
-                          <Text style={styles.date_time_text_css}>
-                            {this.state.date}
+                      <View
+                        style={{
+                          flex: 0.8,
+                          marginLeft: "4%",
+                          marginTop: "-1%",
+                          width: "100%",
+                          height: "100%"
+                        }}
+                      >
+                        <ScrollView horizontal={true}>
+                          <Text style={styles.text_Of_Details}>
+                            {this.state.destination}
                           </Text>
-                        </View>
-                      </View>
-                    </View>
-                    <View style={{ marginLeft: "7%", flex: 0.5 }}>
-                      <View style={{ flex: 0.3 }}>
-                        <Text style={styles.lableText}>Time</Text>
-                      </View>
-                      <View style={styles.name_input_view}>
-                        <View
-                          style={{
-                            flex: 0.2,
-                            alignItems: "center",
-                            justifyContent: "center"
-                          }}
-                        >
-                          <Image
-                            style={styles.lable_Image}
-                            source={require("../../assets/clock_icon.png")}
-                          />
-                        </View>
-                        <View
-                          style={{
-                            flex: 0.8,
-                            marginLeft: "4%",
-                            width: "100%",
-                            height: "100%"
-                          }}
-                        >
-                          <Text style={styles.date_time_text_css}>
-                            {this.state.time}
-                          </Text>
-                        </View>
+                        </ScrollView>
                       </View>
                     </View>
                   </View>
                 </View>
-              </TouchableOpacity>
-            ) : (
-              <View>
-                <Text style={{ textAlign: "center", fontSize: 25 }}>
-                  No Upcoming Rides
-                </Text>
+                <View style={styles.date_time_view}>
+                  <View style={{ flex: 0.5 }}>
+                    <View style={{ flex: 0.3 }}>
+                      <Text style={styles.lableText}>Date</Text>
+                    </View>
+                    <View style={styles.name_input_view}>
+                      <View
+                        style={{
+                          flex: 0.2,
+                          alignItems: "center",
+                          justifyContent: "center"
+                        }}
+                      >
+                        <Image
+                          style={styles.lable_Image}
+                          source={require("../../assets/calender_ion.png")}
+                        />
+                      </View>
+                      <View
+                        style={{
+                          flex: 0.8,
+                          marginLeft: "4%",
+                          width: "100%",
+                          height: "100%"
+                        }}
+                      >
+                        <Text style={styles.date_time_text_css}>{this.state.date}</Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={{ marginLeft: "7%", flex: 0.5 }}>
+                    <View style={{ flex: 0.3 }}>
+                      <Text style={styles.lableText}>Time</Text>
+                    </View>
+                    <View style={styles.name_input_view}>
+                      <View
+                        style={{
+                          flex: 0.2,
+                          alignItems: "center",
+                          justifyContent: "center"
+                        }}
+                      >
+                        <Image
+                          style={styles.lable_Image}
+                          source={require("../../assets/clock_icon.png")}
+                        />
+                      </View>
+                      <View
+                        style={{
+                          flex: 0.8,
+                          marginLeft: "4%",
+                          width: "100%",
+                          height: "100%"
+                        }}
+                      >
+                        <Text style={styles.date_time_text_css}>{this.state.time}</Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
               </View>
-            )}
+            </TouchableOpacity>
+            {/* <View style={{ flex: 0.05 }}></View> */}
           </View>
           {/* <View style={{ flex: 0.2 }}>
             <Accordion
@@ -474,6 +472,7 @@ export default class HomeScreen extends React.Component {
           <BottomBar {...this.props} />
         </View>
       </View>
+
     );
   }
 }
@@ -547,7 +546,8 @@ const styles = StyleSheet.create({
     marginTop: "2%"
   },
   source_destinatio_view: {
-    flex: 0.25,
+    flex: 0.2,
+    marginTop: "2.5%",
     flexDirection: "row",
     width: "85%",
     height: "100%"
@@ -555,7 +555,8 @@ const styles = StyleSheet.create({
     // backgroundColor: "yellow"
   },
   date_time_view: {
-    flex: 0.25,
+    flex: 0.2,
+    marginTop: "2.5%",
     flexDirection: "row",
     width: "85%",
     height: "100%"
@@ -564,7 +565,8 @@ const styles = StyleSheet.create({
   },
 
   driver_name_view: {
-    flex: 0.25,
+    flex: 0.2,
+    marginTop: "0%",
     flexDirection: "row",
     width: "85%",
     height: "100%",
@@ -572,8 +574,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: colors.light.white_color,
     alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "blue"
+    justifyContent: "center"
   },
   start_view: {
     flex: 0.2,
@@ -612,11 +613,8 @@ const styles = StyleSheet.create({
     left: 0
   },
   text_Of_Details: {
-    fontSize: 16,
-    alignSelf: "center",
-    color: colors.light.light_black,
-    position: "absolute",
-    bottom: 6
+    fontSize: 15,
+    color: colors.light.light_black
   },
   destinationIcon: {
     width: "50%",
@@ -633,11 +631,12 @@ const styles = StyleSheet.create({
     bottom: 6
   },
   header_of_cart_details: {
-    flex: 0.25,
+    flex: 0.2,
     flexDirection: "row",
     width: "85%",
     height: "100%",
     alignItems: "center",
     justifyContent: "center"
   }
+
 });
