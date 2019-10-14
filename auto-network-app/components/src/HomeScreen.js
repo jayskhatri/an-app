@@ -7,16 +7,17 @@ import {
   ScrollView,
   TouchableOpacity,
   View,
+  YellowBox
 } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import Header from "../header/header";
 import BottomBar from "../bottomTabBar/BottomBar";
-
 import colors from "../constants/Colors";
 import * as firebase from 'firebase'
 import * as Animatable from "react-native-animatable";
 import Collapsible from "react-native-collapsible";
 import Accordion from "react-native-collapsible/Accordion";
+
 // const CONTENT = [
 //   {
 //     title: "Terms and Conditions",
@@ -34,16 +35,17 @@ import Accordion from "react-native-collapsible/Accordion";
 //       "Our Return & Refund Policy template lets you get started with a Return and Refund Policy agreement. This template is free to download and use.According to TrueShip study, over 60% of customers review a Return/Refund Policy before they make a purchasing decision."
 //   }
 // ];
-
+YellowBox.ignoreWarnings(["Setting a timer","Accessing view "])
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       notification: [],
       entries: [
-        { title: "https://img.youtube.com/vi/D9ioyEvdggk/hqdefault.jpg" },
-        { title: "https://img.youtube.com/vi/D9ioyEvdggk/hqdefault.jpg" },
-        { title: "https://img.youtube.com/vi/D9ioyEvdggk/hqdefault.jpg" }
+        { title: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRw7rme6_mWCqqQxa5MLIMcPS3mYBmIycNa7JmoWUquhxkvsDVw" },
+        { title: "http://nutritionsguru.com/assets/images/10off.jpg" },
+        { title: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRZBOiBku6ABARprIhh0sndMGE4YVZpkBfQuLW4bfr42TCEpxbk" },
+ 
       ],
       activeSlide: 0,
       activeSections: [],
