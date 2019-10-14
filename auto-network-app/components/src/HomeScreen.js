@@ -92,7 +92,7 @@ export default class HomeScreen extends React.Component {
             fare: value.fare,
             NoOfPassenger: value.number_of_passengers,
             auto_number: value.auto_number,
-            passenger_name: value.passenger_name,
+            // passenger_name: value.passenger_name1,
             driver_pic: value.driver_pic
           });
           console.log("source: ", this.state.source);
