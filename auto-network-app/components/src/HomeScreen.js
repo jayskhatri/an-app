@@ -436,8 +436,8 @@ export default class HomeScreen extends React.Component {
           
             </TouchableOpacity>
             ):(
-              <View>
-                <Text>No Upcoming Rides</Text>
+              <View >
+                <Text style={{textAlign:"center",fontSize:25}}>No Upcoming Rides</Text>
             </View>
             )}
           </View>

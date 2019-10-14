@@ -10,6 +10,7 @@ import * as Permissions from 'expo-permissions';
 import requestLocationPermission from '../utils/askForPermission'
 import * as geolib from 'geolib';
 import BookingPage3_one from "./BookingPage3_one";
+import OnGoingBookingDetails from "../src/OnGoingBookingDetails";
 
 export default  class requestConfirmationPage extends React.Component {
 
@@ -289,9 +290,7 @@ export default  class requestConfirmationPage extends React.Component {
           return(
         <View style={{flex:1}}>
           {this.state.status ? (
-            <div>
-              {this.passingVal}
-            </div>
+           <HomeScreen/>
           ) :
         
         (
