@@ -125,8 +125,8 @@ export default class editProfile extends React.Component {
 
     let user = await firebase.auth().currentUser;
     var personalDetailsRef = firebase.database().ref('Passengers/'+user.uid+'/personal_details');
-
-    personalDetailsRef.update({
+    
+    await personalDetailsRef.update({
       first_name: this.state.firstName,
       email_id: user.email,
       last_name: this.state.lastName,
