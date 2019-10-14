@@ -302,7 +302,7 @@ export default class OnGoingBookingDetails extends React.Component {
                         marginLeft: "4%"
                       }}
                     >
-                      <Text style={{ color: "#474747", fontSize: 15 }}>
+                      <Text style={{ color: "#474747", fontSize: 13 }}>
                         {this.state.date}
                       </Text>
                     </View>

@@ -214,7 +214,7 @@ export default  class requestConfirmationPage extends React.Component {
           // console.log('notification done');
       }
 
-     moveToOngoing=async()=>{
+     moveToOngoing=async(e)=>{
         let user=firebase.auth().currentUser;
 
         let reqRef=firebase.database().ref('requests/');
@@ -274,7 +274,7 @@ export default  class requestConfirmationPage extends React.Component {
 
       )
     }
-    async checkForSharing(){
+    async checkForSharing(e){
       const {navigation} = this.props
       let user=firebase.auth().currentUser
       this.setState({
@@ -298,7 +298,7 @@ export default  class requestConfirmationPage extends React.Component {
           return(
         <View style={{flex:1}}>
           {this.state.status ? (
-           <HomeScreen/>
+           <HomeScreen {...this.props}/>
           ) :
         
         (

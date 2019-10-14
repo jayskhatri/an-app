@@ -110,10 +110,10 @@ export default class HomeScreen extends React.Component {
 
     
   }
-  async handleGoToDetailsEvent() {
-    console.log("IN");
+  handleGoToDetailsEvent= async({navigation})=> {
+    console.log("IN",this.props);
     let user=await firebase.auth().currentUser
-  
+    // let {navigation} = this.props.navigation
     this.props.navigation.navigate("OnGoingBookingDetails", {
       Driver_Name: this.state.driver_name,
       Source: this.state.source,
@@ -125,7 +125,7 @@ export default class HomeScreen extends React.Component {
       Passenger_Name: this.state.passenger_name,
       Auto_Number: this.state.auto_number,
       Driver_Pic: this.state.driver_pic
-    });
+    },{...this.props});
   }
 
   _renderItem({ item, index }) {
@@ -250,6 +250,7 @@ export default class HomeScreen extends React.Component {
             {/* <View style={{ flex: 0.05 }}></View> */}
             <TouchableOpacity
               onPress={this.handleGoToDetailsEvent}
+              // onPress = {(e) =>  this.props.navigation.navigate("OnGoingBookingDetails")}
               style={styles.CardView}
             >
               <View
@@ -626,7 +627,7 @@ const styles = StyleSheet.create({
   },
   date_time_text_css: {
     color: colors.light.light_black,
-    fontSize: 16,
+    fontSize: 11,
     position: "absolute",
     bottom: 6
   },
