@@ -267,17 +267,18 @@ export default class HomeScreen extends React.Component {
                 <View style={styles.driver_name_view}>
                   <View
                     style={{
-                      flex: 0.2,
+                      flex: 0.3,
                       width: "100%",
-                      height: "100%"
+                      height: "100%",
+                      backgroundColor: "red"
                     }}
                   >
                     <Text
                       style={{
-                        fontSize: 20,
+                        fontSize: 15,
                         color: colors.light.white_color,
                         position: "absolute",
-                        bottom: 10
+                        bottom: "1%"
                       }}
                     >
                       Name :{''}
@@ -285,18 +286,18 @@ export default class HomeScreen extends React.Component {
                   </View>
                   <View
                     style={{
-                      flex: 0.8,
+                      flex: 0.7,
                       width: "100%",
                       height: "100%"
                     }}
                   >
                     <Text
                       style={{
-                        fontSize: 16,
+                        fontSize: 15,
                         color: colors.light.light_black,
                         position: "absolute",
                         bottom: 10,
-                        marginLeft: "3%"
+                        marginLeft: "1.5%"
                       }}
                     >
                      {this.state.driver_name}
@@ -435,7 +436,6 @@ export default class HomeScreen extends React.Component {
                   </View>
                 </View>
               </View>
-          
             </TouchableOpacity>
             ):(
               <View >
@@ -513,7 +513,7 @@ const styles = StyleSheet.create({
   },
   CardView: {
     backgroundColor: colors.light.light_blue,
-    flex: 0.35,
+    flex: 0.4,
     width: "95%",
     alignItems: "center",
     justifyContent: "center",
@@ -555,11 +555,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "85%",
     height: "100%",
+
     borderBottomWidth: 1,
     borderBottomColor: colors.light.white_color,
     alignItems: "center",
-    justifyContent: "center"
-    // backgroundColor: "blue"
+    justifyContent: "center",
+    backgroundColor: "blue"
   },
   start_view: {
     flex: 0.2,
