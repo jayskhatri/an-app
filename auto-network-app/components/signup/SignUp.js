@@ -10,7 +10,8 @@ import {
   Platform,
   Image,
   Alert,
-  SafeAreaView
+  SafeAreaView,
+  YellowBox
 } from "react-native";
 import * as firebase from "firebase";
 import Header from "../header/header";
@@ -20,6 +21,7 @@ const DismissKeyboard = ({ children }) => (
     {children}
   </TouchableWithoutFeedback>
 );
+YellowBox.ignoreWarnings(['Accessing view']);
 export default class SignUp extends React.Component {
   constructor() {
     super();
