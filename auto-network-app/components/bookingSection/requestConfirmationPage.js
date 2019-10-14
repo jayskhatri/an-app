@@ -12,7 +12,9 @@ import * as geolib from 'geolib';
 import BookingPage3_one from "./BookingPage3_one";
 import HomeScreen from '../src/HomeScreen'
 import OnGoingBookingDetails from "../src/OnGoingBookingDetails";
-
+import { BallIndicator } from "react-native-indicators";
+import { Modal as ActivityModel } from "react-native-paper";
+import colors from "../constants/Colors";
 export default  class requestConfirmationPage extends React.Component {
 
     constructor(props) {
@@ -26,6 +28,8 @@ export default  class requestConfirmationPage extends React.Component {
             driverName:'',
             driverPic:'',
             autoNumber:'',
+            activityModelVisible:false
+            
         };
       this._findUserPosition = this._findUserPosition.bind(this);
       this.sendPushNotification = this.sendPushNotification.bind(this);
@@ -39,6 +43,7 @@ export default  class requestConfirmationPage extends React.Component {
     }
 
     async componentDidMount(){
+      this.setState({activityModelVisible:true});
         let user=await firebase.auth().currentUser;
         let userRef=firebase.database().ref('requests/'+user.uid+'/confirmation_status');
         console.log("userRef: ",userRef);
@@ -48,9 +53,11 @@ export default  class requestConfirmationPage extends React.Component {
             if(confirmation_status === true)
             { 
                 this.moveToOngoing();
+                this.setState({activityModelVisible:false});
             }
             else if(confirmation_status === false) {
                 this._findUserPosition();
+                this.setState({activityModelVisible:true});
             }
           }.bind(this));
     }
@@ -295,9 +302,45 @@ export default  class requestConfirmationPage extends React.Component {
           ) :
         
         (
-            <View>
-             <ActivityIndicator  size="large"   color="#269DF9" />
+          <ActivityModel
+          animationType="slide"
+          transparent={false}
+          visible={this.state.activityModelVisible}
+        >
+          <View
+            style={{
+              width: "100%",
+              height: "100%"
+            }}
+          >
+            <View
+              style={{
+                height: "100%",
+                width: "100%",
+                backgroundColor: colors.light.dark_blue,
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <View
+                style={{
+                  height: "30%",
+                  width: "60%",
+                  borderRadius: 25,
+                  backgroundColor: colors.light.white_color,
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}
+              >
+                <BallIndicator color={colors.light.black_color} />
+              </View>
+              <View style={{marginTop:"5%",height:"10%",width:"80%"}}>
+                  <Text style={{fontSize:25,textAlign:"center",textAlignVertical:"center"}}>Finding Driver ...
+                  </Text>
+              </View>
             </View>
+          </View>
+        </ActivityModel>
         )}
         </View>
           );
