@@ -61,30 +61,33 @@ export default class BookingPageSecond extends React.Component {
     this.backEvent = this.backEvent.bind(this);
     this.helpPost = this.helpPost.bind(this);
     this.nextEvent = this.nextEvent.bind(this);
-    this.toggleDropDownConfirmModal = this.toggleDropDownConfirmModal.bind(this);
+    this.toggleDropDownConfirmModal = this.toggleDropDownConfirmModal.bind(
+      this
+    );
     this.toggleDropDownCancleModal = this.toggleDropDownCancleModal.bind(this);
     this.toggleDropDownModal = this.toggleDropDownModal.bind(this);
   }
 
   async componentWillMount() {
-
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     this.setState({
-      source:navigation.getParam("source"),
-      destination:navigation.getParam("destination")
-    })
-    
-    console.log('source naims: ',navigation.getParam('source'));
-    let user=firebase.auth().currentUser;
-    let userRef=await firebase.database().ref('Passengers/'+user.uid+'/personal_details/first_name/');
-    let fname=''
-    await userRef.once('value').then(async(snapshot)=>{
-       fname = snapshot.val();
-       console.log("name2:",fname );
+      source: navigation.getParam("source"),
+      destination: navigation.getParam("destination")
+    });
+
+    console.log("source naims: ", navigation.getParam("source"));
+    let user = firebase.auth().currentUser;
+    let userRef = await firebase
+      .database()
+      .ref("Passengers/" + user.uid + "/personal_details/first_name/");
+    let fname = "";
+    await userRef.once("value").then(async snapshot => {
+      fname = snapshot.val();
+      console.log("name2:", fname);
     });
     this.setState({
-      name:fname
-    })
+      name: fname
+    });
   }
 
   toggleSwitch(e) {
@@ -124,7 +127,6 @@ export default class BookingPageSecond extends React.Component {
     this.setState({
       isDropDownModelVisible: !this.state.isDropDownModelVisible
     });
-
   };
 
   toggleDropDownCancleModal = () => {
@@ -229,17 +231,17 @@ export default class BookingPageSecond extends React.Component {
   async nextEvent() {
     // console.log("next Event");
 
-    this.props.navigation.navigate("bookingPage3",{
-      source:this.state.source,
-      destination:this.state.destination,
-      dateOfJourney:this.state.dateOfJourney,
-      timeOfJourney:this.state.timeOfJourney,
-      numberOfPassenger:this.state.numberOfPassenger,
-      switchValue:this.state.switchValue,
-      isAmOrPmSelect:this.state.isAmOrPmSelect,
-      name:this.state.name
-  })
-}
+    this.props.navigation.navigate("bookingPage3", {
+      source: this.state.source,
+      destination: this.state.destination,
+      dateOfJourney: this.state.dateOfJourney,
+      timeOfJourney: this.state.timeOfJourney,
+      numberOfPassenger: this.state.numberOfPassenger,
+      switchValue: this.state.switchValue,
+      isAmOrPmSelect: this.state.isAmOrPmSelect,
+      name: this.state.name
+    });
+  }
 
   render() {
     let min = new Date();
@@ -247,74 +249,81 @@ export default class BookingPageSecond extends React.Component {
     return (
       <View style={styles.container}>
         <View
-        style={{
-            width:"100%",
-            flex:0.035,
-            backgroundColor:"#269DF9"
-        }}/>
+          style={{
+            width: "100%",
+            flex: 0.035,
+            backgroundColor: "#269DF9"
+          }}
+        />
         <SafeAreaView
-        style={{
-          flex: Platform.OS === "ios" ? 0.08 : 0.08,
-          flexDirection:"row",
-          justifyContent:"space-between",
-          alignItems:"center",
-          backgroundColor: "#269DF9",
-          }}>
-              <TouchableOpacity
-                style={{
-                  flex:0.1,
-                  height:"100%",
-                  alignItems:"center",
-                  justifyContent:"center",
-                }}
-                onPress={this.backEvent}>
-                  <Image
-                    style={{
-                      maxHeight:60,
-                      maxWidth:60,
-                      resizeMode:"contain",
-                    }}
-                    source={require("../../assets/back1.png")}
-                  />
-              </TouchableOpacity>
-              <View
+          style={{
+            flex: Platform.OS === "ios" ? 0.08 : 0.08,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            backgroundColor: "#269DF9"
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              flex: 0.1,
+              height: "100%",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+            onPress={this.backEvent}
+          >
+            <Image
               style={{
-                flex:0.8,
-                alignItems:"center",
-                justifyContent:"center"
+                maxHeight: 60,
+                maxWidth: 60,
+                resizeMode: "contain"
               }}
-              >
-              <Text style={{
-                alignItems:"center",
-                justifyContent:"center",
-                color:"#fff",
-                textAlignVertical:"center",
-                fontSize:22
-              }}>Book Your Tickets</Text>
-            </View>
-            <View
-             style={{
-              flex:0.1,
-              height:"100%",
-              alignItems:"center",
-              justifyContent:"center"
-            }}>
-              <OptionsMenu
-                button={require("../../assets/More.png")}
-                buttonStyle={{
-                  maxHeight:30,
-                    maxWidth:30,
-                    resizeMode:"contain",
-                    alignItems:"center",
-                    justifyContent:"center"
-                }}
-                destructiveIndex={1}
-                options={["Edit", "Delete", "Cancel"]}
-                actions={[this.editPost, this.deletePost]}
-              />
-            </View>
+              source={require("../../assets/back1.png")}
+            />
+          </TouchableOpacity>
+          <View
+            style={{
+              flex: 0.8,
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <Text
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#fff",
+                textAlignVertical: "center",
+                fontSize: 22
+              }}
+            >
+              Book Your Tickets
+            </Text>
+          </View>
+          <View
+            style={{
+              flex: 0.1,
+              height: "100%",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <OptionsMenu
+              button={require("../../assets/More.png")}
+              buttonStyle={{
+                maxHeight: 30,
+                maxWidth: 30,
+                resizeMode: "contain",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+              destructiveIndex={1}
+              options={["Edit", "Delete", "Cancel"]}
+              actions={[this.editPost, this.deletePost]}
+            />
+          </View>
         </SafeAreaView>
-
 
         <View style={styles.inputView}>
           <View style={styles.S_D_view}>
@@ -352,188 +361,204 @@ export default class BookingPageSecond extends React.Component {
             </View>
           </View>
 
+          <View
+            style={{
+              backgroundColor: "#269DF6",
+              flex: 0.33,
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <View
+              style={{
+                width: "90%",
+                height: "90%",
+                backgroundColor: "lightblue",
+                borderRadius: 15,
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <View
+                style={{
+                  flex: 0.3,
+                  flexDirection: "row",
+                  borderTopLeftRadius: 15,
+                  borderTopRightRadius: 15,
+                  justifyContent: "space-between",
+                  alignItems: "center"
+                }}
+              >
+                <View
+                  style={{
+                    flex: 0.1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 10,
+                    backgroundColor: "#269DF9"
+                  }}
+                >
+                  <Image
+                    style={{
+                      maxHeight: 30,
+                      maxWidth: 30,
+                      resizeMode: "center"
+                    }}
+                    source={require("../../assets/ccalender_and_clock_icon.png")}
+                  />
+                </View>
 
-          <View style={{
-            backgroundColor: "#269DF6",
-            flex:0.33,
-            alignItems:"center",
-            justifyContent: "center",
-          }}>
-            <View style={{
-               width: "90%",
-               height: "90%",
-               backgroundColor: "lightblue",
-               borderRadius: 15,
-               alignItems:"center",
-               justifyContent:"center"
-            }}>
-              <View style={{
-                flex: 0.3,
-                flexDirection: "row",
-                borderTopLeftRadius: 15,
-                borderTopRightRadius: 15,
-                justifyContent: "space-between",
-                alignItems:"center",
-              }}>
-                <View style={{
-                  flex: 0.10,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 10,
-                  backgroundColor: "#269DF9",
-                }}>
-                    <Image
-                      style={{
-                        maxHeight: 30,
-                        maxWidth:30,
-                        resizeMode: 'center'
-                      }}
-                      source={require("../../assets/ccalender_and_clock_icon.png")}
-                    />
-                  </View>
-
-                <View style={{
-                   flex: 0.85,
-                   alignItems: "center",
-                   justifyContent: "center",
-                   borderBottomWidth: 2,
-                   borderBottomColor: "#fff",
-                  }}>
-                  <Text style={{
-                    color: "#000",
-                    fontSize: 20,
-                  }}>Journey Date And Time
+                <View
+                  style={{
+                    flex: 0.85,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderBottomWidth: 2,
+                    borderBottomColor: "#fff"
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#000",
+                      fontSize: 20
+                    }}
+                  >
+                    Journey Date And Time
                   </Text>
                 </View>
               </View>
 
-              <View style={{
-                flex: 0.3,
-                marginLeft: "10%",
-                marginRight: "2.5%",
-                borderBottomWidth: 1.5,
-                borderBottomColor: "#fff",
-                flexDirection: "row",
-              }}>
-                <View style={{
-                  flex: 0.1,
-                  alignItems:"flex-start",
-                  justifyContent:"flex-end",
-                 }}>
+              <View
+                style={{
+                  flex: 0.3,
+                  marginLeft: "10%",
+                  marginRight: "2.5%",
+                  borderBottomWidth: 1.5,
+                  borderBottomColor: "#fff",
+                  flexDirection: "row"
+                }}
+              >
+                <View
+                  style={{
+                    flex: 0.1,
+                    alignItems: "flex-start",
+                    justifyContent: "flex-end"
+                  }}
+                >
                   <Image
                     style={{
-                      flex:1,
+                      flex: 1,
                       maxHeight: 25,
                       maxWidth: 20,
                       resizeMode: "contain",
-                      marginBottom:"2%",
+                      marginBottom: "2%"
                     }}
                     source={require("../../assets/calender_ion.png")}
                   />
                 </View>
 
-                    {Platform.OS === "ios" ? (
-                      <TouchableOpacity
-                        onPress={this.toggleDateModal}
-                        style={{
-                          flex:0.5,
-                          width:"100%",
-                          height:"100%",
-                          flexDirection:"row",
-                          alignItems:"flex-end",
-                          justifyContent:"flex-start",
-                        }}>
-                        <Text style={styles.text}>
-                          {this.state.dateOfJourney}
-                        </Text>
-                      </TouchableOpacity>
-                    ) : (
-                      <TouchableOpacity
-                        onPress={this.opeanDatePicker}
-                        style={{
-                          flex:0.5,
-                          width:"100%",
-                          height:"100%",
-                          flexDirection:"row",
-                          alignItems:"flex-end",
-                          justifyContent:"flex-start",
-                        }}
-                      >
-                        <Text style={styles.text}>
-                          {this.state.dateOfJourney}
-                        </Text>
-                      </TouchableOpacity>
-                    )}
-
-                  <View
+                {Platform.OS === "ios" ? (
+                  <TouchableOpacity
+                    onPress={this.toggleDateModal}
                     style={{
-                      flex: 0,
-                      alignItems: "center",
-                      justifyContent: "center"
+                      flex: 0.5,
+                      width: "100%",
+                      height: "100%",
+                      flexDirection: "row",
+                      alignItems: "flex-end",
+                      justifyContent: "flex-start"
                     }}
                   >
-                    <Modal
-                      isVisible={this.state.isDateModalVisible}
-                      animationIn="wobble"
-                      animationOut="fadeOutDownBig"
-                      animationInTiming={1000}
-                      animationOutTiming={1000}
-                      backdropTransitionInTiming={200}
-                      backdropTransitionOutTiming={1000}
+                    <Text style={styles.text}>{this.state.dateOfJourney}</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    onPress={this.opeanDatePicker}
+                    style={{
+                      flex: 0.5,
+                      width: "100%",
+                      height: "100%",
+                      flexDirection: "row",
+                      alignItems: "flex-end",
+                      justifyContent: "flex-start"
+                    }}
+                  >
+                    <Text style={styles.text}>{this.state.dateOfJourney}</Text>
+                  </TouchableOpacity>
+                )}
+
+                <View
+                  style={{
+                    flex: 0,
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
+                >
+                  <Modal
+                    isVisible={this.state.isDateModalVisible}
+                    animationIn="wobble"
+                    animationOut="fadeOutDownBig"
+                    animationInTiming={1000}
+                    animationOutTiming={1000}
+                    backdropTransitionInTiming={200}
+                    backdropTransitionOutTiming={1000}
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                      alignSelf: "center"
+                    }}
+                  >
+                    <View style={styles.modelInnerView1}>
+                      <View style={styles.modelInnerView2}>
+                        <DatePickerIOS
+                          date={this.state.chosenDate}
+                          onDateChange={this.setDate}
+                          mode="date"
+                          minimumDate={min}
+                          style={{
+                            borderRadius: 25,
+                            marginLeft: "2%",
+                            marginRight: "2%",
+                            backgroundColor: "#fff"
+                          }}
+                        />
+                        <TouchableOpacity
+                          style={styles.modalBtnCss}
+                          onPress={this.dateConfirm}
+                        >
+                          <Text style={{ fontSize: 25, alignSelf: "center" }}>
+                            confirm
+                          </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.modalBtnCss}
+                          onPress={this.toggleDateModal}
+                        >
+                          <Text style={{ fontSize: 25, alignSelf: "center" }}>
+                            cancle
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </Modal>
+                </View>
+
+                <View
+                  style={{
+                    flex: 0.4,
+                    flexDirection: "row",
+                    alignItems: "flex-end",
+                    justifyContent: "center"
+                  }}
+                >
+                  <TouchableOpacity onPress={this.presentDateEvent}>
+                    <Text
                       style={{
-                        height: "100%",
-                        width: "100%",
-                        alignSelf: "center"
+                        color: "#fff"
                       }}
                     >
-                      <View style={styles.modelInnerView1}>
-                        <View style={styles.modelInnerView2}>
-                          <DatePickerIOS
-                            date={this.state.chosenDate}
-                            onDateChange={this.setDate}
-                            mode="date"
-                            minimumDate={min}
-                            style={{
-                              borderRadius: 25,
-                              marginLeft: "2%",
-                              marginRight: "2%",
-                              backgroundColor: "#fff"
-                            }}
-                          />
-                          <TouchableOpacity
-                            style={styles.modalBtnCss}
-                            onPress={this.dateConfirm}
-                          >
-                            <Text style={{ fontSize: 25, alignSelf: "center" }}>
-                              confirm
-                            </Text>
-                          </TouchableOpacity>
-                          <TouchableOpacity
-                            style={styles.modalBtnCss}
-                            onPress={this.toggleDateModal}
-                          >
-                            <Text style={{ fontSize: 25, alignSelf: "center" }}>
-                              cancle
-                            </Text>
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                    </Modal>
-                  </View>
-
-                <View style={{
-                  flex: 0.4,
-                  flexDirection: "row",
-                  alignItems:"flex-end",
-                  justifyContent:"center"
-                  }}>
-                  <TouchableOpacity
-                    onPress={this.presentDateEvent}
-                  >
-                    <Text style={{
-                      color: "#fff"
-                    }}>
-                      Today</Text>
+                      Today
+                    </Text>
                   </TouchableOpacity>
                   <Text
                     style={{
@@ -544,345 +569,372 @@ export default class BookingPageSecond extends React.Component {
                     |{" "}
                   </Text>
                   <TouchableOpacity>
-                    <Text style={{
-                      color: "#fff"
-                    }}>
-                      Tomorrow</Text>
+                    <Text
+                      style={{
+                        color: "#fff"
+                      }}
+                    >
+                      Tomorrow
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>
 
-              <View style={{
-                flex: 0.3,
-                marginLeft: "10%",
-                marginRight: "2.5%",
-                borderBottomWidth: 1.5,
-                borderBottomColor: "#fff",
-                flexDirection: "row",
-              }}>
-              <View style={{
-                  flex: 0.1,
-                  alignItems:"flex-start",
-                  justifyContent:"flex-end",
-                 }}>
+              <View
+                style={{
+                  flex: 0.3,
+                  marginLeft: "10%",
+                  marginRight: "2.5%",
+                  borderBottomWidth: 1.5,
+                  borderBottomColor: "#fff",
+                  flexDirection: "row"
+                }}
+              >
+                <View
+                  style={{
+                    flex: 0.1,
+                    alignItems: "flex-start",
+                    justifyContent: "flex-end"
+                  }}
+                >
                   <Image
                     style={{
-                      flex:1,
+                      flex: 1,
                       maxHeight: 25,
                       maxWidth: 20,
                       resizeMode: "contain",
-                      marginBottom:"2%",
+                      marginBottom: "2%"
                     }}
                     source={require("../../assets/clock_icon.png")}
                   />
                 </View>
 
-                    {Platform.OS === "ios" ? (
-                      <TouchableOpacity
-                        onPress={this.toggleTimeModal}
-                        style={{
-                          flex:0.7,
-                          width:"100%",
-                          height:"100%",
-                          flexDirection:"row",
-                          alignItems:"flex-end",
-                          justifyContent:"flex-start",
-                        }}
-                      >
-                        <Text style={styles.text}>
-                          {this.state.timeOfJourney}
-                        </Text>
-                      </TouchableOpacity>
-                    ) : (
-                      <TouchableOpacity
-                        onPress={this.opeanTimePicker}
-                        style={{
-                          flex:0.7,
-                          width:"100%",
-                          height:"100%",
-                          flexDirection:"row",
-                          alignItems:"flex-end",
-                          justifyContent:"flex-start",
-                        }}
-                      >
-                        <Text style={styles.text}>
-                          {this.state.timeOfJourney}
-                        </Text>
-                      </TouchableOpacity>
-                    )}
-
-                  <View
+                {Platform.OS === "ios" ? (
+                  <TouchableOpacity
+                    onPress={this.toggleTimeModal}
                     style={{
-                      flex: 0,
-                      alignItems: "center",
-                      justifyContent: "center"
+                      flex: 0.7,
+                      width: "100%",
+                      height: "100%",
+                      flexDirection: "row",
+                      alignItems: "flex-end",
+                      justifyContent: "flex-start"
                     }}
                   >
-                    <Modal
-                      isVisible={this.state.isTimeModalVisible}
-                      animationIn="wobble"
-                      animationOut="fadeOutDownBig"
-                      animationInTiming={1000}
-                      animationOutTiming={1000}
-                      backdropTransitionInTiming={200}
-                      backdropTransitionOutTiming={1000}
-                      style={{
-                        height: "100%",
-                        width: "100%",
-                        alignSelf: "center"
-                      }}
-                    >
-                      <View style={styles.modelInnerView1}>
-                        <View style={styles.modelInnerView2}>
-                          <DatePickerIOS
-                            date={this.state.chosenDate}
-                            onDateChange={this.setDate}
-                            mode="time"
-                            style={{
-                              borderRadius: 25,
-                              marginLeft: "2%",
-                              marginRight: "2%",
-                              backgroundColor: "#fff"
-                            }}
-                          />
-                          <TouchableOpacity
-                            style={styles.modalBtnCss}
-                            onPress={this.confirmTime}
-                          >
-                            <Text style={{ fontSize: 25, alignSelf: "center" }}>
-                              confirm
-                            </Text>
-                          </TouchableOpacity>
-                          <TouchableOpacity
-                            style={styles.modalBtnCss}
-                            onPress={this.toggleTimeModal}
-                          >
-                            <Text style={{ fontSize: 25, alignSelf: "center" }}>
-                              cancle
-                            </Text>
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                    </Modal>
-                  </View>
-
-                  <TouchableOpacity
-                    onPress={this.presentTimeEvent}
-                    style={{
-                      flex: 0.2,
-                      flexDirection:"row",
-                      width: "100%",
-                      alignItems:"flex-end",
-                      justifyContent:"center",
-                      height:"100%"
-                   }}>
-                      <Text style={{
-                        color: "#fff"
-                        }}>
-                          Now</Text>
+                    <Text style={styles.text}>{this.state.timeOfJourney}</Text>
                   </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    onPress={this.opeanTimePicker}
+                    style={{
+                      flex: 0.7,
+                      width: "100%",
+                      height: "100%",
+                      flexDirection: "row",
+                      alignItems: "flex-end",
+                      justifyContent: "flex-start"
+                    }}
+                  >
+                    <Text style={styles.text}>{this.state.timeOfJourney}</Text>
+                  </TouchableOpacity>
+                )}
+
+                <View
+                  style={{
+                    flex: 0,
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
+                >
+                  <Modal
+                    isVisible={this.state.isTimeModalVisible}
+                    animationIn="wobble"
+                    animationOut="fadeOutDownBig"
+                    animationInTiming={1000}
+                    animationOutTiming={1000}
+                    backdropTransitionInTiming={200}
+                    backdropTransitionOutTiming={1000}
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                      alignSelf: "center"
+                    }}
+                  >
+                    <View style={styles.modelInnerView1}>
+                      <View style={styles.modelInnerView2}>
+                        <DatePickerIOS
+                          date={this.state.chosenDate}
+                          onDateChange={this.setDate}
+                          mode="time"
+                          style={{
+                            borderRadius: 25,
+                            marginLeft: "2%",
+                            marginRight: "2%",
+                            backgroundColor: "#fff"
+                          }}
+                        />
+                        <TouchableOpacity
+                          style={styles.modalBtnCss}
+                          onPress={this.confirmTime}
+                        >
+                          <Text style={{ fontSize: 25, alignSelf: "center" }}>
+                            confirm
+                          </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.modalBtnCss}
+                          onPress={this.toggleTimeModal}
+                        >
+                          <Text style={{ fontSize: 25, alignSelf: "center" }}>
+                            cancle
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </Modal>
                 </View>
+
+                <TouchableOpacity
+                  onPress={this.presentTimeEvent}
+                  style={{
+                    flex: 0.2,
+                    flexDirection: "row",
+                    width: "100%",
+                    alignItems: "flex-end",
+                    justifyContent: "center",
+                    height: "100%"
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#fff"
+                    }}
+                  >
+                    Now
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
+          </View>
 
+          <View
+            style={{
+              backgroundColor: "#269DF6",
+              flex: 0.33,
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <View
+              style={{
+                width: "90%",
+                height: "90%",
+                backgroundColor: "lightblue",
+                borderRadius: 15,
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <View
+                style={{
+                  flex: 0.3,
+                  flexDirection: "row",
+                  borderTopLeftRadius: 15,
+                  borderTopRightRadius: 15,
+                  justifyContent: "space-between",
+                  alignItems: "center"
+                }}
+              >
+                <View
+                  style={{
+                    flex: 0.1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 10,
+                    backgroundColor: "#269DF9"
+                  }}
+                >
+                  <Image
+                    style={{
+                      maxHeight: 30,
+                      maxWidth: 30,
+                      resizeMode: "center"
+                    }}
+                    source={require("../../assets/group_of_ppl.png")}
+                  />
+                </View>
 
-            <View style={{
-            backgroundColor: "#269DF6",
-            flex:0.33,
-            alignItems:"center",
-            justifyContent: "center",
-            }}>
-            <View style={{
-               width: "90%",
-               height: "90%",
-               backgroundColor: "lightblue",
-               borderRadius: 15,
-               alignItems:"center",
-               justifyContent:"center"
-            }}>
-              <View style={{
-                flex: 0.3,
-                flexDirection: "row",
-                borderTopLeftRadius: 15,
-                borderTopRightRadius: 15,
-                justifyContent: "space-between",
-                alignItems:"center",
-              }}>
-                <View style={{
-                  flex: 0.10,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 10,
-                  backgroundColor: "#269DF9",
-                }}>
-                    <Image
-                      style={{
-                        maxHeight: 30,
-                        maxWidth:30,
-                        resizeMode: 'center'
-                      }}
-                      source={require("../../assets/group_of_ppl.png")}
-                    />
-                  </View>
-
-                <View style={{
-                   flex: 0.85,
-                   alignItems: "center",
-                   justifyContent: "center",
-                   borderBottomWidth: 2,
-                   borderBottomColor: "#fff",
-                  }}>
-                  <Text style={{
-                    color: "#000",
-                    fontSize: 20,
-                  }}>Passenger Details
+                <View
+                  style={{
+                    flex: 0.85,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderBottomWidth: 2,
+                    borderBottomColor: "#fff"
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#000",
+                      fontSize: 20
+                    }}
+                  >
+                    Passenger Details
                   </Text>
                 </View>
               </View>
 
-              <View style={{
-                flex: 0.3,
-                marginLeft: "10%",
-                marginRight: "2.5%",
-                borderBottomWidth: 1.5,
-                borderBottomColor: "#fff",
-                flexDirection: "row",
-              }}>
-                <View style={{
-                  flex: 0.1,
-                  alignItems:"flex-start",
-                  justifyContent:"flex-end",
-                 }}>
+              <View
+                style={{
+                  flex: 0.3,
+                  marginLeft: "10%",
+                  marginRight: "2.5%",
+                  borderBottomWidth: 1.5,
+                  borderBottomColor: "#fff",
+                  flexDirection: "row"
+                }}
+              >
+                <View
+                  style={{
+                    flex: 0.1,
+                    alignItems: "flex-start",
+                    justifyContent: "flex-end"
+                  }}
+                >
                   <Image
                     style={{
-                      flex:1,
+                      flex: 1,
                       maxHeight: 25,
                       maxWidth: 20,
                       resizeMode: "contain",
-                      marginBottom:"2%",
+                      marginBottom: "2%"
                     }}
                     source={require("../../assets/person.png")}
                   />
                 </View>
 
-                    {Platform.OS === "ios" ? (
-                      <TouchableOpacity
-                      onPress={this.toggleDropDownModal}
-                        style={{
-                          flex:0.5,
-                          width:"100%",
-                          height:"100%",
-                          flexDirection:"row",
-                          alignItems:"flex-end",
-                          justifyContent:"flex-start",
-                        }}>
-                        <Text style={styles.text}>
-                          {this.state.numberOfPassenger}
-                        </Text>
-                      </TouchableOpacity>
-                    ) : (
-                      <TouchableOpacity
-                      onPress={this.toggleDropDownModal}
-                        style={{
-                          flex:0.5,
-                          width:"100%",
-                          height:"100%",
-                          flexDirection:"row",
-                          alignItems:"flex-end",
-                          justifyContent:"flex-start",
-                        }}
-                      >
-                        <Text style={styles.text}>
-                          {this.state.numberOfPassenger}
-                        </Text>
-                      </TouchableOpacity>
-                    )}
-
-                  <View
+                {Platform.OS === "ios" ? (
+                  <TouchableOpacity
+                    onPress={this.toggleDropDownModal}
                     style={{
-                      flex: 0,
-                      alignItems: "center",
-                      justifyContent: "center"
+                      flex: 0.5,
+                      width: "100%",
+                      height: "100%",
+                      flexDirection: "row",
+                      alignItems: "flex-end",
+                      justifyContent: "flex-start"
                     }}
                   >
-                    <Modal
-                      isVisible={this.state.isDropDownModelVisible}
-                      animationIn="wobble"
-                      animationOut="fadeOutDownBig"
-                      animationInTiming={1000}
-                      animationOutTiming={1000}
-                      backdropTransitionInTiming={200}
-                      backdropTransitionOutTiming={1000}
+                    <Text style={styles.text}>
+                      {this.state.numberOfPassenger}
+                    </Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    onPress={this.toggleDropDownModal}
+                    style={{
+                      flex: 0.5,
+                      width: "100%",
+                      height: "100%",
+                      flexDirection: "row",
+                      alignItems: "flex-end",
+                      justifyContent: "flex-start"
+                    }}
+                  >
+                    <Text style={styles.text}>
+                      {this.state.numberOfPassenger}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+
+                <View
+                  style={{
+                    flex: 0,
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
+                >
+                  <Modal
+                    isVisible={this.state.isDropDownModelVisible}
+                    animationIn="wobble"
+                    animationOut="fadeOutDownBig"
+                    animationInTiming={1000}
+                    animationOutTiming={1000}
+                    backdropTransitionInTiming={200}
+                    backdropTransitionOutTiming={1000}
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                      alignSelf: "center"
+                    }}
+                  >
+                    <View style={styles.modelInnerView1}>
+                      <View style={styles.modelInnerView2}>
+                        <Picker
+                          selectedValue={this.state.tempPassenger}
+                          style={{
+                            marginTop: "8%",
+                            height: Platform.OS === "ios" ? "40%" : "20%",
+                            backgroundColor: "#fff",
+                            borderRadius: 15,
+                            marginLeft: "3%",
+                            marginRight: "3%",
+                            paddingBottom: "2%"
+                          }}
+                          onValueChange={(itemValue, itemIndex) => {
+                            console.log("item value: ", itemValue);
+                            this.setState({ tempPassenger: itemValue });
+                            console.log(
+                              "state tempPassenger: ",
+                              this.state.tempPassenger
+                            );
+                          }}
+                        >
+                          <Picker.Item label="1" value="1" />
+                          <Picker.Item label="2" value="2" />
+                          <Picker.Item label="3" value="3" />
+                          <Picker.Item label="4" value="4" />
+                          <Picker.Item label="5" value="5" />
+                          <Picker.Item label="6" value="6" />
+                        </Picker>
+
+                        <TouchableOpacity
+                          style={styles.modalBtnCss}
+                          onPress={this.toggleDropDownConfirmModal}
+                        >
+                          <Text style={{ fontSize: 25, alignSelf: "center" }}>
+                            Confirm
+                          </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.modalBtnCss}
+                          onPress={this.toggleDropDownCancleModal}
+                        >
+                          <Text style={{ fontSize: 25, alignSelf: "center" }}>
+                            Cancle
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </Modal>
+                </View>
+
+                <View
+                  style={{
+                    flex: 0.4,
+                    flexDirection: "row",
+                    alignItems: "flex-end",
+                    justifyContent: "flex-end"
+                  }}
+                >
+                  <TouchableOpacity onPress={this.singlePersonEvent}>
+                    <Text
                       style={{
-                        height: "100%",
-                        width: "100%",
-                        alignSelf: "center"
+                        color: "#fff"
                       }}
                     >
-                      <View style={styles.modelInnerView1}>
-                        <View style={styles.modelInnerView2}>
-                          <Picker
-                            selectedValue={this.state.tempPassenger}
-                            style={{
-                              marginTop: "8%",
-                              height: Platform.OS === "ios" ? "40%" : "20%",
-                              backgroundColor: "#fff",
-                              borderRadius: 15,
-                              marginLeft: "3%",
-                              marginRight: "3%",
-                              paddingBottom: "2%"
-                            }}
-                            onValueChange={(itemValue, itemIndex) => {
-                              console.log("item value: ", itemValue);
-                              this.setState({ tempPassenger: itemValue });
-                              console.log(
-                                "state tempPassenger: ",
-                                this.state.tempPassenger
-                              );
-                            }}
-                          >
-                            <Picker.Item label="1" value="1" />
-                            <Picker.Item label="2" value="2" />
-                            <Picker.Item label="3" value="3" />
-                            <Picker.Item label="4" value="4" />
-                            <Picker.Item label="5" value="5" />
-                            <Picker.Item label="6" value="6" />
-                          </Picker>
-
-                          <TouchableOpacity
-                            style={styles.modalBtnCss}
-                            onPress={this.toggleDropDownConfirmModal}
-                          >
-                            <Text style={{ fontSize: 25, alignSelf: "center" }}>
-                              Confirm
-                            </Text>
-                          </TouchableOpacity>
-                          <TouchableOpacity
-                            style={styles.modalBtnCss}
-                            onPress={this.toggleDropDownCancleModal}
-                          >
-                            <Text style={{ fontSize: 25, alignSelf: "center" }}>
-                              Cancle
-                            </Text>
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                    </Modal>
-                  </View>
-
-                <View style={{
-                  flex: 0.4,
-                  flexDirection: "row",
-                  alignItems:"flex-end",
-                  justifyContent:"flex-end"
-                  }}>
-                  <TouchableOpacity
-                    onPress={this.singlePersonEvent}
-                  >
-                    <Text style={{
-                      color: "#fff"
-                    }}>
-                      Single</Text>
+                      Single
+                    </Text>
                   </TouchableOpacity>
                   <Text
                     style={{
@@ -892,99 +944,101 @@ export default class BookingPageSecond extends React.Component {
                     {" "}
                     |{" "}
                   </Text>
-                  <TouchableOpacity
-                   onPress={this.twoPersonEvent}>
-                    <Text style={{
-                      color: "#fff"
-                    }}>
-                      Two</Text>
+                  <TouchableOpacity onPress={this.twoPersonEvent}>
+                    <Text
+                      style={{
+                        color: "#fff"
+                      }}
+                    >
+                      Two
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>
 
-              <View style={{
-                flex: 0.3,
-                marginLeft: "10%",
-                marginRight: "2.5%",
-                borderBottomWidth: 1.5,
-                borderBottomColor: "#fff",
-                flexDirection: "row",
-              }}>
-              <View style={{
-                  flex: 0.1,
-                  alignItems:"flex-start",
-                  justifyContent:"flex-end",
-                 }}>
+              <View
+                style={{
+                  flex: 0.3,
+                  marginLeft: "10%",
+                  marginRight: "2.5%",
+                  borderBottomWidth: 1.5,
+                  borderBottomColor: "#fff",
+                  flexDirection: "row"
+                }}
+              >
+                <View
+                  style={{
+                    flex: 0.1,
+                    alignItems: "flex-start",
+                    justifyContent: "flex-end"
+                  }}
+                >
                   <Image
                     style={{
-                      flex:1,
+                      flex: 1,
                       maxHeight: 25,
                       maxWidth: 20,
                       resizeMode: "contain",
-                      marginBottom:"2%",
+                      marginBottom: "2%"
                     }}
                     source={require("../../assets/Solid.png")}
                   />
                 </View>
 
-                  <View
-                    style={{
-                      flex:0.7,
-                      width:"100%",
-                      height:"100%",
-                      flexDirection:"row",
-                      alignItems:"flex-end",
-                      justifyContent:"flex-start",
-                    }}
-                  >
-                    <Text style={styles.text}>
-                      Allow For Sharing Auto
-                    </Text>
-                  </View>
-
-                  <Switch
-                      style={{ flex: 0.2,
-                        flexDirection:"row",
-                        width: "100%",
-                        // height:"100%",
-                        alignSelf:"flex-end",
-                        justifyContent:"flex-end",
-                        // backgroundColor:"red"
-                       }}
-                      onValueChange={this.toggleSwitch}
-                      disabled={this.state.fullAuto ? true : false}
-                      value={this.state.switchValue}
-                    />
+                <View
+                  style={{
+                    flex: 0.7,
+                    width: "100%",
+                    height: "100%",
+                    flexDirection: "row",
+                    alignItems: "flex-end",
+                    justifyContent: "flex-start"
+                  }}
+                >
+                  <Text style={styles.text}>Allow For Sharing Auto</Text>
                 </View>
+
+                <Switch
+                  style={{
+                    flex: 0.2,
+                    flexDirection: "row",
+                    width: "100%",
+                    // height:"100%",
+                    alignSelf: "flex-end",
+                    justifyContent: "flex-end"
+                    // backgroundColor:"red"
+                  }}
+                  onValueChange={this.toggleSwitch}
+                  disabled={this.state.fullAuto ? true : false}
+                  value={this.state.switchValue}
+                />
               </View>
             </View>
-
-
-
-
+          </View>
         </View>
-        <View style={{ flex: 0.3}}>
+        <View style={{ flex: 0.3 }}>
           <View style={{ flex: 0.5 }}>
             <Header />
           </View>
 
           {/* <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']}> */}
-          <View style={{
-            flex:0.3,
-            alignItems:"center",
-            justifyContent:"center",
-            width:"100%",
-            height:"100%",
-          }}>
-
+          <View
+            style={{
+              flex: 0.3,
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              height: "100%"
+            }}
+          >
             <TouchableOpacity
               style={{
-                width:"30%",
-                height:"60%",
+                width: "30%",
+                height: "60%",
                 //backgroundColor:"#269DF9",
-                borderRadius:30,
-                alignItems:"center",
-                justifyContent:"center",
+                borderRadius: 30,
+                alignItems: "center",
+                justifyContent: "center",
                 shadowColor: "#000",
                 shadowOffset: {
                   width: 0,
@@ -996,16 +1050,18 @@ export default class BookingPageSecond extends React.Component {
               }}
               onPress={this.nextEvent}
             >
-
-              <Text style={{
-                color:"#fff",
-                margin:"5%",
-                fontSize:18,
-                fontWeight:"bold",
-              }}> Next </Text>
-
+              <Text
+                style={{
+                  color: "#fff",
+                  margin: "5%",
+                  fontSize: 18,
+                  fontWeight: "bold"
+                }}
+              >
+                {" "}
+                Next{" "}
+              </Text>
             </TouchableOpacity>
-
           </View>
           {/* </LinearGradient> */}
         </View>
@@ -1038,17 +1094,17 @@ const styles = StyleSheet.create({
   },
   S_D_input_view: {
     flex: 1,
-    flexDirection: "column",
+    flexDirection: "column"
   },
   s_input_view: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   d_input_view: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   outter_view_s_input: {
     borderWidth: 0.5,
