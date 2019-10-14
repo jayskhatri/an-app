@@ -173,24 +173,22 @@ export default class HomeScreen extends React.Component {
               />
               {this.pagination}
             </View>
-            <View style={{ flex: 0.05 }}></View>
+            {/* <View style={{ flex: 0.05 }}></View> */}
             <TouchableOpacity
               onPress={this.handleGoToDetailsEvent}
               style={styles.CardView}
             >
               <View
                 style={{
-                  flex: 0.9,
+                  flex: 0.98,
                   alignSelf: "center",
                   alignItems: "center",
                   justifyContent: "center"
-                  // backgroundColor: "red"
                 }}
               >
                 <View style={styles.header_of_cart_details}>
                   <View
                     style={{
-                      flex: 1,
                       width: "100%",
                       height: "100%",
                       backgroundColor: colors.light.white_color,
@@ -199,11 +197,10 @@ export default class HomeScreen extends React.Component {
                   >
                     <Text
                       style={{
-                        fontSize: 28,
+                        fontSize: 25,
                         color: colors.light.light_black,
-                        position: "absolute",
-                        bottom: 10,
-                        alignSelf: "center"
+                        textAlign: "center",
+                        textAlignVertical: "center"
                       }}
                     >
                       Header
@@ -213,10 +210,9 @@ export default class HomeScreen extends React.Component {
                 <View style={styles.driver_name_view}>
                   <View
                     style={{
-                      flex: 0.3,
+                      flex: 0.2,
                       width: "100%",
-                      height: "100%",
-                      backgroundColor: "red"
+                      height: "100%"
                     }}
                   >
                     <Text
@@ -224,7 +220,7 @@ export default class HomeScreen extends React.Component {
                         fontSize: 15,
                         color: colors.light.white_color,
                         position: "absolute",
-                        bottom: "1%"
+                        bottom: "7%"
                       }}
                     >
                       Name :{" "}
@@ -232,7 +228,7 @@ export default class HomeScreen extends React.Component {
                   </View>
                   <View
                     style={{
-                      flex: 0.7,
+                      flex: 0.8,
                       width: "100%",
                       height: "100%"
                     }}
@@ -242,7 +238,7 @@ export default class HomeScreen extends React.Component {
                         fontSize: 15,
                         color: colors.light.light_black,
                         position: "absolute",
-                        bottom: 10,
+                        bottom: "7%",
                         marginLeft: "1.5%"
                       }}
                     >
@@ -272,7 +268,6 @@ export default class HomeScreen extends React.Component {
                         style={{
                           flex: 0.8,
                           marginLeft: "4%",
-                          marginTop: "-1%",
                           width: "100%",
                           height: "100%"
                         }}
@@ -383,7 +378,7 @@ export default class HomeScreen extends React.Component {
                 </View>
               </View>
             </TouchableOpacity>
-            <View style={{ flex: 0.05 }}></View>
+            {/* <View style={{ flex: 0.05 }}></View> */}
           </View>
           {/* <View style={{ flex: 0.2 }}>
             <Accordion
@@ -476,7 +471,8 @@ const styles = StyleSheet.create({
     marginTop: "2%"
   },
   source_destinatio_view: {
-    flex: 0.25,
+    flex: 0.2,
+    marginTop: "2.5%",
     flexDirection: "row",
     width: "85%",
     height: "100%"
@@ -484,7 +480,8 @@ const styles = StyleSheet.create({
     // backgroundColor: "yellow"
   },
   date_time_view: {
-    flex: 0.25,
+    flex: 0.2,
+    marginTop: "2.5%",
     flexDirection: "row",
     width: "85%",
     height: "100%"
@@ -493,7 +490,8 @@ const styles = StyleSheet.create({
   },
 
   driver_name_view: {
-    flex: 0.25,
+    flex: 0.2,
+    marginTop: "0%",
     flexDirection: "row",
     width: "85%",
     height: "100%",
@@ -501,8 +499,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: colors.light.white_color,
     alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "blue"
+    justifyContent: "center"
   },
   start_view: {
     flex: 0.2,
@@ -541,11 +538,8 @@ const styles = StyleSheet.create({
     left: 0
   },
   text_Of_Details: {
-    fontSize: 16,
-    alignSelf: "center",
-    color: colors.light.light_black,
-    position: "absolute",
-    bottom: 6
+    fontSize: 15,
+    color: colors.light.light_black
   },
   destinationIcon: {
     width: "50%",
@@ -562,7 +556,7 @@ const styles = StyleSheet.create({
     bottom: 6
   },
   header_of_cart_details: {
-    flex: 0.25,
+    flex: 0.2,
     flexDirection: "row",
     width: "85%",
     height: "100%",
