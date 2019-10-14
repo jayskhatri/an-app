@@ -14,7 +14,7 @@ import {
   Alert,
   Image,
   TouchableWithoutFeedback,
-  ActivityIndicator
+  YellowBox
 } from "react-native";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
@@ -25,6 +25,9 @@ const DismissKeyboard = ({ children }) => (
     {children}
   </TouchableWithoutFeedback>
 );
+
+YellowBox.ignoreWarnings(['Accessing view']);
+
 export default class Login extends React.Component {
   constructor() {
     super();
