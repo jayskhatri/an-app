@@ -81,6 +81,7 @@ export default class profilePageFourth extends React.Component {
         last_name: navigation.getParam("last_name"),
         birth_date: navigation.getParam("birth_date"),
         gender: navigation.getParam("gender"),
+        organizational_id: "",
         has_profile_completed: false
       });
     this.setState({
