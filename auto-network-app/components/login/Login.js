@@ -79,7 +79,7 @@ export default class Login extends React.Component {
     let token = await Notifications.getExpoPushTokenAsync();
     console.log("token: ", token);
     firebase.auth().onAuthStateChanged(function(user) {
-      
+      if(user!==null)
       firebase.database().ref('Passengers/'+user.uid+'/Token/').set(
         {
           expo_token: token,
@@ -106,7 +106,7 @@ export default class Login extends React.Component {
         function() {
           firebase.auth().onAuthStateChanged(
             function(user) {
-              console.log("sign in event: ", user.emailVerified);
+              // console.log("sign in event: ", user.emailVerified);
 
               if (user && user != null) {
                 if (user.emailVerified) {

@@ -87,7 +87,7 @@ export default class driver_page_one extends React.Component {
         function() {
           firebase.auth().onAuthStateChanged(
             function(user) {
-              console.log("sign in event: ", user.emailVerified);
+              // console.log("sign in event: ", user.emailVerified);
 
               if (user && user != null) {
                 if (user.emailVerified) {
