@@ -115,10 +115,10 @@ export default class BookingPage3 extends React.Component {
   }
 
  async paytmMode() {
-    this.setState({ activityModelVisible: true });
+    // this.setState({ activityModelVisible: true });
 
     // write a code for paytm and then below two state can unhide and both set false and redirect
-    this.setState({ activityModelVisible: false });
+    // this.setState({ activityModelVisible: false });
     this.setState({ modalVisible: false });
     let user=firebase.auth().currentUser;
     await firebase.database().ref('requests/'+user.uid).set({

@@ -31,141 +31,166 @@ export default class OnGoingBookingDetails extends React.Component {
       driverName: "",
       autoNumber: "",
       totalAmount: "300",
-      perPersonAmount: ""
+      perPersonAmount: "",
+      driver_pic: ""
     };
     this.backEvent = this.backEvent.bind(this);
   }
   backEvent() {
     this.props.navigation.navigate("HomeScreen");
   }
+
   componentWillMount() {
-    this.setState({ name: "Anuj Thakkar" });
-    this.setState({ source: "changa , Aanand ..." });
-    this.setState({ destination: "Big Bazzar , Aanand ..." });
-    this.setState({ date: "25/9/2019" });
-    this.setState({ time: "9:30" });
+    const { navigation } = this.props;
+    let fare = parseInt(navigation.getParam("Fare"));
+    let persons = parseInt(navigation.getParam("Passengers"));
+    let person_amount = fare / persons;
+    this.setState({ name: navigation.getParam("Passenger_Name") });
+    this.setState({ source: navigation.getParam("Source") });
+    this.setState({ destination: navigation.getParam("Destination") });
+    this.setState({ date: navigation.getParam("Date") });
+    this.setState({ time: navigation.getParam("Time") });
     this.setState({ selectAmOrPm: "AM" });
-    this.setState({ noOfPerson: "2" });
-    this.setState({ driverName: "Sukhdev Prasad ...." });
-    this.setState({ autoNumber: "Gj 03 HP 2503" });
-    this.setState({ totalAmount: "300" });
-    this.setState({ perPersonAmount: "150" });
+    this.setState({ noOfPerson: navigation.getParam("Passengers") });
+    this.setState({ driverName: navigation.getParam("Driver_Name") });
+    this.setState({ autoNumber: navigation.getParam("Auto_Number") });
+    this.setState({ totalAmount: navigation.getParam("Fare") });
+    this.setState({ perPersonAmount: person_amount });
+    this.setState({ driver_pic: navigation.getParam("Driver_Pic") });
   }
   render() {
     return (
       <View style={styles.container}>
-        <View style={{
-          width:"100%",
-          flex:.035,
-          backgroundColor:"#269DF9"
-        }}/>
+        <View
+          style={{
+            width: "100%",
+            flex: 0.035,
+            backgroundColor: "#269DF9"
+          }}
+        />
         <SafeAreaView
-        style={{
-          flex: Platform.OS === "ios" ? 0.08 : 0.08,
-          flexDirection:"row",
-          justifyContent:"space-between",
-          alignItems:"center",
-          backgroundColor: "#269DF9",
-          }}>
-              <TouchableOpacity
-                style={{
-                  flex:0.1,
-                  height:"100%",
-                  alignItems:"center",
-                  justifyContent:"center",
-                }}
-                onPress={this.backEvent}>
-                  <Image
-                    style={{
-                      maxHeight:60,
-                      maxWidth:60,
-                      resizeMode:"contain",
-                    }}
-                    source={require("../../assets/back1.png")}
-                  />
-              </TouchableOpacity>
-              <View
+          style={{
+            flex: Platform.OS === "ios" ? 0.08 : 0.08,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            backgroundColor: "#269DF9"
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              flex: 0.1,
+              height: "100%",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+            onPress={this.backEvent}
+          >
+            <Image
               style={{
-                flex:0.8,
-                alignItems:"center",
-                justifyContent:"center"
+                maxHeight: 60,
+                maxWidth: 60,
+                resizeMode: "contain"
               }}
-              >
-              <Text style={{
-                alignItems:"center",
-                justifyContent:"center",
-                color:"#fff",
-                textAlignVertical:"center",
-                fontSize:22
-              }}>Book Your Tickets</Text>
-            </View>
-            <View
-             style={{
-              flex:0.1,
-              height:"100%",
-              alignItems:"center",
-              justifyContent:"center"
-            }}>
-              <OptionsMenu
-                button={require("../../assets/More.png")}
-                buttonStyle={{
-                  maxHeight:30,
-                    maxWidth:30,
-                    resizeMode:"contain",
-                    alignItems:"center",
-                    justifyContent:"center"
-                }}
-                destructiveIndex={1}
-                options={["Help"]}
-                actions={[this.helpPost]}
-              />
-            </View>
+              source={require("../../assets/back1.png")}
+            />
+          </TouchableOpacity>
+          <View
+            style={{
+              flex: 0.8,
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <Text
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#fff",
+                textAlignVertical: "center",
+                fontSize: 22
+              }}
+            >
+              Book Your Tickets
+            </Text>
+          </View>
+          <View
+            style={{
+              flex: 0.1,
+              height: "100%",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <OptionsMenu
+              button={require("../../assets/More.png")}
+              buttonStyle={{
+                maxHeight: 30,
+                maxWidth: 30,
+                resizeMode: "contain",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+              destructiveIndex={1}
+              options={["Help"]}
+              actions={[this.helpPost]}
+            />
+          </View>
         </SafeAreaView>
-        <View style={{
-           flex: 0.50,
-           backgroundColor: "#269DF6"
-        }}>
+        <View
+          style={{
+            flex: 0.5,
+            backgroundColor: "#269DF6"
+          }}
+        >
           <View style={styles.ticketView}>
-
-<             View style={{
+            <View
+              style={{
                 flex: 0.15,
                 flexDirection: "row",
                 borderTopLeftRadius: 15,
                 borderTopRightRadius: 15,
                 justifyContent: "space-between",
-                alignItems:"center",
-              }}>
-                <View style={{
-                  flex: 0.10,
+                alignItems: "center"
+              }}
+            >
+              <View
+                style={{
+                  flex: 0.1,
                   alignItems: "center",
                   justifyContent: "center",
                   borderRadius: 10,
-                  backgroundColor: "#269DF9",
-                }}>
-                    <Image
-                      style={{
-                        maxHeight: 30,
-                        maxWidth:30,
-                        resizeMode: 'center'
-                      }}
-                      source={require("../../assets/Before_confirm_Icon.png")}
-                    />
-                  </View>
-                  <View style={{
-                   flex: 0.85,
-                   alignItems: "center",
-                   justifyContent: "center",
-                   borderBottomWidth: 2,
-                   borderBottomColor: "#fff",
-                  }}>
-                  <Text style={{
+                  backgroundColor: "#269DF9"
+                }}
+              >
+                <Image
+                  style={{
+                    maxHeight: 30,
+                    maxWidth: 30,
+                    resizeMode: "center"
+                  }}
+                  source={require("../../assets/Before_confirm_Icon.png")}
+                />
+              </View>
+              <View
+                style={{
+                  flex: 0.85,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderBottomWidth: 2,
+                  borderBottomColor: "#fff"
+                }}
+              >
+                <Text
+                  style={{
                     color: "#000",
-                    fontSize: 20,
-                  }}>Review Your Details
-                  </Text>
-                </View>
-                  </View>
-
+                    fontSize: 20
+                  }}
+                >
+                  Review Your Details
+                </Text>
+              </View>
+            </View>
 
             <View style={styles.user_Details_View}>
               <View style={styles.nameView}>
@@ -277,7 +302,7 @@ export default class OnGoingBookingDetails extends React.Component {
                         marginLeft: "4%"
                       }}
                     >
-                      <Text style={{ color: "#474747", fontSize: 15 }}>
+                      <Text style={{ color: "#474747", fontSize: 13 }}>
                         {this.state.date}
                       </Text>
                     </View>
@@ -337,7 +362,8 @@ export default class OnGoingBookingDetails extends React.Component {
                   style={{
                     flexDirection: "row",
                     alignSelf: "center",
-                    marginTop: "0%"
+                    marginTop: "0%",
+                    overflow: "scroll"
                   }}
                 >
                   <Image
@@ -349,7 +375,6 @@ export default class OnGoingBookingDetails extends React.Component {
                       fontSize: 12,
                       marginLeft: "1%",
                       marginTop: "4%",
-
                       color: "#fff"
                     }}
                   >
@@ -363,11 +388,13 @@ export default class OnGoingBookingDetails extends React.Component {
         <View style={styles.waveView}>
           <Header />
         </View>
-        <View style={{
-           flex: 0.35,
-           alignItems: "center",
-           justifyContent: "center",
-        }}>
+        <View
+          style={{
+            flex: 0.35,
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
           <View style={styles.driver_Detail_outter_View}>
             <View style={styles.driver_detail_view_1}>
               <View style={styles.Auto_driver_text_view}>
@@ -383,7 +410,7 @@ export default class OnGoingBookingDetails extends React.Component {
                 >
                   <Image
                     style={styles.Deiver_Profile_Image}
-                    source={require("../../assets/pic.jpg")}
+                    source={{ uri: this.state.driver_pic }}
                   />
                 </View>
                 <View
@@ -459,9 +486,7 @@ export default class OnGoingBookingDetails extends React.Component {
                     Rs. {this.state.totalAmount}
                   </Text>
                 </View>
-                <Text style={{ color: "#474747",
-                  fontSize:10
-              }}>
+                <Text style={{ color: "#474747", fontSize: 10 }}>
                   Rs. {this.state.perPersonAmount} per person
                 </Text>
               </View>
@@ -469,42 +494,47 @@ export default class OnGoingBookingDetails extends React.Component {
           </View>
         </View>
 
-        <View style={{
-            flex:0.15,
-            alignItems:"center",
-            justifyContent:"center",
-            width:"100%",
-            height:"100%",
-          }}>
-            <TouchableOpacity
+        <View
+          style={{
+            flex: 0.15,
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "100%"
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              width: "30%",
+              height: "40%",
+              backgroundColor: "#269DF9",
+              borderRadius: 30,
+              alignItems: "center",
+              justifyContent: "center",
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 1
+              },
+              shadowOpacity: 1.5,
+              shadowRadius: 5,
+              elevation: 4
+            }}
+            onPress={this.backEvent}
+          >
+            <Text
               style={{
-                width:"30%",
-                height:"40%",
-                backgroundColor:"#269DF9",
-                borderRadius:30,
-                alignItems:"center",
-                justifyContent:"center",
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 1
-                },
-                shadowOpacity: 1.5,
-                shadowRadius: 5,
-                elevation: 4
+                color: "#fff",
+                margin: "5%",
+                fontSize: 18,
+                fontWeight: "bold"
               }}
-              onPress={this.pay}
             >
-              <Text style={{
-                color:"#fff",
-                margin:"5%",
-                fontSize:18,
-                fontWeight:"bold"
-              }}> Pay </Text>
-            </TouchableOpacity>
-          </View>
-
-
+              {" "}
+              Home{" "}
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -516,21 +546,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   ticketView: {
-    flex: .98,
-    marginTop:"5%",
+    flex: 0.98,
+    marginTop: "5%",
     backgroundColor: "lightblue",
     marginLeft: "3%",
     marginRight: "3%",
     borderRadius: 20,
     shadowColor: "lightblue",
-    padding:"2%",
+    padding: "2%",
     shadowOffset: {
       width: 0,
       height: 1
     },
     shadowOpacity: 1.5,
     shadowRadius: 3.84,
-    elevation: 4,
+    elevation: 4
   },
   ticket_outter_View: {
     flex: 0.5,
@@ -663,7 +693,7 @@ const styles = StyleSheet.create({
     flex: 0.37,
     height: "80%",
     borderRightWidth: 1.5,
-    borderRightColor:"grey",
+    borderRightColor: "grey",
     justifyContent: "center",
     textAlign: "left",
     paddingLeft: "2%"

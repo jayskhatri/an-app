@@ -41,22 +41,14 @@ export default class EditPhoto extends React.Component {
     this.props.navigation.navigate("ProfilePageThird");
   }
 
-  submitUserDetails() {
-    const { navigation } = this.props;
-    let user = navigation.getParam("user");
-    const thirtySecs = 30 * 1000;
-    firebase.storage().setMaxOperationRetryTime(thirtySecs);
+  async submitUserDetails() {
+    let user = await firebase.auth().currentUser;
     this.setState({ uid: user.uid });
     console.log("submit details: ", this.state.uid);
     firebase
       .database()
       .ref("Passengers/" + user.uid + "/personal_details")
-      .set({
-        first_name: navigation.getParam("first_name"),
-        email_id: user.email,
-        last_name: navigation.getParam("last_name"),
-        birth_date: navigation.getParam("birth_date"),
-        gender: navigation.getParam("gender"),
+      .update({
         has_profile_completed: true
       });
 
@@ -256,7 +248,7 @@ async function uploadImageAsync(uri) {
     .storage()
     .ref("/Images/")
     .child("Passengers/")
-    .child("pic2.jpg");
+    .child(user.uid);
   const snapshot = await ref.put(blob);
 
   // We're done with the blob, close and release it
@@ -266,8 +258,8 @@ async function uploadImageAsync(uri) {
   console.log(downloadurl);
   firebase
     .database()
-    .ref("Passengers/" + user.uid + "/personal_details/img")
-    .set({
+    .ref("Passengers/" + user.uid + "/personal_details/")
+    .update({
       profile_pic_url: downloadurl
     });
   this.setState({ downloadUrl: downloadurl });

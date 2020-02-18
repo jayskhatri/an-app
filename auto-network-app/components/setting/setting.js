@@ -16,7 +16,7 @@ import {
 } from "react-native-responsive-screen";
 import BottomBar from "../bottomTabBar/BottomBar";
 import colors from "../constants/Colors";
-import firebase from 'firebase';
+import firebase from "firebase";
 export default class setting extends React.Component {
   constructor(props) {
     super(props);
@@ -32,29 +32,28 @@ export default class setting extends React.Component {
     this.helpHandleEvent = this.helpHandleEvent.bind(this);
     this.logoutHandleEvent = this.logoutHandleEvent.bind(this);
   }
-  async componentWillMount(){
-    this.setState({is_loaded:false});
+  async componentWillMount() {
+    this.setState({ is_loaded: false });
 
     console.log("component will mount edit profile");
     let user = await firebase.auth().currentUser;
-    console.log("user: ",user.uid);
-    var userRef = firebase.database().ref('Passengers/'+user.uid);
+    console.log("user: ", user.uid);
+    var userRef = firebase.database().ref("Passengers/" + user.uid);
 
     var personal_details = null;
 
-    await userRef.once('value').then((snapshot)=>{
-      if(snapshot!=null){
-        
-        personal_details = (snapshot.val() && snapshot.val().personal_details);
+    await userRef.once("value").then(snapshot => {
+      if (snapshot != null) {
+        personal_details = snapshot.val() && snapshot.val().personal_details;
 
         this.setState({
-          first_name:personal_details.first_name,
-          last_name:personal_details.last_name,
-          profile_pic_url : personal_details.profile_pic_url,
+          first_name: personal_details.first_name,
+          last_name: personal_details.last_name,
+          profile_pic_url: personal_details.profile_pic_url
         });
       }
     });
-    this.setState({is_loaded:true});
+    this.setState({ is_loaded: true });
   }
   myAccountHandleEvent(e) {
     this.props.navigation.navigate("editProfile");
@@ -107,7 +106,7 @@ export default class setting extends React.Component {
             </View>
           </View>
         </View>
-        {this.state.is_loaded ?
+        {this.state.is_loaded ? (
           <View style={styles.settingView}>
             <View
               style={{
@@ -117,7 +116,7 @@ export default class setting extends React.Component {
                 marginTop: Platform.OS === "ios" ? "-10%" : "0%"
               }}
             >
-              { this.state.profile_pic_url ?
+              {this.state.profile_pic_url ? (
                 <Image
                   style={{
                     height: hp("12%"),
@@ -128,9 +127,9 @@ export default class setting extends React.Component {
                     borderWidth: 3,
                     borderColor: colors.light.white_color
                   }}
-                  source={{uri : this.state.profile_pic_url}}
+                  source={{ uri: this.state.profile_pic_url }}
                 />
-                :
+              ) : (
                 <Image
                   style={{
                     height: hp("12%"),
@@ -141,10 +140,9 @@ export default class setting extends React.Component {
                     borderWidth: 3,
                     borderColor: colors.light.white_color
                   }}
-                  source={require("../../assets/pic.jpg")}
+                  source={require("../../assets/Component.png")}
                 />
-
-              }
+              )}
               <View
                 style={{
                   flexDirection: "column",
@@ -158,166 +156,166 @@ export default class setting extends React.Component {
               </View>
             </View>
             <View
-            style={{ flex: 0.75, backgroundColor: colors.light.white_color }}
-          >
-            <TouchableOpacity
-              onPress={this.myAccountHandleEvent}
-              style={{ flex: 0.13 }}
+              style={{ flex: 0.75, backgroundColor: colors.light.white_color }}
             >
-              <View style={styles.btn_inner_view_1}>
-                <View style={styles.btn_inner_view_2}>
-                  <Image
-                    style={styles.icon_css}
-                    source={require("../../assets/adminlogo.png")}
-                  />
+              <TouchableOpacity
+                onPress={this.myAccountHandleEvent}
+                style={{ flex: 0.13 }}
+              >
+                <View style={styles.btn_inner_view_1}>
+                  <View style={styles.btn_inner_view_2}>
+                    <Image
+                      style={styles.icon_css}
+                      source={require("../../assets/adminlogo.png")}
+                    />
+                  </View>
+                  <View style={styles.btn_inner_view_3}>
+                    <Text
+                      style={{
+                        fontSize: Platform.OS === "ios" ? 23 : 18,
+                        color: colors.light.black_color,
+                        textAlign: "left"
+                      }}
+                    >
+                      My Account
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 13,
+                        opacity: 0.6,
+                        color: colors.light.black_color,
+                        textAlign: "left"
+                      }}
+                    >
+                      Personal Info , Auto details
+                    </Text>
+                  </View>
                 </View>
-                <View style={styles.btn_inner_view_3}>
-                  <Text
-                    style={{
-                      fontSize: Platform.OS === "ios" ? 23 : 18,
-                      color: colors.light.black_color,
-                      textAlign: "left"
-                    }}
-                  >
-                    My Account
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 13,
-                      opacity: 0.6,
-                      color: colors.light.black_color,
-                      textAlign: "left"
-                    }}
-                  >
-                    Personal Info , Auto details
-                  </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={this.notificationHandleEvent}
+                style={{ flex: 0.13 }}
+              >
+                <View style={styles.btn_inner_view_1}>
+                  <View style={styles.btn_inner_view_2}>
+                    <Image
+                      style={styles.icon_css}
+                      source={require("../../assets/NOTIFICATION.png")}
+                    />
+                  </View>
+                  <View style={styles.btn_inner_view_3}>
+                    <Text
+                      style={{
+                        fontSize: Platform.OS === "ios" ? 23 : 18,
+                        color: colors.light.black_color,
+                        textAlign: "left"
+                      }}
+                    >
+                      Notification
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 13,
+                        opacity: 0.6,
+                        color: colors.light.black_color,
+                        textAlign: "left"
+                      }}
+                    >
+                      Online\Offilne , message
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={this.notificationHandleEvent}
-              style={{ flex: 0.13 }}
-            >
-              <View style={styles.btn_inner_view_1}>
-                <View style={styles.btn_inner_view_2}>
-                  <Image
-                    style={styles.icon_css}
-                    source={require("../../assets/NOTIFICATION.png")}
-                  />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={this.historyHandleEvent}
+                style={{ flex: 0.13 }}
+              >
+                <View style={styles.btn_inner_view_1}>
+                  <View style={styles.btn_inner_view_2}>
+                    <Image
+                      style={styles.icon_css}
+                      source={require("../../assets/HISTORY.png")}
+                    />
+                  </View>
+                  <View style={styles.btn_inner_view_3}>
+                    <Text
+                      style={{
+                        fontSize: Platform.OS === "ios" ? 23 : 18,
+                        color: colors.light.black_color,
+                        textAlign: "left"
+                      }}
+                    >
+                      History
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 13,
+                        opacity: 0.6,
+                        color: colors.light.black_color,
+                        textAlign: "left"
+                      }}
+                    >
+                      history
+                    </Text>
+                  </View>
                 </View>
-                <View style={styles.btn_inner_view_3}>
-                  <Text
-                    style={{
-                      fontSize: Platform.OS === "ios" ? 23 : 18,
-                      color: colors.light.black_color,
-                      textAlign: "left"
-                    }}
-                  >
-                    Notification
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 13,
-                      opacity: 0.6,
-                      color: colors.light.black_color,
-                      textAlign: "left"
-                    }}
-                  >
-                    Online\Offilne , message
-                  </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={this.helpHandleEvent}
+                style={{ flex: 0.13 }}
+              >
+                <View style={styles.btn_inner_view_1}>
+                  <View style={styles.btn_inner_view_2}>
+                    <Image
+                      style={styles.icon_css}
+                      source={require("../../assets/HELP.png")}
+                    />
+                  </View>
+                  <View style={styles.btn_inner_view_3}>
+                    <Text
+                      style={{
+                        fontSize: Platform.OS === "ios" ? 23 : 18,
+                        color: colors.light.black_color,
+                        textAlign: "left"
+                      }}
+                    >
+                      Help
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 13,
+                        opacity: 0.6,
+                        color: colors.light.black_color,
+                        textAlign: "left"
+                      }}
+                    >
+                      FAQ , Contact Us , Privacy policy
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={this.historyHandleEvent}
-              style={{ flex: 0.13 }}
-            >
-              <View style={styles.btn_inner_view_1}>
-                <View style={styles.btn_inner_view_2}>
-                  <Image
-                    style={styles.icon_css}
-                    source={require("../../assets/HISTORY.png")}
-                  />
-                </View>
-                <View style={styles.btn_inner_view_3}>
-                  <Text
-                    style={{
-                      fontSize: Platform.OS === "ios" ? 23 : 18,
-                      color: colors.light.black_color,
-                      textAlign: "left"
-                    }}
-                  >
-                    History
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 13,
-                      opacity: 0.6,
-                      color: colors.light.black_color,
-                      textAlign: "left"
-                    }}
-                  >
-                    history
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={this.helpHandleEvent}
-              style={{ flex: 0.13 }}
-            >
-              <View style={styles.btn_inner_view_1}>
-                <View style={styles.btn_inner_view_2}>
-                  <Image
-                    style={styles.icon_css}
-                    source={require("../../assets/HELP.png")}
-                  />
-                </View>
-                <View style={styles.btn_inner_view_3}>
-                  <Text
-                    style={{
-                      fontSize: Platform.OS === "ios" ? 23 : 18,
-                      color: colors.light.black_color,
-                      textAlign: "left"
-                    }}
-                  >
-                    Help
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 13,
-                      opacity: 0.6,
-                      color: colors.light.black_color,
-                      textAlign: "left"
-                    }}
-                  >
-                    FAQ , Contact Us , Privacy policy
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={this.logoutHandleEvent}
-              style={{ flex: 0.13 }}
-            >
-              <View style={styles.last_btn_inner_view_1}>
-                <View style={styles.btn_inner_view_2}>
-                  <Image
-                    style={styles.icon_css}
-                    source={require("../../assets/HELP.png")}
-                  />
-                </View>
-                <View style={styles.btn_inner_view_3}>
-                  <Text
-                    style={{
-                      fontSize: Platform.OS === "ios" ? 25 : 20,
-                      color: colors.light.black_color,
-                      textAlign: "left"
-                    }}
-                  >
-                    Logout
-                  </Text>
-                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={this.logoutHandleEvent}
+                style={{ flex: 0.13 }}
+              >
+                <View style={styles.last_btn_inner_view_1}>
+                  <View style={styles.btn_inner_view_2}>
+                    <Image
+                      style={styles.icon_css}
+                      source={require("../../assets/HELP.png")}
+                    />
+                  </View>
+                  <View style={styles.btn_inner_view_3}>
+                    <Text
+                      style={{
+                        fontSize: Platform.OS === "ios" ? 25 : 20,
+                        color: colors.light.black_color,
+                        textAlign: "left"
+                      }}
+                    >
+                      Logout
+                    </Text>
+                  </View>
                 </View>
               </TouchableOpacity>
             </View>
@@ -325,16 +323,15 @@ export default class setting extends React.Component {
               <BottomBar {...this.props} />
             </View>
           </View>
-        :
+        ) : (
           <View style={styles.ActivityIndicator}>
-            <ActivityIndicator  size="large"   color={colors.light.blue_color} />
+            <ActivityIndicator size="large" color={colors.light.blue_color} />
           </View>
-        }
+        )}
       </View>
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -356,12 +353,12 @@ const styles = StyleSheet.create({
     fontSize: 25
   },
   containerActivityIndicator: {
-    flex:1,
+    flex: 1
   },
   ActivityIndicator: {
     // flex:86,
-    alignItems:"center",
-    justifyContent:"center"
+    alignItems: "center",
+    justifyContent: "center"
   },
   btn_inner_view_1: {
     width: "100%",

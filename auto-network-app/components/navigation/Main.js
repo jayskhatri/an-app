@@ -1,20 +1,8 @@
 import React from "react";
-import {
-  fromLeft,
-  fromTop,
-  fromRight,
-  fromBottom,
-  fadeIn,
-  fadeout,
-  zoomIn,
-  zoomOut,
-  flipY,
-  flipX
-} from "react-navigation-transitions";
 import mainScreen from "../home/mainScreen";
 import editProfile from "../profile/editProfile";
 import signUp from "../signup/SignUp";
-import { StyleSheet, Text, View, Easing, Animated, Image } from "react-native";
+import { StyleSheet } from "react-native";
 import Login from "../login/Login";
 import ProfilePageOne from "../profile/profilePageOne";
 import ProfilePageSecond from "../profile/profilePageSecond";
@@ -22,17 +10,13 @@ import ProfilePageThird from "../profile/profilePageThird";
 import ProfilePageFourth from "../profile/profilePageFourth";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import Setting from "../setting/setting";
-import { responsiveFontSize } from "react-native-responsive-dimensions";
 import checkUserStatus from "../utils/checkUserStatus";
 import Header from "../header/header";
 import MainTabNavigation from "../navigation/MainTabNavigator";
 import BookingPageOne from "../bookingSection/bookingPage1";
 import BookingPageSecond from "../bookingSection/bookingPage2";
 import BookingPage4 from "../bookingSection/BookingPage4";
-import BookingPageThird_one from "../bookingSection/BookingPage3_one";
 import HomeScreen from "../src/HomeScreen";
-import BottomBar from "../bottomTabBar/BottomBar";
-import Redirect from "../redirect";
 import requestConfirmationPage from "../bookingSection/requestConfirmationPage";
 import driver_page_one from "../driver/driver_page_one";
 import Notification from "../setting/Notification";
@@ -71,9 +55,6 @@ const MainNavigation = createStackNavigator(
     },
     HomeScreen: {
       screen: HomeScreen
-    },
-    Redirect: {
-      screen: Redirect
     },
 
     BookingPage4: {

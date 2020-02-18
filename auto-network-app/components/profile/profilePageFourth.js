@@ -7,7 +7,7 @@ import {
   Image,
   Modal,
   ActivityIndicator,
-  TouchableOpacity,
+  TouchableOpacity
 } from "react-native";
 import firebase from "firebase";
 import Header from "../header/header";
@@ -31,16 +31,16 @@ export default class profilePageFourth extends React.Component {
       result: "",
       uploading: false,
       uid: "",
-      is_loaded:false,
+      is_loaded: false
     };
     this.previousEvent = this.previousEvent.bind(this);
     this.nextEvent = this.nextEvent.bind(this);
     this.skipEvent = this.skipEvent.bind(this);
   }
-  componentWillMount(){
+  componentWillMount() {
     this.setState({
-      is_loaded: true    
-    })
+      is_loaded: true
+    });
   }
   previousEvent(e) {
     this.props.navigation.navigate("ProfilePageThird");
@@ -49,16 +49,19 @@ export default class profilePageFourth extends React.Component {
   async submitUserDetails() {
     const { navigation } = this.props;
     let user = navigation.getParam("user");
-    await firebase.database().ref('Passengers/' + user.uid + '/personal_details').update({
-      first_name: navigation.getParam('first_name'),
-      email_id: user.email,
-      last_name: navigation.getParam('last_name'),
-      birth_date: navigation.getParam('birth_date'),
-      gender: navigation.getParam('gender'),
-      organizational_id: '',
-      has_profile_completed: true,
-    });
-    
+    await firebase
+      .database()
+      .ref("Passengers/" + user.uid + "/personal_details")
+      .update({
+        first_name: navigation.getParam("first_name"),
+        email_id: user.email,
+        last_name: navigation.getParam("last_name"),
+        birth_date: navigation.getParam("birth_date"),
+        gender: navigation.getParam("gender"),
+        organizational_id: "",
+        has_profile_completed: true
+      });
+
     this.setState({
       is_loaded: true
     });
@@ -78,17 +81,18 @@ export default class profilePageFourth extends React.Component {
         last_name: navigation.getParam("last_name"),
         birth_date: navigation.getParam("birth_date"),
         gender: navigation.getParam("gender"),
+        organizational_id: "",
         has_profile_completed: false
       });
-      this.setState({
-        is_loaded: true
-      });
+    this.setState({
+      is_loaded: true
+    });
     this.props.navigation.navigate("HomeScreen");
   }
 
   async nextEvent(e) {
     this.setState({
-      is_loaded: false,
+      is_loaded: false
     });
     await this._handleImagePicked(this.state.result);
     this.submitUserDetails();
@@ -160,15 +164,15 @@ export default class profilePageFourth extends React.Component {
             </View>
           </View>
         </View>
-        { this.state.is_loaded ?
-            <View style={{flex: 1}}>
-              <View style={styles.logoView}>
-                <Image
-                  style={styles.logo_Icon_Css}
-                  source={require("../../assets/bigAdminLogo.png")}
-                />
-              </View>
-              <View style={styles.signUpView}>
+        {this.state.is_loaded ? (
+          <View style={{ flex: 0.78 }}>
+            <View style={styles.logoView}>
+              <Image
+                style={styles.logo_Icon_Css}
+                source={require("../../assets/bigAdminLogo.png")}
+              />
+            </View>
+            <View style={styles.signUpView}>
               <View style={styles.details_box_header_view}>
                 <Text style={styles.detail_box_header_text_css}>
                   Add Your Photo
@@ -213,10 +217,10 @@ export default class profilePageFourth extends React.Component {
                 </View>
               </View>
             </View>
-            </View>
-            :
-            <CustomProgressBar/>
-        }
+          </View>
+        ) : (
+          <CustomProgressBar />
+        )}
       </View>
     );
   }
@@ -250,9 +254,9 @@ export default class profilePageFourth extends React.Component {
   _handleImagePicked = async pickerResult => {
     try {
       this.setState({
-        is_loaded: false,
+        is_loaded: false
       });
-      
+
       this.setState({ uploading: true });
 
       if (!pickerResult.cancelled) {
@@ -288,7 +292,7 @@ async function uploadImageAsync(uri) {
   const ref = firebase
     .storage()
     .ref("/Images/")
-    .child('Passengers/')
+    .child("Passengers/")
     .child(user.uid);
   const snapshot = await ref.put(blob);
   console.log("look here awaited snapshot: ", snapshot);
@@ -308,9 +312,9 @@ async function uploadImageAsync(uri) {
 
 const CustomProgressBar = ({ visible }) => (
   <Modal onRequestClose={() => null} visible={visible}>
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <View style={{ borderRadius: 10, backgroundColor: 'white', padding: 25 }}>
-        <Text style={{ fontSize: 20, fontWeight: '200' }}>Loading</Text>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View style={{ borderRadius: 10, backgroundColor: "white", padding: 25 }}>
+        <Text style={{ fontSize: 20, fontWeight: "200" }}>Loading</Text>
         <ActivityIndicator size="large" />
       </View>
     </View>
@@ -330,7 +334,7 @@ const styles = StyleSheet.create({
     fontSize: 25
   },
   logoView: {
-    flex: 0.38,
+    flex: 0.5,
     alignItems: "center",
     justifyContent: "center"
   },
@@ -341,7 +345,7 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   signUpView: {
-    flex: 0.4,
+    flex: 0.5,
     backgroundColor: colors.light.dark_blue,
     height: "100%",
     width: wp("92%"),

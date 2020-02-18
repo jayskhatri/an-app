@@ -10,7 +10,11 @@ import * as Permissions from 'expo-permissions';
 import requestLocationPermission from '../utils/askForPermission'
 import * as geolib from 'geolib';
 import BookingPage3_one from "./BookingPage3_one";
-
+import HomeScreen from '../src/HomeScreen'
+import OnGoingBookingDetails from "../src/OnGoingBookingDetails";
+import { BallIndicator } from "react-native-indicators";
+import { Modal as ActivityModel } from "react-native-paper";
+import colors from "../constants/Colors";
 export default  class requestConfirmationPage extends React.Component {
 
     constructor(props) {
@@ -24,6 +28,8 @@ export default  class requestConfirmationPage extends React.Component {
             driverName:'',
             driverPic:'',
             autoNumber:'',
+            activityModelVisible:false
+            
         };
       this._findUserPosition = this._findUserPosition.bind(this);
       this.sendPushNotification = this.sendPushNotification.bind(this);
@@ -37,6 +43,7 @@ export default  class requestConfirmationPage extends React.Component {
     }
 
     async componentDidMount(){
+      this.setState({activityModelVisible:true});
         let user=await firebase.auth().currentUser;
         let userRef=firebase.database().ref('requests/'+user.uid+'/confirmation_status');
         console.log("userRef: ",userRef);
@@ -46,9 +53,11 @@ export default  class requestConfirmationPage extends React.Component {
             if(confirmation_status === true)
             { 
                 this.moveToOngoing();
+                this.setState({activityModelVisible:false});
             }
             else if(confirmation_status === false) {
                 this._findUserPosition();
+                this.setState({activityModelVisible:true});
             }
           }.bind(this));
     }
@@ -205,38 +214,38 @@ export default  class requestConfirmationPage extends React.Component {
           // console.log('notification done');
       }
 
-     moveToOngoing=async()=>{
+     moveToOngoing=async(e)=>{
         let user=firebase.auth().currentUser;
 
         let reqRef=firebase.database().ref('requests/');
         reqRef.child(user.uid).remove();
         let fname='';
         let lname='';
-        let name='';
-        let fnameRef=await firebase.database().ref('drivers/'+this.state.uid+'/personal_details/first_name')
-        fnameRef.once('value').then(async(snapshot)=>{
-          fname = snapshot.val();
-        })
-        let lnameRef=await firebase.database().ref('drivers/'+this.state.uid+'/personal_details/last_name')
-        lnameRef.once('value').then(async(snapshot)=>{
-          lname = snapshot.val();
-        })
-        name=fname+' '+lname;
         let url='';
-        let picRef=await firebase.database().ref('drivers/'+this.state.uid+'/personal_details/profile_pic_url')
-        picRef.once('value').then(async(snapshot)=>{
-          url = snapshot.val();
+        
+        let fnameRef= firebase.database().ref('drivers/'+this.state.uid+'/personal_details/')
+        await fnameRef.once('value').then(async(snapshot)=>{
+          fname = snapshot.val() && snapshot.val().first_name;
+          lname = snapshot.val() && snapshot.val().last_name;
+          url = snapshot.val() && snapshot.val().profile_pic_url;
+          if(snapshot!==null){
+            this.setState({
+              driverName: fname + ' ' + lname,
+              driverPic: url 
+            })
+          }
+         
         })
         let autoNo=''
-        let autoRef=await firebase.database().ref('drivers/'+this.state.uid+'/auto_details/auto_number')
-        autoRef.once('value').then(async(snapshot)=>{
+        let autoRef=firebase.database().ref('drivers/'+this.state.uid+'/auto_details/auto_number')
+        await autoRef.once('value').then(async(snapshot)=>{
           autoNo = snapshot.val();
-        })
-        this.setState({
-          driverName:name,
-          driverPic:url,
-          autoNumber:autoNo
-        })
+          this.setState({
+            autoNumber: autoNo
+          })
+          
+        });
+        console.log("auto :",autoNo,'  fname: ',fname);
         let  rideRef=await firebase.database().ref('Passengers/'+user.uid+'/ongoing_rides/');
         const {navigation} = this.props
         rideRef.set({
@@ -247,10 +256,10 @@ export default  class requestConfirmationPage extends React.Component {
           driver_id:this.state.uid,
           date:navigation.getParam('date'),
           time:navigation.getParam('time'),
-          driver_name: this.state.driverName,
-          auto_number: this.state.autoNumber,
-          driver_pic:this.state.driverPic
-
+          driver_name: fname+' '+lname,
+          auto_number: autoNo,
+          driver_pic:url,
+          // passenger_name:navigation.getParam('Name')
         })
         this.setState({
           status:true
@@ -265,7 +274,7 @@ export default  class requestConfirmationPage extends React.Component {
 
       )
     }
-    async checkForSharing(){
+    async checkForSharing(e){
       const {navigation} = this.props
       let user=firebase.auth().currentUser
       this.setState({
@@ -289,15 +298,49 @@ export default  class requestConfirmationPage extends React.Component {
           return(
         <View style={{flex:1}}>
           {this.state.status ? (
-            <div>
-              {this.passingVal}
-            </div>
+           <HomeScreen {...this.props}/>
           ) :
         
         (
-            <View>
-             <ActivityIndicator  size="large"   color="#269DF9" />
+          <ActivityModel
+          animationType="slide"
+          transparent={false}
+          visible={this.state.activityModelVisible}
+        >
+          <View
+            style={{
+              width: "100%",
+              height: "100%"
+            }}
+          >
+            <View
+              style={{
+                height: "100%",
+                width: "100%",
+                backgroundColor: colors.light.dark_blue,
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <View
+                style={{
+                  height: "30%",
+                  width: "60%",
+                  borderRadius: 25,
+                  backgroundColor: colors.light.white_color,
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}
+              >
+                <BallIndicator color={colors.light.black_color} />
+              </View>
+              <View style={{marginTop:"5%",height:"10%",width:"80%"}}>
+                  <Text style={{fontSize:25,textAlign:"center",textAlignVertical:"center"}}>Finding Driver ...
+                  </Text>
+              </View>
             </View>
+          </View>
+        </ActivityModel>
         )}
         </View>
           );

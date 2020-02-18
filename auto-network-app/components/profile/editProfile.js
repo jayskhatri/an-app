@@ -77,7 +77,7 @@ export default class editProfile extends React.Component {
           organisationEmailId: personal_details.organizational_id,
           old_values: null,
         });
-        console.log("gender: ",this.state.gender);
+        console.log("image: ",this.state.image);
       }
     });
     this.setState({is_loaded:true});
@@ -125,14 +125,13 @@ export default class editProfile extends React.Component {
 
     let user = await firebase.auth().currentUser;
     var personalDetailsRef = firebase.database().ref('Passengers/'+user.uid+'/personal_details');
-
-    personalDetailsRef.update({
+    
+    await personalDetailsRef.update({
       first_name: this.state.firstName,
       email_id: user.email,
       last_name: this.state.lastName,
       birth_date: this.state.birthdate,
       gender: this.state.gender,
-      has_profile_completed: true,
       organizational_id: this.state.organisationEmailId
     });
 
@@ -211,7 +210,7 @@ export default class editProfile extends React.Component {
                     <View  style={{flex:0.64,width:"100%"}}>
                         <View style={{flex:0.8 }}>
                           <View style={{flex:0.7}}>
-                            { this.state.profile_pic_url ?
+                            { this.state.image ?
                               <Image
                               style={{
                                   alignSelf:"center",
@@ -221,7 +220,7 @@ export default class editProfile extends React.Component {
                                   borderWidth:3,
                                   borderColor:colors.light.black_color,
                                 }}   
-                              source={{uri : this.state.profile_pic_url}}
+                              source={{uri : this.state.image}}
                               />
                               :
                               <Image
@@ -234,7 +233,7 @@ export default class editProfile extends React.Component {
                                   borderColor:colors.light.black_color,
                                   //  resizeMode:"contain"
                                 }}   
-                              source={require("../../assets/pic.jpg")}
+                              source={require("../../assets/Component.png")}
                               />
                             }
                           </View>

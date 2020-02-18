@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView , Image ,TextInput,TouchableOpacity ,Keyboard, TouchableWithoutFeedback  } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, YellowBox, Image ,TextInput,TouchableOpacity ,Keyboard, TouchableWithoutFeedback  } from "react-native";
 import {KeyboardAvoidingView} from 'react-native';
 import RadioForm from "react-native-simple-radio-button";
 import Header from '../header/header';
@@ -17,6 +17,7 @@ const DismissKeyboard = ({ children }) => (
     {children}
   </TouchableWithoutFeedback>
 );
+YellowBox.ignoreWarnings(['Setting a timer', 'Possible Unhandled']);
 export default  class profilePageOne extends React.Component {
     constructor(props) {
       super(props);
